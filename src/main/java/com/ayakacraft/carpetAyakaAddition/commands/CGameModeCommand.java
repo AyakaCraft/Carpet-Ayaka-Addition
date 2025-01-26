@@ -16,7 +16,7 @@ public class CGameModeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("cgamemode")
-                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandGoHome, false))
+                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandCGameMode, false))
                         .executes(ctx -> {
                             final ServerCommandSource source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
