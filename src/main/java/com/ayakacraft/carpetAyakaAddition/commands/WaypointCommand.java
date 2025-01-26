@@ -16,9 +16,11 @@ import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -34,19 +36,8 @@ public class WaypointCommand {
             if (id.isEmpty()) {
                 return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW,Formatting.BOLD);
             }
-//            val str = new StringBuilder("The waypoints are as below:\n");
-//            id.forEach(s -> str.append("[").append(s).append("], "));
-//            str.delete(str.length() - 2, str.length());
             val str = Text.translatable("command.carpet-ayaka-addition.waypoint.list").formatted(Formatting.YELLOW, Formatting.BOLD);
-            id.forEach(s -> {
-                MutableText txt = Text.literal("[%s]".formatted(s)).formatted(Formatting.GREEN);
-                txt.setStyle(txt.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/waypoint tpt "+s)));
-                str.append(txt).append(" ");
-            });
-//            val str2 = new StringBuilder();
-//            id.forEach(s -> str2.append("[").append(s).append("], "));
-//            str2.delete(str2.length() - 2, str2.length());
-//            return str.append(Text.literal(str2.toString()).formatted(Formatting.GREEN));
+            id.forEach(s -> str.append(waypointIdText(s)).append(" "));
             return str;
         }, false);
         return 1;
@@ -130,7 +121,7 @@ public class WaypointCommand {
             source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.out_of_world_border", id));
             return 0;
         }
-        source.getPlayer().teleport(dim, pos.getX(), pos.getY(), pos.getZ(), 0f, 0f);
+        source.getPlayer().teleport(dim, pos.getX(), pos.getY(), pos.getZ(), MathHelper.wrapDegrees(source.getPlayer().getYaw()), MathHelper.wrapDegrees(source.getPlayer().getPitch()));
         return 1;
     }
 
@@ -162,6 +153,16 @@ public class WaypointCommand {
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::tpt)))
         );
+    }
+
+    private static MutableText waypointIdText(String id) {
+        MutableText txt = Text.literal("[%s]".formatted(id)).formatted(Formatting.GREEN);
+        Waypoint    w   = WaypointManager.waypoints.get(id);
+        txt.setStyle(txt.getStyle()
+                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/waypoint tpt "+ id))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
+        );
+        return txt;
     }
 
 }
