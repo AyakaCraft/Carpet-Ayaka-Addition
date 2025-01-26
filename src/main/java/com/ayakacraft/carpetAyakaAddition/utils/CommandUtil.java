@@ -4,14 +4,11 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import lombok.val;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;

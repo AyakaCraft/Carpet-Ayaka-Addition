@@ -1,5 +1,7 @@
 package com.ayakacraft.carpetAyakaAddition.commands;
 
+import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
@@ -14,6 +16,7 @@ public class CGameModeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("cgamemode")
+                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandGoHome, false))
                         .executes(ctx -> {
                             final ServerCommandSource source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
