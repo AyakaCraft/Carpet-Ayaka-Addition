@@ -1,13 +1,11 @@
 package com.ayakacraft.carpetAyakaAddition.data;
 
-import lombok.Getter;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-@Getter
 public class Waypoint {
 
     public String id;
@@ -20,6 +18,10 @@ public class Waypoint {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
+    }
+
+    public String getDim() {
+        return dim;
     }
 
     public RegistryKey<World> getDimension() {
@@ -38,4 +40,12 @@ public class Waypoint {
         return pos.getZ();
     }
 
+    public String getId() {
+        return id;
+    }
+
+
+    public Vec3d getPos() {
+        return pos;
+    }
 }

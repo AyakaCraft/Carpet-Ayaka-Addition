@@ -17,4 +17,7 @@ public class CarpetAyakaSettings {
     @Rule(categories = {AYAKA, COMMAND})
     public static boolean commandWaypoint = false;
 
+    @Rule(categories = {AYAKA,COMMAND})
+    public static boolean commandCGameMode = false;
+
 }
