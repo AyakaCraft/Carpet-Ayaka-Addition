@@ -7,28 +7,19 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+@Getter
 public class Waypoint {
 
-    @Getter
     public String id;
 
     public String dim;
 
-    @Getter
     public Vec3d pos;
 
     public Waypoint(String id, RegistryKey<World> dim, Vec3d pos) {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
-    }
-
-    public Waypoint(String id, RegistryKey<World> dim, double x, double y, double z) {
-        this(id, dim, new Vec3d(x, y, z));
-    }
-
-    public String getDim() {
-        return dim;
     }
 
     public RegistryKey<World> getDimension() {

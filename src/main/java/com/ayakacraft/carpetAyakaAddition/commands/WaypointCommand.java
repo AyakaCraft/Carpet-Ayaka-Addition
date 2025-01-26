@@ -15,7 +15,10 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -27,14 +30,24 @@ public class WaypointCommand {
 
     private static int list(CommandContext<ServerCommandSource> context) {
         context.getSource().sendFeedback(() -> {
-            val ids=WaypointManager.waypoints.keySet();
-            if(ids.isEmpty()){
-                return Text.literal("No waypoints available");
+            val id = WaypointManager.waypoints.keySet();
+            if (id.isEmpty()) {
+                return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW,Formatting.BOLD);
             }
-            val str = new StringBuilder("The waypoints are as below:\n");
-            ids.forEach(s -> str.append("[").append(s).append("], "));
-            str.delete(str.length() - 2, str.length());
-            return Text.literal(str.toString());
+//            val str = new StringBuilder("The waypoints are as below:\n");
+//            id.forEach(s -> str.append("[").append(s).append("], "));
+//            str.delete(str.length() - 2, str.length());
+            val str = Text.translatable("command.carpet-ayaka-addition.waypoint.list").formatted(Formatting.YELLOW, Formatting.BOLD);
+            id.forEach(s -> {
+                MutableText txt = Text.literal("[%s]".formatted(s)).formatted(Formatting.GREEN);
+                txt.setStyle(txt.getStyle().withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/waypoint tpt "+s)));
+                str.append(txt).append(" ");
+            });
+//            val str2 = new StringBuilder();
+//            id.forEach(s -> str2.append("[").append(s).append("], "));
+//            str2.delete(str2.length() - 2, str2.length());
+//            return str.append(Text.literal(str2.toString()).formatted(Formatting.GREEN));
+            return str;
         }, false);
         return 1;
     }
@@ -43,16 +56,17 @@ public class WaypointCommand {
         val id       = StringArgumentType.getString(context, "id");
         val waypoint = WaypointManager.waypoints.get(id);
         if (waypoint == null) {
-            context.getSource().sendError(Text.literal("Waypoint [%s] does not exist".formatted(id)));
+            context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal(
-                """
-                        ID:        %s
-                        Dimension: %s
-                        x:         %f
-                        y:         %f
-                        z:         %f""".formatted(waypoint.getId(), waypoint.getDim(), waypoint.getX(), waypoint.getY(), waypoint.getZ())), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.detail.1")
+                        .formatted(Formatting.YELLOW, Formatting.BOLD)
+                        .append(
+                                Text.translatable(
+                                        "command.carpet-ayaka-addition.waypoint.detail.2",
+                                        waypoint.getId(), waypoint.getDim(),
+                                        waypoint.getX(), waypoint.getY(), waypoint.getZ())),
+                false);
         return 1;
     }
 
@@ -60,10 +74,10 @@ public class WaypointCommand {
         try {
             WaypointManager.reloadWaypoints(null);
         } catch (IOException e) {
-            context.getSource().sendError(Text.literal("Failed to reload waypoints"));
+            context.getSource().sendError(Text.literal("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal("Succeeded reloading waypoints"), true);
+        context.getSource().sendFeedback(() -> Text.literal("command.carpet-ayaka-addition.waypoint.reload.success"), true);
         return 1;
     }
 
@@ -76,10 +90,10 @@ public class WaypointCommand {
         try {
             WaypointManager.saveWaypoints();
         } catch (IOException e) {
-            context.getSource().sendError(Text.literal("Failed to save waypoints"));
+            context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal("Saved waypoint [%s]".formatted(id)), true);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.set.success", id), true);
         return 1;
     }
 
@@ -90,10 +104,10 @@ public class WaypointCommand {
         try {
             WaypointManager.saveWaypoints();
         } catch (IOException e) {
-            context.getSource().sendError(Text.literal("Failed to delete waypoints"));
+            context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal("Deleted waypoint [%s]".formatted(id)), true);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.delete.success", id), true);
         return 1;
     }
 
@@ -102,18 +116,18 @@ public class WaypointCommand {
         val id       = StringArgumentType.getString(context, "id");
         val waypoint = WaypointManager.waypoints.get(id);
         if (waypoint == null) {
-            source.sendError(Text.literal("Waypoint [%s] does not exist".formatted(id)));
+            source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
 
         val dim = source.getServer().getWorld(waypoint.getDimension());
         val pos = waypoint.getPos();
         if (dim == null) {
-            source.sendError(Text.literal("Unrecognized dimension"));
+            source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.dimension_unrecognized", waypoint.getDim()));
             return 0;
         }
         if (!dim.getWorldBorder().contains(pos.getX(), pos.getZ())) {
-            source.sendError(Text.literal("Waypoint [%s] out of world border".formatted(id)));
+            source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.out_of_world_border", id));
             return 0;
         }
         source.getPlayer().teleport(dim, pos.getX(), pos.getY(), pos.getZ(), 0f, 0f);

@@ -4,7 +4,11 @@ import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.util.math.MathHelper;
+
+import java.util.EnumSet;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -25,7 +29,7 @@ public class TptCommand {
                                                 return 0;
                                             }
                                             var to = EntityArgumentType.getPlayer(context, "player");
-                                            self.teleport(to.getServerWorld(), to.getX(), to.getY(), to.getZ(), to.getYaw(), to.getPitch());
+                                            self.teleport(to.getServerWorld(), to.getX(), to.getY(), to.getZ(), EnumSet.noneOf(PositionFlag.class), MathHelper.wrapDegrees(to.getYaw()), MathHelper.wrapDegrees(to.getPitch()));
                                             return 1;
                                         })));
     }

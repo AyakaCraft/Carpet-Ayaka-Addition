@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "LevelStorageSessionAccessor",
-    "MinecraftServerAccessor",
-    "MiningToolItemMixin"
+    "MinecraftServerAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
