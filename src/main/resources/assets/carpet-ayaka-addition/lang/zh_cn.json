@@ -14,7 +14,7 @@
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "路径点 [%s] 在世界边界以外",
 
   "stat.carpet-ayaka-addition.mined_all": "挖掘量",
-  "stat.carpet-ayaka-addition.used_all": "使用/放置量",
+  "stat.carpet-ayaka-addition.used_all": "放置量",
 
   "carpet.rule.commandTpt.name": "传送到玩家",
   "carpet.rule.commandTpt.desc": "启用 /tpt 命令以传送到其他玩家",

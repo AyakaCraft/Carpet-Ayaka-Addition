@@ -14,7 +14,7 @@
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "Waypoint [%s] out of world border",
 
   "stat.carpet-ayaka-addition.mined_all": "Mined count",
-  "stat.carpet-ayaka-addition.used_all": "Used count",
+  "stat.carpet-ayaka-addition.used_all": "Placed count",
 
   "carpet.rule.commandTpt.name": "Teleport to players",
   "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to other players",

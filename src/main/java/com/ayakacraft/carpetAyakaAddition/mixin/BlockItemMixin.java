@@ -12,13 +12,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static com.ayakacraft.carpetAyakaAddition.stats.Statistics.USED_ALL;
 
 @Mixin(BlockItem.class)
-public class BlockItemPlaceMixin {
+public class BlockItemMixin {
+
     @Inject(at = @At("RETURN"), method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;")
-    public void onBlockItemPlace(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
+    public void onBlockItemPlaced(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         if(cir.getReturnValue().isAccepted()) {
             PlayerEntity player = context.getPlayer();
-            if(player == null) return;
-            player.increaseStat(USED_ALL, 1);
+            if(player != null) {
+                player.increaseStat(USED_ALL, 1);
+            }
         }
     }
 }

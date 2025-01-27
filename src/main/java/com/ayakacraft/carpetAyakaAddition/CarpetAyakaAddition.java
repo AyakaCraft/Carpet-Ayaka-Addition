@@ -109,7 +109,6 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     public void registerEvents() {
         PlayerBlockBreakEvents.AFTER.register(new AfterBlockBreakHandler());
-//        UseBlockCallback.EVENT.register(new UseBlockHandler());
     }
 
 
