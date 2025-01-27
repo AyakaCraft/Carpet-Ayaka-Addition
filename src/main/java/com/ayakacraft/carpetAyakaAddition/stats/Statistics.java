@@ -11,7 +11,7 @@ import static net.minecraft.stat.Stats.CUSTOM;
 public class Statistics {
 
     public static final Identifier MINED_ALL = CarpetAyakaAddition.identifier("mined_all");
-//    public static final Identifier USED_ALL = CarpetAyakaAddition.identifier("used_all");
+    public static final Identifier USED_ALL = CarpetAyakaAddition.identifier("used_all");
 
     private static void register(Identifier id, StatFormatter formatter) {
         Registry.register(Registries.CUSTOM_STAT, id, id);
@@ -20,7 +20,7 @@ public class Statistics {
 
     public static void registerAll() {
         register(MINED_ALL, StatFormatter.DEFAULT);
-//        register(USED_ALL, StatFormatter.DEFAULT);
+        register(USED_ALL, StatFormatter.DEFAULT);
     }
 
 }
