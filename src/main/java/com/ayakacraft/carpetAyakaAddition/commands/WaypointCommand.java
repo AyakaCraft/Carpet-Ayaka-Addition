@@ -140,7 +140,7 @@ public class WaypointCommand {
         MutableText txt = Text.literal("[%s]".formatted(id)).formatted(Formatting.GREEN);
         Waypoint    w   = WaypointManager.waypoints.get(id);
         txt.setStyle(txt.getStyle()
-                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/waypoint tp " + id))
+                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/waypoint tp \"%s\"".formatted(id)))
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
         );
         return txt;
