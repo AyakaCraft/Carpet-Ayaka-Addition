@@ -14,5 +14,18 @@
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "Waypoint [%s] out of world border",
 
   "stat.carpet-ayaka-addition.mined_all": "Mined count",
-  "stat.carpet-ayaka-addition.used_all": "Used count"
+  "stat.carpet-ayaka-addition.used_all": "Used count",
+
+  "carpet.rule.commandTpt.name": "Teleport to players",
+  "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to other players",
+
+  "carpet.rule.commandGoHome.name": "Teleport to spawn point",
+  "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
+
+  "carpet.rule.commandWaypoint.name": "Global waypoints on server",
+  "carpet.rule.commandWaypoint.desc": "Enables /waypoint to manipulate and teleport to shared waypoints",
+
+  "carpet.rule.commandC.name": "Spectator Switching",
+  "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
+  "carpet.rule.commandC.extra.1": "Turn it off if you think it's not vanilla"
 }

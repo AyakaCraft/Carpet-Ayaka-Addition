@@ -3,7 +3,7 @@ package com.ayakacraft.carpetAyakaAddition.commands;
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.data.Waypoint;
 import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
-import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
+import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -16,11 +16,9 @@ import net.minecraft.command.argument.Vec3ArgumentType;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
+import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -41,18 +39,19 @@ public class WaypointCommand {
         context.getSource().sendFeedback(() -> {
             Set<String> id = WaypointManager.waypoints.keySet();
             if (id.isEmpty()) {
-                return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW,Formatting.BOLD);
+                return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
             }
-            MutableText str = Text.translatable("command.carpet-ayaka-addition.waypoint.list").formatted(Formatting.YELLOW, Formatting.BOLD);
-            id.forEach(s -> str.append(waypointIdText(s)).append(" "));
-            return str;
+            return Text
+                    .translatable("command.carpet-ayaka-addition.waypoint.list")
+                    .formatted(Formatting.YELLOW, Formatting.BOLD)
+                    .append(Texts.join(id, Text.of(" "), WaypointCommand::waypointIdText));
         }, false);
         return 1;
     }
 
     private static int detail(CommandContext<ServerCommandSource> context) {
-        final @NotNull String   id       = StringArgumentType.getString(context, "id");
-        final @NotNull Waypoint waypoint = WaypointManager.waypoints.get(id);
+        @NotNull String   id       = StringArgumentType.getString(context, "id");
+        @NotNull Waypoint waypoint = WaypointManager.waypoints.get(id);
         if (waypoint == null) {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
@@ -80,9 +79,9 @@ public class WaypointCommand {
     }
 
     private static int set(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        String id  = StringArgumentType.getString(context, "id");
+        String             id  = StringArgumentType.getString(context, "id");
         RegistryKey<World> dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey();
-        Vec3d pos = Vec3ArgumentType.getVec3(context, "pos");
+        Vec3d              pos = Vec3ArgumentType.getVec3(context, "pos");
 
         WaypointManager.waypoints.put(id, new Waypoint(id, dim, pos));
         try {
@@ -111,15 +110,16 @@ public class WaypointCommand {
 
     private static int tp(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         ServerCommandSource source   = context.getSource();
-        String id       = StringArgumentType.getString(context, "id");
-        Waypoint waypoint = WaypointManager.waypoints.get(id);
+        String              id       = StringArgumentType.getString(context, "id");
+        Waypoint            waypoint = WaypointManager.waypoints.get(id);
+        ServerPlayerEntity  self     = source.getPlayerOrThrow();
         if (waypoint == null) {
             source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
 
         ServerWorld dim = source.getServer().getWorld(waypoint.getDimension());
-        Vec3d pos = waypoint.getPos();
+        Vec3d       pos = waypoint.getPos();
         if (dim == null) {
             source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.dimension_unrecognized", waypoint.getDim()));
             return 0;
@@ -128,7 +128,7 @@ public class WaypointCommand {
             source.sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.out_of_world_border", id));
             return 0;
         }
-        source.getPlayerOrThrow().teleport(dim, pos.getX(), pos.getY(), pos.getZ(), EnumSet.noneOf(PositionFlag.class), MathHelper.wrapDegrees(source.getPlayerOrThrow().getYaw()), MathHelper.wrapDegrees(source.getPlayerOrThrow().getPitch()));
+        self.teleport(dim, pos.getX(), pos.getY(), pos.getZ(), EnumSet.noneOf(PositionFlag.class), MathHelper.wrapDegrees(self.getYaw()), MathHelper.wrapDegrees(self.getPitch()));
         return 1;
     }
 
@@ -136,10 +136,20 @@ public class WaypointCommand {
         return CommandSource.suggestMatching(WaypointManager.waypoints.keySet(), builder);
     }
 
+    private static MutableText waypointIdText(String id) {
+        MutableText txt = Text.literal("[%s]".formatted(id)).formatted(Formatting.GREEN);
+        Waypoint    w   = WaypointManager.waypoints.get(id);
+        txt.setStyle(txt.getStyle()
+                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/waypoint tp " + id))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
+        );
+        return txt;
+    }
+
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("waypoint")
-                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandWaypoint, true))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandWaypoint, true))
                         .then(literal("reload").executes(WaypointCommand::reload))
                         .then(literal("list").executes(WaypointCommand::list))
                         .then(literal("detail")
@@ -149,27 +159,18 @@ public class WaypointCommand {
                         .then(literal("set")
                                 .then(argument("id", StringArgumentType.string()).suggests(WaypointCommand::suggestWaypoints)
                                         .then(argument("dim", DimensionArgumentType.dimension())
-                                                .then(argument("pos", Vec3ArgumentType.vec3()).suggests(CommandUtil::vec3dSuggestionProvider)
+                                                .then(argument("pos", Vec3ArgumentType.vec3()).suggests(CommandUtils::vec3dSuggestionProvider)
                                                         .executes(WaypointCommand::set)))))
                         .then(literal("delete")
                                 .then(argument("id", StringArgumentType.string())
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::delete)))
                         .then(literal("tp")
+                                .requires(ServerCommandSource::isExecutedByPlayer)
                                 .then(argument("id", StringArgumentType.string())
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::tp)))
         );
-    }
-
-    private static MutableText waypointIdText(String id) {
-        MutableText txt = Text.literal("[%s]".formatted(id)).formatted(Formatting.GREEN);
-        Waypoint    w   = WaypointManager.waypoints.get(id);
-        txt.setStyle(txt.getStyle()
-                .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND,"/waypoint tpt "+ id))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
-        );
-        return txt;
     }
 
 }

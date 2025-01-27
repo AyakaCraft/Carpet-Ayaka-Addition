@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.utils;
+package com.ayakacraft.carpetAyakaAddition.util;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class CommandUtil {
+public class CommandUtils {
 
     public static boolean checkPermission(ServerCommandSource source, boolean needNotOp, boolean needNotPlayer) {
         return (source.isExecutedByPlayer() || needNotPlayer) && (Objects.requireNonNull(source.getPlayer()).hasPermissionLevel(4) || needNotOp);
@@ -23,12 +23,12 @@ public class CommandUtil {
         return CommandSource.suggestMatching(context.getSource().getPlayerNames(), builder);
     }
 
-    public static CompletableFuture<Suggestions> vec3dSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) throws CommandSyntaxException {
+    public static CompletableFuture<Suggestions> vec3dSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder)
+            throws CommandSyntaxException {
         final @NotNull ServerCommandSource source = context.getSource();
         if (source.isExecutedByPlayer()) {
             final @NotNull BlockPos pos = source.getPlayerOrThrow().getBlockPos();
-            String str = "%.1f %.1f %.1f".formatted(pos.getX() + 0.5, pos.getY()+0.5, pos.getZ() + 0.5);
-            return CommandSource.suggestMatching(List.of(str), builder);
+            return CommandSource.suggestMatching(List.of("%.1f %.1f %.1f".formatted(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)), builder);
         }
         return CommandSource.suggestMatching(List.of(), builder);
     }

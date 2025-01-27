@@ -1,7 +1,7 @@
 package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
+import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.network.packet.c2s.play.ClientStatusC2SPacket;
 import net.minecraft.server.command.ServerCommandSource;
@@ -15,7 +15,7 @@ public class GoHomeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("gohome")
-                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandGoHome, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, false))
                         .executes(commandContext -> {
                             final @NotNull ServerPlayerEntity player = commandContext.getSource().getPlayerOrThrow();
                             player.notInAnyWorld = true;

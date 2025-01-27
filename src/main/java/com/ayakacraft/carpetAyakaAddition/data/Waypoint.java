@@ -8,17 +8,17 @@ import net.minecraft.world.World;
 
 public class Waypoint {
 
-    public String id;
-
-    public String dim;
-
-    public Vec3d pos;
-
     public Waypoint(String id, RegistryKey<World> dim, Vec3d pos) {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
     }
+
+    public String id;
+
+    public String dim;
+
+    public Vec3d pos;
 
     public String getDim() {
         return dim;
@@ -48,4 +48,5 @@ public class Waypoint {
     public Vec3d getPos() {
         return pos;
     }
+
 }

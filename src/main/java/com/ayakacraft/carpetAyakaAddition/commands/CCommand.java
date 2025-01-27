@@ -1,7 +1,7 @@
 package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
+import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
@@ -11,16 +11,18 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class CGameModeCommand {
+public class CCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-                literal("cgamemode")
-                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandCGameMode, false))
+                literal("c")
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, false))
                         .executes(ctx -> {
-                            final ServerCommandSource source = ctx.getSource();
+                            final ServerCommandSource         source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
-                            if(!player.changeGameMode(GameMode.SURVIVAL)) player.changeGameMode(GameMode.SPECTATOR);
+                            if (!player.changeGameMode(GameMode.SURVIVAL)) {
+                                player.changeGameMode(GameMode.SPECTATOR);
+                            }
                             return Command.SINGLE_SUCCESS;
                         }));
     }

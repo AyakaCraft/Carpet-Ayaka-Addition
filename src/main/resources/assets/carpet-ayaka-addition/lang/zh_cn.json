@@ -12,6 +12,20 @@
   "command.carpet-ayaka-addition.waypoint.save.failed": "保存路径点失败",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "未识别的维度 \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "路径点 [%s] 在世界边界以外",
+
   "stat.carpet-ayaka-addition.mined_all": "挖掘量",
-  "stat.carpet-ayaka-addition.used_all": "使用/放置量"
+  "stat.carpet-ayaka-addition.used_all": "使用/放置量",
+
+  "carpet.rule.commandTpt.name": "传送到玩家",
+  "carpet.rule.commandTpt.desc": "启用 /tpt 命令以传送到其他玩家",
+
+  "carpet.rule.commandGoHome.name": "回程",
+  "carpet.rule.commandGoHome.desc": "启用 /gohome 命令以传送到重生点",
+
+  "carpet.rule.commandWaypoint.name": "全局路径点",
+  "carpet.rule.commandWaypoint.desc": "启用 /waypoint 命令以操作并传送到服务器全局路径点",
+
+  "carpet.rule.commandC.name": "旁观者模式切换",
+  "carpet.rule.commandC.desc": "启用 /c 命令以在生存模式和旁观者模式中切换",
+  "carpet.rule.commandC.extra.1": "源自骗子妈服的!c插件，觉得不原版就关掉"
 }

@@ -1,7 +1,5 @@
 package com.ayakacraft.carpetAyakaAddition.data;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -10,11 +8,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import static com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition.GSON;
+
 public class WaypointManager {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-    private static final Type listType = new TypeToken<LinkedList<Waypoint>>() {
+    private static final Type collectionType = new TypeToken<Collection<Waypoint>>() {
     }.getType();
 
     public static Map<String, Waypoint> waypoints = new HashMap<>(3);
@@ -30,15 +28,13 @@ public class WaypointManager {
             Files.createFile(currentWaypointStoragePath);
         }
         String str = Files.readString(currentWaypointStoragePath);
-        LinkedList<Waypoint> l = Objects.requireNonNullElse(GSON.fromJson(str, listType), new LinkedList<>());
+
         waypoints.clear();
-        l.forEach(w -> waypoints.put(w.id, w));
+        Objects.<Collection<Waypoint>>requireNonNullElse(GSON.fromJson(str, collectionType), List.of()).forEach(w -> waypoints.put(w.id, w));
     }
 
     public static void saveWaypoints() throws IOException {
-        List<Waypoint> l   = waypoints.values().stream().toList();
-        String str = GSON.toJson(l, listType);
-        Files.writeString(currentWaypointStoragePath, str);
+        Files.writeString(currentWaypointStoragePath, GSON.toJson(waypoints.values(), collectionType));
     }
 
 }

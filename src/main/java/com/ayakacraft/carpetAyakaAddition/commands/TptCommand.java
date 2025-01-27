@@ -1,7 +1,7 @@
 package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.utils.CommandUtil;
+import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -22,16 +21,16 @@ public class TptCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("tpt")
-                        .requires(source -> CommandUtil.checkPermission(source, CarpetAyakaSettings.commandTpt, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, false))
                         .then(
                                 argument("target", EntityArgumentType.player())
-                                        .suggests(CommandUtil::playerSuggestionProvider)
+                                        .suggests(CommandUtils::playerSuggestionProvider)
                                         .executes(context -> {
                                             final @NotNull ServerCommandSource source = context.getSource();
-                                            final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
-                                            final @NotNull ServerPlayerEntity target = EntityArgumentType.getPlayer(context, "target");
-                                            final float f = MathHelper.wrapDegrees(target.getYaw());
-                                            final float g = MathHelper.wrapDegrees(target.getPitch());
+                                            final @NotNull ServerPlayerEntity  player = source.getPlayerOrThrow();
+                                            final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
+                                            final float                        f      = MathHelper.wrapDegrees(target.getYaw());
+                                            final float                        g      = MathHelper.wrapDegrees(target.getPitch());
                                             player.teleport(target.getServerWorld(), target.getX(), target.getY(), target.getZ(), EnumSet.noneOf(PositionFlag.class), f, g);
                                             return Command.SINGLE_SUCCESS;
                                         })));

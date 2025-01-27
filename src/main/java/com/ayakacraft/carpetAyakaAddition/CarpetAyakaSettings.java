@@ -6,7 +6,7 @@ import static carpet.api.settings.RuleCategory.COMMAND;
 
 public class CarpetAyakaSettings {
 
-    public static final String AYAKA = "ayaka";
+    public static final String AYAKA = "Ayaka";
 
     @Rule(categories = {AYAKA, COMMAND})
     public static boolean commandTpt = false;
@@ -17,7 +17,7 @@ public class CarpetAyakaSettings {
     @Rule(categories = {AYAKA, COMMAND})
     public static boolean commandWaypoint = false;
 
-    @Rule(categories = {AYAKA,COMMAND})
-    public static boolean commandCGameMode = false;
+    @Rule(categories = {AYAKA, COMMAND})
+    public static boolean commandC = false;
 
 }
