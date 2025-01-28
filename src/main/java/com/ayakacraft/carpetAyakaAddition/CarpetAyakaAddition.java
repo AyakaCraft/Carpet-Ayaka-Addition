@@ -2,10 +2,7 @@ package com.ayakacraft.carpetAyakaAddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import com.ayakacraft.carpetAyakaAddition.commands.CCommand;
-import com.ayakacraft.carpetAyakaAddition.commands.GoHomeCommand;
-import com.ayakacraft.carpetAyakaAddition.commands.TptCommand;
-import com.ayakacraft.carpetAyakaAddition.commands.WaypointCommand;
+import com.ayakacraft.carpetAyakaAddition.commands.*;
 import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
 import com.ayakacraft.carpetAyakaAddition.event.AfterBlockBreakHandler;
 import com.ayakacraft.carpetAyakaAddition.mixin.LevelStorageSessionAccessor;
@@ -82,6 +79,7 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
         GoHomeCommand.register(dispatcher);
         WaypointCommand.register(dispatcher);
         CCommand.register(dispatcher);
+        ClearItemCommand.register(dispatcher);
     }
 
     @Override

@@ -4,6 +4,7 @@
   "package": "com.ayakacraft.carpetAyakaAddition.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BatEntityMixin",
     "BlockItemMixin",
     "LevelStorageSessionAccessor",
     "MinecraftServerAccessor"

@@ -74,7 +74,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.literal("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal("command.carpet-ayaka-addition.waypoint.reload.success"), true);
+        context.getSource().sendFeedback(() -> Text.literal("command.carpet-ayaka-addition.waypoint.reload.success"), false);
         return 1;
     }
 
@@ -90,7 +90,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.set.success", id), true);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.set.success", id), false);
         return 1;
     }
 
@@ -104,7 +104,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.delete.success", id), true);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.delete.success", id), false);
         return 1;
     }
 
@@ -133,7 +133,7 @@ public class WaypointCommand {
     }
 
     private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(WaypointManager.waypoints.keySet(), builder);
+        return CommandSource.suggestMatching(WaypointManager.waypoints.keySet().stream().map(id -> "\"" + id + "\""), builder);
     }
 
     private static MutableText waypointIdText(String id) {

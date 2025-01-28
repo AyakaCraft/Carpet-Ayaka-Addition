@@ -16,11 +16,12 @@ public class BlockItemMixin {
 
     @Inject(at = @At("RETURN"), method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;")
     public void onBlockItemPlaced(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
-        if(cir.getReturnValue().isAccepted()) {
+        if (cir.getReturnValue().isAccepted()) {
             PlayerEntity player = context.getPlayer();
-            if(player != null) {
+            if (player != null) {
                 player.increaseStat(USED_ALL, 1);
             }
         }
     }
+
 }

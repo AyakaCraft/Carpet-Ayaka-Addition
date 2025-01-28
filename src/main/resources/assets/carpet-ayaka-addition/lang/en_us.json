@@ -12,6 +12,9 @@
   "command.carpet-ayaka-addition.waypoint.save.failed": "Failed to save waypoints",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "Unrecognized dimension \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "Waypoint [%s] out of world border",
+  "command.carpet-ayaka-addition.clearitem.none": "No item cleared",
+  "command.carpet-ayaka-addition.clearitem.single": "Cleared one item",
+  "command.carpet-ayaka-addition.clearitem.multiple": "Cleared %d items",
 
   "stat.carpet-ayaka-addition.mined_all": "Mined count",
   "stat.carpet-ayaka-addition.used_all": "Placed count",
@@ -27,5 +30,11 @@
 
   "carpet.rule.commandC.name": "Spectator Switching",
   "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
-  "carpet.rule.commandC.extra.1": "Turn it off if you think it's not vanilla"
+  "carpet.rule.commandC.extra.1": "Turn it off if you think it's not vanilla",
+
+  "carpet.rule.disableBatSpawning.name": "Disable bat spawning",
+  "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
+
+  "carpet.rule.commandClearItem.name": "Clear items",
+  "carpet.rule.commandClearItem.desc": "Clears dropped items"
 }
