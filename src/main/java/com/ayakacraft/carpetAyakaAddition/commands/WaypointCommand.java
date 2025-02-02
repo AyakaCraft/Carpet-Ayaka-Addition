@@ -56,13 +56,14 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.detail.1")
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
                         .formatted(Formatting.YELLOW, Formatting.BOLD)
                         .append(
                                 Text.translatable(
-                                        "command.carpet-ayaka-addition.waypoint.detail.2",
-                                        waypoint.getId(), waypoint.getDim(),
-                                        waypoint.getX(), waypoint.getY(), waypoint.getZ())),
+                                                "command.carpet-ayaka-addition.waypoint.detail.2",
+                                                waypoint.getId(), waypoint.getDim(),
+                                                waypoint.getX(), waypoint.getY(), waypoint.getZ())
+                                        .formatted(Formatting.GREEN)),
                 false);
         return 1;
     }
@@ -71,10 +72,10 @@ public class WaypointCommand {
         try {
             WaypointManager.reloadWaypoints(null);
         } catch (IOException e) {
-            context.getSource().sendError(Text.literal("command.carpet-ayaka-addition.waypoint.reload.failed"));
+            context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.literal("command.carpet-ayaka-addition.waypoint.reload.success"), false);
+        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.reload.success"), false);
         return 1;
     }
 
