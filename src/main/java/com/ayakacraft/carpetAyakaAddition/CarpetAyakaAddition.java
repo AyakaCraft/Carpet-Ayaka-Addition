@@ -57,13 +57,13 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
     }
 
     @Override
-    public void onServerLoaded(MinecraftServer server) {
-        this.mcServer = server;
+    public void onGameStarted() {
+        CarpetServer.settingsManager.parseSettingsClass(CarpetAyakaSettings.class);
     }
 
     @Override
-    public void onGameStarted() {
-        CarpetServer.settingsManager.parseSettingsClass(CarpetAyakaSettings.class);
+    public void onServerLoaded(MinecraftServer server) {
+        this.mcServer = server;
     }
 
     @Override

@@ -1,32 +1,32 @@
 {
   "schemaVersion": 1,
-  "id": "carpet-ayaka-addition",
+  "id": "${id}",
   "version": "${version}",
   "name": "Carpet Ayaka Addition",
   "description": "Addition of fabric-carpet for mc.ayakacraft.com",
-  "authors": [],
+  "authors": [
+    "Calboot",
+    "IceCang"
+  ],
   "contact": {},
   "license": "GPL-3.0",
   "icon": "assets/carpet-ayaka-addition/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "com.ayakacraft.carpetAyakaAddition.client.CarpetAyakaAdditionClient"
-    ],
     "main": [
       "com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition"
     ]
   },
   "mixins": [
-    "carpet-ayaka-addition.mixins.json",
-    {
-      "config": "carpet-ayaka-addition.client.mixins.json",
-      "environment": "client"
-    }
+    "carpet-ayaka-addition.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": ">=0.15.6",
     "fabric": "*",
+    "carpet": "${carpet_dependency}",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu:parent": "carpet"
   }
 }

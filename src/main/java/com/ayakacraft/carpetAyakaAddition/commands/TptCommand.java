@@ -8,6 +8,7 @@ import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,7 +32,7 @@ public class TptCommand {
                                             final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
                                             final float                        f      = MathHelper.wrapDegrees(target.getYaw());
                                             final float                        g      = MathHelper.wrapDegrees(target.getPitch());
-                                            player.teleport(target.getServerWorld(), target.getX(), target.getY(), target.getZ(), EnumSet.noneOf(PositionFlag.class), f, g);
+                                            player.teleport(source.getWorld(), target.getX(), target.getY(), target.getZ(), EnumSet.noneOf(PositionFlag.class), f, g);
                                             return Command.SINGLE_SUCCESS;
                                         })));
     }

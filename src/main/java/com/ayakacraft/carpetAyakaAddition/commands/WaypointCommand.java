@@ -36,16 +36,18 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class WaypointCommand {
 
     private static int list(CommandContext<ServerCommandSource> context) {
-        context.getSource().sendFeedback(() -> {
-            Set<String> id = WaypointManager.waypoints.keySet();
-            if (id.isEmpty()) {
-                return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
-            }
-            return Text
-                    .translatable("command.carpet-ayaka-addition.waypoint.list")
-                    .formatted(Formatting.YELLOW, Formatting.BOLD)
-                    .append(Texts.join(id, Text.of(" "), WaypointCommand::waypointIdText));
-        }, false);
+        CommandUtils.sendFeedback(context.getSource(),
+                () -> {
+                    Set<String> id = WaypointManager.waypoints.keySet();
+                    if (id.isEmpty()) {
+                        return Text.translatable("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
+                    }
+                    return Text
+                            .translatable("command.carpet-ayaka-addition.waypoint.list")
+                            .formatted(Formatting.YELLOW, Formatting.BOLD)
+                            .append(Texts.join(id, Text.of(" "), WaypointCommand::waypointIdText));
+                },
+                false);
         return 1;
     }
 
@@ -56,7 +58,8 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
+        CommandUtils.sendFeedback(context.getSource(),
+                () -> Text.translatable("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
                         .formatted(Formatting.YELLOW, Formatting.BOLD)
                         .append(
                                 Text.translatable(
@@ -64,6 +67,7 @@ public class WaypointCommand {
                                                 waypoint.getId(), waypoint.getDim(),
                                                 waypoint.getX(), waypoint.getY(), waypoint.getZ())
                                         .formatted(Formatting.GREEN)),
+
                 false);
         return 1;
     }
@@ -75,7 +79,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.reload.success"), false);
+        CommandUtils.sendFeedback(context.getSource(), () -> Text.translatable("command.carpet-ayaka-addition.waypoint.reload.success"), false);
         return 1;
     }
 
@@ -91,7 +95,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.set.success", id), false);
+        CommandUtils.sendFeedback(context.getSource(), () -> Text.translatable("command.carpet-ayaka-addition.waypoint.set.success", id), false);
         return 1;
     }
 
@@ -105,7 +109,7 @@ public class WaypointCommand {
             context.getSource().sendError(Text.translatable("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        context.getSource().sendFeedback(() -> Text.translatable("command.carpet-ayaka-addition.waypoint.delete.success", id), false);
+        CommandUtils.sendFeedback(context.getSource(), () -> Text.translatable("command.carpet-ayaka-addition.waypoint.delete.success", id), false);
         return 1;
     }
 

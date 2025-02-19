@@ -6,12 +6,14 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class CommandUtils {
 
@@ -31,6 +33,14 @@ public class CommandUtils {
             return CommandSource.suggestMatching(List.of("%.1f %.1f %.1f".formatted(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)), builder);
         }
         return CommandSource.suggestMatching(List.of(), builder);
+    }
+
+    public static void sendFeedback(ServerCommandSource source, Supplier<Text> txt, boolean broadcastToOps) {
+        //#if MC>=12000
+        source.sendFeedback(txt, broadcastToOps);
+        //#else
+        //$$ source.sendFeedback(txt.get(), broadcastToOps);
+        //#endif
     }
 
 }
