@@ -2,22 +2,18 @@ package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
+import com.ayakacraft.carpetAyakaAddition.util.MethodWrapper;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.network.packet.s2c.play.PositionFlag;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.EnumSet;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class TptCommand {
+public final class TptCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
@@ -30,9 +26,8 @@ public class TptCommand {
                                             final @NotNull ServerCommandSource source = context.getSource();
                                             final @NotNull ServerPlayerEntity  player = source.getPlayerOrThrow();
                                             final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
-                                            final float                        f      = MathHelper.wrapDegrees(target.getYaw());
-                                            final float                        g      = MathHelper.wrapDegrees(target.getPitch());
-                                            player.teleport(source.getWorld(), target.getX(), target.getY(), target.getZ(), EnumSet.noneOf(PositionFlag.class), f, g);
+                                            player.teleport(MethodWrapper.getServerWorld(player), target.getX(), target.getY(), target.getZ(),
+                                                    MethodWrapper.getYaw(target), MethodWrapper.getPitch(target));
                                             return Command.SINGLE_SUCCESS;
                                         })));
     }

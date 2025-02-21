@@ -1,7 +1,11 @@
 package com.ayakacraft.carpetAyakaAddition.data;
 
 import net.minecraft.registry.RegistryKey;
+//#if MC>=11904
 import net.minecraft.registry.RegistryKeys;
+//#else
+//$$ import net.minecraft.util.registry.Registry;
+//#endif
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -25,7 +29,11 @@ public class Waypoint {
     }
 
     public RegistryKey<World> getDimension() {
+        //#if MC>=11904
         return RegistryKey.of(RegistryKeys.WORLD, new Identifier(dim));
+        //#else
+        //$$ return RegistryKey.of(Registry.WORLD_KEY, new Identifier(dim));
+        //#endif
     }
 
     public double getX() {

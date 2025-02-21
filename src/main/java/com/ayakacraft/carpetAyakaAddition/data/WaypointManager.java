@@ -1,9 +1,15 @@
 package com.ayakacraft.carpetAyakaAddition.data;
 
+import com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetAyakaAddition.mixin.LevelStorageSessionAccessor;
+import com.ayakacraft.carpetAyakaAddition.mixin.MinecraftServerAccessor;
 import com.google.gson.reflect.TypeToken;
+import net.minecraft.server.MinecraftServer;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -15,26 +21,64 @@ public class WaypointManager {
     private static final Type collectionType = new TypeToken<Collection<Waypoint>>() {
     }.getType();
 
-    public static Map<String, Waypoint> waypoints = new HashMap<>(3);
+    private static final Map<MinecraftServer, WaypointManager> waypointManagers = new HashMap<>(1);
 
-    public static Path currentWaypointStoragePath;
-
-    public static void reloadWaypoints(Path worldPath) throws IOException {
-        if (worldPath != null) {
-            currentWaypointStoragePath = worldPath.resolve("ayaka_waypoints.json");
+    public static WaypointManager getWaypointManager(MinecraftServer server) {
+        if (waypointManagers.containsKey(server)) {
+            return waypointManagers.get(server);
         }
-        if (Files.notExists(currentWaypointStoragePath) || !Files.isRegularFile(currentWaypointStoragePath)) {
-            Files.deleteIfExists(currentWaypointStoragePath);
-            Files.createFile(currentWaypointStoragePath);
-        }
-        String str = Files.readString(currentWaypointStoragePath);
-
-        waypoints.clear();
-        Objects.<Collection<Waypoint>>requireNonNullElse(GSON.fromJson(str, collectionType), List.of()).forEach(w -> waypoints.put(w.id, w));
+        final WaypointManager instance = new WaypointManager(server);
+        waypointManagers.put(server, instance);
+        return instance;
     }
 
-    public static void saveWaypoints() throws IOException {
-        Files.writeString(currentWaypointStoragePath, GSON.toJson(waypoints.values(), collectionType));
+    public static void removeWaypointManager(MinecraftServer server) {
+        if (!waypointManagers.containsKey(server)) {
+            return;
+        }
+        try {
+            waypointManagers.get(server).saveWaypoints();
+        } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save waypoints", e);
+        }
+        waypointManagers.remove(server);
+    }
+
+    private final Path waypointStoragePath;
+
+    public final Map<String, Waypoint> waypoints = new HashMap<>(3);
+
+    private WaypointManager(MinecraftServer server) {
+        final LevelStorageSessionAccessor session = (LevelStorageSessionAccessor) (((MinecraftServerAccessor) server).getSession());
+        //#if MC>=11900
+        final Path worldPath = session.getDirectory().path();
+        //#else
+        //$$ final Path worldPath = session.getDirectory();
+        //#endif
+
+        waypointStoragePath = worldPath.resolve("ayaka_waypoints.json");
+        try {
+            loadWaypoints();
+        } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to load waypoints", e);
+        }
+    }
+
+    public void loadWaypoints() throws IOException {
+        CarpetAyakaAddition.LOGGER.info("Loading waypoints from {}", waypointStoragePath);
+        if (Files.notExists(waypointStoragePath) || !Files.isRegularFile(waypointStoragePath)) {
+            Files.createFile(waypointStoragePath);
+        }
+        String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(waypointStoragePath))).toString();
+
+        waypoints.clear();
+        Collection<Waypoint> obj = GSON.fromJson(str, collectionType);
+        (obj != null ? obj : new LinkedList<Waypoint>()).forEach(w -> waypoints.put(w.id, w));
+    }
+
+    public void saveWaypoints() throws IOException {
+        CarpetAyakaAddition.LOGGER.info("Saving waypoints to {}", waypointStoragePath);
+        Files.write(waypointStoragePath, GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
     }
 
 }

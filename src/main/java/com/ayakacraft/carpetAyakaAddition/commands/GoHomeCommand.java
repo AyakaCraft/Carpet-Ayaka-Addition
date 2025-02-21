@@ -13,7 +13,7 @@ import java.util.Collection;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class GoHomeCommand {
+public final class GoHomeCommand {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(

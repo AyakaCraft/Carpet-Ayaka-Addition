@@ -5,33 +5,33 @@ import carpet.CarpetServer;
 import com.ayakacraft.carpetAyakaAddition.commands.*;
 import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
 import com.ayakacraft.carpetAyakaAddition.event.AfterBlockBreakHandler;
-import com.ayakacraft.carpetAyakaAddition.mixin.LevelStorageSessionAccessor;
-import com.ayakacraft.carpetAyakaAddition.mixin.MinecraftServerAccessor;
 import com.ayakacraft.carpetAyakaAddition.stats.Statistics;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+//#if MC>=11900
 import net.minecraft.command.CommandRegistryAccess;
+//#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Identifier;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
-
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
 
@@ -39,10 +39,25 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     public static final String MOD_NAME = "Carpet Ayaka Addition";
 
-    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow().getMetadata().getVersion().toString();
+    public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
+
+    public static final String MOD_VERSION;
+
+    static {
+        Optional<ModContainer> o = FabricLoader.getInstance().getModContainer(MOD_ID);
+        if (o.isPresent()) {
+            MOD_VERSION = o.get().getMetadata().getVersion().toString();
+        } else {
+            MOD_VERSION = "dev";
+        }
+    }
 
     public static Identifier identifier(String path) {
+        //#if MC>=11900
         return Identifier.of(MOD_ID, path);
+        //#else
+        //$$ return new Identifier(MOD_ID, path);
+        //#endif
     }
 
     public MinecraftServer mcServer;
@@ -68,22 +83,27 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     @Override
     public void onServerLoadedWorlds(MinecraftServer server) {
-        final Path worldPath = ((LevelStorageSessionAccessor) ((MinecraftServerAccessor) server).getSession()).getDirectory().path();
-
-        try {
-            WaypointManager.reloadWaypoints(worldPath);
-        } catch (IOException e) {
-            LOGGER.error("Failed to load waypoints", e);
-        }
+        WaypointManager.getWaypointManager(mcServer);
     }
 
     @Override
+    //#if MC>=11900
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final CommandRegistryAccess commandBuildContext) {
+        //#else
+        //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+        //#endif
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         WaypointCommand.register(dispatcher);
         CCommand.register(dispatcher);
-        ClearItemCommand.register(dispatcher);
+        KillItemCommand.register(dispatcher);
+    }
+
+    @Override
+    public void onServerClosed(MinecraftServer server) {
+        WaypointManager.removeWaypointManager(server);
+
+        this.mcServer = null;
     }
 
     @Override
@@ -93,14 +113,19 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     @Override
     public Map<String, String> canHasTranslations(String lang) {
-        final InputStream langStream = CarpetAyakaAddition.class.getClassLoader().getResourceAsStream("assets/carpet-ayaka-addition/lang/%s.json".formatted(lang));
+        final InputStream langStream = CarpetAyakaAddition.class.getClassLoader().getResourceAsStream(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
         if (langStream == null) {
             // we don't have that language
             return Collections.emptyMap();
         }
         final String jsonData;
         try {
-            jsonData = new String(langStream.readAllBytes(), StandardCharsets.UTF_8);
+            byte[] data = new byte[langStream.available()];
+            int    i    = langStream.read(data);
+            if (i != data.length) {
+                data = Arrays.copyOf(data, i);
+            }
+            jsonData = new String(data, StandardCharsets.UTF_8);
             langStream.close();
         } catch (final IOException e) {
             return Collections.emptyMap();
@@ -112,6 +137,5 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
     public void registerEvents() {
         PlayerBlockBreakEvents.AFTER.register(new AfterBlockBreakHandler());
     }
-
 
 }

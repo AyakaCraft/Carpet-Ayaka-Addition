@@ -8,19 +8,19 @@
   "command.carpet-ayaka-addition.waypoint.reload.success": "Succeeded reloading waypoints",
   "command.carpet-ayaka-addition.waypoint.reload.failed": "Failed to reload waypoints",
   "command.carpet-ayaka-addition.waypoint.set.success": "Saved waypoint [%s]",
-  "command.carpet-ayaka-addition.waypoint.delete.success": "Deleted waypoint [%s]",
+  "command.carpet-ayaka-addition.waypoint.remove.success": "Removed waypoint [%s]",
   "command.carpet-ayaka-addition.waypoint.save.failed": "Failed to save waypoints",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "Unrecognized dimension \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "Waypoint [%s] out of world border",
-  "command.carpet-ayaka-addition.clearitem.none": "No item cleared",
-  "command.carpet-ayaka-addition.clearitem.single": "Cleared one item",
-  "command.carpet-ayaka-addition.clearitem.multiple": "Cleared %d items",
+  "command.carpet-ayaka-addition.killitem.none": "No item cleared",
+  "command.carpet-ayaka-addition.killitem.single": "Cleared one item",
+  "command.carpet-ayaka-addition.killitem.multiple": "Cleared %d items",
 
   "stat.carpet-ayaka-addition.mined_all": "Mined count",
   "stat.carpet-ayaka-addition.used_all": "Placed count",
 
   "carpet.rule.commandTpt.name": "Teleport to players",
-  "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to other players",
+  "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to another player in your server",
 
   "carpet.rule.commandGoHome.name": "Teleport to spawn point",
   "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
@@ -35,6 +35,6 @@
   "carpet.rule.disableBatSpawning.name": "Disable bat spawning",
   "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
 
-  "carpet.rule.commandClearItem.name": "Clear items",
-  "carpet.rule.commandClearItem.desc": "Clears dropped items"
+  "carpet.rule.commandKillItem.name": "Clear items",
+  "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot"
 }

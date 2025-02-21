@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "${id}",
   "version": "${version}",
-  "name": "Carpet Ayaka Addition",
+  "name": "${name}",
   "description": "Addition of fabric-carpet for mc.ayakacraft.com",
   "authors": [
     "Calboot",

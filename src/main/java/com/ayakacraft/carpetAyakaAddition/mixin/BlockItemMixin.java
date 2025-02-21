@@ -1,5 +1,6 @@
 package com.ayakacraft.carpetAyakaAddition.mixin;
 
+import carpet.patches.EntityPlayerMPFake;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
@@ -18,7 +19,7 @@ public class BlockItemMixin {
     public void onBlockItemPlaced(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         if (cir.getReturnValue().isAccepted()) {
             PlayerEntity player = context.getPlayer();
-            if (player != null) {
+            if (player != null && !(player instanceof EntityPlayerMPFake)) {
                 player.increaseStat(USED_ALL, 1);
             }
         }

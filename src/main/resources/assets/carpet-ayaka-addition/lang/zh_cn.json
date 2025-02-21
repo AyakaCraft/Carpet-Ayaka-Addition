@@ -8,13 +8,13 @@
   "command.carpet-ayaka-addition.waypoint.reload.success": "重载路径点成功",
   "command.carpet-ayaka-addition.waypoint.reload.failed": "重载路径点失败",
   "command.carpet-ayaka-addition.waypoint.set.success": "已保存路径点 [%s]",
-  "command.carpet-ayaka-addition.waypoint.delete.success": "已删除路径点 [%s]",
+  "command.carpet-ayaka-addition.waypoint.remove.success": "已移除路径点 [%s]",
   "command.carpet-ayaka-addition.waypoint.save.failed": "保存路径点失败",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "未识别的维度 \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "路径点 [%s] 在世界边界以外",
-  "command.carpet-ayaka-addition.clearitem.none": "没有可清除的掉落物",
-  "command.carpet-ayaka-addition.clearitem.single": "清除了1个掉落物",
-  "command.carpet-ayaka-addition.clearitem.multiple": "清除了%d个掉落物",
+  "command.carpet-ayaka-addition.killitem.none": "没有可清除的掉落物",
+  "command.carpet-ayaka-addition.killitem.single": "清除了1个掉落物",
+  "command.carpet-ayaka-addition.killitem.multiple": "清除了%d个掉落物",
 
   "stat.carpet-ayaka-addition.mined_all": "挖掘量",
   "stat.carpet-ayaka-addition.used_all": "放置量",
@@ -35,6 +35,6 @@
   "carpet.rule.disableBatSpawning.name": "禁用蝙蝠生成",
   "carpet.rule.disableBatSpawning.desc": "禁用蝙蝠的自然生成",
 
-  "carpet.rule.commandClearItem.name": "清除掉落物",
-  "carpet.rule.commandClearItem.desc": "清除加载范围内的掉落物"
+  "carpet.rule.commandKillItem.name": "清除掉落物",
+  "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物"
 }

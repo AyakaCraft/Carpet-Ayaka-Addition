@@ -1,0 +1,2 @@
+carpet.api.settings.Rule carpet.settings.Rule
+carpet.api.settings.RuleCategory carpet.settings.RuleCategory

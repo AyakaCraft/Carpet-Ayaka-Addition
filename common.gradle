@@ -32,22 +32,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-    // mods
-    if (project.carpet_core_version.matches('^com.github.[a-zA-Z0-9_-]+:fabric-carpet:[a-z0-9]+$')) {
-        modImplementation project.carpet_core_version  // jitpack
-    } else {
-        modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"  // masa's maven
-    }
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    // runtime mods
-    if (mcVersion < 11904) {
-        modRuntimeOnly(mcVersion < 11900 ? "com.github.astei:lazydfu:0.1.2" : "com.github.Fallen-Breath:lazydfu:a7cfc44c0c")
-    }
+    // mods
+    modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 
-    // libraries
-    testImplementation "junit:junit:${project.junit_version}"
 }
 
 String MIXIN_CONFIG_PATH = 'carpet-ayaka-addition.mixins.json'
@@ -131,11 +120,11 @@ if (System.getenv("JITPACK") == "true") {
     // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
     base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
     fullProjectVersion = 'v' + project.mod_version + modVersionSuffix
-    fullArtifactVersion = artifactVersion + artifactVersionSuffix
+    //fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
     base.archivesName = project.archives_base_name
     fullProjectVersion = 'v' + project.mod_version + '-mc' + project.minecraft_version + modVersionSuffix
-    fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version + artifactVersionSuffix
+    //fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version + artifactVersionSuffix
 }
 version = fullProjectVersion
 
@@ -147,15 +136,13 @@ processResources {
     inputs.property "id", project.mod_id
     inputs.property "name", project.mod_name
     inputs.property "version", fullModVersion
-    inputs.property "minecraft_dependency", project.minecraft_dependency
 
     filesMatching("fabric.mod.json") {
         def valueMap = [
-                "id"                  : project.mod_id,
-                "name"                : project.mod_name,
-                "version"             : fullModVersion,
-                "carpet_dependency"   : project.carpet_dependency,
-                "minecraft_dependency": project.minecraft_dependency,
+                "id"               : project.mod_id,
+                "name"             : project.mod_name,
+                "version"          : fullModVersion,
+                "carpet_dependency": project.carpet_dependency,
                 "minecraft_version": project.minecraft_version
         ]
 
@@ -182,11 +169,6 @@ tasks.withType(JavaCompile).configureEach {
 java {
     sourceCompatibility = JAVA_COMPATIBILITY
     targetCompatibility = JAVA_COMPATIBILITY
-
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
-    withSourcesJar()
 }
 
 jar {
@@ -197,14 +179,14 @@ jar {
 
 // configure the maven publication
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId base.archivesName.get()
-            from components.java
-            version = fullArtifactVersion
-        }
-    }
-
+    //publications {
+    //    mavenJava(MavenPublication) {
+    //        artifactId base.archivesName.get()
+    //        from components.java
+    //        version = fullArtifactVersion
+    //    }
+    //}
+    //
     //// select the repositories you want to publish to
     //repositories {
     //    maven {
