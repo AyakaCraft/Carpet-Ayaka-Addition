@@ -171,7 +171,7 @@ public final class WaypointCommand {
         return MethodWrapper
                 .translatableText("command.carpet-ayaka-addition.waypoint.list")
                 .formatted(Formatting.YELLOW, Formatting.BOLD)
-                .append(Texts.join(id, id1 -> waypointIdText(id1, manager)));
+                .append(MethodWrapper.joinText(id, Text.of(" "), id1 -> waypointIdText(id1, manager)));
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {

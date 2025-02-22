@@ -8,8 +8,11 @@ import net.minecraft.text.Text;
 //#if MC<11900
 //$$ import net.minecraft.text.TranslatableText;
 //#endif
+import net.minecraft.text.Texts;
 import net.minecraft.world.GameMode;
 
+import java.util.Collection;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class MethodWrapper {
@@ -94,6 +97,31 @@ public final class MethodWrapper {
         //$$ return player.getWorld();
         //#else
         //$$ return player.getServerWorld();
+        //#endif
+    }
+
+    public static <T> MutableText joinText(Collection<T> elements, Text separator, Function<T, Text> transformer) {
+        //#if MC>=11700
+        return Texts.join(elements, separator, transformer);
+        //#else
+        //$$ if (elements.isEmpty()) {
+        //$$     return new net.minecraft.text.LiteralText("");
+        //$$ } else if (elements.size() == 1) {
+        //$$     return transformer.apply(elements.iterator().next()).copy();
+        //$$ } else {
+        //$$     MutableText mutableText = new net.minecraft.text.LiteralText("");
+        //$$     boolean bl = true;
+        //$$
+        //$$     for(T object : elements) {
+        //$$         if (!bl) {
+        //$$             mutableText.append(separator);
+        //$$         }
+        //$$         mutableText.append(transformer.apply(object));
+        //$$         bl = false;
+        //$$     }
+        //$$
+        //$$     return mutableText;
+        //$$ }
         //#endif
     }
 
