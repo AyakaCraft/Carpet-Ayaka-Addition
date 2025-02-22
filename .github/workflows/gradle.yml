@@ -7,8 +7,9 @@ on:
 
 env:
   JAVA_VERSION: 21
-  RELEASE_NAME: Carpet-Ayaka-Addtion ${{ github.ref }}
+  BUILD_RELEASE: "true"
   GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+
 
 permissions:
   contents: write
@@ -39,4 +40,3 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           github-token: "${{env.GITHUB_TOKEN}}"
-          name: "${{env.RELEASE_NAME}}"
