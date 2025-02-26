@@ -1,4 +1,3 @@
-apply plugin: 'maven-publish'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
@@ -131,8 +130,6 @@ version = fullProjectVersion
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
-    from "carpet-ayaka-addition.accesswidener"
-
     inputs.property "id", project.mod_id
     inputs.property "name", project.mod_name
     inputs.property "version", fullModVersion
@@ -175,29 +172,4 @@ jar {
     from(rootProject.file('LICENSE')) {
         rename { "${it}_${project.archives_base_name}" }
     }
-}
-
-// configure the maven publication
-publishing {
-    //publications {
-    //    mavenJava(MavenPublication) {
-    //        artifactId base.archivesName.get()
-    //        from components.java
-    //        version = fullArtifactVersion
-    //    }
-    //}
-    //
-    //// select the repositories you want to publish to
-    //repositories {
-    //    maven {
-    //        url = fullArtifactVersion.endsWith("SNAPSHOT") ? "https://maven.fallenbreath.me/snapshots" : "https://maven.fallenbreath.me/releases"
-    //        credentials(PasswordCredentials) {
-    //            username = 'fallen'
-    //            password = System.getenv("FALLENS_MAVEN_TOKEN")
-    //        }
-    //        authentication {
-    //            basic(BasicAuthentication)
-    //        }
-    //    }
-    //}
 }
