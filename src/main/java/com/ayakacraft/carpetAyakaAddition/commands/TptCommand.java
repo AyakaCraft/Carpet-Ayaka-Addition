@@ -26,7 +26,7 @@ public final class TptCommand {
                                             final @NotNull ServerCommandSource source = context.getSource();
                                             final @NotNull ServerPlayerEntity  player = source.getPlayerOrThrow();
                                             final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
-                                            player.teleport(MethodWrapper.getServerWorld(player), target.getX(), target.getY(), target.getZ(),
+                                            player.teleport(MethodWrapper.getServerWorld(target), target.getX(), target.getY(), target.getZ(),
                                                     MethodWrapper.getYaw(target), MethodWrapper.getPitch(target));
                                             return Command.SINGLE_SUCCESS;
                                         })));
