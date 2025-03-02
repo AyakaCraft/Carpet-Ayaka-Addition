@@ -1,2 +1,2 @@
-carpet.api.settings.Rule carpet.settings.Rule
-carpet.api.settings.RuleCategory carpet.settings.RuleCategory
+carpet.api.settings carpet.settings
+carpet.api.settings.CarpetRule carpet.settings.ParsedRule

@@ -15,6 +15,7 @@
   "command.carpet-ayaka-addition.killitem.none": "No item cleared",
   "command.carpet-ayaka-addition.killitem.single": "Cleared one item",
   "command.carpet-ayaka-addition.killitem.multiple": "Cleared %d items",
+  "command.carpet-ayaka-addition.killitem.warning": "Warning: clearing the items in %d seconds",
 
   "stat.carpet-ayaka-addition.mined_all": "Mined count",
   "stat.carpet-ayaka-addition.used_all": "Placed count",
@@ -36,5 +37,8 @@
   "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
 
   "carpet.rule.commandKillItem.name": "Clear items",
-  "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot"
+  "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
+
+  "carpet.rule.killItemAwaitSeconds.name": "Await seconds of /killitem",
+  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before killing the items, default to 5"
 }

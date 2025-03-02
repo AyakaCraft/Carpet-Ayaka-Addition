@@ -2,7 +2,7 @@ package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.MethodWrapper;
+import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
@@ -21,8 +21,8 @@ public final class CCommand {
                         .executes(ctx -> {
                             final ServerCommandSource         source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
-                            if (!MethodWrapper.changeGameMode(player, GameMode.SURVIVAL)) {
-                                MethodWrapper.changeGameMode(player, GameMode.SPECTATOR);
+                            if (!ServerPlayerUtils.changeGameMode(player, GameMode.SURVIVAL)) {
+                                ServerPlayerUtils.changeGameMode(player, GameMode.SPECTATOR);
                             }
                             return Command.SINGLE_SUCCESS;
                         }));

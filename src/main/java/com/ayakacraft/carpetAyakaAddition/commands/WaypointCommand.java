@@ -4,7 +4,8 @@ import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.data.Waypoint;
 import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
 import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.MethodWrapper;
+import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
+import com.ayakacraft.carpetAyakaAddition.util.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -44,7 +45,7 @@ public final class WaypointCommand {
         final WaypointManager manager = WaypointManager.getWaypointManager(source.getServer());
         final Set<String>     id      = manager.waypoints.keySet();
 
-        MethodWrapper.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
+        CommandUtils.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
 
         return 1;
     }
@@ -53,17 +54,14 @@ public final class WaypointCommand {
         @NotNull String   id       = StringArgumentType.getString(context, "id");
         @NotNull Waypoint waypoint = WaypointManager.getWaypointManager(context.getSource().getServer()).waypoints.get(id);
         if (waypoint == null) {
-            context.getSource().sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.not_exist", id));
+            context.getSource().sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
         ServerCommandSource source = context.getSource();
-        MethodWrapper.sendFeedback(source, () -> MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
+        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
                 .formatted(Formatting.YELLOW, Formatting.BOLD)
                 .append(
-                        MethodWrapper.translatableText(
-                                        "command.carpet-ayaka-addition.waypoint.detail.2",
-                                        waypoint.getId(), waypoint.getDim(),
-                                        waypoint.getX(), waypoint.getY(), waypoint.getZ())
+                        TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.detail.2", waypoint.getId(), waypoint.getDim(), waypoint.getX(), waypoint.getY(), waypoint.getZ())
                                 .formatted(Formatting.GREEN)), false);
         return 1;
     }
@@ -72,11 +70,11 @@ public final class WaypointCommand {
         try {
             WaypointManager.getWaypointManager(context.getSource().getServer()).loadWaypoints();
         } catch (IOException e) {
-            context.getSource().sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.reload.failed"));
+            context.getSource().sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
         }
         ServerCommandSource source = context.getSource();
-        MethodWrapper.sendFeedback(source, () -> MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.reload.success"), false);
+        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.reload.success"), false);
         return 1;
     }
 
@@ -91,10 +89,10 @@ public final class WaypointCommand {
         try {
             manager.saveWaypoints();
         } catch (IOException e) {
-            source.sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
+            source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        MethodWrapper.sendFeedback(source, () -> MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.set.success", id), false);
+        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.set.success", id), false);
         return 1;
     }
 
@@ -107,10 +105,10 @@ public final class WaypointCommand {
         try {
             manager.saveWaypoints();
         } catch (IOException e) {
-            source.sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
+            source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        MethodWrapper.sendFeedback(source, () -> MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.remove.success", id), false);
+        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.remove.success", id), false);
         return 1;
     }
 
@@ -120,21 +118,21 @@ public final class WaypointCommand {
         Waypoint            waypoint = WaypointManager.getWaypointManager(source.getServer()).waypoints.get(id);
         ServerPlayerEntity  self     = source.getPlayerOrThrow();
         if (waypoint == null) {
-            source.sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.not_exist", id));
+            source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
         }
 
         ServerWorld dim = source.getServer().getWorld(waypoint.getDimension());
         Vec3d       pos = waypoint.getPos();
         if (dim == null) {
-            source.sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.dimension_unrecognized", waypoint.getDim()));
+            source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.dimension_unrecognized", waypoint.getDim()));
             return 0;
         }
         if (!dim.getWorldBorder().contains(new BlockPos(MathHelper.floor(pos.getX()), MathHelper.floor(pos.getY()), MathHelper.floor(pos.getZ())))) {
-            source.sendError(MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.out_of_world_border", id));
+            source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.out_of_world_border", id));
             return 0;
         }
-        self.teleport(dim, pos.getX(), pos.getY(), pos.getZ(), MethodWrapper.getYaw(self), MethodWrapper.getPitch(self));
+        self.teleport(dim, pos.getX(), pos.getY(), pos.getZ(), ServerPlayerUtils.getYaw(self), ServerPlayerUtils.getPitch(self));
         return 1;
     }
 
@@ -143,11 +141,11 @@ public final class WaypointCommand {
     }
 
     private static MutableText waypointIdText(String id, WaypointManager manager) {
-        MutableText txt = MethodWrapper.literalText("[%s]", id).formatted(Formatting.GREEN);
+        MutableText txt = TextUtils.literalText("[%s]", id).formatted(Formatting.GREEN);
         Waypoint    w   = manager.waypoints.get(id);
         txt.setStyle(txt.getStyle()
                 .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint tp \"%s\"", id)))
-                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list.hover", w.getDim(), w.getX(), w.getY(), w.getZ())))
         );
         return txt;
     }
@@ -159,19 +157,18 @@ public final class WaypointCommand {
         final Collection<Waypoint> waypoints = manager.waypoints.values();
         final List<String>         id        = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());
 
-        MethodWrapper.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
+        CommandUtils.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
 
         return 1;
     }
 
     private static MutableText listWaypointIdsText(Collection<String> id, WaypointManager manager) {
         if (id.isEmpty()) {
-            return MethodWrapper.translatableText("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
+            return TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
         }
-        return MethodWrapper
-                .translatableText("command.carpet-ayaka-addition.waypoint.list")
+        return TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list")
                 .formatted(Formatting.YELLOW, Formatting.BOLD)
-                .append(MethodWrapper.joinText(id, Text.of(" "), id1 -> waypointIdText(id1, manager)));
+                .append(TextUtils.join(id, Text.of(" "), id1 -> waypointIdText(id1, manager)));
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -196,7 +193,7 @@ public final class WaypointCommand {
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::remove)))
                         .then(literal("tp")
-                                .requires(MethodWrapper::isExecutedByPlayer)
+                                .requires(CommandUtils::isExecutedByPlayer)
                                 .then(argument("id", StringArgumentType.string())
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::tp)))

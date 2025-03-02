@@ -27,6 +27,8 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 
 - /killitem
     - Clears dropped items with one shot
+    - killItemAwaitSeconds
+        - Seconds to wait before clearing the items
 - /gohome
     - Teleport you right back to your spawn point
 - /tpt \<player>

@@ -2,7 +2,7 @@ package com.ayakacraft.carpetAyakaAddition.commands;
 
 import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.MethodWrapper;
+import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -26,8 +26,8 @@ public final class TptCommand {
                                             final @NotNull ServerCommandSource source = context.getSource();
                                             final @NotNull ServerPlayerEntity  player = source.getPlayerOrThrow();
                                             final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
-                                            player.teleport(MethodWrapper.getServerWorld(target), target.getX(), target.getY(), target.getZ(),
-                                                    MethodWrapper.getYaw(target), MethodWrapper.getPitch(target));
+                                            player.teleport(ServerPlayerUtils.getServerWorld(target), target.getX(), target.getY(), target.getZ(),
+                                                    ServerPlayerUtils.getYaw(target), ServerPlayerUtils.getPitch(target));
                                             return Command.SINGLE_SUCCESS;
                                         })));
     }

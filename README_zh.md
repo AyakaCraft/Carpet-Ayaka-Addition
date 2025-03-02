@@ -27,6 +27,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 - /killitem
     - 一键清除掉落物
+    - killItemAwaitSeconds
+        - 清理掉落物之前等待的秒数
 - /gohome
     - 将你传送回出生点/重生点
 - /tpt \<player>

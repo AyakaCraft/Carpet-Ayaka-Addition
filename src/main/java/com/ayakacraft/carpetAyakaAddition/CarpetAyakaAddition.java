@@ -6,6 +6,7 @@ import com.ayakacraft.carpetAyakaAddition.commands.*;
 import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
 import com.ayakacraft.carpetAyakaAddition.event.AfterBlockBreakHandler;
 import com.ayakacraft.carpetAyakaAddition.stats.Statistics;
+import com.ayakacraft.carpetAyakaAddition.util.TickTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -26,10 +27,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
@@ -42,6 +41,8 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public static final String MOD_VERSION;
+
+    public static final CarpetAyakaAddition INSTANCE = new CarpetAyakaAddition();
 
     static {
         Optional<ModContainer> o = FabricLoader.getInstance().getModContainer(MOD_ID);
@@ -60,6 +61,10 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
         //#endif
     }
 
+    private final LinkedList<TickTask> tickTasks = new LinkedList<>();
+
+    private final LinkedBlockingQueue<TickTask> preTickTasks = new LinkedBlockingQueue<>();
+
     public MinecraftServer mcServer;
 
     @Override
@@ -68,7 +73,7 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
         Statistics.registerAll();
         registerEvents();
 
-        CarpetServer.manageExtension(new CarpetAyakaAddition());
+        CarpetServer.manageExtension(INSTANCE);
     }
 
     @Override
@@ -87,6 +92,14 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
     }
 
     @Override
+    public void onTick(MinecraftServer server) {
+        preTickTasks.forEach(TickTask::start);
+        preTickTasks.drainTo(tickTasks);
+        tickTasks.forEach(TickTask::tick);
+        new LinkedList<>(tickTasks).stream().filter(TickTask::isFinished).forEach(tickTasks::remove);
+    }
+
+    @Override
     //#if MC>=11900
     public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final CommandRegistryAccess commandBuildContext) {
         //#else
@@ -101,7 +114,7 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     @Override
     public void onServerClosed(MinecraftServer server) {
-        WaypointManager.removeWaypointManager(server);
+        WaypointManager.removeWaypointManager(mcServer);
 
         this.mcServer = null;
     }
@@ -132,6 +145,10 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
         }
         return GSON.fromJson(jsonData, new TypeToken<Map<String, String>>() {
         }.getType());
+    }
+
+    public void addTickTask(TickTask tickTask) {
+        preTickTasks.add(tickTask);
     }
 
     public void registerEvents() {

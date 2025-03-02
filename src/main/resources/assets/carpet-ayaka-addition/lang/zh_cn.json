@@ -15,6 +15,7 @@
   "command.carpet-ayaka-addition.killitem.none": "没有可清除的掉落物",
   "command.carpet-ayaka-addition.killitem.single": "清除了1个掉落物",
   "command.carpet-ayaka-addition.killitem.multiple": "清除了%d个掉落物",
+  "command.carpet-ayaka-addition.killitem.warning": "警告：掉落物将在%d秒后清除",
 
   "stat.carpet-ayaka-addition.mined_all": "挖掘量",
   "stat.carpet-ayaka-addition.used_all": "放置量",
@@ -36,5 +37,8 @@
   "carpet.rule.disableBatSpawning.desc": "禁用蝙蝠的自然生成",
 
   "carpet.rule.commandKillItem.name": "清除掉落物",
-  "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物"
+  "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物",
+
+  "carpet.rule.killItemAwaitSeconds.name": "/killitem 执行延迟",
+  "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5"
 }
