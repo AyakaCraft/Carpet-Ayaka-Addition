@@ -34,7 +34,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew clean buildAndGather
+        run: ./gradlew clean buildAndGather publishToModrinth
 
       - name: Publish
         uses: Kir-Antipov/mc-publish@v3.3

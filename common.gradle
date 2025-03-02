@@ -1,6 +1,7 @@
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
+apply plugin: 'com.modrinth.minotaur'
 
 int mcVersion = project.mcVersion
 
@@ -171,5 +172,19 @@ java {
 jar {
     from(rootProject.file('LICENSE')) {
         rename { "${it}_${project.archives_base_name}" }
+    }
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "carpet-ayaka-addition"
+    versionNumber = fullProjectVersion
+    versionType = "release"
+    uploadFile = remapJar
+    gameVersions = [project.minecraft_version]
+    // syncBodyFrom = rootProject.file("README.md").text
+    dependencies {
+        required.project "fabric-api"
+        required.project "carpet"
     }
 }

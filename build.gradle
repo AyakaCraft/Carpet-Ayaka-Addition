@@ -6,6 +6,8 @@ plugins {
     id 'com.replaymod.preprocess' version '9d21b334a7'
 
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+
+    id "com.modrinth.minotaur" version "2.+" apply false
 }
 
 version = project.mod_version
@@ -53,5 +55,12 @@ tasks.register('buildAndGather') {
                 duplicatesStrategy DuplicatesStrategy.INCLUDE
             }
         }
+    }
+}
+
+tasks.register("publishToModrinth") {
+    mustRunAfter project.tasks.named('buildAndGather').get()
+    subprojects {
+        dependsOn project.tasks.named('modrinth').get()
     }
 }
