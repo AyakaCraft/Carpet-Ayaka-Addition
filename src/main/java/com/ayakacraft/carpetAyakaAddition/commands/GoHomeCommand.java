@@ -1,7 +1,7 @@
-package com.ayakacraft.carpetAyakaAddition.commands;
+package com.ayakacraft.carpetayakaaddition.commands;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.MinecraftServer;
@@ -18,7 +18,7 @@ public final class GoHomeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("gohome")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, true))
                         .executes(context -> {
                             final ServerCommandSource         source = context.getSource();
                             final MinecraftServer             server = source.getServer();

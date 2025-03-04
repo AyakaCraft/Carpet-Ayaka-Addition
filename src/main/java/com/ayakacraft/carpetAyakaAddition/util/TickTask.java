@@ -1,6 +1,6 @@
-package com.ayakacraft.carpetAyakaAddition.util;
+package com.ayakacraft.carpetayakaaddition.util;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import net.minecraft.server.MinecraftServer;
 
 public abstract class TickTask {

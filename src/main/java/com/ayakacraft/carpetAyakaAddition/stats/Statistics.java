@@ -1,6 +1,6 @@
-package com.ayakacraft.carpetAyakaAddition.stats;
+package com.ayakacraft.carpetayakaaddition.stats;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 //#if MC>=11904
 import net.minecraft.registry.Registries;
 //#endif

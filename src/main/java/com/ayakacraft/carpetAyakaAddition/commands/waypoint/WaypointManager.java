@@ -1,8 +1,8 @@
-package com.ayakacraft.carpetAyakaAddition.data;
+package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetAyakaAddition.mixin.LevelStorageSessionAccessor;
-import com.ayakacraft.carpetAyakaAddition.mixin.MinecraftServerAccessor;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.mixin.LevelStorageSessionAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.MinecraftServerAccessor;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
 
@@ -14,7 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition.GSON;
+import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
 
 public class WaypointManager {
 

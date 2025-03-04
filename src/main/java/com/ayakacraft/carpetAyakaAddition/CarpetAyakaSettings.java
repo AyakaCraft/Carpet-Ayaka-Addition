@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition;
+package com.ayakacraft.carpetayakaaddition;
 
 import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Rule;
@@ -6,8 +6,7 @@ import carpet.api.settings.Validator;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.Nullable;
 
-import static carpet.api.settings.RuleCategory.COMMAND;
-import static carpet.api.settings.RuleCategory.EXPERIMENTAL;
+import static carpet.api.settings.RuleCategory.*;
 
 public class CarpetAyakaSettings {
 
@@ -56,9 +55,9 @@ public class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL})
+    @Rule(categories = {AYAKA, FEATURE})
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "")
+    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "")
     //#endif
     public static boolean disableBatSpawning = false;
 

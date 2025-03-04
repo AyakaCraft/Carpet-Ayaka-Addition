@@ -1,8 +1,8 @@
-package com.ayakacraft.carpetAyakaAddition.commands;
+package com.ayakacraft.carpetayakaaddition.commands;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.util.ServerPlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
@@ -18,7 +18,7 @@ public final class TptCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("tpt")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, true))
                         .then(
                                 argument("target", EntityArgumentType.player())
                                         .suggests(CommandUtils::playerSuggestionProvider)

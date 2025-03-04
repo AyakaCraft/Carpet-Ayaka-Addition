@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.util;
+package com.ayakacraft.carpetayakaaddition.util;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -17,8 +17,8 @@ import java.util.function.Supplier;
 
 public final class CommandUtils {
 
-    public static boolean checkPermission(ServerCommandSource source, boolean needNotOp, boolean needNotPlayer) {
-        return (isExecutedByPlayer(source) || needNotPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || needNotOp);
+    public static boolean checkPermission(ServerCommandSource source, boolean needNotOp, boolean needsPlayer) {
+        return (isExecutedByPlayer(source) || !needsPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || needNotOp);
     }
 
     public static CompletableFuture<Suggestions> playerSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {

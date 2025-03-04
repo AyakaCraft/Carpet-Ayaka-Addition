@@ -1,20 +1,17 @@
-package com.ayakacraft.carpetAyakaAddition.commands;
+package com.ayakacraft.carpetayakaaddition.commands;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.TextUtils;
-import com.ayakacraft.carpetAyakaAddition.util.TickTask;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.util.TextUtils;
+import com.ayakacraft.carpetayakaaddition.util.TickTask;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Formatting;
-//#if MC>=11700
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.util.TypeFilter;
-//#endif
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,11 +35,7 @@ public final class KillItemCommand {
         final MinecraftServer server  = source.getServer();
         server.getWorlds().forEach(world -> {
             targets.addAll(world.getEntitiesByType(
-                    //#if MC>=11700
-                    TypeFilter.instanceOf(ItemEntity.class),
-                    //#else
-                    //$$ net.minecraft.entity.EntityType.ITEM,
-                    //#endif
+                    EntityType.ITEM,
                     itemEntity -> true));
         });
         if (targets.isEmpty()) {
@@ -61,7 +54,7 @@ public final class KillItemCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("killitem")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, true))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
                         .executes(KillItemCommand::killItem));
     }
 

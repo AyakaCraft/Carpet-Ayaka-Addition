@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelStorage;

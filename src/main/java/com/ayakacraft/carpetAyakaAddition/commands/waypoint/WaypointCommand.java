@@ -1,11 +1,9 @@
-package com.ayakacraft.carpetAyakaAddition.commands;
+package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.data.Waypoint;
-import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
-import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
-import com.ayakacraft.carpetAyakaAddition.util.TextUtils;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.util.ServerPlayerUtils;
+import com.ayakacraft.carpetayakaaddition.util.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -174,7 +172,7 @@ public final class WaypointCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("waypoint")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandWaypoint, true))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandWaypoint, false))
                         .then(literal("reload").executes(WaypointCommand::reload))
                         .then(literal("list").executes(WaypointCommand::list)
                                 .then(argument("dim", DimensionArgumentType.dimension())

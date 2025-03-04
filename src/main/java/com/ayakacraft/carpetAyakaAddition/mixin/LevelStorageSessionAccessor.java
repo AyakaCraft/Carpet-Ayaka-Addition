@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin;
 
 //#if MC<11900
 //$$ import java.nio.file.Path;

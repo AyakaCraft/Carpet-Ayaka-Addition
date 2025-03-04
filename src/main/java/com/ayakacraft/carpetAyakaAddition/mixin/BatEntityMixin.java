@@ -1,6 +1,6 @@
-package com.ayakacraft.carpetAyakaAddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.BatEntity;

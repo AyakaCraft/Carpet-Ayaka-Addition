@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin;
 
 import carpet.patches.EntityPlayerMPFake;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static com.ayakacraft.carpetAyakaAddition.stats.Statistics.USED_ALL;
+import static com.ayakacraft.carpetayakaaddition.stats.Statistics.USED_ALL;
 
 @Mixin(BlockItem.class)
 public class BlockItemMixin {

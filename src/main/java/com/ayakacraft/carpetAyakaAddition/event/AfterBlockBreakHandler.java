@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetAyakaAddition.event;
+package com.ayakacraft.carpetayakaaddition.event;
 
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.block.BlockState;
@@ -8,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import static com.ayakacraft.carpetAyakaAddition.stats.Statistics.MINED_ALL;
+import static com.ayakacraft.carpetayakaaddition.stats.Statistics.MINED_ALL;
 
 public class AfterBlockBreakHandler implements PlayerBlockBreakEvents.After {
 

@@ -1,8 +1,8 @@
-package com.ayakacraft.carpetAyakaAddition.commands;
+package com.ayakacraft.carpetayakaaddition.commands;
 
-import com.ayakacraft.carpetAyakaAddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetAyakaAddition.util.CommandUtils;
-import com.ayakacraft.carpetAyakaAddition.util.ServerPlayerUtils;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.util.ServerPlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
@@ -17,7 +17,7 @@ public final class CCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("c")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, true))
                         .executes(ctx -> {
                             final ServerCommandSource         source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();

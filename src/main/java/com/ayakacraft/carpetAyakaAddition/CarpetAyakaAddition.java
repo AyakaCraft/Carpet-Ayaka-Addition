@@ -1,12 +1,13 @@
-package com.ayakacraft.carpetAyakaAddition;
+package com.ayakacraft.carpetayakaaddition;
 
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
-import com.ayakacraft.carpetAyakaAddition.commands.*;
-import com.ayakacraft.carpetAyakaAddition.data.WaypointManager;
-import com.ayakacraft.carpetAyakaAddition.event.AfterBlockBreakHandler;
-import com.ayakacraft.carpetAyakaAddition.stats.Statistics;
-import com.ayakacraft.carpetAyakaAddition.util.TickTask;
+import com.ayakacraft.carpetayakaaddition.commands.*;
+import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointCommand;
+import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointManager;
+import com.ayakacraft.carpetayakaaddition.event.AfterBlockBreakHandler;
+import com.ayakacraft.carpetayakaaddition.stats.Statistics;
+import com.ayakacraft.carpetayakaaddition.util.TickTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -101,7 +102,7 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
 
     @Override
     //#if MC>=11900
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final CommandRegistryAccess commandBuildContext) {
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final CommandRegistryAccess registryAccess) {
         //#else
         //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
         //#endif
