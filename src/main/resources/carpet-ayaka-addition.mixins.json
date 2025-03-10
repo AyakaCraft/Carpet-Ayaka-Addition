@@ -6,6 +6,7 @@
   "mixins": [
     "BatEntityMixin",
     "BlockItemMixin",
+    "FoxEntityMixin",
     "LevelStorageSessionAccessor",
     "MinecraftServerAccessor"
   ],

@@ -40,5 +40,8 @@
   "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
 
   "carpet.rule.killItemAwaitSeconds.name": "Await seconds of /killitem",
-  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before killing the items, default to 5"
+  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before killing the items, default to 5",
+
+  "carpet.rule.disableFoxPickup.name": "Disable foxes picking up items",
+  "carpet.rule.disableFoxPickup.desc": "Stops foxes from picking up dropped items"
 }

@@ -40,5 +40,8 @@
   "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物",
 
   "carpet.rule.killItemAwaitSeconds.name": "/killitem 执行延迟",
-  "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5"
+  "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5",
+
+  "carpet.rule.disableFoxPickup.name": "禁用狐狸叼起物品",
+  "carpet.rule.disableFoxPickup.desc": "阻止狐狸叼起掉落物"
 }
