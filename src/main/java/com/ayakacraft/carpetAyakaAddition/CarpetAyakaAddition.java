@@ -5,16 +5,16 @@ import carpet.CarpetServer;
 import com.ayakacraft.carpetayakaaddition.commands.*;
 import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointCommand;
 import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointManager;
-import com.ayakacraft.carpetayakaaddition.event.AfterBlockBreakHandler;
+import com.ayakacraft.carpetayakaaddition.events.AfterBlockBreakHandler;
 import com.ayakacraft.carpetayakaaddition.stats.Statistics;
-import com.ayakacraft.carpetayakaaddition.util.TickTask;
+import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 //#if MC>=11900
 import net.minecraft.command.CommandRegistryAccess;
@@ -46,12 +46,8 @@ public class CarpetAyakaAddition implements ModInitializer, CarpetExtension {
     public static final CarpetAyakaAddition INSTANCE = new CarpetAyakaAddition();
 
     static {
-        Optional<ModContainer> o = FabricLoader.getInstance().getModContainer(MOD_ID);
-        if (o.isPresent()) {
-            MOD_VERSION = o.get().getMetadata().getVersion().toString();
-        } else {
-            MOD_VERSION = "dev";
-        }
+        final Optional<ModContainer> o = ModUtils.getModContainer(MOD_ID);
+        MOD_VERSION = o.isPresent() ? o.get().getMetadata().getVersion().toString() : "dev";
     }
 
     public static Identifier identifier(String path) {

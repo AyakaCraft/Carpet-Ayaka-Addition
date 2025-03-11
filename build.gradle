@@ -19,14 +19,12 @@ preprocess {
     def mc11605 = createNode("1.16.5", 1_16_05, "")
     def mc11701 = createNode("1.17.1", 1_17_01, "")
     def mc11802 = createNode("1.18.2", 1_18_02, "")
-    def mc11902 = createNode("1.19.2", 1_19_02, "")
     def mc11904 = createNode("1.19.4", 1_19_04, "")
     def mc12001 = createNode("1.20.1", 1_20_01, "")
     def mc12006 = createNode("1.20.6", 1_20_06, "")
 
     mc12001.link(mc11904, null)
-    mc11904.link(mc11902, null)
-    mc11902.link(mc11802, file("versions/mapping_11902_11802.txt"))
+    mc11904.link(mc11802, file("versions/mapping_11904_11802.txt"))
     mc11802.link(mc11701, file("versions/mapping_11802_11701.txt"))
     mc11701.link(mc11605, null)
 

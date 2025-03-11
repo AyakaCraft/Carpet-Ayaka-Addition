@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin.stats;
 
 import carpet.patches.EntityPlayerMPFake;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +16,7 @@ import static com.ayakacraft.carpetayakaaddition.stats.Statistics.USED_ALL;
 public class BlockItemMixin {
 
     @Inject(at = @At("RETURN"), method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;")
-    public void onBlockItemPlaced(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
+    private void onBlockItemPlaced(ItemPlacementContext context, CallbackInfoReturnable<ActionResult> cir) {
         if (cir.getReturnValue().isAccepted()) {
             PlayerEntity player = context.getPlayer();
             if (player != null && !(player instanceof EntityPlayerMPFake)) {

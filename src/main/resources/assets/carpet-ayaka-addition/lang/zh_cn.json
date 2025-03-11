@@ -42,6 +42,9 @@
   "carpet.rule.killItemAwaitSeconds.name": "/killitem 执行延迟",
   "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5",
 
-  "carpet.rule.disableFoxPickup.name": "禁用狐狸叼起物品",
-  "carpet.rule.disableFoxPickup.desc": "阻止狐狸叼起掉落物"
+  "carpet.rule.foxNoPickupItem.name": "禁用狐狸叼起物品",
+  "carpet.rule.foxNoPickupItem.desc": "阻止狐狸叼起掉落物",
+
+  "carpet.rule.betterOpPlayerNoCheat.name": "更好的 opPlayerNoCheat 选项",
+  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用 /kill 和 /clear 指令，只有在加载了 Carpet TIS Addition 且 opPlayerNoCheat 为 true 时生效"
 }

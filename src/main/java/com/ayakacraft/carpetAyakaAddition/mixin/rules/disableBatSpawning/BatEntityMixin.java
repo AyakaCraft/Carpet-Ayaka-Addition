@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.disableBatSpawning;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.entity.EntityType;

@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.foxNoPickupItem;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.entity.passive.FoxEntity;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FoxEntityMixin {
 
     @Inject(method = "canPickupItem", at = @At("RETURN"), cancellable = true)
-    public void onPickupItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.disableFoxPickup) {
+    private void onPickupItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValue() && CarpetAyakaSettings.foxNoPickupItem) {
             cir.setReturnValue(false);
         }
     }
