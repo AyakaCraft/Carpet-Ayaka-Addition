@@ -2,9 +2,9 @@ package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
-import com.ayakacraft.carpetayakaaddition.util.TextUtils;
-import com.ayakacraft.carpetayakaaddition.util.TickTask;
+import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.entity.Entity;

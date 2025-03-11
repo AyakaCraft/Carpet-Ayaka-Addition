@@ -1,8 +1,8 @@
 package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
-import com.ayakacraft.carpetayakaaddition.util.ServerPlayerUtils;
+import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;

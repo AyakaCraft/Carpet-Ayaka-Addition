@@ -1,7 +1,7 @@
 package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.server.MinecraftServer;

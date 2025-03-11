@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.util;
+package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import net.minecraft.server.MinecraftServer;

@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.util;
+package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.storage.LevelStorage;

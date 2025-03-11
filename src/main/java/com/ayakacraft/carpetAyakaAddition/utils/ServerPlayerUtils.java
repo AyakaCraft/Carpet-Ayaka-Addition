@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.util;
+package com.ayakacraft.carpetayakaaddition.utils;
 
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

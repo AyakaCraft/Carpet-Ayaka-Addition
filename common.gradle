@@ -17,7 +17,8 @@ repositories {
     }
     maven {
         url 'https://www.cursemaven.com'
-    }
+    } \
+
 }
 
 // https://github.com/FabricMC/fabric-loader/issues/783
@@ -36,6 +37,8 @@ dependencies {
 
     // mods
     modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+
+    modCompileOnly "carpettisaddition:carpet-tis-addition:${project.tis_version}-mc${project.minecraft_version}"
 
 }
 

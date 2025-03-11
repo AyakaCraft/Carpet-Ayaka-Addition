@@ -1,9 +1,9 @@
 package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.util.CommandUtils;
-import com.ayakacraft.carpetayakaaddition.util.ServerPlayerUtils;
-import com.ayakacraft.carpetayakaaddition.util.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
+import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;

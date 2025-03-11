@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.mixin;
+package com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint;
 
 //#if MC<11900
 //$$ import java.nio.file.Path;

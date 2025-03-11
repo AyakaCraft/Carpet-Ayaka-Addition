@@ -15,51 +15,65 @@ public class CarpetAyakaSettings {
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Teleport to players")
     //#endif
     public static boolean commandTpt = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Teleport to spawn point")
     //#endif
     public static boolean commandGoHome = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Global waypoints on server")
     //#endif
     public static boolean commandWaypoint = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Spectator Switching")
     //#endif
     public static boolean commandC = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Clear items")
     //#endif
     public static boolean commandKillItem = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND}, validators = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"})
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for /killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"})
     //#endif
     public static int killItemAwaitSeconds = 5;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, FEATURE})
     //#else
-    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "")
+    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disable bat spawning")
     //#endif
     public static boolean disableBatSpawning = false;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, FEATURE})
+    //#else
+    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disable foxes picking up items")
+    //#endif
+    public static boolean foxNoPickupItem = false;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, COMMAND, SURVIVAL})
+    //#else
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Better opPlayerNoCheat option")
+    //#endif
+    public static boolean betterOpPlayerNoCheat = false;
 
     private static final class UnsignedIntegerValidator extends Validator<Integer> {
 

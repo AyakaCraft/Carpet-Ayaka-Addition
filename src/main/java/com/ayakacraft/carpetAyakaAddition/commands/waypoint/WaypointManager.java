@@ -1,8 +1,8 @@
 package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.mixin.LevelStorageSessionAccessor;
-import com.ayakacraft.carpetayakaaddition.mixin.MinecraftServerAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint.LevelStorageSessionAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint.MinecraftServerAccessor;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
 
