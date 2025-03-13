@@ -71,9 +71,16 @@ public class CarpetAyakaSettings {
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND, SURVIVAL})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Better opPlayerNoCheat option")
+    //$$ @Rule(category = {AYAKA, COMMAND, SURVIVAL}, desc = "Better opPlayerNoCheat option")
     //#endif
     public static boolean betterOpPlayerNoCheat = false;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, EXPERIMENTAL, BUGFIX})
+    //#else
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX}, desc = "Fake player resident ineffective in backups fix")
+    //#endif
+    public static boolean fakePlayerResidentBackupFix = false;
 
     private static final class UnsignedIntegerValidator extends Validator<Integer> {
 

@@ -45,6 +45,9 @@
   "carpet.rule.foxNoPickupItem.name": "禁用狐狸叼起物品",
   "carpet.rule.foxNoPickupItem.desc": "阻止狐狸叼起掉落物",
 
-  "carpet.rule.betterOpPlayerNoCheat.name": "更好的 opPlayerNoCheat 选项",
-  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用 /kill 和 /clear 指令，只有在加载了 Carpet TIS Addition 且 opPlayerNoCheat 为 true 时生效"
+  "carpet.rule.betterOpPlayerNoCheat.name": "更好的opPlayerNoCheat选项",
+  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill和/clear指令，仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
+
+  "carpet.rule.fakePlayerResidentBackupFix.name": "修复备份时不保留假人的问题",
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题，仅在加载了GCA且fakePlayerResident为true时生效"
 }

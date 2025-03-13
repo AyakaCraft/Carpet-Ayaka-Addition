@@ -46,5 +46,8 @@
   "carpet.rule.foxNoPickupItem.desc": "Stops foxes from picking up dropped items",
 
   "carpet.rule.betterOpPlayerNoCheat.name": "Better opPlayerNoCheat option",
-  "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill and /clear, enabled only if Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"
+  "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill and /clear, enabled only if Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
+
+  "carpet.rule.fakePlayerResidentBackupFix.name": "Fake player resident ineffective in backups fix",
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements, only active when GCA is loaded and fakePlayerResident is set to true"
 }

@@ -4,12 +4,11 @@
   "package": "com.ayakacraft.carpetayakaaddition.mixin",
   "compatibilityLevel": "{{COMPATIBILITY_LEVEL}}",
   "mixins": [
-    "commands.waypoint.LevelStorageSessionAccessor",
-    "commands.waypoint.MinecraftServerAccessor",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.disableBatSpawning.BatEntityMixin",
+    "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "stats.BlockItemMixin"
   ],

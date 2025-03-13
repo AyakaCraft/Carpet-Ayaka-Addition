@@ -17,7 +17,10 @@ repositories {
     }
     maven {
         url 'https://www.cursemaven.com'
-    } \
+    }
+    maven {
+        url 'https://api.modrinth.com/maven'
+    }
 
 }
 
@@ -38,7 +41,8 @@ dependencies {
     // mods
     modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
 
-    modCompileOnly "carpettisaddition:carpet-tis-addition:${project.tis_version}-mc${project.minecraft_version}"
+    modCompileOnly "carpettisaddition:carpet-tis-addition:${project.tis_version}"
+    modCompileOnly "maven.modrinth:gca:${project.gugle_version}"
 
 }
 

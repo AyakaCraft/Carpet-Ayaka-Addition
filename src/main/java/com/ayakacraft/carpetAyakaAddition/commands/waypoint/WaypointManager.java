@@ -1,10 +1,9 @@
 package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint.LevelStorageSessionAccessor;
-import com.ayakacraft.carpetayakaaddition.mixin.commands.waypoint.MinecraftServerAccessor;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.WorldSavePath;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -49,13 +48,7 @@ public class WaypointManager {
     public final Map<String, Waypoint> waypoints = new HashMap<>(3);
 
     private WaypointManager(MinecraftServer server) {
-        final LevelStorageSessionAccessor session = (LevelStorageSessionAccessor) (((MinecraftServerAccessor) server).getSession());
-        //#if MC>=11900
-        final Path worldPath = session.getDirectory().path();
-        //#else
-        //$$ final Path worldPath = session.getDirectory();
-        //#endif
-
+        final Path worldPath = server.getSavePath(WorldSavePath.ROOT);
         waypointStoragePath = worldPath.resolve("ayaka_waypoints.json");
         try {
             loadWaypoints();

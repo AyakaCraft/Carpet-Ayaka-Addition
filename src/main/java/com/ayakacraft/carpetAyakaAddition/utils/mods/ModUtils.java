@@ -11,6 +11,8 @@ public final class ModUtils {
 
     public static final String TIS_ID = "carpet-tis-addition";
 
+    public static final String GCA_ID = "gca";
+
     public static boolean isModLoaded(String modId) {
         return LOADER.isModLoaded(modId);
     }
@@ -21,6 +23,10 @@ public final class ModUtils {
 
     public static boolean isTISLoaded() {
         return isModLoaded(TIS_ID);
+    }
+
+    public static boolean isGCALoaded() {
+        return isModLoaded(GCA_ID);
     }
 
 }
