@@ -6,6 +6,7 @@
   "mixins": [
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
+    "rules.betterOpPlayerNoCheat.ItemCommandMixin",
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.disableBatSpawning.BatEntityMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",

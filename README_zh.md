@@ -26,33 +26,40 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 ### 命令
 
 - /killitem
-    - 一键清除掉落物
-    - killItemAwaitSeconds
-        - 清理掉落物之前等待的秒数
+    - *一键清除掉落物*
 - /gohome
-    - 将你传送回出生点/重生点
+    - *将你传送回出生点/重生点*
 - /tpt \<player>
-    - 将你传送至服务器内其他玩家
+    - *将你传送至服务器内其他玩家*
 - /c
-    - 将你的游戏模式切换回生存模式/到旁观者模式
+    - *将你的游戏模式切换回生存模式/到旁观者模式*
 - /waypoint
-    - 服务端的路径点
+    - *服务端的路径点*
     - reload
-        - 重新加载路径点
+        - *重新加载路径点*
     - list
-        - 列出所有路径点
+        - *列出所有路径点*
         - \<dim>
-            - 列出指定维度中的路径点
+            - *列出指定维度中的路径点*
     - set \<id> \<dim> \<pos>
-        - 添加一个新的路径点或者修改已有的路径点
+        - *添加一个新的路径点或者修改已有的路径点*
     - remove \<id>
-        - 移除指定路径点
+        - *移除指定路径点*
     - detail \<id>
-        - 显示指定路径点的详细信息
+        - *显示指定路径点的详细信息*
     - tp \<id>
-        - 将你传送到路径点
+        - *将你传送到路径点*
 
-### 游戏特性
-
+### 规则
 - disableBatSpawning
     - 禁用蝙蝠的自然生成
+- killItemAwaitSeconds
+    - 清理掉落物之前等待的秒数
+- betterOpPlayerNoCheat
+    - 阻止管理员玩家使用/kill，/clear，/effect 和 /item 指令
+    - 仅在加载了[Carpet Tis Addition](https://github.com/TISUnion/Carpet-TIS-Addition)且opPlayerNoCheat为true时生效
+- fakePlayerResidentBackupFix
+    - 修复回档后假人不会重新加入世界的问题
+    - 仅在加载了[Gca](https://github.com/Gu-ZT/gugle-carpet-addition)且fakePlayerResident为true时生效
+
+- 命令选项

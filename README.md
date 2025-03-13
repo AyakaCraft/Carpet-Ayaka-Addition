@@ -26,33 +26,41 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 ### Commands
 
 - /killitem
-    - Clears dropped items with one shot
-    - killItemAwaitSeconds
-        - Seconds to wait before clearing the items
+    - *Clears dropped items with one shot*
 - /gohome
-    - Teleport you right back to your spawn point
+    - *Teleport you right back to your spawn point*
 - /tpt \<player>
-    - Teleports you to another player in your server
+    - *Teleports you to another player in your server*
 - /c
-    - Switches your gamemode between spectator and survival
+    - *Switches your gamemode between spectator and survival*
 - /waypoint
-    - Server-side waypoints
+    - *Server-side waypoints*
     - reload
-        - Reloads the waypoints
+        - *Reloads the waypoints*
     - list
-        - Lists the waypoints
+        - *Lists the waypoints*
         - \<dim>
-            - Lists the waypoints in specific dimension
+            - *Lists the waypoints in specific dimension*
     - set \<id> \<dim> \<pos>
-        - Adds a new waypoint or modify an existing one
+        - *Adds a new waypoint or modify an existing one*
     - remove \<id>
-        - Removes the specific waypoint
+        - *Removes the specific waypoint*
     - detail \<id>
-        - Shows the detail of the specific waypoint
+        - *Shows the detail of the specific waypoint*
     - tp \<id>
-        - Teleports you to the specific waypoint
+        - *Teleports you to the specific waypoint*
 
-### Features
-
+### Rules
 - disableBatSpawning
     - Disables natual spawning of bats
+- killItemAwaitSeconds
+    - Seconds to wait before clearing the items
+- foxNoPickupItem
+  - Stops foxes from picking up dropped items
+- betterOpPlayerNoCheat
+  - Stops operators from using /kill, /clear, /effect and /item
+  - Only active when [Carpet Tis Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and opPlayerNoCheat is set to true
+- fakePlayerResidentBackupFix
+  - Fixes the bug that fake players are not reconnected after retracements
+  - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
+- Command rules
