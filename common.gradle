@@ -2,6 +2,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
 apply plugin: 'com.modrinth.minotaur'
+apply plugin: 'com.matthewprenger.cursegradle'
 
 int mcVersion = project.mcVersion
 
@@ -193,5 +194,15 @@ modrinth {
     dependencies {
         required.project "fabric-api"
         required.project "carpet"
+    }
+}
+
+curseforge {
+    project {
+        apiKey = System.getenv("CURSEFORGE_TOKEN")
+        id = '1220026'
+        mainArtifact remapJar
+        releaseType = 'release'
+        addGameVersion project.minecraft_version
     }
 }

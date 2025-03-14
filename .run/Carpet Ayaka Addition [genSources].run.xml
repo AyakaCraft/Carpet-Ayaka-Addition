@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Carpet Ayaka Addition [buildAndGather]" type="GradleRunConfiguration" factoryName="Gradle">
+  <configuration default="false" name="Carpet Ayaka Addition [genSources]" type="GradleRunConfiguration" factoryName="Gradle">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,9 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="clean" />
-          <option value="buildAndGather" />
-          <option value="publishToCurseForge" />
+          <option value="genSources" />
         </list>
       </option>
       <option name="vmOptions" />

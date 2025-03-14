@@ -8,6 +8,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
 
     id "com.modrinth.minotaur" version "2.+" apply false
+    id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
 }
 
 version = project.mod_version
@@ -60,5 +61,12 @@ tasks.register("publishToModrinth") {
     mustRunAfter project.tasks.named('buildAndGather').get()
     subprojects {
         dependsOn project.tasks.named('modrinth').get()
+    }
+}
+
+tasks.register("publishToCurseForge") {
+    mustRunAfter project.tasks.named('buildAndGather').get()
+    subprojects {
+        dependsOn project.tasks.named('curseforge').get()
     }
 }

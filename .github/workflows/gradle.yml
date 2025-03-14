@@ -10,6 +10,7 @@ env:
   BUILD_RELEASE: "true"
   GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+  CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
 
 permissions:
@@ -34,8 +35,8 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
 
-      - name: Build
-        run: ./gradlew clean buildAndGather publishToModrinth
+      - name: Build and Publish
+        run: ./gradlew clean buildAndGather publishToModrinth publishToCurseForge
 
       - name: Publish
         uses: Kir-Antipov/mc-publish@v3.3
