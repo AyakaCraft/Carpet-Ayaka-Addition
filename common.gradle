@@ -194,6 +194,8 @@ modrinth {
     dependencies {
         required.project "fabric-api"
         required.project "carpet"
+        optional.project "carpet-tis-addition"
+        optional.project "gca"
     }
 }
 
@@ -204,5 +206,11 @@ curseforge {
         mainArtifact remapJar
         releaseType = 'release'
         addGameVersion project.minecraft_version
+        relations {
+            requiredDependency 'fabric-api'
+            requiredDependency 'carpet'
+            optionalDependency 'carpet-tis-addition'
+            optionalDependency 'guglecarpetaddition'
+        }
     }
 }
