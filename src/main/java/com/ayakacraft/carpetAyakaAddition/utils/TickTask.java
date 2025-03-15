@@ -23,6 +23,9 @@ public abstract class TickTask {
         this.finished = true;
     }
 
+    public void cancel() {
+    }
+
     public abstract void tick();
 
     public boolean isFinished() {

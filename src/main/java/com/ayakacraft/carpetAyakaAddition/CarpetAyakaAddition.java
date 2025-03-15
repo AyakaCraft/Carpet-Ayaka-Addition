@@ -23,8 +23,6 @@ public class CarpetAyakaAddition implements ModInitializer {
 
     public static final String MOD_VERSION;
 
-    public static final CarpetAyakaServer INSTANCE = new CarpetAyakaServer();
-
     static {
         final Optional<ModContainer> o = ModUtils.getModContainer(MOD_ID);
         MOD_VERSION = o.isPresent() ? o.get().getMetadata().getVersion().toString() : "dev";
@@ -33,7 +31,7 @@ public class CarpetAyakaAddition implements ModInitializer {
     @Override
     public void onInitialize() {
         CarpetAyakaAddition.LOGGER.info("Initializing {} Version {}", CarpetAyakaAddition.MOD_NAME, CarpetAyakaAddition.MOD_VERSION);
-        CarpetServer.manageExtension(INSTANCE);
+        CarpetServer.manageExtension(CarpetAyakaServer.INSTANCE);
     }
 
 }

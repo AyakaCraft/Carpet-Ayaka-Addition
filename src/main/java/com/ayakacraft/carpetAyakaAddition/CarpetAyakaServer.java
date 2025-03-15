@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Predicate;
 
 public class CarpetAyakaServer implements CarpetExtension {
 
@@ -109,6 +110,16 @@ public class CarpetAyakaServer implements CarpetExtension {
 
     public void addTickTask(TickTask tickTask) {
         preTickTasks.add(tickTask);
+    }
+
+    public int cancelTickTasksMatching(Predicate<TickTask> predicate) {
+        final int[] i = {0};
+        new LinkedList<>(tickTasks).stream().filter(predicate).forEach(t -> {
+            t.cancel();
+            tickTasks.remove(t);
+            i[0]++;
+        });
+        return i[0];
     }
 
 }

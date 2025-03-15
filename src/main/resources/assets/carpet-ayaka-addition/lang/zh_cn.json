@@ -1,6 +1,6 @@
 {
   "command.carpet-ayaka-addition.waypoint.list.empty": "无路径点",
-  "command.carpet-ayaka-addition.waypoint.list": "路径点如下: \n",
+  "command.carpet-ayaka-addition.waypoint.list": "路径点如下: ",
   "command.carpet-ayaka-addition.waypoint.list.hover": "维度: %s\n位置: %f %f %f\n点击以传送",
   "command.carpet-ayaka-addition.waypoint.not_exist": "路径点 [%s] 不存在",
   "command.carpet-ayaka-addition.waypoint.detail.1": "路径点 [%s] 的详情: \n",
@@ -15,10 +15,11 @@
   "command.carpet-ayaka-addition.killitem.none": "没有可清除的掉落物",
   "command.carpet-ayaka-addition.killitem.single": "清除了1个掉落物",
   "command.carpet-ayaka-addition.killitem.multiple": "清除了%d个掉落物",
-  "command.carpet-ayaka-addition.killitem.warning": "警告：掉落物将在%d秒后清除",
-
-  "stat.carpet-ayaka-addition.mined_all": "挖掘量",
-  "stat.carpet-ayaka-addition.used_all": "放置量",
+  "command.carpet-ayaka-addition.killitem.task.start": "警告：掉落物将在%d秒后清除",
+  "command.carpet-ayaka-addition.killitem.task.cancelled": "取消清除掉落物",
+  "command.carpet-ayaka-addition.killitem.cancel.none": "没有任务被取消",
+  "command.carpet-ayaka-addition.killitem.cancel.single": "取消了一个任务",
+  "command.carpet-ayaka-addition.killitem.cancel.multiple": "取消了%d个任务",
 
   "carpet.rule.commandTpt.name": "传送到玩家",
   "carpet.rule.commandTpt.desc": "启用 /tpt 命令以传送到其他玩家",

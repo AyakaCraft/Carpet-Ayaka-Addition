@@ -13,7 +13,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 public final class CommandUtils {
 
@@ -35,11 +34,11 @@ public final class CommandUtils {
         return CommandSource.suggestMatching(new LinkedList<>(), builder);
     }
 
-    public static void sendFeedback(ServerCommandSource source, Supplier<Text> txt, boolean broadcastToOps) {
+    public static void sendFeedback(ServerCommandSource source, Text txt, boolean broadcastToOps) {
         //#if MC>=12000
-        source.sendFeedback(txt, broadcastToOps);
+        source.sendFeedback(() -> txt, broadcastToOps);
         //#else
-        //$$ source.sendFeedback(txt.get(), broadcastToOps);
+        //$$ source.sendFeedback(txt, broadcastToOps);
         //#endif
     }
 

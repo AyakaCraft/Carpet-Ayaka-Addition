@@ -48,14 +48,28 @@ public final class KillItemCommand {
         } else {
             TextUtils.broadcastToPlayers(server, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.multiple", targets.size()), false);
         }
-        return 1;
+        return targets.size();
+    }
+
+    private static int cancel(CommandContext<ServerCommandSource> context) {
+        final int                 i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
+        final ServerCommandSource source = context.getSource();
+        if (i == 0) {
+            CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.cancel.none"), false);
+        } else if (i == 1) {
+            CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.cancel.single"), false);
+        } else {
+            CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.cancel.multiple"), false);
+        }
+        return i;
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("killitem")
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
-                        .executes(KillItemCommand::killItem));
+                        .executes(KillItemCommand::killItem)
+                        .then(literal("cancel").executes(KillItemCommand::cancel)));
     }
 
     private static class KillItemTickTask extends TickTask {
@@ -75,7 +89,12 @@ public final class KillItemCommand {
 
         @Override
         public void start() {
-            TextUtils.broadcastToPlayers(mcServer, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.warning", awaitSeconds).formatted(Formatting.GOLD), false);
+            TextUtils.broadcastToPlayers(mcServer, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD), false);
+        }
+
+        @Override
+        public void cancel() {
+            TextUtils.broadcastToPlayers(mcServer, TextUtils.translatableText("command.carpet-ayaka-addition.killitem.task.cancelled"), false);
         }
 
         @Override

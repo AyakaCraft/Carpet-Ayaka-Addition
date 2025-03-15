@@ -27,6 +27,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 - /killitem
     - *一键清除掉落物*
+    - cancel
+        - *取消计划的清除掉落物任务*
 - /gohome
     - *将你传送回出生点/重生点*
 - /tpt \<player>
@@ -51,6 +53,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *将你传送到路径点*
 
 ### 规则
+
 - disableBatSpawning
     - 禁用蝙蝠的自然生成
 - killItemAwaitSeconds

@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -39,11 +38,10 @@ import static net.minecraft.server.command.CommandManager.literal;
 public final class WaypointCommand {
 
     private static int list(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource   source  = context.getSource();
-        final WaypointManager manager = WaypointManager.getWaypointManager(source.getServer());
-        final Set<String>     id      = manager.waypoints.keySet();
+        final ServerCommandSource source  = context.getSource();
+        final WaypointManager     manager = WaypointManager.getWaypointManager(source.getServer());
 
-        CommandUtils.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
+        sendWaypointList(source, manager.waypoints.keySet(), manager);
 
         return 1;
     }
@@ -56,7 +54,7 @@ public final class WaypointCommand {
             return 0;
         }
         ServerCommandSource source = context.getSource();
-        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
+        CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.detail.1", waypoint.getId())
                 .formatted(Formatting.YELLOW, Formatting.BOLD)
                 .append(
                         TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.detail.2", waypoint.getId(), waypoint.getDim(), waypoint.getX(), waypoint.getY(), waypoint.getZ())
@@ -72,7 +70,7 @@ public final class WaypointCommand {
             return 0;
         }
         ServerCommandSource source = context.getSource();
-        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.reload.success"), false);
+        CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.reload.success"), false);
         return 1;
     }
 
@@ -90,7 +88,7 @@ public final class WaypointCommand {
             source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.set.success", id), false);
+        CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.set.success", id), false);
         return 1;
     }
 
@@ -106,7 +104,7 @@ public final class WaypointCommand {
             source.sendError(TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
         }
-        CommandUtils.sendFeedback(source, () -> TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.remove.success", id), false);
+        CommandUtils.sendFeedback(source, TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.remove.success", id), false);
         return 1;
     }
 
@@ -138,8 +136,20 @@ public final class WaypointCommand {
         return CommandSource.suggestMatching(WaypointManager.getWaypointManager(context.getSource().getServer()).waypoints.keySet().stream().map(id -> "\"" + id + "\""), builder);
     }
 
+    private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+        final ServerCommandSource  source    = context.getSource();
+        final String               dim       = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
+        final WaypointManager      manager   = WaypointManager.getWaypointManager(source.getServer());
+        final Collection<Waypoint> waypoints = manager.waypoints.values();
+        final List<String>         idList    = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());
+
+        sendWaypointList(source, idList, manager);
+
+        return 1;
+    }
+
     private static MutableText waypointIdText(String id, WaypointManager manager) {
-        MutableText txt = TextUtils.literalText("[%s]", id).formatted(Formatting.GREEN);
+        MutableText txt = TextUtils.literalText("[").append(TextUtils.literalText(id).formatted(Formatting.GREEN)).append("]");
         Waypoint    w   = manager.waypoints.get(id);
         txt.setStyle(txt.getStyle()
                 .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint tp \"%s\"", id)))
@@ -148,25 +158,27 @@ public final class WaypointCommand {
         return txt;
     }
 
-    private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        final ServerCommandSource  source    = context.getSource();
-        final String               dim       = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
-        final WaypointManager      manager   = WaypointManager.getWaypointManager(source.getServer());
-        final Collection<Waypoint> waypoints = manager.waypoints.values();
-        final List<String>         id        = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());
-
-        CommandUtils.sendFeedback(source, () -> listWaypointIdsText(id, manager), false);
-
-        return 1;
+    private static MutableText listWaypointIdsText(Collection<String> ids, WaypointManager manager) {
+        return TextUtils.join(ids, Text.of(" "), id1 -> waypointIdText(id1, manager));
     }
 
-    private static MutableText listWaypointIdsText(Collection<String> id, WaypointManager manager) {
-        if (id.isEmpty()) {
-            return TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD);
+    private static void sendWaypointList(ServerCommandSource source, Collection<String> ids, WaypointManager manager) {
+        if (ids.isEmpty()) {
+            CommandUtils.sendFeedback(
+                    source,
+                    TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list.empty")
+                            .formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+        } else {
+            CommandUtils.sendFeedback(
+                    source,
+                    TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list")
+                            .formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+            CommandUtils.sendFeedback(source, listWaypointIdsText(ids, manager), false);
         }
-        return TextUtils.translatableText("command.carpet-ayaka-addition.waypoint.list")
-                .formatted(Formatting.YELLOW, Formatting.BOLD)
-                .append(TextUtils.join(id, Text.of(" "), id1 -> waypointIdText(id1, manager)));
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {

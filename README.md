@@ -27,6 +27,8 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 
 - /killitem
     - *Clears dropped items with one shot*
+    - cancel
+        - *Cancels the scheduled kill-item tasks*
 - /gohome
     - *Teleport you right back to your spawn point*
 - /tpt \<player>
@@ -51,16 +53,17 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
         - *Teleports you to the specific waypoint*
 
 ### Rules
+
 - disableBatSpawning
     - Disables natual spawning of bats
 - killItemAwaitSeconds
     - Seconds to wait before clearing the items
 - foxNoPickupItem
-  - Stops foxes from picking up dropped items
+    - Stops foxes from picking up dropped items
 - betterOpPlayerNoCheat
-  - Stops operators from using /kill, /clear, /effect and /item
-  - Only active when [Carpet Tis Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and opPlayerNoCheat is set to true
+    - Stops operators from using /kill, /clear, /effect and /item
+    - Only active when [Carpet Tis Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and opPlayerNoCheat is set to true
 - fakePlayerResidentBackupFix
-  - Fixes the bug that fake players are not reconnected after retracements
-  - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
+    - Fixes the bug that fake players are not reconnected after retracements
+    - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
 - Command rules are omitted here
