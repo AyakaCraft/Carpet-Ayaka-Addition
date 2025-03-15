@@ -1,17 +1,17 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import net.minecraft.server.MinecraftServer;
 
 public abstract class TickTask {
 
-    protected final CarpetAyakaAddition modServer;
+    protected final CarpetAyakaServer modServer;
 
     protected final MinecraftServer mcServer;
 
     private boolean finished;
 
-    public TickTask(CarpetAyakaAddition modServer) {
+    public TickTask(CarpetAyakaServer modServer) {
         this.modServer = modServer;
         this.mcServer = modServer.mcServer;
     }

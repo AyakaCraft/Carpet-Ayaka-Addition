@@ -10,8 +10,7 @@
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.disableBatSpawning.BatEntityMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
-    "rules.foxNoPickupItem.FoxEntityMixin",
-    "stats.BlockItemMixin"
+    "rules.foxNoPickupItem.FoxEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -63,4 +63,4 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 - fakePlayerResidentBackupFix
   - Fixes the bug that fake players are not reconnected after retracements
   - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
-- Command rules
+- Command rules are omitted here

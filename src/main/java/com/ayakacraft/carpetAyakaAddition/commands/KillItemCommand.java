@@ -1,6 +1,6 @@
 package com.ayakacraft.carpetayakaaddition.commands;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
@@ -25,7 +25,7 @@ public final class KillItemCommand {
         if (CarpetAyakaSettings.killItemAwaitSeconds == 0) {
             return killItem0(context.getSource());
         } else {
-            CarpetAyakaAddition.INSTANCE.addTickTask(new KillItemTickTask(CarpetAyakaAddition.INSTANCE, CarpetAyakaSettings.killItemAwaitSeconds, context.getSource()));
+            CarpetAyakaServer.INSTANCE.addTickTask(new KillItemTickTask(CarpetAyakaServer.INSTANCE, CarpetAyakaSettings.killItemAwaitSeconds, context.getSource()));
             return 1;
         }
     }
@@ -66,7 +66,7 @@ public final class KillItemCommand {
 
         private int ticks;
 
-        public KillItemTickTask(CarpetAyakaAddition modServer, int awaitSeconds, ServerCommandSource source) {
+        public KillItemTickTask(CarpetAyakaServer modServer, int awaitSeconds, ServerCommandSource source) {
             super(modServer);
             this.awaitSeconds = awaitSeconds;
             this.ticks = awaitSeconds * 20;

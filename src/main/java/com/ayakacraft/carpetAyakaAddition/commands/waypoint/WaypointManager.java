@@ -13,8 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
-
 public class WaypointManager {
 
     private static final Type collectionType = new TypeToken<Collection<Waypoint>>() {
@@ -65,13 +63,13 @@ public class WaypointManager {
         String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(waypointStoragePath))).toString();
 
         waypoints.clear();
-        Collection<Waypoint> obj = GSON.fromJson(str, collectionType);
+        Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, collectionType);
         (obj != null ? obj : new LinkedList<Waypoint>()).forEach(w -> waypoints.put(w.id, w));
     }
 
     public void saveWaypoints() throws IOException {
         CarpetAyakaAddition.LOGGER.info("Saving waypoints to {}", waypointStoragePath);
-        Files.write(waypointStoragePath, GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
+        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
     }
 
 }
