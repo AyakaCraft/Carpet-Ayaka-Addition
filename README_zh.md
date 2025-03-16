@@ -1,5 +1,10 @@
 # Carpet Ayaka Addition
 
+[![License](https://img.shields.io/static/v1?label=license&message=gpl-v3.0&color=red)](http://www.gnu.org/licenses/gpl-3.0.txt)
+[![Modrinth](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads)](https://modrinth.com/mod/carpet-ayaka-addition)
+[![CurseForge](https://cf.way2muchnoise.eu/full_carpet-ayaka-addition_CurseForge%20Downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+[![MC Versions](https://cf.way2muchnoise.eu/versions/MC%20Version_carpet-ayaka-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+
 [简体中文](README_zh.md) ｜ English
 
 Copyright (c) 2025
@@ -64,5 +69,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - fakePlayerResidentBackupFix
     - 修复回档后假人不会重新加入世界的问题
     - 仅在加载了[Gca](https://github.com/Gu-ZT/gugle-carpet-addition)且fakePlayerResident为true时生效
-
+- itemDiscardAge
+    - 修改掉落物自然消失前的游戏刻数
+    - 设置为0以使用原版设置
 - 命令选项

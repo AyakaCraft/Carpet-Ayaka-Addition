@@ -49,7 +49,6 @@ public final class GcaHelper {
             return;
         }
 
-        CarpetAyakaAddition.LOGGER.info("Saving fake players");
         JsonObject fakePlayerList = new JsonObject();
 
         server.getPlayerManager()

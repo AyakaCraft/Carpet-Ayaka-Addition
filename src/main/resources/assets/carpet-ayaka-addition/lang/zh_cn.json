@@ -50,5 +50,8 @@
   "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill，/clear，/effect 和 /item 指令，仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
 
   "carpet.rule.fakePlayerResidentBackupFix.name": "修复备份时不保留假人的问题",
-  "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题，仅在加载了Gca且fakePlayerResident为true时生效"
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题，仅在加载了Gca且fakePlayerResident为true时生效",
+
+  "carpet.rule.itemDiscardAge.name": "掉落物消失刻",
+  "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数，设置为0以使用原版设置"
 }

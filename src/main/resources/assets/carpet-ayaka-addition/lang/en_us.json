@@ -50,5 +50,8 @@
   "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill, /clear, /effect and /item, only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
 
   "carpet.rule.fakePlayerResidentBackupFix.name": "Fake player resident ineffective in backups fix",
-  "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements, only active when Gca is loaded and fakePlayerResident is set to true"
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements, only active when Gca is loaded and fakePlayerResident is set to true",
+
+  "carpet.rule.itemDiscardAge.name": "Item discard ticks",
+  "carpet.rule.itemDiscardAge.desc": "Modifies the ticks before an item entity is discarded, set to 0 to use vanilla option"
 }

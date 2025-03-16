@@ -48,9 +48,13 @@ public class CarpetAyakaSettings {
     public static boolean commandKillItem = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND}, validators = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"})
+    @Rule(categories = {AYAKA, COMMAND},
+            validators = UnsignedIntegerValidator.class,
+            options = {"0", "5", "10", "30"},
+            strict = false
+    )
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for /killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"})
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for /killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
     //#endif
     public static int killItemAwaitSeconds = 5;
 
@@ -81,6 +85,17 @@ public class CarpetAyakaSettings {
     //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX}, desc = "Fake player resident ineffective in backups fix")
     //#endif
     public static boolean fakePlayerResidentBackupFix = false;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, EXPERIMENTAL},
+            validators = UnsignedIntegerValidator.class,
+            options = {"0", "3000", "3600", "6000", "12000"},
+            strict = false
+    )
+    //#else
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Item discard ticks", validate = UnsignedIntegerValidator.class, options = {"0", "3000", "3600", "6000", "12000"}, strict = false)
+    //#endif
+    public static int itemDiscardAge = 6000;
 
     private static final class UnsignedIntegerValidator extends Validator<Integer> {
 

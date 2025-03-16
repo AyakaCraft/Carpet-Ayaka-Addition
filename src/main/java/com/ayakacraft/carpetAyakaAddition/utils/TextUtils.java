@@ -33,7 +33,7 @@ public final class TextUtils {
         //$$ if (elements.isEmpty()) {
         //$$     return new LiteralText("");
         //$$ } else if (elements.size() == 1) {
-        //$$     return transformer.apply(elements.iterator().next()).copy();
+        //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
         //$$ } else {
         //$$     MutableText mutableText = new LiteralText("");
         //$$     boolean bl = true;
