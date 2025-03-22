@@ -216,7 +216,5 @@ curseforge {
 
     options {
         forgeGradleIntegration = false
-        fabricIntegration = true
-        detectFabricApi = true
     }
 }
