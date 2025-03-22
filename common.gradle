@@ -207,11 +207,16 @@ curseforge {
         releaseType = 'release'
         addGameVersion project.minecraft_version
         relations {
-            requiredLibrary 'fabric'
             requiredDependency 'fabric-api'
             requiredDependency 'carpet'
             optionalDependency 'carpet-tis-addition'
             optionalDependency 'guglecarpetaddition'
         }
+    }
+
+    options {
+        forgeGradleIntegration = false
+        fabricIntegration = true
+        detectFabricApi = true
     }
 }
