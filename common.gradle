@@ -1,54 +1,54 @@
-apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'fabric-loom'
-apply plugin: 'com.replaymod.preprocess'
-apply plugin: 'com.modrinth.minotaur'
-apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "fabric-loom"
+apply plugin: "com.replaymod.preprocess"
+apply plugin: "com.modrinth.minotaur"
+apply plugin: "com.matthewprenger.cursegradle"
 
 int mcVersion = project.mcVersion
 
 repositories {
     maven {
-        url 'https://masa.dy.fi/maven'
+        url = "https://masa.dy.fi/maven"
     }
     maven {
-        url 'https://maven.fallenbreath.me/releases'
+        url = "https://maven.fallenbreath.me/releases"  // Fallen orz
     }
     maven {
-        url 'https://jitpack.io'
+        url = "https://jitpack.io"
     }
     maven {
-        url 'https://www.cursemaven.com'
+        url = "https://www.cursemaven.com"
     }
     maven {
-        url 'https://api.modrinth.com/maven'
+        url = "https://api.modrinth.com/maven"
     }
 
 }
 
 // https://github.com/FabricMC/fabric-loader/issues/783
 configurations {
-    modRuntimeOnly.exclude group: 'net.fabricmc', module: 'fabric-loader'
-    modCompileOnly.exclude group: 'com.github.2No2Name', module: 'McTester'
-    modImplementation.exclude group: 'com.github.2No2Name', module: 'McTester'
+    modRuntimeOnly.exclude(group: "net.fabricmc", module: "fabric-loader")
+    modCompileOnly.exclude(group: "com.github.2No2Name", module: "McTester")
+    modImplementation.exclude(group: "com.github.2No2Name", module: "McTester")
 }
 
 dependencies {
     // loom
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    minecraft("com.mojang:minecraft:${project.minecraft_version}")
+    mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+    modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     // mods
-    modImplementation "carpet:fabric-carpet:${project.carpet_core_version}"
+    modImplementation("carpet:fabric-carpet:${project.carpet_core_version}")
 
-    modCompileOnly "carpettisaddition:carpet-tis-addition:${project.tis_version}"
-    modCompileOnly "maven.modrinth:gca:${project.gugle_version}"
+    modCompileOnly("carpettisaddition:carpet-tis-addition:${project.tis_version}")
+    modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
 
 }
 
-String MIXIN_CONFIG_PATH = 'carpet-ayaka-addition.mixins.json'
-JavaVersion JAVA_COMPATIBILITY
+var MIXIN_CONFIG_PATH = "carpet-ayaka-addition.mixins.json"
+var JAVA_COMPATIBILITY
 if (mcVersion >= 12005) {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_21
 } else if (mcVersion >= 11800) {
@@ -58,18 +58,18 @@ if (mcVersion >= 12005) {
 } else {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_1_8
 }
-JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
+var MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 
 loom {
-    def commonVmArgs = ['-Dmixin.debug.export=true']
+    var commonVmArgs = ["-Dmixin.debug.export=true"]
     runConfigs.configureEach {
-        runDir '../../run'
+        runDir "../../run"
         vmArgs commonVmArgs
         ideConfigGenerated true
     }
 
     runs {
-        def auditVmArgs = [*commonVmArgs, '-Dcarpetayakaaddition.mixin_audit=true']
+        var auditVmArgs = [*commonVmArgs, "-Dcarpetayakaaddition.mixin_audit=true"]
         serverMixinAudit {
             server()
             vmArgs auditVmArgs
@@ -86,14 +86,14 @@ loom {
 shadowJar {
     configurations = [project.configurations.shadow]
     exclude("META-INF")
-    archiveClassifier.set('shadow')
+    archiveClassifier.set("shadow")
 }
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 tasks.withType(ShadowJar).configureEach {
-    enableRelocation true
-    relocationPrefix 'carpetayakaaddition.libs'
+    enableRelocation(true)
+    relocationPrefix("carpetayakaaddition.libs")
 }
 
 remapJar {
@@ -102,18 +102,18 @@ remapJar {
     inputFile = shadowJar.archiveFile
 }
 
-String modVersionSuffix = ''
-String artifactVersion = project.mod_version
-String artifactVersionSuffix = ''
+var modVersionSuffix = ""
+var artifactVersion = project.mod_version
+var artifactVersionSuffix = ""
 // detect github action environment variables
 // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
 if (System.getenv("BUILD_RELEASE") != "true") {
-    String buildNumber = System.getenv("BUILD_ID")
-    modVersionSuffix += buildNumber != null ? ('+build.' + buildNumber) : '-SNAPSHOT'
-    artifactVersionSuffix = '-SNAPSHOT'  // A non-release artifact is always a SNAPSHOT artifact
+    var buildNumber = System.getenv("BUILD_ID")
+    modVersionSuffix += buildNumber != null ? ("+build." + buildNumber) : "-SNAPSHOT"
+    artifactVersionSuffix = "-SNAPSHOT"  // A non-release artifact is always a SNAPSHOT artifact
 }
-String fullModVersion = project.mod_version + modVersionSuffix
-String fullProjectVersion, fullArtifactVersion
+var fullModVersion = project.mod_version + modVersionSuffix
+var fullProjectVersion, fullArtifactVersion
 
 // Example version values:
 //   project.mod_version     1.0.3                      (the base mod version)
@@ -126,37 +126,37 @@ String fullProjectVersion, fullArtifactVersion
 group = project.maven_group
 if (System.getenv("JITPACK") == "true") {
     // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
-    base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
-    fullProjectVersion = 'v' + project.mod_version + modVersionSuffix
+    base.archivesName = project.archives_base_name + "-mc" + project.minecraft_version
+    fullProjectVersion = "v" + project.mod_version + modVersionSuffix
     //fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
     base.archivesName = project.archives_base_name
-    fullProjectVersion = 'v' + project.mod_version + '-mc' + project.minecraft_version + modVersionSuffix
-    //fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version + artifactVersionSuffix
+    fullProjectVersion = "v" + project.mod_version + "-mc" + project.minecraft_version + modVersionSuffix
+    //fullArtifactVersion = artifactVersion + "-mc" + project.minecraft_version + artifactVersionSuffix
 }
 version = fullProjectVersion
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
-    inputs.property "id", project.mod_id
-    inputs.property "name", project.mod_name
-    inputs.property "version", fullModVersion
+    inputs.with {
+        property("id", project.mod_id)
+        property("name", project.mod_name)
+        property("version", fullModVersion)
+    }
 
     filesMatching("fabric.mod.json") {
-        def valueMap = [
+        expand([
                 "id"               : project.mod_id,
                 "name"             : project.mod_name,
                 "version"          : fullModVersion,
                 "carpet_dependency": project.carpet_dependency,
                 "minecraft_version": project.minecraft_version
-        ]
-
-        expand valueMap
+        ])
     }
 
     filesMatching(MIXIN_CONFIG_PATH) {
-        filter { s -> s.replace('{{COMPATIBILITY_LEVEL}}', "JAVA_${MIXIN_COMPATIBILITY_LEVEL.ordinal() + 1}") }
+        expand(["COMPATIBILITY_LEVEL": "JAVA_${MIXIN_COMPATIBILITY_LEVEL.ordinal() + 1}"])
     }
 }
 
@@ -168,7 +168,7 @@ tasks.withType(JavaCompile).configureEach {
     options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
     if (JAVA_COMPATIBILITY <= JavaVersion.VERSION_1_8) {
         // suppressed "source/target value 8 is obsolete and will be removed in a future release"
-        options.compilerArgs << '-Xlint:-options'
+        options.compilerArgs << "-Xlint:-options"
     }
 }
 
@@ -178,7 +178,7 @@ java {
 }
 
 jar {
-    from(rootProject.file('LICENSE')) {
+    from(rootProject.file("LICENSE")) {
         rename { "${it}_${project.archives_base_name}" }
     }
 }
@@ -192,25 +192,26 @@ modrinth {
     gameVersions = [project.minecraft_version]
     // syncBodyFrom = rootProject.file("README.md").text
     dependencies {
-        required.project "fabric-api"
-        required.project "carpet"
-        optional.project "carpet-tis-addition"
-        optional.project "gca"
+        required.project("fabric-api")
+        required.project("carpet")
+        optional.project("carpet-tis-addition")
+        optional.project("gca")
     }
 }
 
 curseforge {
     project {
         apiKey = System.getenv("CURSEFORGE_TOKEN")
-        id = '1220026'
-        mainArtifact remapJar
-        releaseType = 'release'
-        addGameVersion project.minecraft_version
+        id = "1220026"
+        mainArtifact(remapJar)
+        releaseType = "release"
+        addGameVersion(project.minecraft_version)
+        addGameVersion("fabric")
         relations {
-            requiredDependency 'fabric-api'
-            requiredDependency 'carpet'
-            optionalDependency 'carpet-tis-addition'
-            optionalDependency 'guglecarpetaddition'
+            requiredDependency("fabric-api")
+            requiredDependency("carpet")
+            optionalDependency("carpet-tis-addition")
+            optionalDependency("guglecarpetaddition")
         }
     }
 

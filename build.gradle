@@ -1,14 +1,14 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT' apply false
+    id "fabric-loom" version "1.10-SNAPSHOT" apply false
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id 'com.replaymod.preprocess' version '9d21b334a7'
+    id "com.replaymod.preprocess" version "9d21b334a7"
 
-    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "com.github.johnrengelman.shadow" version "8.1.1" apply false
 
-    id "com.modrinth.minotaur" version "2.+" apply false
-    id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
+    id "com.modrinth.minotaur" version "2.8.7" apply false
+    id "com.matthewprenger.cursegradle" version "1.4.0" apply false
 }
 
 version = project.mod_version
@@ -17,12 +17,12 @@ group = project.maven_group
 preprocess {
     strictExtraMappings.set(false)
 
-    def mc11605 = createNode("1.16.5", 1_16_05, "")
-    def mc11701 = createNode("1.17.1", 1_17_01, "")
-    def mc11802 = createNode("1.18.2", 1_18_02, "")
-    def mc11904 = createNode("1.19.4", 1_19_04, "")
-    def mc12001 = createNode("1.20.1", 1_20_01, "")
-    def mc12006 = createNode("1.20.6", 1_20_06, "")
+    var mc11605 = createNode("1.16.5", 1_16_05, "")
+    var mc11701 = createNode("1.17.1", 1_17_01, "")
+    var mc11802 = createNode("1.18.2", 1_18_02, "")
+    var mc11904 = createNode("1.19.4", 1_19_04, "")
+    var mc12001 = createNode("1.20.1", 1_20_01, "")
+    var mc12006 = createNode("1.20.6", 1_20_06, "")
 
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
@@ -31,35 +31,29 @@ preprocess {
     mc11701.link(mc11605, file("versions/mapping_11701_11605.txt"))
 }
 
-tasks.register('buildAndGather') {
+tasks.register("buildAndGather") {
     subprojects {
-        dependsOn project.tasks.named('build').get()
+        dependsOn(project.tasks.named("build").get())
     }
     doFirst {
-        println 'Gathering builds'
-        def buildLibs = {
-            p -> p.buildDir.toPath().resolve('libs')
-        }
-        delete fileTree(buildLibs(rootProject)) {
-            include '*'
-        }
+        println("Gathering builds")
+
+        var buildLibs = { p -> p.buildDir.toPath().resolve("libs") }
+        delete(fileTree(buildLibs(rootProject)) { include("*") })
         subprojects {
             copy {
                 from(buildLibs(project)) {
-                    include '*.jar'
-                    exclude '*-dev.jar', '*-sources.jar', '*-shadow.jar'
+                    include("*.jar")
+                    exclude("*-dev.jar", "*-sources.jar", "*-shadow.jar")
                 }
-                into buildLibs(rootProject)
-                duplicatesStrategy DuplicatesStrategy.INCLUDE
+                into(buildLibs(rootProject))
+                duplicatesStrategy = DuplicatesStrategy.INCLUDE
             }
         }
     }
 }
 
 tasks.register("publish") {
-    mustRunAfter project.tasks.named('buildAndGather').get()
-    subprojects {
-        dependsOn project.tasks.named('modrinth').get()
-        dependsOn project.tasks.named('curseforge').get()
-    }
+    mustRunAfter(project.tasks.named("buildAndGather").get())
+    subprojects { dependsOn(project.tasks.named("modrinth").get(), project.tasks.named("curseforge").get()) }
 }

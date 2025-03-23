@@ -3,12 +3,12 @@ import groovy.json.JsonSlurper
 pluginManagement {
     repositories {
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            name = "Fabric"
+            url = "https://maven.fabricmc.net/"
         }
         maven {
-            name = 'Jitpack'
-            url = 'https://jitpack.io'
+            name = "Jitpack"
+            url = "https://jitpack.io"
         }
         mavenCentral()
         gradlePluginPortal()
@@ -25,11 +25,10 @@ pluginManagement {
     }
 }
 
-def settings = new JsonSlurper().parseText(file('settings.json').text)
-for (String version : settings.versions) {
+new JsonSlurper().parseText(file("settings.json").text).versions.each { String version ->
     include(":$version")
-
-    def proj = project(":$version")
-    proj.projectDir = file("versions/$version")
-    proj.buildFileName = "../../common.gradle"
+    project(":$version").with {
+        projectDir = file("versions/$version")
+        buildFileName = "../../common.gradle"
+    }
 }
