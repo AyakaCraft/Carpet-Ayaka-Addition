@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.commands.waypoint;
+package com.ayakacraft.carpetayakaaddition.utils.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.google.gson.reflect.TypeToken;
@@ -20,6 +20,8 @@ public class WaypointManager {
 
     private static final Map<MinecraftServer, WaypointManager> waypointManagers = new HashMap<>(1);
 
+    private static final String WAYPOINT_FILE_NAME = "ayaka_waypoints.json";
+
     public static WaypointManager getWaypointManager(MinecraftServer server) {
         if (waypointManagers.containsKey(server)) {
             return waypointManagers.get(server);
@@ -34,20 +36,18 @@ public class WaypointManager {
             return;
         }
         try {
-            waypointManagers.get(server).saveWaypoints();
+            waypointManagers.remove(server).saveWaypoints();
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save waypoints", e);
         }
-        waypointManagers.remove(server);
     }
 
     private final Path waypointStoragePath;
 
-    public final Map<String, Waypoint> waypoints = new HashMap<>(3);
+    private final Map<String, Waypoint> waypoints = new HashMap<>(3);
 
     private WaypointManager(MinecraftServer server) {
-        final Path worldPath = server.getSavePath(WorldSavePath.ROOT);
-        waypointStoragePath = worldPath.resolve("ayaka_waypoints.json");
+        waypointStoragePath = server.getSavePath(WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);
         try {
             loadWaypoints();
         } catch (IOException e) {
@@ -60,16 +60,53 @@ public class WaypointManager {
         if (Files.notExists(waypointStoragePath) || !Files.isRegularFile(waypointStoragePath)) {
             Files.createFile(waypointStoragePath);
         }
-        String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(waypointStoragePath))).toString();
+        final String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(waypointStoragePath))).toString();
 
         waypoints.clear();
-        Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, collectionType);
-        (obj != null ? obj : new LinkedList<Waypoint>()).forEach(w -> waypoints.put(w.id, w));
+        final Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, collectionType);
+        if (obj != null) {
+            obj.forEach(w -> waypoints.put(w.id, w));
+        }
     }
 
     public void saveWaypoints() throws IOException {
         CarpetAyakaAddition.LOGGER.info("Saving waypoints to {}", waypointStoragePath);
         Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
+    }
+
+    public Waypoint get(String id) {
+        return waypoints.get(id);
+    }
+
+    public Set<String> getIds() {
+        return waypoints.keySet();
+    }
+
+    public Collection<Waypoint> getWaypoints() {
+        return waypoints.values();
+    }
+
+    public Waypoint rename(String oldId, String newId) throws IOException {
+        Waypoint w = waypoints.remove(oldId);
+        if (w == null) {
+            return null;
+        }
+        w.id = newId;
+        waypoints.put(newId, w);
+        saveWaypoints();
+        return w;
+    }
+
+    public Waypoint remove(String id) throws IOException {
+        Waypoint w = waypoints.remove(id);
+        saveWaypoints();
+        return w;
+    }
+
+    public Waypoint set(Waypoint waypoint) throws IOException {
+        Waypoint w = waypoints.put(waypoint.id, waypoint);
+        saveWaypoints();
+        return w;
     }
 
 }

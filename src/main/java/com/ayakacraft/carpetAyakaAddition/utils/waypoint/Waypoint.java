@@ -1,4 +1,4 @@
-package com.ayakacraft.carpetayakaaddition.commands.waypoint;
+package com.ayakacraft.carpetayakaaddition.utils.waypoint;
 
 import net.minecraft.registry.RegistryKey;
 //#if MC>=11904

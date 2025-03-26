@@ -12,6 +12,7 @@
   "command.carpet-ayaka-addition.waypoint.save.failed": "Failed to save waypoints",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "Unrecognized dimension \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "Waypoint [%s] out of world border",
+  "command.carpet-ayaka-addition.waypoint.rename.success": "Renamed waypoint [%s] to [%s]",
   "command.carpet-ayaka-addition.killitem.none": "No item cleared",
   "command.carpet-ayaka-addition.killitem.single": "Cleared one item",
   "command.carpet-ayaka-addition.killitem.multiple": "Cleared %d items",

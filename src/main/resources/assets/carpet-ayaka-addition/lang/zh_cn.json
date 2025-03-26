@@ -12,6 +12,7 @@
   "command.carpet-ayaka-addition.waypoint.save.failed": "保存路径点失败",
   "command.carpet-ayaka-addition.waypoint.dimension_unrecognized": "未识别的维度 \"%s\"",
   "command.carpet-ayaka-addition.waypoint.out_of_world_border": "路径点 [%s] 在世界边界以外",
+  "command.carpet-ayaka-addition.waypoint.rename.success": "重命名路径点 [%s] 为 [%s]",
   "command.carpet-ayaka-addition.killitem.none": "没有可清除的掉落物",
   "command.carpet-ayaka-addition.killitem.single": "清除了1个掉落物",
   "command.carpet-ayaka-addition.killitem.multiple": "清除了%d个掉落物",

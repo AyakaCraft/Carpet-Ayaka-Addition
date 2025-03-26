@@ -9,11 +9,11 @@ public final class ServerPlayerUtils {
     private static float wrapDegrees(float degrees) {
         float f = degrees % 360.0F;
         if (f >= 180.0F) {
-            f -= 360.0F;
+            return (f - 360.0F);
         }
 
         if (f < -180.0F) {
-            f += 360.0F;
+            return (f + 360.0F);
         }
 
         return f;
