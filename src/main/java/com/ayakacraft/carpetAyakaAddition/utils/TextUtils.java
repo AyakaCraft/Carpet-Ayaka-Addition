@@ -4,12 +4,13 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.text.*;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 
 public final class TextUtils {
 
-    public static MutableText translatableText(String key, Object... args) {
+    public static MutableText tr(String key, Object... args) {
         //#if MC>=11900
         return Text.translatable(key, args);
         //#else
@@ -17,12 +18,16 @@ public final class TextUtils {
         //#endif
     }
 
-    public static MutableText literalText(String str, Object... args) {
+    public static MutableText li(String str, Object... args) {
         //#if MC>=11900
         return Text.literal(String.format(str, args));
         //#else
         //$$ return new LiteralText(String.format(str, args));
         //#endif
+    }
+
+    public static MutableText enter() {
+        return li(System.lineSeparator());
     }
 
     public static <T> MutableText join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
@@ -48,6 +53,14 @@ public final class TextUtils {
         //$$     return mutableText;
         //$$ }
         //#endif
+    }
+
+    public static MutableText joinTexts(Collection<Text> elements) {
+        return join(elements, li(""), Function.identity());
+    }
+
+    public static MutableText joinTexts(Text... elements) {
+        return joinTexts(Arrays.asList(elements));
     }
 
     public static void broadcastToPlayers(MinecraftServer server, Text text, boolean overlay) {

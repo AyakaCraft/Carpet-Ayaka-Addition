@@ -6,23 +6,28 @@ import net.minecraft.registry.RegistryKeys;
 //#else
 //$$ import net.minecraft.util.registry.Registry;
 //#endif
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class Waypoint {
 
-    public Waypoint(String id, RegistryKey<World> dim, Vec3d pos) {
+    private final String id;
+
+    private final String dim;
+
+    private final Vec3d pos;
+
+    private String desc;
+
+    public Waypoint(String id, RegistryKey<World> dim, Vec3d pos, String desc) {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
+        this.desc = desc;
     }
-
-    public String id;
-
-    public String dim;
-
-    public Vec3d pos;
 
     public String getDim() {
         return dim;
@@ -52,9 +57,16 @@ public class Waypoint {
         return id;
     }
 
-
     public Vec3d getPos() {
         return pos;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
 }

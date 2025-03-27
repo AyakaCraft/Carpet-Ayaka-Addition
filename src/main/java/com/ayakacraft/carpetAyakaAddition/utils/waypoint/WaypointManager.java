@@ -65,7 +65,7 @@ public class WaypointManager {
         waypoints.clear();
         final Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, collectionType);
         if (obj != null) {
-            obj.forEach(w -> waypoints.put(w.id, w));
+            obj.forEach(w -> waypoints.put(w.getId(), w));
         }
     }
 
@@ -91,8 +91,8 @@ public class WaypointManager {
         if (w == null) {
             return null;
         }
-        w.id = newId;
-        waypoints.put(newId, w);
+        Waypoint w2 = new Waypoint(newId, w.getDimension(), w.getPos(), w.getDesc());
+        waypoints.put(newId, w2);
         saveWaypoints();
         return w;
     }
@@ -104,7 +104,7 @@ public class WaypointManager {
     }
 
     public Waypoint set(Waypoint waypoint) throws IOException {
-        Waypoint w = waypoints.put(waypoint.id, waypoint);
+        Waypoint w = waypoints.put(waypoint.getId(), waypoint);
         saveWaypoints();
         return w;
     }
