@@ -1,18 +1,13 @@
 package com.ayakacraft.carpetayakaaddition.utils.waypoint;
 
 import net.minecraft.registry.RegistryKey;
-//#if MC>=11904
-import net.minecraft.registry.RegistryKeys;
-//#else
-//$$ import net.minecraft.util.registry.Registry;
-//#endif
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class Waypoint {
+
+    public static final String DESC_NONE = "#none";
 
     private final String id;
 
@@ -26,7 +21,7 @@ public class Waypoint {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
-        this.desc = desc;
+        setDesc(desc);
     }
 
     public String getDim() {
@@ -35,9 +30,9 @@ public class Waypoint {
 
     public RegistryKey<World> getDimension() {
         //#if MC>=11904
-        return RegistryKey.of(RegistryKeys.WORLD, new Identifier(dim));
+        return RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, new Identifier(dim));
         //#else
-        //$$ return RegistryKey.of(Registry.WORLD_KEY, new Identifier(dim));
+        //$$ return RegistryKey.of(net.minecraft.util.registry.Registry.WORLD_KEY, new Identifier(dim));
         //#endif
     }
 
@@ -62,11 +57,11 @@ public class Waypoint {
     }
 
     public String getDesc() {
-        return desc;
+        return (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.desc = (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
     }
 
 }

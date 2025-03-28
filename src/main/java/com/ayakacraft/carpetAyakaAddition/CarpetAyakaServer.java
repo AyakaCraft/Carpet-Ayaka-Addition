@@ -20,13 +20,17 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
-public class CarpetAyakaServer implements CarpetExtension {
+public final class CarpetAyakaServer implements CarpetExtension {
 
     public static final CarpetAyakaServer INSTANCE = new CarpetAyakaServer();
 
     private final LinkedList<TickTask> tickTasks = new LinkedList<>();
 
     private final LinkedBlockingQueue<TickTask> preTickTasks = new LinkedBlockingQueue<>();
+
+    private CarpetAyakaServer() {
+        super();
+    }
 
     public MinecraftServer mcServer;
 
@@ -42,7 +46,7 @@ public class CarpetAyakaServer implements CarpetExtension {
 
     @Override
     public void onServerLoadedWorlds(MinecraftServer server) {
-        WaypointManager.getWaypointManager(mcServer);
+        WaypointManager.getOrCreateWaypointManager(mcServer);
     }
 
     @Override

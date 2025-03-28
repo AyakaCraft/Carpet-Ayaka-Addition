@@ -9,6 +9,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.WorldSavePath;
 
 import java.io.BufferedWriter;
@@ -44,6 +45,14 @@ public final class GcaHelper {
         }
     }
 
+    private static JsonElement invokeSavePlayer(ServerPlayerEntity player) {
+        try {
+            return (JsonElement) savePlayerMethod.invoke(null, player);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void storeFakesIfNeeded(MinecraftServer server) {
         if (!GcaSetting.fakePlayerResident || server.isStopped()) {
             return;
@@ -56,18 +65,12 @@ public final class GcaHelper {
                 .stream()
                 .filter(player ->
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
-                .forEach(player -> {
-                    String username = player.getName().getString();
-                    try {
-                        fakePlayerList.add(username, (JsonElement) savePlayerMethod.invoke(null, player));
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+                .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
         File file = server.getSavePath(WorldSavePath.ROOT).resolve("fake_player.gca.json").toFile();
         if (!file.isFile()) {
             try {
+                //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
             } catch (IOException e) {
                 CarpetAyakaAddition.LOGGER.error(e.getMessage(), e);

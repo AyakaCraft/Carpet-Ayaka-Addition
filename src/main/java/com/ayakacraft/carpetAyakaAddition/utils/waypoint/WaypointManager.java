@@ -22,7 +22,7 @@ public class WaypointManager {
 
     private static final String WAYPOINT_FILE_NAME = "ayaka_waypoints.json";
 
-    public static WaypointManager getWaypointManager(MinecraftServer server) {
+    public static WaypointManager getOrCreateWaypointManager(MinecraftServer server) {
         if (waypointManagers.containsKey(server)) {
             return waypointManagers.get(server);
         }

@@ -33,11 +33,9 @@ public final class KillItemCommand {
     private static int killItem0(ServerCommandSource source) {
         final List<Entity>    targets = new LinkedList<>();
         final MinecraftServer server  = source.getServer();
-        server.getWorlds().forEach(world -> {
-            targets.addAll(world.getEntitiesByType(
-                    EntityType.ITEM,
-                    itemEntity -> true));
-        });
+        server.getWorlds().forEach(world -> targets.addAll(world.getEntitiesByType(
+                EntityType.ITEM,
+                itemEntity -> true)));
         if (targets.isEmpty()) {
             TextUtils.broadcastToPlayers(server, TextUtils.tr("command.carpet-ayaka-addition.killitem.none"), false);
             return 0;
@@ -67,7 +65,7 @@ public final class KillItemCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("killitem")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
+                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandKillItem, false))
                         .executes(KillItemCommand::killItem)
                         .then(literal("cancel").executes(KillItemCommand::cancel)));
     }

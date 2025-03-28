@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class CarpetAyakaAddition implements ModInitializer {
+public final class CarpetAyakaAddition implements ModInitializer {
 
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
 

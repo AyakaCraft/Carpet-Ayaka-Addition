@@ -58,5 +58,5 @@
   "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题，仅在加载了Gca且fakePlayerResident为true时生效",
 
   "carpet.rule.itemDiscardAge.name": "掉落物消失刻",
-  "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数，设置为0以使用原版设置"
+  "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数，最大为72000 (一小时)，设置为0以使用原版设置"
 }

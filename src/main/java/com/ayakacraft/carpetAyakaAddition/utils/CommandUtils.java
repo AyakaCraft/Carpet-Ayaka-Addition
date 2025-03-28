@@ -11,8 +11,8 @@ import java.util.concurrent.CompletableFuture;
 
 public final class CommandUtils {
 
-    public static boolean checkPermission(ServerCommandSource source, boolean needNotOp, boolean needsPlayer) {
-        return (isExecutedByPlayer(source) || !needsPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || needNotOp);
+    public static boolean checkPermission(ServerCommandSource source, boolean needsOp, boolean needsPlayer) {
+        return (isExecutedByPlayer(source) || !needsPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || !needsOp);
     }
 
     public static CompletableFuture<Suggestions> playerSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {

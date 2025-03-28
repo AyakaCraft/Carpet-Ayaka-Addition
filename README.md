@@ -49,7 +49,7 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
         - *Lists the waypoints*
         - \<dim>
             - *Lists the waypoints in specific dimension*
-    - set \<id> \<dim> \<pos>
+    - set \<id> \<dim> \<pos> \<desc (optional)>
         - *Adds a new waypoint or modify an existing one*
     - remove \<id>
         - *Removes the specific waypoint*
@@ -57,6 +57,10 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
         - *Shows the detail of the specific waypoint*
     - tp \<id>
         - *Teleports you to the specific waypoint*
+    - rename \<oldId> \<id>
+        - *Renames the waypoint, removes the existing one*
+    - desc \<id> \<desc>
+        - *Sets the description of the waypoint*
 
 ### Rules
 

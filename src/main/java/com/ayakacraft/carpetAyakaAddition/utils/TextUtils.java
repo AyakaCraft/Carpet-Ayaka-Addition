@@ -26,13 +26,13 @@ public final class TextUtils {
         //#endif
     }
 
-    public static MutableText enter() {
-        return li(System.lineSeparator());
+    public static Text enter() {
+        return Text.of(System.lineSeparator());
     }
 
     public static <T> MutableText join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
         //#if MC>=11700
-        return net.minecraft.text.Texts.join(elements, separator, transformer);
+        return Texts.join(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
         //$$     return new LiteralText("");
@@ -56,7 +56,7 @@ public final class TextUtils {
     }
 
     public static MutableText joinTexts(Collection<Text> elements) {
-        return join(elements, li(""), Function.identity());
+        return join(elements, Text.of(""), Function.identity());
     }
 
     public static MutableText joinTexts(Text... elements) {

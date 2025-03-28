@@ -49,7 +49,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *列出所有路径点*
         - \<dim>
             - *列出指定维度中的路径点*
-    - set \<id> \<dim> \<pos>
+    - set \<id> \<dim> \<pos> \<desc (optional)>
         - *添加一个新的路径点或者修改已有的路径点*
     - remove \<id>
         - *移除指定路径点*
@@ -57,6 +57,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *显示指定路径点的详细信息*
     - tp \<id>
         - *将你传送到路径点*
+    - rename \<oldId> \<id>
+        - *重命名路径点并覆盖已有的*
+    - desc \<id> \<desc>
+        - *设置或修改路径点的描述*
 
 ### 规则
 

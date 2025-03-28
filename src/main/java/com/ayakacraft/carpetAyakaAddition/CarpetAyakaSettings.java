@@ -8,9 +8,11 @@ import org.jetbrains.annotations.Nullable;
 
 import static carpet.api.settings.RuleCategory.*;
 
-public class CarpetAyakaSettings {
+public final class CarpetAyakaSettings {
 
     public static final String AYAKA = "Ayaka";
+
+    public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
@@ -88,12 +90,12 @@ public class CarpetAyakaSettings {
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, EXPERIMENTAL},
-            validators = UnsignedIntegerValidator.class,
-            options = {"0", "3000", "3600", "6000", "12000"},
+            validators = ItemDiscardAgeValidator.class,
+            options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
     )
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Item discard ticks", validate = UnsignedIntegerValidator.class, options = {"0", "3000", "3600", "6000", "12000"}, strict = false)
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Item discard ticks", validate = ItemDiscardAgeValidator.class, options = {"0", "3000", "3600", "6000", "12000", "72000"}, strict = false)
     //#endif
     public static int itemDiscardAge = 6000;
 
@@ -107,6 +109,20 @@ public class CarpetAyakaSettings {
         @Override
         public String description() {
             return "Must not be negative";
+        }
+
+    }
+
+    private static final class ItemDiscardAgeValidator extends Validator<Integer> {
+
+        @Override
+        public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
+            return (newValue < 0 || newValue > ITEM_DISCARD_AGE_MAX_VALUE) ? null : newValue;
+        }
+
+        @Override
+        public String description() {
+            return "Must not be negative or larger than " + ITEM_DISCARD_AGE_MAX_VALUE;
         }
 
     }

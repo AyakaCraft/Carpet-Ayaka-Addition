@@ -18,7 +18,7 @@ public final class TptCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("tpt")
-                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, true))
+                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandTpt, true))
                         .then(
                                 argument("target", EntityArgumentType.player())
                                         .suggests(CommandUtils::playerSuggestionProvider)
