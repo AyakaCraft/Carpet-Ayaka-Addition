@@ -12,6 +12,8 @@ public final class CarpetAyakaSettings {
 
     public static final String AYAKA = "Ayaka";
 
+    public static final String REINTRODUCE = "reintroduce";
+
     public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
 
     //#if MC>=11900
@@ -98,6 +100,13 @@ public final class CarpetAyakaSettings {
     //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Item discard ticks", validate = ItemDiscardAgeValidator.class, options = {"0", "3000", "3600", "6000", "12000", "72000"}, strict = false)
     //#endif
     public static int itemDiscardAge = 6000;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE})
+    //#else
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}, desc = "0-tick force update plants")
+    //#endif
+    public static boolean forceTickPlantsReintroduce = false;
 
     private static final class UnsignedIntegerValidator extends Validator<Integer> {
 

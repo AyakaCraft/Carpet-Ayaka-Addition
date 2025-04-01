@@ -15,7 +15,7 @@ public class ClearCommandMixin {
 
     @Inject(method = "method_13082", remap = false, at = @At("RETURN"), cancellable = true)
     private static void checkIfAllowCheating_clearCommand(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.betterOpPlayerNoCheat && ModUtils.isTISLoaded() && TISHelper.cannotCheat(source)) { // DO NOT change the order of the conditions
+        if (cir.getReturnValue() && CarpetAyakaSettings.betterOpPlayerNoCheat && ModUtils.isTISLoaded() && !TISHelper.canCheat(source)) { // DO NOT change the order of the conditions
             cir.setReturnValue(false);
         }
     }

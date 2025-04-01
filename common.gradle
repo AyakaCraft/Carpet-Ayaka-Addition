@@ -18,6 +18,9 @@ repositories {
     }
     maven {
         url = "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
     maven {
         url = "https://api.modrinth.com/maven"
@@ -151,7 +154,8 @@ processResources {
                 "name"             : project.mod_name,
                 "version"          : fullModVersion,
                 "carpet_dependency": project.carpet_dependency,
-                "minecraft_version": project.minecraft_version
+                "minecraft_version": project.minecraft_version,
+                "loader_min"       : project.loader_min
         ])
     }
 

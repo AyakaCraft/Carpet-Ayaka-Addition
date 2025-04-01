@@ -5,8 +5,9 @@ import net.minecraft.server.command.ServerCommandSource;
 
 public final class TISHelper {
 
-    public static boolean cannotCheat(ServerCommandSource source) {
-        return !OpPlayerNoCheatHelper.canCheat(source);
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean canCheat(ServerCommandSource source) {
+        return OpPlayerNoCheatHelper.canCheat(source);
     }
 
 }

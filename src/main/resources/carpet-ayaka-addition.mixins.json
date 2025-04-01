@@ -10,6 +10,9 @@
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.disableBatSpawning.BatEntityMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
+    "rules.forceTickPlantsReintroduce.BambooBlockMixin",
+    "rules.forceTickPlantsReintroduce.CactusBlockMixin",
+    "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin"
   ],

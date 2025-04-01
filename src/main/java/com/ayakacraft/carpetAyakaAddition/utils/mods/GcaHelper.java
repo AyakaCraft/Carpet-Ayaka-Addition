@@ -21,6 +21,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Optional;
 
+import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
+
 public final class GcaHelper {
 
     private static final Method savePlayerMethod;
@@ -73,14 +75,14 @@ public final class GcaHelper {
                 //noinspection ResultOfMethodCallIgnored
                 file.createNewFile();
             } catch (IOException e) {
-                CarpetAyakaAddition.LOGGER.error(e.getMessage(), e);
+                LOGGER.error(e.getMessage(), e);
             }
         }
 
         try (BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
+
 public class WaypointManager {
 
     private static final Type collectionType = new TypeToken<Collection<Waypoint>>() {
@@ -38,7 +40,7 @@ public class WaypointManager {
         try {
             waypointManagers.remove(server).saveWaypoints();
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save waypoints", e);
+            LOGGER.error("Failed to save waypoints", e);
         }
     }
 
@@ -51,12 +53,12 @@ public class WaypointManager {
         try {
             loadWaypoints();
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to load waypoints", e);
+            LOGGER.error("Failed to load waypoints", e);
         }
     }
 
     public void loadWaypoints() throws IOException {
-        CarpetAyakaAddition.LOGGER.info("Loading waypoints from {}", waypointStoragePath);
+        LOGGER.info("Loading waypoints from {}", waypointStoragePath);
         if (Files.notExists(waypointStoragePath) || !Files.isRegularFile(waypointStoragePath)) {
             Files.createFile(waypointStoragePath);
         }
@@ -70,7 +72,7 @@ public class WaypointManager {
     }
 
     public void saveWaypoints() throws IOException {
-        CarpetAyakaAddition.LOGGER.info("Saving waypoints to {}", waypointStoragePath);
+        LOGGER.info("Saving waypoints to {}", waypointStoragePath);
         Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
     }
 
