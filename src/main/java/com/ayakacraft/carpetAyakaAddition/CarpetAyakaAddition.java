@@ -37,7 +37,7 @@ public final class CarpetAyakaAddition implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("Initializing {} Version {}", CarpetAyakaAddition.MOD_NAME, CarpetAyakaAddition.MOD_VERSION);
+        LOGGER.debug("Initializing {} Version {}", CarpetAyakaAddition.MOD_NAME, CarpetAyakaAddition.MOD_VERSION);
         CarpetServer.manageExtension(CarpetAyakaServer.INSTANCE);
     }
 

@@ -89,7 +89,7 @@ loom {
 shadowJar {
     configurations = [project.configurations.shadow]
     exclude("META-INF")
-    archiveClassifier.set("shadow")
+    archiveClassifier = "shadow"
 }
 
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar

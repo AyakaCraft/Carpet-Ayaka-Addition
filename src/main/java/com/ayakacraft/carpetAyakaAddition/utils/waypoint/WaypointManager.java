@@ -58,7 +58,7 @@ public class WaypointManager {
     }
 
     public void loadWaypoints() throws IOException {
-        LOGGER.info("Loading waypoints from {}", waypointStoragePath);
+        LOGGER.debug("Loading waypoints from {}", waypointStoragePath);
         if (Files.notExists(waypointStoragePath) || !Files.isRegularFile(waypointStoragePath)) {
             Files.createFile(waypointStoragePath);
         }
@@ -72,7 +72,7 @@ public class WaypointManager {
     }
 
     public void saveWaypoints() throws IOException {
-        LOGGER.info("Saving waypoints to {}", waypointStoragePath);
+        LOGGER.debug("Saving waypoints to {}", waypointStoragePath);
         Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
     }
 

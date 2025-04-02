@@ -12,7 +12,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.WorldSavePath;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +27,7 @@ public final class GcaHelper {
     private static final Method savePlayerMethod;
 
     static {
+        Method spm;
         try {
             Optional<ModContainer> o = ModUtils.getModContainer(ModUtils.GCA_ID);
             if (o.isPresent()) {
@@ -38,32 +38,41 @@ public final class GcaHelper {
                 } catch (ClassNotFoundException e) {
                     clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
                 }
-                savePlayerMethod = clazz.getDeclaredMethod("save", PlayerEntity.class);
+                spm = clazz.getDeclaredMethod("save", PlayerEntity.class);
+                spm.setAccessible(true);
             } else {
-                throw new RuntimeException();
+                LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
+                spm = null;
             }
         } catch (ClassNotFoundException | NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn("Failed to load GCA, fakePlayerResidentBackupFix won't be activated", e);
+            spm = null;
         }
+        savePlayerMethod = spm;
     }
 
     private static JsonElement invokeSavePlayer(ServerPlayerEntity player) {
         try {
-            return (JsonElement) savePlayerMethod.invoke(null, player);
+            if (savePlayerMethod != null) {
+                return (JsonElement) savePlayerMethod.invoke(null, player);
+            }
+            return null;
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
     public static void storeFakesIfNeeded(MinecraftServer server) {
-        if (!GcaSetting.fakePlayerResident || server.isStopped()) {
+        if (!GcaSetting.fakePlayerResident || server.isStopped() || savePlayerMethod == null) {
             return;
         }
+
+        LOGGER.debug("Saving fake players");
 
         JsonObject fakePlayerList = new JsonObject();
 
         server.getPlayerManager()
-                .getPlayerList()    // We don't need to ensure the players aren't logged out as the server's not closed yet
+                .getPlayerList()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
                 .filter(player ->
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
@@ -79,8 +88,11 @@ public final class GcaHelper {
             }
         }
 
-        try (BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
-            bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
+        try
+                //(BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8))
+        {
+            //bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
+            Files.write(file.toPath(), CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
