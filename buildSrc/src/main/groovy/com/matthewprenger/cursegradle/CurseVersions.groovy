@@ -43,7 +43,7 @@ class CurseVersions {
             GameVersion[] versions = Util.gson.fromJson(gameVersionsJson, GameVersion[].class)
             versions.each { version ->
                 if (validVersionTypes.contains(version.gameVersionTypeID)) {
-                    gameVersions.put(version.name, version.id)
+                    gameVersions.put(version.name.toLowerCase(), version.id)
                 }
             }
 
@@ -58,7 +58,7 @@ class CurseVersions {
     static int[] resolveGameVersion(final Iterable<Object> objects) {
         TIntSet set = new TIntHashSet()
         objects.each { obj ->
-            final String version = obj.toString()
+            final String version = obj.toString().toLowerCase()
             int id = gameVersions.get(version)
             if (id == 0) {
                 throw new IllegalArgumentException("$version is not a valid game version. Valid versions are: ${gameVersions.keySet()}")

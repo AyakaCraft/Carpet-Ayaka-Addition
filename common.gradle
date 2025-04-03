@@ -98,8 +98,8 @@ shadowJar {
 }
 
 tasks.withType(ShadowJar).configureEach {
-    enableRelocation(true)
-    relocationPrefix("carpetayakaaddition.libs")
+    enableRelocation = true
+    relocationPrefix = "carpetayakaaddition.libs"
 }
 
 remapJar {
