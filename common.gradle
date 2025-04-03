@@ -1,8 +1,13 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.matthewprenger.cursegradle.CurseGradlePlugin
+
 apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "fabric-loom"
 apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.modrinth.minotaur"
-apply plugin: "com.matthewprenger.cursegradle"
+
+// https://github.com/Calboot/CurseGradlePlugin
+apply plugin: CurseGradlePlugin
 
 int mcVersion = project.mcVersion
 
@@ -91,8 +96,6 @@ shadowJar {
     exclude("META-INF")
     archiveClassifier = "shadow"
 }
-
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 tasks.withType(ShadowJar).configureEach {
     enableRelocation(true)

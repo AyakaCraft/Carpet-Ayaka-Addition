@@ -1,0 +1,86 @@
+plugins {
+    id("groovy")
+    id("idea")
+    id("com.gradle.plugin-publish") version("1.3.1")
+    id("com.github.johnrengelman.shadow") version("8.1.1")
+}
+
+ext {
+    inceptionYear = "2015"
+    url = "https://github.com/matthewprenger/CurseGradle"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly(gradleApi())
+    compileOnly(localGroovy())
+
+    implementation("net.sf.trove4j:trove4j:3.0.3")
+    implementation("com.google.guava:guava:33.4.6-jre")
+    implementation("com.google.code.gson:gson:2.12.1")
+    implementation("org.apache.httpcomponents.client5:httpclient5:5.4.3")
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+jar {
+    manifest {
+        attributes([
+                "Implementation-Title"  : project.name,
+                "Implementation-Version": project.version
+        ])
+    }
+    archiveFileName = "${project.archiveBaseName}-${project.version}.jar"
+}
+
+tasks.register("javadocJar", Jar) {
+    dependsOn(javadoc)
+    from(javadoc.destinationDir)
+    archiveClassifier = "javadoc"
+}
+
+tasks.register("sourcesJar", Jar) {
+    from(sourceSets.main.allSource)
+    archiveClassifier = "sources"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.deprecation = true
+    options.fork = true
+
+    sourceCompatibility = project.sourceCompatibility
+    targetCompatibility = project.targetCompatibility
+}
+
+artifacts {
+    archives(jar, javadocJar, sourcesJar)
+}
+
+assemble {
+    dependsOn(javadocJar, sourcesJar)
+}
+
+shadowJar {
+    archiveClassifier = null
+}
+
+gradlePlugin {
+    website = project.repoUrl
+    vcsUrl = project.repoUrl
+    plugins {
+        create("curseGradlePlugin") {
+            id = "com.matthewprenger.cursegradle"
+            implementationClass = "com.matthewprenger.cursegradle.CurseGradlePlugin"
+            description = project.desc
+            displayName = project.archiveBaseName
+            version = project.version
+            tags = ["curseforge", "publish", "minecraft"]
+        }
+    }
+}

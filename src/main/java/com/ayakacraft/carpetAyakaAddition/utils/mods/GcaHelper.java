@@ -89,7 +89,7 @@ public final class GcaHelper {
         }
 
         try
-                //(BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8))
+        //(BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8))
         {
             //bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
             Files.write(file.toPath(), CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
