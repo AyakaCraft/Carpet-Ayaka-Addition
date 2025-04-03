@@ -89,7 +89,7 @@ class Util {
 
         HttpClient client = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig.custom()
-                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES).build()).build()
+                        .setCookieSpec("ignoreCookies").build()).build()
 
         HttpGet get = new HttpGet(new URI(url))
         get.setHeader('X-Api-Token', apiKey)
