@@ -78,5 +78,8 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
     - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
 - itemDiscardAge
     - Modifies the ticks before an item entity is discarded
+    - Max value 72000 (an hour)
     - Set to 0 to use vanilla option
+- forceTickPlantsReintroduce
+  - Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
 - Command rules are omitted here
