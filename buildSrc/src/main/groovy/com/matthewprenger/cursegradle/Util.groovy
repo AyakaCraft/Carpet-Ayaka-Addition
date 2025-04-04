@@ -1,6 +1,5 @@
 package com.matthewprenger.cursegradle
 
-
 import com.google.gson.Gson
 import com.matthewprenger.cursegradle.jsonresponse.CurseError
 import org.apache.hc.client5.http.classic.HttpClient
@@ -13,7 +12,6 @@ import org.gradle.api.Project
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
-import org.gradle.internal.impldep.org.apache.http.client.config.CookieSpecs
 
 import java.nio.charset.StandardCharsets
 

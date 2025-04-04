@@ -16,7 +16,6 @@ import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import org.gradle.internal.impldep.org.apache.http.client.config.CookieSpecs
 
 //import org.gradle.internal.impldep.org.apache.http.HttpResponse
 
@@ -66,7 +65,7 @@ class CurseUploadTask extends DefaultTask {
 
         HttpClient client = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig.custom()
-                        .setCookieSpec(CookieSpecs.IGNORE_COOKIES).build()).build()
+                        .setCookieSpec("ignoreCookies").build()).build()
 
         HttpPost post = new HttpPost(new URI(uploadUrl))
 
