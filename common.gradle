@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.matthewprenger.cursegradle.CurseGradlePlugin
 
-apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: "com.gradleup.shadow"
 apply plugin: "fabric-loom"
 apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.modrinth.minotaur"
@@ -213,6 +213,8 @@ curseforge {
         id = "1220026"
         mainArtifact(remapJar)
         releaseType = "release"
+        changelogType = "text"
+        changelog = "Refer to github releases for more information"
         addGameVersion(project.minecraft_version)
         addGameVersion("fabric")
         relations {

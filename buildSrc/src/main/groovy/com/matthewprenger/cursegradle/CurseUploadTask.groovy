@@ -6,18 +6,19 @@ import com.matthewprenger.cursegradle.jsonresponse.UploadResponse
 import org.apache.hc.client5.http.classic.HttpClient
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.config.RequestConfig
+import org.apache.hc.client5.http.cookie.StandardCookieSpec
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
+import org.apache.hc.core5.http.ClassicHttpResponse
 import org.apache.hc.core5.http.ContentType
-import org.apache.hc.core5.http.HttpResponse
+import org.apache.hc.core5.http.HttpException
+import org.apache.hc.core5.http.io.HttpClientResponseHandler
 import org.apache.hc.core5.http.message.StatusLine
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-
-//import org.gradle.internal.impldep.org.apache.http.HttpResponse
 
 class CurseUploadTask extends DefaultTask {
 
@@ -65,7 +66,7 @@ class CurseUploadTask extends DefaultTask {
 
         HttpClient client = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig.custom()
-                        .setCookieSpec("ignoreCookies").build()).build()
+                        .setCookieSpec(StandardCookieSpec.IGNORE).build()).build()
 
         HttpPost post = new HttpPost(new URI(uploadUrl))
 
@@ -80,26 +81,36 @@ class CurseUploadTask extends DefaultTask {
             return 0
         }
 
-        HttpResponse response = client.execute(post)
-        StatusLine statusLine = new StatusLine(response)
-
-        if (statusLine.statusCode == 200) {
-            InputStreamReader reader = new InputStreamReader(response.entity.content)
-            UploadResponse curseResponse = Util.gson.fromJson(reader, UploadResponse)
-            reader.close()
-            fileID = curseResponse.id
-        } else {
-            if (response.getFirstHeader('content-type').value.contains('json')) {
-                InputStreamReader reader = new InputStreamReader(response.entity.content)
-                CurseError error = Util.gson.fromJson(reader, CurseError)
-                reader.close()
-                throw new RuntimeException("[CurseForge ${projectId}] Error Code ${error.errorCode}: ${error.errorMessage}")
-            } else {
-                throw new RuntimeException("[CurseForge ${projectId}] HTTP Error Code $statusLine.statusCode: $statusLine.reasonPhrase")
-            }
-        }
+        fileID = client.execute(post, UploadHttpResponseHandler.INSTANCE)
 
         log.lifecycle "Uploaded {} to CurseForge Project: {}, with ID: {}", file, projectId, fileID
         return fileID
+    }
+
+    static class UploadHttpResponseHandler implements HttpClientResponseHandler<Integer> {
+
+        public static final UploadHttpResponseHandler INSTANCE = new UploadHttpResponseHandler()
+
+        @Override
+        Integer handleResponse(ClassicHttpResponse response) throws HttpException, IOException {
+            int fileId
+            StatusLine statusLine = new StatusLine(response)
+            if (statusLine.statusCode == 200) {
+                InputStreamReader reader = new InputStreamReader(response.entity.content)
+                UploadResponse curseResponse = Util.gson.fromJson(reader, UploadResponse)
+                reader.close()
+                fileId = curseResponse.id
+            } else {
+                if (response.getFirstHeader('content-type').value.contains('json')) {
+                    InputStreamReader reader = new InputStreamReader(response.entity.content)
+                    CurseError error = Util.gson.fromJson(reader, CurseError)
+                    reader.close()
+                    throw new RuntimeException("[CurseForge ${projectId}] Error Code ${error.errorCode}: ${error.errorMessage}")
+                } else {
+                    throw new RuntimeException("[CurseForge ${projectId}] HTTP Error Code ${statusLine.statusCode}: ${statusLine.reasonPhrase}")
+                }
+            }
+            return fileId
+        }
     }
 }

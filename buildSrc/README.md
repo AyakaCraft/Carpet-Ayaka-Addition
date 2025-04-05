@@ -1,6 +1,9 @@
 # CurseGradle
 
-Forked to https://github.com/Calboot/CurseGradle
+Forked from https://github.com/matthewprenger/CurseGradle
+Developing by myself as the original project is publicly archived
+
+[![Build Status](https://travis-ci.org/matthewprenger/CurseGradle.svg?branch=master)](https://travis-ci.org/matthewprenger/CurseGradle)
 
 A gradle plugin for publishing artifacts to [CurseForge](http://minecraft.curseforge.com/).
 

@@ -5,8 +5,11 @@ import com.matthewprenger.cursegradle.jsonresponse.CurseError
 import org.apache.hc.client5.http.classic.HttpClient
 import org.apache.hc.client5.http.classic.methods.HttpGet
 import org.apache.hc.client5.http.config.RequestConfig
+import org.apache.hc.client5.http.cookie.StandardCookieSpec
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
-import org.apache.hc.core5.http.HttpResponse
+import org.apache.hc.core5.http.ClassicHttpResponse
+import org.apache.hc.core5.http.HttpException
+import org.apache.hc.core5.http.io.HttpClientResponseHandler
 import org.apache.hc.core5.http.message.StatusLine
 import org.gradle.api.Project
 import org.gradle.api.logging.Logger
@@ -87,27 +90,36 @@ class Util {
 
         HttpClient client = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig.custom()
-                        .setCookieSpec("ignoreCookies").build()).build()
+                        .setCookieSpec(StandardCookieSpec.IGNORE).build()).build()
 
         HttpGet get = new HttpGet(new URI(url))
         get.setHeader('X-Api-Token', apiKey)
 
-        HttpResponse response = client.execute(get)
-        StatusLine statusLine = new StatusLine(response)
+        return client.execute(get, GetHttpResponseHandler.INSTANCE)
+    }
 
-        int statusCode = statusLine.statusCode
+    static class GetHttpResponseHandler implements HttpClientResponseHandler<String> {
 
-        if (statusCode == 200) {
-            byte[] data = response.entity.content.bytes
-            return new String(data, StandardCharsets.UTF_8)
-        } else {
-            if (response.getFirstHeader('content-type').value.contains('json')) {
-                InputStreamReader reader = new InputStreamReader(response.entity.content)
-                CurseError error = gson.fromJson(reader, CurseError)
-                reader.close()
-                throw new RuntimeException("[CurseForge] Error Code ${error.errorCode}: ${error.errorMessage}")
+        public static final GetHttpResponseHandler INSTANCE = new GetHttpResponseHandler()
+
+        @Override
+        String handleResponse(ClassicHttpResponse response) throws HttpException, IOException {
+            StatusLine statusLine = new StatusLine(response)
+
+            int statusCode = statusLine.statusCode
+
+            if (statusCode == 200) {
+                byte[] data = response.entity.content.bytes
+                return new String(data, StandardCharsets.UTF_8)
             } else {
-                throw new RuntimeException("[CurseForge] HTTP Error Code $statusLine.statusCode: $statusLine.reasonPhrase")
+                if (response.getFirstHeader('content-type').value.contains('json')) {
+                    InputStreamReader reader = new InputStreamReader(response.entity.content)
+                    CurseError error = gson.fromJson(reader, CurseError)
+                    reader.close()
+                    throw new RuntimeException("[CurseForge] Error Code ${error.errorCode}: ${error.errorMessage}")
+                } else {
+                    throw new RuntimeException("[CurseForge] HTTP Error Code $statusLine.statusCode: $statusLine.reasonPhrase")
+                }
             }
         }
     }

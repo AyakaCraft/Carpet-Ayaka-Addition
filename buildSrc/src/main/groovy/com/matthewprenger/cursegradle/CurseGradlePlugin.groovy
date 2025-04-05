@@ -37,6 +37,7 @@ class CurseGradlePlugin implements Plugin<Project> {
         project.afterEvaluate {
             if (project.state.failure != null) {
                 project.logger.info 'Failure detected. Not running afterEvaluate'
+                return
             }
 
             extension.curseProjects.each { curseProject ->
