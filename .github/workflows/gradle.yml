@@ -8,7 +8,6 @@ on:
 env:
   JAVA_VERSION: 21
   BUILD_RELEASE: "true"
-  GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
@@ -41,4 +40,4 @@ jobs:
       - name: Publish
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          github-token: "${{env.GITHUB_TOKEN}}"
+          github-token: "${{secrets.GITHUB_TOKEN}}"
