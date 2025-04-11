@@ -76,5 +76,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - 仅在加载了[Gca](https://github.com/Gu-ZT/gugle-carpet-addition)且fakePlayerResident为true时生效
 - itemDiscardAge
     - 修改掉落物自然消失前的游戏刻数
+    - 最大值72000（一小时）
     - 设置为0以使用原版设置
-- 命令选项
+- forceTickPlantsReintroduce
+    - 重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
+- 命令选项在此处省略
