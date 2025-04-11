@@ -8,7 +8,6 @@ on:
 env:
   JAVA_VERSION: 21
   BUILD_RELEASE: "true"
-  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
 
@@ -35,7 +34,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build and Publish
-        run: ./gradlew clean buildAndGather publish --warning-mode all --stacktrace
+        run: ./gradlew clean buildAndGather publishAll --warning-mode all --stacktrace
 
       - name: Publish
         uses: Kir-Antipov/mc-publish@v3.3

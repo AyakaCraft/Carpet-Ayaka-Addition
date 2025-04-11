@@ -7,15 +7,14 @@ plugins {
 
     id("com.gradleup.shadow") version("8.3.6") apply(false)
 
-    id("com.modrinth.minotaur") version("2.8.7") apply(false)
-    //id("com.matthewprenger.cursegradle") version("1.4.0") apply(false)
+    id("com.hypherionmc.modutils.modpublisher") version("2.1.6") apply(false)
 }
 
 version = project.mod_version
-group = project.maven_group
+group = project.group
 
 preprocess {
-    strictExtraMappings.set(false)
+    strictExtraMappings = false
 
     var mc11605 = createNode("1.16.5", 1_16_05, "")
     var mc11701 = createNode("1.17.1", 1_17_01, "")
@@ -33,15 +32,16 @@ preprocess {
 
 tasks.register("buildAndGather") {
     subprojects {
-        dependsOn(it.tasks.named("build").get())
+        dependsOn(it.tasks.build)
     }
-    doFirst {
+    doLast {
         println("Gathering builds")
 
-        var buildLibs = { p -> p.buildDir.toPath().resolve("libs") }
+        Closure buildLibs = { p -> p.buildDir.toPath().resolve("libs") }
         delete(fileTree(buildLibs(rootProject)) { include("*") })
         subprojects {
-            var p = it
+            print("Copying files for ${it.name}...    ")
+            Project p = it
             copy {
                 from(buildLibs(p)) {
                     include("*.jar")
@@ -50,11 +50,14 @@ tasks.register("buildAndGather") {
                 into(buildLibs(rootProject))
                 duplicatesStrategy = DuplicatesStrategy.INCLUDE
             }
+            println("Succeeded")
         }
     }
 }
 
-tasks.register("publish") {
-    mustRunAfter(rootProject.tasks.named("buildAndGather").get())
-    subprojects { dependsOn(it.tasks.named("modrinth").get(), it.tasks.named("curseforge").get()) }
+tasks.register("publishAll") {
+    mustRunAfter(rootProject.tasks.buildAndGather)
+    subprojects {
+        dependsOn(it.tasks.publishMod)
+    }
 }

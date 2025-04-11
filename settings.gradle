@@ -10,6 +10,9 @@ pluginManagement {
             name = "Jitpack"
             url = "https://jitpack.io"
         }
+        maven {
+            url = "https://maven.firstdark.dev/releases" // For ModPublisher
+        }
         mavenCentral()
         gradlePluginPortal()
     }

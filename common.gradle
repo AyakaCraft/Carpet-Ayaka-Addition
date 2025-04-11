@@ -1,15 +1,13 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.matthewprenger.cursegradle.CurseGradlePlugin
 
 apply plugin: "com.gradleup.shadow"
 apply plugin: "fabric-loom"
 apply plugin: "com.replaymod.preprocess"
-apply plugin: "com.modrinth.minotaur"
+apply plugin: "com.hypherionmc.modutils.modpublisher"
 
-// https://github.com/Calboot/CurseGradlePlugin
-apply plugin: CurseGradlePlugin
+Map<String, ?> properties = project.getProperties()
 
-int mcVersion = project.mcVersion
+int mcVersion = (Integer) properties.mcVersion
 
 repositories {
     maven {
@@ -44,6 +42,8 @@ dependencies {
     // loom
     minecraft("com.mojang:minecraft:${project.minecraft_version}")
     mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+
+    // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
@@ -103,9 +103,9 @@ tasks.withType(ShadowJar).configureEach {
 }
 
 remapJar {
-    dependsOn(shadowJar)
-    mustRunAfter(shadowJar)
-    inputFile = shadowJar.archiveFile
+    dependsOn(tasks.shadowJar)
+    mustRunAfter(tasks.shadowJar)
+    inputFile = tasks.shadowJar.archiveFile
 }
 
 var modVersionSuffix = ""
@@ -129,15 +129,14 @@ var fullProjectVersion//, fullArtifactVersion
 //   fullProjectVersion      v1.0.3-mc1.15.2+build.88   (in build output jar name)
 //   fullArtifactVersion     1.0.3-mc1.15.2-SNAPSHOT    (maven artifact version)
 
-group = project.maven_group
 if (System.getenv("JITPACK") == "true") {
     // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
-    base.archivesName = project.archives_base_name + "-mc" + project.minecraft_version
-    fullProjectVersion = "v" + project.mod_version + modVersionSuffix
+    base.archivesName = "${project.archives_base_name}-mc${project.minecraft_version}"
+    fullProjectVersion = "v${project.mod_version}${modVersionSuffix}"
     //fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
     base.archivesName = project.archives_base_name
-    fullProjectVersion = "v" + project.mod_version + "-mc" + project.minecraft_version + modVersionSuffix
+    fullProjectVersion = "v${project.mod_version}-mc${project.minecraft_version}${modVersionSuffix}"
     //fullArtifactVersion = artifactVersion + "-mc" + project.minecraft_version + artifactVersionSuffix
 }
 version = fullProjectVersion
@@ -153,12 +152,12 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand([
-                "id"               : project.mod_id,
-                "name"             : project.mod_name,
+                "id"               : properties.mod_id,
+                "name"             : properties.mod_name,
                 "version"          : fullModVersion,
-                "carpet_dependency": project.carpet_dependency,
-                "minecraft_version": project.minecraft_version,
-                "loader_min"       : project.loader_min
+                "carpet_dependency": properties.carpet_dependency,
+                "minecraft_version": properties.minecraft_version,
+                "loader_min"       : properties.loader_min
         ])
     }
 
@@ -184,48 +183,37 @@ java {
     targetCompatibility = JAVA_COMPATIBILITY
 }
 
-jar {
-    from(rootProject.file("LICENSE")) {
-        rename { "${it}_${project.archives_base_name}" }
-    }
-}
-
-modrinth {
-    token = System.getenv("MODRINTH_TOKEN")
-    projectId = "carpet-ayaka-addition"
-    versionNumber = fullProjectVersion
-    versionType = "release"
-    uploadFile = remapJar
-    gameVersions = [project.minecraft_version]
-    // syncBodyFrom = rootProject.file("README.md").text
-    dependencies {
-        required.project("fabric-api")
-        required.project("carpet")
-        optional.project("carpet-tis-addition")
-        optional.project("gca")
-    }
-}
-
-curseforge {
-    //noinspection GroovyAssignabilityCheck
-    project {
-        apiKey = System.getenv("CURSEFORGE_TOKEN")
-        id = "1220026"
-        mainArtifact(remapJar)
-        releaseType = "release"
-        changelogType = "text"
-        changelog = "Refer to github releases for more information"
-        addGameVersion(project.minecraft_version)
-        addGameVersion("fabric")
-        relations {
-            requiredDependency("fabric-api")
-            requiredDependency("carpet")
-            optionalDependency("carpet-tis-addition")
-            optionalDependency("guglecarpetaddition")
-        }
+publisher {
+    apiKeys {
+        modrinth System.getProperty("MODRINTH_TOKEN") ?: "unset"
+        curseforge System.getProperty("CURSEFORGE_TOKEN") ?: "unset"
     }
 
-    options {
-        forgeGradleIntegration = false
+    //setDebug(true)
+
+    setCurseID("1220026")
+    setModrinthID("hGOHBiok")
+
+    setVersionType("release")
+    setChangelog("See github releases for more information")
+
+    setVersion(fullProjectVersion)
+    setGameVersions(project.minecraft_version)
+    setLoaders("fabric")
+
+    setArtifact(tasks.remapJar)
+
+    if(mcVersion < 11700) {
+        setJavaVersions(["Java 8"])
+    }
+
+    curseDepends {
+        required "fabric-api", "carpet"
+        optional "carpet-tis-addition", "guglecarpetaddition"
+    }
+
+    modrinthDepends {
+        required "fabric-api", "carpet"
+        optional "carpet-tis-addition", "gca"
     }
 }
