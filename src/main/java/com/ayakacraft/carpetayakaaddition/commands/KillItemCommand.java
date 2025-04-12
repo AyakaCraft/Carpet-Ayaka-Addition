@@ -3,6 +3,7 @@ package com.ayakacraft.carpetayakaaddition.commands;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.EntityUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.mojang.brigadier.CommandDispatcher;
@@ -40,7 +41,7 @@ public final class KillItemCommand {
             TextUtils.broadcastToPlayers(server, TextUtils.tr("command.carpet-ayaka-addition.killitem.none"), false);
             return 0;
         }
-        targets.forEach(Entity::kill);
+        targets.forEach(EntityUtils::kill);
         if (targets.size() == 1) {
             TextUtils.broadcastToPlayers(server, TextUtils.tr("command.carpet-ayaka-addition.killitem.single"), false);
         } else {

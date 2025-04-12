@@ -22,12 +22,17 @@ preprocess {
     var mc11904 = createNode("1.19.4", 1_19_04, "")
     var mc12001 = createNode("1.20.1", 1_20_01, "")
     var mc12006 = createNode("1.20.6", 1_20_06, "")
+    var mc12101 = createNode("1.21.1", 1_21_01, "")
+    var mc12104 = createNode("1.21.4", 1_21_04, "")
 
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
     mc11904.link(mc11802, file("versions/mapping_11904_11802.txt"))
     mc11802.link(mc11701, file("versions/mapping_11802_11701.txt"))
     mc11701.link(mc11605, file("versions/mapping_11701_11605.txt"))
+
+    mc12006.link(mc12101, file("versions/mapping_12006_12101.txt"))
+    mc12101.link(mc12104, file("versions/mapping_12101_12104.txt"))
 }
 
 tasks.register("buildAndGather") {

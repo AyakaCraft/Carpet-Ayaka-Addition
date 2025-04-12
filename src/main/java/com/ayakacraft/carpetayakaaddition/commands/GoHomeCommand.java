@@ -26,7 +26,11 @@ public final class GoHomeCommand {
 
                             final Collection<StatusEffectInstance> c = player.getStatusEffects();
 
-                            final ServerPlayerEntity newPlayer = server.getPlayerManager().respawnPlayer(player, true);
+                            final ServerPlayerEntity newPlayer = server.getPlayerManager().respawnPlayer(player, true
+                                    //#if MC>=12100
+                                    //$$ , net.minecraft.entity.Entity.RemovalReason.CHANGED_DIMENSION
+                                    //#endif
+                            );
                             player.networkHandler.player = newPlayer;
                             c.forEach(effect -> newPlayer.addStatusEffect(new StatusEffectInstance(effect)));
                             return 1;

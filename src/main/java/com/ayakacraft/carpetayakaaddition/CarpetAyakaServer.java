@@ -3,20 +3,20 @@ package com.ayakacraft.carpetayakaaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.ayakacraft.carpetayakaaddition.commands.*;
-import com.ayakacraft.carpetayakaaddition.utils.waypoint.WaypointManager;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
+import com.ayakacraft.carpetayakaaddition.utils.waypoint.WaypointManager;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
-//#if MC>=11900
-import net.minecraft.command.CommandRegistryAccess;
-//#endif
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
@@ -58,23 +58,17 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     @Override
-    //#if MC>=11900
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final CommandRegistryAccess registryAccess) {
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher
+                                 //#if MC>=11900
+            , final net.minecraft.command.CommandRegistryAccess registryAccess
+                                 //#endif
+    ) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         WaypointCommand.register(dispatcher);
         CCommand.register(dispatcher);
         KillItemCommand.register(dispatcher);
     }
-    //#else
-    //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
-    //$$     TptCommand.register(dispatcher);
-    //$$     GoHomeCommand.register(dispatcher);
-    //$$     WaypointCommand.register(dispatcher);
-    //$$     CCommand.register(dispatcher);
-    //$$     KillItemCommand.register(dispatcher);
-    //$$ }
-    //#endif
 
     @Override
     public void onServerClosed(MinecraftServer server) {

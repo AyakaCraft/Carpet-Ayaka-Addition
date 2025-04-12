@@ -13,7 +13,13 @@ import java.util.Optional;
 
 public final class CarpetAyakaAddition implements ModInitializer {
 
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting()
+            //#if MC>=12104
+            //$$ .setStrictness(com.google.gson.Strictness.LENIENT)
+            //#else
+            .setLenient()
+            //#endif
+            .create();
 
     public static final String MOD_ID = "carpet-ayaka-addition";
 

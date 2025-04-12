@@ -7,8 +7,6 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import org.jetbrains.annotations.NotNull;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -23,11 +21,7 @@ public final class TptCommand {
                                 argument("target", EntityArgumentType.player())
                                         .suggests(CommandUtils::playerSuggestionProvider)
                                         .executes(context -> {
-                                            final @NotNull ServerCommandSource source = context.getSource();
-                                            final @NotNull ServerPlayerEntity  player = source.getPlayerOrThrow();
-                                            final @NotNull ServerPlayerEntity  target = EntityArgumentType.getPlayer(context, "target");
-                                            player.teleport(ServerPlayerUtils.getServerWorld(target), target.getX(), target.getY(), target.getZ(),
-                                                    ServerPlayerUtils.getYaw(target), ServerPlayerUtils.getPitch(target));
+                                            ServerPlayerUtils.teleport(context.getSource().getPlayerOrThrow(), EntityArgumentType.getPlayer(context, "target"));
                                             return Command.SINGLE_SUCCESS;
                                         })));
     }

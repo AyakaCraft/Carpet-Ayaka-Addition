@@ -29,7 +29,9 @@ public class Waypoint {
     }
 
     public RegistryKey<World> getDimension() {
-        //#if MC>=11904
+        //#if MC>=12100
+        //$$ return RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, Identifier.of(dim));
+        //#elseif MC>=11904
         return RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, new Identifier(dim));
         //#else
         //$$ return RegistryKey.of(net.minecraft.util.registry.Registry.WORLD_KEY, new Identifier(dim));

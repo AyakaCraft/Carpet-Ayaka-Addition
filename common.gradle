@@ -28,6 +28,14 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+    maven {
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        url "https://maven.nucleoid.xyz/"
+        name "Nucleoid"
+    }
 
 }
 
@@ -50,8 +58,12 @@ dependencies {
     // mods
     modImplementation("carpet:fabric-carpet:${project.carpet_core_version}")
 
-    modCompileOnly("carpettisaddition:carpet-tis-addition:${project.tis_version}")
+    modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}")
     modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
+    modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
+    if (mcVersion >= 12006) {
+        modRuntimeOnly(include("eu.pb4:placeholder-api:${project.placeholder_version}"))
+    }
 
 }
 
@@ -203,7 +215,7 @@ publisher {
 
     setArtifact(tasks.remapJar)
 
-    if(mcVersion < 11700) {
+    if (mcVersion < 11700) {
         setJavaVersions(["Java 8"])
     }
 

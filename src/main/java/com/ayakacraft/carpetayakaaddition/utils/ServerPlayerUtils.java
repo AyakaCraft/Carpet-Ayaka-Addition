@@ -57,4 +57,24 @@ public final class ServerPlayerUtils {
         //#endif
     }
 
+    public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z, float yaw, float pitch) {
+        player.teleport(dim, x, y, z,
+                //#if MC>=11900
+                java.util.Collections.emptySet(),
+                //#endif
+                yaw, pitch
+                //#if MC>=12104
+                //$$ , true
+                //#endif
+        );
+    }
+
+    public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z) {
+        teleport(player, dim, x, y, z, getYaw(player), getPitch(player));
+    }
+
+    public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
+        teleport(player, getServerWorld(target), target.getX(), target.getY(), target.getZ(), getYaw(target), getPitch(target));
+    }
+
 }

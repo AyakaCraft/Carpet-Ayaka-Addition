@@ -17,7 +17,7 @@ public abstract class BambooBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("RETURN"))
     private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (state.canPlaceAt(world, pos) && CarpetAyakaSettings.forceTickPlantsReintroduce) {
+        if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canPlaceAt(world, pos)) {
             randomTick(state, world, pos, random);
         }
     }
