@@ -7,7 +7,7 @@ plugins {
 
     id("com.gradleup.shadow") version("8.3.6") apply(false)
 
-    id("com.hypherionmc.modutils.modpublisher") version("2.1.6") apply(false)
+    id("com.hypherionmc.modutils.modpublisher") version("2.1.7+snapshot.1") apply(false)
 }
 
 version = project.mod_version
