@@ -16,7 +16,7 @@ public final class TextUtils {
         //#if MC>=11900
         return Text.translatable(key, args);
         //#else
-        //$$ return new TranslatableText(key, args);
+        //$$ return new net.minecraft.text.TranslatableText(key, args);
         //#endif
     }
 
@@ -24,7 +24,7 @@ public final class TextUtils {
         //#if MC>=11900
         return Text.literal(String.format(str, args));
         //#else
-        //$$ return new LiteralText(String.format(str, args));
+        //$$ return new net.minecraft.text.LiteralText(String.format(str, args));
         //#endif
     }
 
@@ -37,11 +37,11 @@ public final class TextUtils {
         return Texts.join(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
-        //$$     return new LiteralText("");
+        //$$     return new net.minecraft.text.LiteralText("");
         //$$ } else if (elements.size() == 1) {
         //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
         //$$ } else {
-        //$$     MutableText mutableText = new LiteralText("");
+        //$$     MutableText mutableText = new net.minecraft.text.LiteralText("");
         //$$     boolean bl = true;
         //$$
         //$$     for(T object : elements) {

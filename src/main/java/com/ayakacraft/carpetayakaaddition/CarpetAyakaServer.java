@@ -58,17 +58,23 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     @Override
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher
-                                 //#if MC>=11900
-            , final net.minecraft.command.CommandRegistryAccess registryAccess
-                                 //#endif
-    ) {
+    //#if MC>=11900
+    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final net.minecraft.command.CommandRegistryAccess registryAccess) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         WaypointCommand.register(dispatcher);
         CCommand.register(dispatcher);
         KillItemCommand.register(dispatcher);
     }
+    //#else
+    //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+    //$$     TptCommand.register(dispatcher);
+    //$$     GoHomeCommand.register(dispatcher);
+    //$$     WaypointCommand.register(dispatcher);
+    //$$     CCommand.register(dispatcher);
+    //$$     KillItemCommand.register(dispatcher);
+    //$$ }
+    //#endif
 
     @Override
     public void onServerClosed(MinecraftServer server) {
