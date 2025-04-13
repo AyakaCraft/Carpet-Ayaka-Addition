@@ -202,7 +202,7 @@ publisher {
         curseforge System.getProperty("CURSEFORGE_TOKEN") ?: "unset"
     }
 
-    //setDebug(true)
+    setDebug(true)
 
     setCurseID("1220026")
     setModrinthID("hGOHBiok")
@@ -217,7 +217,7 @@ publisher {
     setArtifact(tasks.remapJar)
 
     if (mcVersion < 11700) {
-        setJavaVersions(["Java 8"])
+        setJavaVersions([JavaVersion.VERSION_1_8])
     }
 
     curseDepends {
