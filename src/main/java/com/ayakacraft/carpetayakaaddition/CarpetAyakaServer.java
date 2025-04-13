@@ -28,11 +28,11 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     private final LinkedBlockingQueue<TickTask> preTickTasks = new LinkedBlockingQueue<>();
 
+    public MinecraftServer mcServer;
+
     private CarpetAyakaServer() {
         super();
     }
-
-    public MinecraftServer mcServer;
 
     @Override
     public void onGameStarted() {
@@ -109,7 +109,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         preTickTasks.add(tickTask);
     }
 
-    public int cancelTickTasksMatching(Predicate<TickTask> predicate) {
+    public int cancelTickTasksMatching(Predicate<? super TickTask> predicate) {
         final int[] i = {0};
         new LinkedList<>(tickTasks).stream().filter(predicate).forEach(t -> {
             t.cancel();

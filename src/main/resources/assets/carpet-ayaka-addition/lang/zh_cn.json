@@ -1,7 +1,10 @@
 {
   "command.carpet-ayaka-addition.waypoint.list.empty": "无路径点",
   "command.carpet-ayaka-addition.waypoint.list": "路径点如下: ",
-  "command.carpet-ayaka-addition.waypoint.list.hover": "维度: %s\n位置: %f %f %f\n描述: %s\n点击以传送",
+  "command.carpet-ayaka-addition.waypoint.list.detail": "详细信息",
+  "command.carpet-ayaka-addition.waypoint.list.detail.hover": "点击以显示详细信息",
+  "command.carpet-ayaka-addition.waypoint.list.tp": "传送",
+  "command.carpet-ayaka-addition.waypoint.list.tp.hover": "点击以传送到路径点",
   "command.carpet-ayaka-addition.waypoint.not_exist": "路径点 [%s] 不存在",
   "command.carpet-ayaka-addition.waypoint.detail.1": "路径点 [%s] 的详情:",
   "command.carpet-ayaka-addition.waypoint.detail.2": "ID:   ",
@@ -47,7 +50,7 @@
   "carpet.rule.commandKillItem.name": "清除掉落物",
   "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物",
 
-  "carpet.rule.killItemAwaitSeconds.name": "/killitem 执行延迟",
+  "carpet.rule.killItemAwaitSeconds.name": "killitem 执行延迟",
   "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5",
 
   "carpet.rule.foxNoPickupItem.name": "禁用狐狸叼起物品",

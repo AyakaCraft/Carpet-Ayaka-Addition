@@ -33,8 +33,8 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
     maven {
-        url "https://maven.nucleoid.xyz/"
-        name "Nucleoid"
+        name = "Nucleoid"
+        url = "https://maven.nucleoid.xyz/"
     }
 
 }
@@ -60,9 +60,10 @@ dependencies {
 
     modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}")
     modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
+
     modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
     if (mcVersion >= 12006) {
-        modRuntimeOnly(include("eu.pb4:placeholder-api:${project.placeholder_version}"))
+        modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
     }
 
 }

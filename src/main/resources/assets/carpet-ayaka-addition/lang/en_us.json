@@ -1,7 +1,10 @@
 {
   "command.carpet-ayaka-addition.waypoint.list.empty": "No waypoints available",
   "command.carpet-ayaka-addition.waypoint.list": "The waypoints are as below:",
-  "command.carpet-ayaka-addition.waypoint.list.hover": "Dimension: %s\nPosition: %f %f %f\nClick to teleport",
+  "command.carpet-ayaka-addition.waypoint.list.detail": "Detail",
+  "command.carpet-ayaka-addition.waypoint.list.detail.hover": "Click to show detailed info",
+  "command.carpet-ayaka-addition.waypoint.list.tp": "Teleport",
+  "command.carpet-ayaka-addition.waypoint.list.tp.hover": "Click to teleport",
   "command.carpet-ayaka-addition.waypoint.not_exist": "Waypoint [%s] does not exist",
   "command.carpet-ayaka-addition.waypoint.detail.1": "Detail of waypoint [%s]:",
   "command.carpet-ayaka-addition.waypoint.detail.2": "ID:          ",
@@ -47,7 +50,7 @@
   "carpet.rule.commandKillItem.name": "Clear items",
   "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
 
-  "carpet.rule.killItemAwaitSeconds.name": "Await seconds for /killitem",
+  "carpet.rule.killItemAwaitSeconds.name": "Await seconds for killitem",
   "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before killing the items, default to 5",
 
   "carpet.rule.foxNoPickupItem.name": "Disable foxes picking up items",

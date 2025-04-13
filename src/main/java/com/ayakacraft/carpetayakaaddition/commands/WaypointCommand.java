@@ -22,7 +22,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,10 +43,9 @@ import static net.minecraft.server.command.CommandManager.literal;
 public final class WaypointCommand {
 
     private static int list(CommandContext<ServerCommandSource> context) {
-        final ServerCommandSource source  = context.getSource();
-        final WaypointManager     manager = WaypointManager.getOrCreateWaypointManager(source.getServer());
+        final ServerCommandSource source = context.getSource();
 
-        sendWaypointList(source, manager.getIds(), manager);
+        sendWaypointList(source, WaypointManager.getOrCreateWaypointManager(source.getServer()).getIds());
 
         return 1;
     }
@@ -212,35 +210,38 @@ public final class WaypointCommand {
         final Collection<Waypoint> waypoints = manager.getWaypoints();
         final List<String>         idList    = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());
 
-        sendWaypointList(source, idList, manager);
+        sendWaypointList(source, idList);
 
         return 1;
     }
 
-    private static MutableText waypointIdText(String id, WaypointManager manager) {
-        final Waypoint w = manager.get(id);
+    private static MutableText waypointIdText(String id) {
         return TextUtils.joinTexts(
-                        li("["),
-                        li(id).formatted(Formatting.GREEN),
-                        li("]")
-                )
-                .styled(style -> style
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/waypoint tp \"%s\"", id)))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(
-                                "command.carpet-ayaka-addition.waypoint.list.hover",
-                                w.getDim(),
-                                w.getX(),
-                                w.getY(),
-                                w.getZ(),
-                                w.getDesc())))
-                );
+                li("["),
+                li(id).formatted(Formatting.GREEN),
+                li("] ["),
+                tr("command.carpet-ayaka-addition.waypoint.list.detail")
+                        .styled(style -> style
+                                .withColor(Formatting.GOLD)
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/waypoint detail \"%s\"", id)))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr("command.carpet-ayaka-addition.waypoint.list.detail.hover")))
+                        ),
+                li("] ["),
+                tr("command.carpet-ayaka-addition.waypoint.list.tp")
+                        .styled(style -> style
+                                .withColor(Formatting.RED)
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/waypoint tp \"%s\"", id)))
+                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr("command.carpet-ayaka-addition.waypoint.list.tp.hover")))
+                        ),
+                li("]")
+        );
     }
 
-    private static MutableText listWaypointIdsText(Collection<String> ids, WaypointManager manager) {
-        return TextUtils.join(ids, Text.of(" "), id1 -> waypointIdText(id1, manager));
+    private static MutableText listWaypointIdsText(Collection<String> ids) {
+        return TextUtils.join(ids, enter(), WaypointCommand::waypointIdText);
     }
 
-    private static void sendWaypointList(ServerCommandSource source, Collection<String> ids, WaypointManager manager) {
+    private static void sendWaypointList(ServerCommandSource source, Collection<String> ids) {
         if (ids.isEmpty()) {
             sendFeedback(
                     source,
@@ -254,7 +255,7 @@ public final class WaypointCommand {
                     TextUtils.joinTexts(
                             tr("command.carpet-ayaka-addition.waypoint.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
-                            listWaypointIdsText(ids, manager)
+                            listWaypointIdsText(ids)
                     ),
                     false
             );

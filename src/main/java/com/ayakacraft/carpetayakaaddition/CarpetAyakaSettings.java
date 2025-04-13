@@ -58,7 +58,7 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for /killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
     //#endif
     public static int killItemAwaitSeconds = 5;
 

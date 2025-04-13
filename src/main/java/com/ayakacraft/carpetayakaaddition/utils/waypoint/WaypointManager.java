@@ -20,7 +20,7 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
 public class WaypointManager {
 
-    private static final Type collectionType = new TypeToken<Collection<Waypoint>>() {
+    private static final Type COLLECTION_TYPE = new TypeToken<Collection<Waypoint>>() {
     }.getType();
 
     private static final Map<MinecraftServer, WaypointManager> waypointManagers = new HashMap<>(1);
@@ -68,7 +68,7 @@ public class WaypointManager {
         final String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(waypointStoragePath))).toString();
 
         waypoints.clear();
-        final Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, collectionType);
+        final Collection<Waypoint> obj = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE);
         if (obj != null) {
             obj.forEach(w -> waypoints.put(w.getId(), w));
         }
@@ -76,7 +76,7 @@ public class WaypointManager {
 
     public void saveWaypoints() throws IOException {
         LOGGER.debug("Saving waypoints to {}", waypointStoragePath);
-        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), collectionType).getBytes(StandardCharsets.UTF_8));
+        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(waypoints.values(), COLLECTION_TYPE).getBytes(StandardCharsets.UTF_8));
     }
 
     public Waypoint get(String id) {
