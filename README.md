@@ -27,6 +27,41 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed for AyakaCraft server.
 
+## EOL
+
+### Current supported versions
+
+Currently, the following Minecraft versions are actively supported with new features and bug fixes
+
+| Minecraft Version | Support Until                               |
+|-------------------|---------------------------------------------|
+| 1.16.5            | ✔️ Long Term Support                        |
+| 1.17.1            | ✔️ Long Term Support                        |
+| 1.18.2            | ✔️ Long Term Support                        |
+| 1.19.4            | ✔️ Long Term Support                        |
+| 1.20.1            | ✔️ Long Term Support                        |
+| 1.20.6            | ✔️ Long Term Support                        |
+| 1.21.1            | 🕒 When Minecraft 1.23 snapshot is released |
+| 1.21.4            | 🕒 When Minecraft 1.23 snapshot is released |
+
+### End-of-life versions
+
+The following Minecraft versions are out of the support range. There's no support for these Minecraft versions, unless some critical bugs occur
+
+| Minecraft Version | Last Version                                                                      | Release Date |
+|-------------------|-----------------------------------------------------------------------------------|--------------|
+| 1.19.2            | [v0.3.1](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases/tag/v0.3.1) | Mar 2, 2025  |
+
+### Scheduled to be supported versions
+
+The following Minecraft versions are scheduled to be supported in the later versions
+
+| Minecraft Version | Support When                      |
+|-------------------|-----------------------------------|
+| 1.14.4            | Any time                          |
+| 1.15.2            | Any time                          |
+| 1.21.5            | 🕒 When Minecraft 1.21.6 released |
+
 ## Functions
 
 ### Commands
