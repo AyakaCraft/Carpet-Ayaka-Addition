@@ -9,6 +9,7 @@ env:
   JAVA_VERSION: 21
   BUILD_RELEASE: "true"
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+  MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
 
 
 permissions:
