@@ -20,7 +20,7 @@ repositories {
         url = "https://jitpack.io"
     }
     maven {
-        url = "https://www.cursemaven.com"
+        url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
         }
@@ -197,9 +197,10 @@ java {
 }
 
 publisher {
+
     apiKeys {
-        modrinth System.getProperty("MODRINTH_TOKEN") ?: "unset"
-        curseforge System.getProperty("CURSEFORGE_TOKEN") ?: "unset"
+        modrinth System.getenv("MODRINTH_TOKEN") ?: "unset"
+        curseforge System.getenv("CURSEFORGE_TOKEN") ?: "unset"
     }
 
     setDebug(true)
