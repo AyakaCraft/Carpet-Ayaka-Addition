@@ -203,7 +203,7 @@ publisher {
         curseforge System.getenv("CURSEFORGE_TOKEN") ?: "unset"
     }
 
-    setDebug(true)
+    //setDebug(true)
 
     setCurseID("1220026")
     setModrinthID("hGOHBiok")
