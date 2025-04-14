@@ -210,8 +210,8 @@ publisher {
     setVersionType("release")
     setChangelog("See github releases for more information")
 
-    setVersion(fullProjectVersion)
-    setGameVersions(project.minecraft_version)
+    setProjectVersion(fullProjectVersion)
+    setGameVersions([project.minecraft_version])
     setLoaders("fabric")
 
     setArtifact(tasks.remapJar)
@@ -229,4 +229,5 @@ publisher {
         required "fabric-api", "carpet"
         optional "carpet-tis-addition", "gca"
     }
+
 }
