@@ -1,3 +1,23 @@
+/*
+ * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * GNU General Public License v3.0
+ *
+ * Copyright (C) 2025  Calboot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.ayakacraft.carpetayakaaddition;
 
 import carpet.CarpetExtension;
@@ -44,7 +64,9 @@ public final class CarpetAyakaServer implements CarpetExtension {
         this.mcServer = server;
     }
 
+    //#if MC>=11600
     @Override
+    //#endif
     public void onServerLoadedWorlds(MinecraftServer server) {
         WaypointManager.getOrCreateWaypointManager(mcServer);
     }
@@ -88,6 +110,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         return CarpetAyakaAddition.MOD_ID;
     }
 
+    //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
         final InputStream langStream = CarpetAyakaServer.class.getClassLoader().getResourceAsStream(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
@@ -110,6 +133,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         return CarpetAyakaAddition.GSON.fromJson(jsonData, new TypeToken<Map<String, String>>() {
         }.getType());
     }
+    //#endif
 
     public void addTickTask(TickTask tickTask) {
         preTickTasks.add(tickTask);

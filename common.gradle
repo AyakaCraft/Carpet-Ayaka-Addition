@@ -4,6 +4,7 @@ apply plugin: "com.gradleup.shadow"
 apply plugin: "fabric-loom"
 apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.hypherionmc.modutils.modpublisher"
+apply plugin: "com.github.hierynomus.license"
 
 Map<String, ?> properties = project.getProperties()
 
@@ -26,6 +27,7 @@ repositories {
         }
     }
     maven {
+        name = "Modrinth"
         url = "https://api.modrinth.com/maven"
     }
     maven {
@@ -61,11 +63,14 @@ dependencies {
     modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}")
     modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
 
-    modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
-    if (mcVersion >= 12006) {
-        modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
+    if (mcVersion < 11600) {
+        modRuntimeOnly("maven.modrinth:modmenu:${project.modmenu_version}")
+    } else {
+        modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
+        if (mcVersion >= 12006) {
+            modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
+        }
     }
-
 }
 
 var MIXIN_CONFIG_PATH = "carpet-ayaka-addition.mixins.json"
@@ -195,6 +200,47 @@ java {
     sourceCompatibility = JAVA_COMPATIBILITY
     targetCompatibility = JAVA_COMPATIBILITY
 }
+
+jar {
+    from(rootProject.file('LICENSE')) {
+        rename { "${it}_${properties.archives_base_name}" }
+    }
+}
+
+// https://github.com/hierynomus/license-gradle-plugin
+license {
+    // use "gradle licenseFormat" to apply license headers
+    header = rootProject.file('HEADER')
+    include '**/*.java'
+    skipExistingHeaders = true
+
+    headerDefinitions {
+        // ref: https://github.com/mathieucarbou/license-maven-plugin/blob/4c42374bb737378f5022a3a36849d5e23ac326ea/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/header/HeaderType.java#L48
+        // modification: add a newline at the end
+        SLASHSTAR_STYLE_NEWLINE {
+            firstLine = "/*"
+            beforeEachLine = " * "
+            endLine = " */" + System.lineSeparator()
+            afterEachLine = ""
+            skipLinePattern = null
+            firstLineDetectionPattern = "(\\s|\\t)*/\\*.*\$"
+            lastLineDetectionPattern = ".*\\*/(\\s|\\t)*\$"
+            allowBlankLines = false
+            isMultiline = true
+            padLines = false
+        }
+    }
+    mapping {
+        java = 'SLASHSTAR_STYLE_NEWLINE'
+    }
+    ext {
+        name = project.mod_name
+        author = "Calboot"
+        year = Calendar.getInstance().get(Calendar.YEAR).toString()
+    }
+}
+tasks.classes.dependsOn(tasks.licenseFormatMain)
+tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
 publisher {
 

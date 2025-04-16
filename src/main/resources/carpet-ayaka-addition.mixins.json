@@ -14,7 +14,9 @@
     "rules.forceTickPlantsReintroduce.CactusBlockMixin",
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
-    "rules.itemDiscardAge.ItemEntityMixin"
+    "rules.itemDiscardAge.ItemEntityMixin",
+    "utils.MinecraftServerAccessor",
+    "utils.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

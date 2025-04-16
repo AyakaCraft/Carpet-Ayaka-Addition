@@ -1,0 +1,2 @@
+net.minecraft.text.MutableText net.minecraft.text.Text
+net.minecraft.text.MutableTest.shallowCopy() deepCopy()

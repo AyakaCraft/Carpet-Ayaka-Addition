@@ -18,26 +18,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
+package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.mods.TISHelper;
-import net.minecraft.server.command.KillCommand;
-import net.minecraft.server.command.ServerCommandSource;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
+import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(KillCommand.class)
-public class KillCommandMixin {
+@Mixin(MinecraftServer.class)
+public class MinecraftServerMixin {
 
-    @Inject(method = "method_13432", remap = false, at = @At("RETURN"), cancellable = true)
-    private static void checkIfAllowCheating_killCommand(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.betterOpPlayerNoCheat && ModUtils.isTISLoaded() && !TISHelper.canCheat(source)) { // DO NOT change the order of the conditions
-            cir.setReturnValue(false);
-        }
+    @Inject(method = "loadWorld", at = @At("TAIL"))
+    private void onLoadWorld(CallbackInfo ci) {
+        //#if MC>=11600
+        //#else
+        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds((MinecraftServer) (Object) this);
+        //#endif
     }
 
 }

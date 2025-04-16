@@ -35,6 +35,8 @@ Currently, the following Minecraft versions are actively supported with new feat
 
 | Minecraft Version | Support Until                               |
 |-------------------|---------------------------------------------|
+| 1.14.4            | ✔️ Long Term Support                        |
+| 1.15.2            | ✔️ Long Term Support                        |
 | 1.16.5            | ✔️ Long Term Support                        |
 | 1.17.1            | ✔️ Long Term Support                        |
 | 1.18.2            | ✔️ Long Term Support                        |
@@ -58,8 +60,6 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 | Minecraft Version | Support When                      |
 |-------------------|-----------------------------------|
-| 1.14.4            | Any time                          |
-| 1.15.2            | Any time                          |
 | 1.21.5            | 🕒 When Minecraft 1.21.6 released |
 
 ## Functions

@@ -1,9 +1,29 @@
+/*
+ * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * GNU General Public License v3.0
+ *
+ * Copyright (C) 2025  Calboot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.ayakacraft.carpetayakaaddition.utils.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.ServerUtils;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.WorldSavePath;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -52,7 +72,7 @@ public class WaypointManager {
     private final Map<String, Waypoint> waypoints = new HashMap<>(3);
 
     private WaypointManager(MinecraftServer server) {
-        waypointStoragePath = server.getSavePath(WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);
+        waypointStoragePath = ServerUtils.serverRootPath(server).resolve(WAYPOINT_FILE_NAME);
         try {
             loadWaypoints();
         } catch (IOException e) {

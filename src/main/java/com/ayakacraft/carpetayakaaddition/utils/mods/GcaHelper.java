@@ -1,7 +1,28 @@
+/*
+ * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * GNU General Public License v3.0
+ *
+ * Copyright (C) 2025  Calboot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.ayakacraft.carpetayakaaddition.utils.mods;
 
 import carpet.patches.EntityPlayerMPFake;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.ServerUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
@@ -10,7 +31,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.WorldSavePath;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,7 +98,7 @@ public final class GcaHelper {
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        File file = server.getSavePath(WorldSavePath.ROOT).resolve("fake_player.gca.json").toFile();
+        File file = ServerUtils.serverRootPath(server).resolve("fake_player.gca.json").toFile();
         if (!file.isFile()) {
             try {
                 //noinspection ResultOfMethodCallIgnored

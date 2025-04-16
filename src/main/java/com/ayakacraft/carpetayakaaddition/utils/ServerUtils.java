@@ -18,16 +18,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils.mods;
+package com.ayakacraft.carpetayakaaddition.utils;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.MinecraftServer;
 
-public final class TISHelper {
+import java.nio.file.Path;
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean canCheat(ServerCommandSource source) {
-        return OpPlayerNoCheatHelper.canCheat(source);
+public class ServerUtils {
+
+    public static Path serverRootPath(MinecraftServer server) {
+        //#if MC>=11600
+        return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
+        //#else
+        //$$ return ((com.ayakacraft.carpetayakaaddition.mixin.utils.MinecraftServerAccessor)server).getGameDir().toPath();
+        //#endif
     }
 
 }

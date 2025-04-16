@@ -35,6 +35,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 | Minecraft 版本 | **支持至**                 |
 |--------------|-------------------------|
+| 1.14.4       | ✔️ 长期支持                 |
+| 1.15.2       | ✔️ 长期支持                 |
 | 1.16.5       | ✔️ 长期支持                 |
 | 1.17.1       | ✔️ 长期支持                 |
 | 1.18.2       | ✔️ 长期支持                 |
@@ -58,8 +60,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 | Minecraft 版本 | 支持时间                    |
 |--------------|-------------------------|
-| 1.14.4       | 任何时候                    |
-| 1.15.2       | 任何时候                    |
 | 1.21.5       | 🕒 Minecraft 1.21.6 发布时 |
 
 ## 功能

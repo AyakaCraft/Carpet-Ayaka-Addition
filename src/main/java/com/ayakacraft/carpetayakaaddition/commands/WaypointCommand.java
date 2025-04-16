@@ -1,3 +1,23 @@
+/*
+ * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * GNU General Public License v3.0
+ *
+ * Copyright (C) 2025  Calboot
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
@@ -15,7 +35,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -92,11 +111,15 @@ public final class WaypointCommand {
     }
 
     private static int set(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        final String             id  = StringArgumentType.getString(context, "id");
-        final RegistryKey<World> dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey();
-        final Vec3d              pos = Vec3ArgumentType.getVec3(context, "pos");
-        final String             desc;
-        String                   s;
+        final String id = StringArgumentType.getString(context, "id");
+        //#if MC>=11600
+        final net.minecraft.registry.RegistryKey<World> dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey();
+        //#else
+        //$$ final net.minecraft.world.dimension.DimensionType dim = DimensionArgumentType.getDimensionArgument(context, "dim");
+        //#endif
+        final Vec3d  pos = Vec3ArgumentType.getVec3(context, "pos");
+        final String desc;
+        String       s;
         try {
             s = StringArgumentType.getString(context, "desc");
         } catch (IllegalArgumentException e) {
@@ -204,8 +227,12 @@ public final class WaypointCommand {
     }
 
     private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        final ServerCommandSource  source    = context.getSource();
-        final String               dim       = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
+        final ServerCommandSource source = context.getSource();
+        //#if MC>=11600
+        final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
+        //#else
+        //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
+        //#endif
         final WaypointManager      manager   = WaypointManager.getOrCreateWaypointManager(source.getServer());
         final Collection<Waypoint> waypoints = manager.getWaypoints();
         final List<String>         idList    = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());

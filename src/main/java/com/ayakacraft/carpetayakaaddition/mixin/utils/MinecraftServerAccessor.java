@@ -18,16 +18,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils.mods;
+package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.MinecraftServer;
+import org.spongepowered.asm.mixin.Mixin;
 
-public final class TISHelper {
+@Mixin(MinecraftServer.class)
+public interface MinecraftServerAccessor {
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean canCheat(ServerCommandSource source) {
-        return OpPlayerNoCheatHelper.canCheat(source);
-    }
+    //#if MC>=11600
+    //#else
+    //$$ @org.spongepowered.asm.mixin.gen.Accessor
+    //$$ java.io.File getGameDir();
+    //#endif
 
 }
