@@ -133,10 +133,6 @@ public final class CarpetAyakaServer implements CarpetExtension {
         return CarpetAyakaAddition.GSON.fromJson(jsonData, new TypeToken<Map<String, String>>() {
         }.getType());
     }
-
-    public void onServerLoadedWorlds$Ayaka() {
-        WaypointManager.getOrCreateWaypointManager(mcServer);
-    }
     //#endif
 
     public void addTickTask(TickTask tickTask) {
@@ -151,6 +147,10 @@ public final class CarpetAyakaServer implements CarpetExtension {
             i[0]++;
         });
         return i[0];
+    }
+
+    public void onServerLoadedWorlds$Ayaka() {
+        WaypointManager.getOrCreateWaypointManager(mcServer);
     }
 
 }
