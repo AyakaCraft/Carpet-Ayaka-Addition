@@ -21,6 +21,9 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.BambooBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
@@ -32,6 +35,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
 @Mixin(BambooBlock.class)
 public abstract class BambooBlockMixin {
 

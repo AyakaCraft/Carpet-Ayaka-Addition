@@ -18,18 +18,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.utils;
+package com.ayakacraft.carpetayakaaddition.utils.mixin;
 
-import net.minecraft.server.MinecraftServer;
-import org.spongepowered.asm.mixin.Mixin;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 
-@Mixin(MinecraftServer.class)
-public interface MinecraftServerAccessor {
+import java.util.List;
+import java.util.Set;
 
-    //#if MC>=11600
-    //#else
-    //$$ @org.spongepowered.asm.mixin.gen.Accessor
-    //$$ java.io.File getGameDir();
-    //#endif
+public class AyakaMixinConfigPlugin extends RestrictiveMixinConfigPlugin {
+
+    @Override
+    protected void onRestrictionCheckFailed(String mixinClassName, String reason) {
+        CarpetAyakaAddition.LOGGER.debug("Disabled mixin {} due to {}", mixinClassName, reason);
+    }
+
+    @Override
+    public String getRefMapperConfig() {
+        return null;
+    }
+
+    @Override
+    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
+
+    }
+
+    @Override
+    public List<String> getMixins() {
+        return List.of();
+    }
 
 }

@@ -5,6 +5,7 @@ apply plugin: "fabric-loom"
 apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.hypherionmc.modutils.modpublisher"
 apply plugin: "com.github.hierynomus.license"
+apply plugin: "maven-publish"
 
 Map<String, ?> properties = project.getProperties()
 
@@ -12,15 +13,19 @@ int mcVersion = (Integer) properties.mcVersion
 
 repositories {
     maven {
+        name = "masa"
         url = "https://masa.dy.fi/maven"
     }
     maven {
+        name = "Fallen"
         url = "https://maven.fallenbreath.me/releases"  // Fallen orz
     }
     maven {
+        name = "Jitpack"
         url = "https://jitpack.io"
     }
     maven {
+        name = "CurseMaven"
         url = "https://cursemaven.com"
         content {
             includeGroup "curse.maven"
@@ -56,6 +61,9 @@ dependencies {
     // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+
+    //libs
+    include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
 
     // mods
     modImplementation("carpet:fabric-carpet:${project.carpet_core_version}")
@@ -137,7 +145,7 @@ if (System.getenv("BUILD_RELEASE") != "true") {
     //artifactVersionSuffix = "-SNAPSHOT"  // A non-release artifact is always a SNAPSHOT artifact
 }
 var fullModVersion = project.mod_version + modVersionSuffix
-var fullProjectVersion//, fullArtifactVersion
+var fullProjectVersion, fullArtifactVersion
 
 // Example version values:
 //   project.mod_version     1.0.3                      (the base mod version)
@@ -147,16 +155,9 @@ var fullProjectVersion//, fullArtifactVersion
 //   fullProjectVersion      v1.0.3-mc1.15.2+build.88   (in build output jar name)
 //   fullArtifactVersion     1.0.3-mc1.15.2-SNAPSHOT    (maven artifact version)
 
-if (System.getenv("JITPACK") == "true") {
-    // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
-    base.archivesName = "${project.archives_base_name}-mc${project.minecraft_version}"
-    fullProjectVersion = "v${project.mod_version}${modVersionSuffix}"
-    //fullArtifactVersion = artifactVersion + artifactVersionSuffix
-} else {
-    base.archivesName = project.archives_base_name
-    fullProjectVersion = "v${project.mod_version}-mc${project.minecraft_version}${modVersionSuffix}"
-    //fullArtifactVersion = artifactVersion + "-mc" + project.minecraft_version + artifactVersionSuffix
-}
+base.archivesName = project.archives_base_name
+fullProjectVersion = "v${project.mod_version}-mc${project.minecraft_version}${modVersionSuffix}"
+fullArtifactVersion = "${project.mod_version}-mc${project.minecraft_version}"
 version = fullProjectVersion
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
@@ -277,4 +278,30 @@ publisher {
         optional "carpet-tis-addition", "gca"
     }
 
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = base.archivesName.get()
+            version = fullArtifactVersion
+        }
+    }
+
+    // select the repositories you want to publish to
+    repositories {
+        maven {
+            name = "AyakaCraft"
+            url = "http://222.186.148.96:7000/releases"
+            credentials(PasswordCredentials) {
+                username = "Publisher"
+                password = System.getenv("AYAKA_MAVEN_TOKEN")
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
 }

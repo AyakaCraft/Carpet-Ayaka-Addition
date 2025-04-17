@@ -33,6 +33,8 @@ public final class ModUtils {
 
     public static final String GCA_ID = "gca";
 
+    public static final String MC_ID = "minecraft";
+
     public static boolean isModLoaded(String modId) {
         return LOADER.isModLoaded(modId);
     }

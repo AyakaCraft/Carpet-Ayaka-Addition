@@ -21,21 +21,22 @@
 package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
+import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
     @Inject(method = "loadWorld", at = @At("TAIL"))
     private void onLoadWorld(CallbackInfo ci) {
-        //#if MC>=11600
-        //#else
-        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds((MinecraftServer) (Object) this);
-        //#endif
+        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
     }
 
 }

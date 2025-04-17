@@ -10,6 +10,7 @@ env:
   BUILD_RELEASE: "true"
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+  AYAKA_MAVEN_TOKEN: ${{ secrets.AYAKA_MAVEN_TOKEN }}
 
 
 permissions:

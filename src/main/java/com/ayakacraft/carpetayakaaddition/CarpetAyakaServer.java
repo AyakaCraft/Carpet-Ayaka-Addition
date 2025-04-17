@@ -66,10 +66,10 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     //#if MC>=11600
     @Override
-    //#endif
     public void onServerLoadedWorlds(MinecraftServer server) {
-        WaypointManager.getOrCreateWaypointManager(mcServer);
+        onServerLoadedWorlds$Ayaka();
     }
+    //#endif
 
     @Override
     public void onTick(MinecraftServer server) {
@@ -88,6 +88,13 @@ public final class CarpetAyakaServer implements CarpetExtension {
         CCommand.register(dispatcher);
         KillItemCommand.register(dispatcher);
     }
+
+    @Override
+    public void onServerClosed(MinecraftServer server) {
+        WaypointManager.removeWaypointManager(mcServer);
+
+        this.mcServer = null;
+    }
     //#else
     //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
     //$$     TptCommand.register(dispatcher);
@@ -97,13 +104,6 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //$$     KillItemCommand.register(dispatcher);
     //$$ }
     //#endif
-
-    @Override
-    public void onServerClosed(MinecraftServer server) {
-        WaypointManager.removeWaypointManager(mcServer);
-
-        this.mcServer = null;
-    }
 
     @Override
     public String version() {
@@ -132,6 +132,10 @@ public final class CarpetAyakaServer implements CarpetExtension {
         }
         return CarpetAyakaAddition.GSON.fromJson(jsonData, new TypeToken<Map<String, String>>() {
         }.getType());
+    }
+
+    public void onServerLoadedWorlds$Ayaka() {
+        WaypointManager.getOrCreateWaypointManager(mcServer);
     }
     //#endif
 

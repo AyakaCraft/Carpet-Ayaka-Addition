@@ -30,7 +30,7 @@ public class ServerUtils {
         //#if MC>=11600
         return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
         //#else
-        //$$ return ((com.ayakacraft.carpetayakaaddition.mixin.utils.MinecraftServerAccessor)server).getGameDir().toPath();
+        //$$ return server.getWorld(net.minecraft.world.dimension.DimensionType.OVERWORLD).getSaveHandler().getWorldDir().toPath();
         //#endif
     }
 

@@ -15,10 +15,10 @@
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
-    "utils.MinecraftServerAccessor",
     "utils.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "plugin": "com.ayakacraft.carpetayakaaddition.utils.mixin.AyakaMixinConfigPlugin"
 }

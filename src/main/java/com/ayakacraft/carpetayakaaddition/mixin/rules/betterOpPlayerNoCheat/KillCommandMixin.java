@@ -23,6 +23,8 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.mods.TISHelper;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.command.KillCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,6 +32,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Restriction(require = @Condition(ModUtils.TIS_ID))
 @Mixin(KillCommand.class)
 public class KillCommandMixin {
 
