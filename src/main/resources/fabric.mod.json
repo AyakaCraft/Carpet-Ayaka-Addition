@@ -8,7 +8,11 @@
     "Calboot",
     "IceCang"
   ],
-  "contact": {},
+  "contact": {
+    "homepage": "https://github.com/AyakaCraft/Carpet-Ayaka-Addition",
+    "sources": "https://github.com/AyakaCraft/Carpet-Ayaka-Addition",
+    "issues": "https://github.com/AyakaCraft/Carpet-Ayaka-Addition/issues"
+  },
   "license": "GPL-3.0",
   "icon": "assets/carpet-ayaka-addition/icon.png",
   "environment": "*",
@@ -27,6 +31,11 @@
     "minecraft": "${minecraft_version}"
   },
   "custom": {
-    "modmenu:parent": "carpet"
+    "modmenu": {
+      "parent": "carpet",
+      "links": {
+        "Discord": "https://discord.gg/r2WyWrx5vw"
+      }
+    }
   }
 }

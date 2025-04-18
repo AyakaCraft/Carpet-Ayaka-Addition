@@ -71,3 +71,9 @@ tasks.register("publishAll") {
         dependsOn(it.tasks.publishMod)
     }
 }
+
+tasks.register("publishLocal") {
+    subprojects {
+        dependsOn(it.tasks.publishToMavenLocal)
+    }
+}

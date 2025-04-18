@@ -69,16 +69,28 @@ dependencies {
     modImplementation("carpet:fabric-carpet:${project.carpet_core_version}")
 
     modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}")
-    modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
 
-    if (mcVersion < 11600) {
-        modRuntimeOnly("maven.modrinth:modmenu:${project.modmenu_version}")
+    if (mcVersion >= 12000) {
+        modImplementation("maven.modrinth:gca:${project.gugle_version}")
     } else {
+        modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
+    }
+
+    if (mcVersion >= 11500) {
         modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
         if (mcVersion >= 12006) {
             modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
         }
     }
+
+    if (mcVersion >= 11600) {
+        if (mcVersion < 11900) {
+            modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
+        } else if (mcVersion < 12100) {
+            modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
+        }
+    }
+
 }
 
 var MIXIN_CONFIG_PATH = "carpet-ayaka-addition.mixins.json"
@@ -200,6 +212,8 @@ tasks.withType(JavaCompile).configureEach {
 java {
     sourceCompatibility = JAVA_COMPATIBILITY
     targetCompatibility = JAVA_COMPATIBILITY
+
+    withSourcesJar()
 }
 
 jar {
