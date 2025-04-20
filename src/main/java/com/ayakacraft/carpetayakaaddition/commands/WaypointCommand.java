@@ -64,7 +64,7 @@ public final class WaypointCommand {
     private static int list(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
 
-        sendWaypointList(source, WaypointManager.getOrCreateWaypointManager(source.getServer()).getIds());
+        sendWaypointList(source, WaypointManager.getOrCreate(source.getServer()).getIDs());
 
         return 1;
     }
@@ -72,7 +72,7 @@ public final class WaypointCommand {
     private static int detail(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source   = context.getSource();
         final String        id       = StringArgumentType.getString(context, "id");
-        final Waypoint      waypoint = WaypointManager.getOrCreateWaypointManager(source.getServer()).get(id);
+        final Waypoint      waypoint = WaypointManager.getOrCreate(source.getServer()).get(id);
         if (waypoint == null) {
             source.sendError(tr("command.carpet-ayaka-addition.waypoint.not_exist", id));
             return 0;
@@ -89,7 +89,7 @@ public final class WaypointCommand {
                         li(waypoint.getDim()),
                         enter(),
                         tr("command.carpet-ayaka-addition.waypoint.detail.4").formatted(Formatting.GREEN),
-                        li(String.format("%f %f %f", waypoint.getX(), waypoint.getY(), waypoint.getZ())),
+                        li(String.format("%.2f %.2f %.2f", waypoint.getX(), waypoint.getY(), waypoint.getZ())),
                         enter(),
                         tr("command.carpet-ayaka-addition.waypoint.detail.5").formatted(Formatting.GREEN),
                         li(waypoint.getDesc())
@@ -101,7 +101,7 @@ public final class WaypointCommand {
     private static int reload(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
         try {
-            WaypointManager.getOrCreateWaypointManager(source.getServer()).loadWaypoints();
+            WaypointManager.getOrCreate(source.getServer()).load();
         } catch (IOException e) {
             source.sendError(tr("command.carpet-ayaka-addition.waypoint.reload.failed"));
             return 0;
@@ -130,7 +130,7 @@ public final class WaypointCommand {
         final ServerCommandSource source = context.getSource();
 
         try {
-            WaypointManager.getOrCreateWaypointManager(source.getServer()).set(new Waypoint(id, dim, pos, desc));
+            WaypointManager.getOrCreate(source.getServer()).set(new Waypoint(id, dim, pos, desc));
         } catch (IOException e) {
             source.sendError(tr("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
@@ -144,7 +144,7 @@ public final class WaypointCommand {
         final ServerCommandSource source = context.getSource();
 
         try {
-            if (WaypointManager.getOrCreateWaypointManager(source.getServer()).remove(id) == null) {
+            if (WaypointManager.getOrCreate(source.getServer()).remove(id) == null) {
                 source.sendError(tr("command.carpet-ayaka-addition.waypoint.not_exist", id));
                 return 0;
             }
@@ -159,7 +159,7 @@ public final class WaypointCommand {
     private static int tp(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source   = context.getSource();
         final String              id       = StringArgumentType.getString(context, "id");
-        final Waypoint            waypoint = WaypointManager.getOrCreateWaypointManager(source.getServer()).get(id);
+        final Waypoint            waypoint = WaypointManager.getOrCreate(source.getServer()).get(id);
         final ServerPlayerEntity  self     = source.getPlayerOrThrow();
         if (waypoint == null) {
             source.sendError(tr("command.carpet-ayaka-addition.waypoint.not_exist", id));
@@ -184,7 +184,7 @@ public final class WaypointCommand {
         final ServerCommandSource source  = context.getSource();
         final String              oldId   = StringArgumentType.getString(context, "oldId");
         final String              newId   = StringArgumentType.getString(context, "id");
-        final WaypointManager     manager = WaypointManager.getOrCreateWaypointManager(source.getServer());
+        final WaypointManager     manager = WaypointManager.getOrCreate(source.getServer());
         if (manager.get(newId) != null) {
             remove(context);
         }
@@ -203,7 +203,7 @@ public final class WaypointCommand {
 
     private static int desc(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source  = context.getSource();
-        final WaypointManager     manager = WaypointManager.getOrCreateWaypointManager(source.getServer());
+        final WaypointManager     manager = WaypointManager.getOrCreate(source.getServer());
         final String              id      = StringArgumentType.getString(context, "id");
         final String              desc    = StringArgumentType.getString(context, "desc");
         final Waypoint            w       = manager.get(id);
@@ -213,7 +213,7 @@ public final class WaypointCommand {
         }
         w.setDesc(desc);
         try {
-            manager.saveWaypoints();
+            manager.save();
         } catch (IOException e) {
             source.sendError(tr("command.carpet-ayaka-addition.waypoint.save.failed"));
             return 0;
@@ -223,7 +223,7 @@ public final class WaypointCommand {
     }
 
     private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(WaypointManager.getOrCreateWaypointManager(context.getSource().getServer()).getIds().stream().map(id -> "\"" + id + "\""), builder);
+        return CommandSource.suggestMatching(WaypointManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> "\"" + id + "\""), builder);
     }
 
     private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -233,7 +233,7 @@ public final class WaypointCommand {
         //#else
         //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
         //#endif
-        final WaypointManager      manager   = WaypointManager.getOrCreateWaypointManager(source.getServer());
+        final WaypointManager      manager   = WaypointManager.getOrCreate(source.getServer());
         final Collection<Waypoint> waypoints = manager.getWaypoints();
         final List<String>         idList    = waypoints.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Waypoint::getId).collect(Collectors.toList());
 

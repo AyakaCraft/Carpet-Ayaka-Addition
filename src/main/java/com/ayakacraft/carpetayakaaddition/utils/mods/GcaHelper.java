@@ -98,7 +98,7 @@ public final class GcaHelper {
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        File file = ServerUtils.serverRootPath(server).resolve("fake_player.gca.json").toFile();
+        File file = ServerUtils.worldRootPath(server).resolve("fake_player.gca.json").toFile();
         if (!file.isFile()) {
             try {
                 //noinspection ResultOfMethodCallIgnored

@@ -26,7 +26,7 @@ import java.nio.file.Path;
 
 public class ServerUtils {
 
-    public static Path serverRootPath(MinecraftServer server) {
+    public static Path worldRootPath(MinecraftServer server) {
         //#if MC>=11600
         return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
         //#else

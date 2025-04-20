@@ -80,8 +80,12 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     @Override
-    //#if MC>=11900
-    public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, final net.minecraft.command.CommandRegistryAccess registryAccess) {
+    public void registerCommands(
+            CommandDispatcher<ServerCommandSource> dispatcher
+            //#if MC>=11900
+            , final net.minecraft.command.CommandRegistryAccess registryAccess
+            //#endif
+    ) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         WaypointCommand.register(dispatcher);
@@ -95,15 +99,6 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
         this.mcServer = null;
     }
-    //#else
-    //$$ public void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
-    //$$     TptCommand.register(dispatcher);
-    //$$     GoHomeCommand.register(dispatcher);
-    //$$     WaypointCommand.register(dispatcher);
-    //$$     CCommand.register(dispatcher);
-    //$$     KillItemCommand.register(dispatcher);
-    //$$ }
-    //#endif
 
     @Override
     public String version() {
@@ -150,7 +145,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     public void onServerLoadedWorlds$Ayaka() {
-        WaypointManager.getOrCreateWaypointManager(mcServer);
+        WaypointManager.getOrCreate(mcServer);
     }
 
 }

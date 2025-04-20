@@ -7,7 +7,7 @@
   "command.carpet-ayaka-addition.waypoint.list.tp.hover": "点击以传送到路径点",
   "command.carpet-ayaka-addition.waypoint.not_exist": "路径点 [%s] 不存在",
   "command.carpet-ayaka-addition.waypoint.detail.1": "路径点 [%s] 的详情:",
-  "command.carpet-ayaka-addition.waypoint.detail.2": "ID:   ",
+  "command.carpet-ayaka-addition.waypoint.detail.2": "标识: ",
   "command.carpet-ayaka-addition.waypoint.detail.3": "维度: ",
   "command.carpet-ayaka-addition.waypoint.detail.4": "位置: ",
   "command.carpet-ayaka-addition.waypoint.detail.5": "描述: ",

@@ -60,7 +60,8 @@ dependencies {
 
     // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+    // We currently don't need fabric-api
+    // modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     //libs
     include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
