@@ -2,7 +2,7 @@
  * This file is part of the Carpet Ayaka Addition project, licensed under the
  * GNU General Public License v3.0
  *
- * Copyright (C) 2025  Calboot
+ * Copyright (C) 2025  Calboot and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
