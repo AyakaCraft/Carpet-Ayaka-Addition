@@ -18,38 +18,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.logging;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
-import net.minecraft.server.MinecraftServer;
+import java.lang.reflect.Field;
 
-public abstract class TickTask {
+public interface AyakaExtensionLogger {
 
-    protected final CarpetAyakaServer modServer;
-
-    protected final MinecraftServer mcServer;
-
-    private boolean finished;
-
-    public TickTask(CarpetAyakaServer modServer) {
-        this.modServer = modServer;
-        this.mcServer = modServer != null ? modServer.mcServer : null;
-    }
-
-    public void start() {
-    }
-
-    protected void finish() {
-        this.finished = true;
-    }
-
-    public void cancel() {
-    }
-
-    public abstract void tick();
-
-    public boolean isFinished() {
-        return finished;
-    }
+    Field getField();
 
 }

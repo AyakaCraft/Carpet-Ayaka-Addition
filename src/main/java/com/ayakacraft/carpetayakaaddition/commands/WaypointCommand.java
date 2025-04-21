@@ -40,7 +40,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -242,7 +242,7 @@ public final class WaypointCommand {
         return 1;
     }
 
-    private static MutableText waypointIdText(String id) {
+    private static Text waypointIdText(String id) {
         return TextUtils.joinTexts(
                 li("["),
                 li(id).formatted(Formatting.GREEN),
@@ -264,7 +264,7 @@ public final class WaypointCommand {
         );
     }
 
-    private static MutableText listWaypointIdsText(Collection<String> ids) {
+    private static Text listWaypointIdsText(Collection<String> ids) {
         return TextUtils.join(ids, enter(), WaypointCommand::waypointIdText);
     }
 

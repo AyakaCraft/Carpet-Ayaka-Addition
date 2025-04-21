@@ -2,3 +2,4 @@ carpet.api.settings carpet.settings
 carpet.api.settings.CarpetRule carpet.settings.ParsedRule
 net.minecraft.util.math.random.Random java.util.Random
 net.minecraft.registry net.minecraft.util.registry
+net.minecraft.text.MutableText net.minecraft.text.BaseText

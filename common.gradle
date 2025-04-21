@@ -11,6 +11,8 @@ Map<String, ?> properties = project.getProperties()
 
 int mcVersion = (Integer) properties.mcVersion
 
+boolean releasing = System.getenv("BUILD_RELEASE") == "true"
+
 repositories {
     maven {
         name = "masa"
@@ -77,18 +79,21 @@ dependencies {
         modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
     }
 
-    if (mcVersion >= 11500) {
-        modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
-        if (mcVersion >= 12006) {
-            modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
+    if (!releasing) {
+        if (mcVersion >= 11500) {
+            modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
+            if (mcVersion >= 12006) {
+                modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+                modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
+            }
         }
-    }
 
-    if (mcVersion >= 11600) {
-        if (mcVersion < 11900) {
-            modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
-        } else if (mcVersion < 12100) {
-            modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
+        if (mcVersion >= 11600) {
+            if (mcVersion < 11900) {
+                modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
+            } else if (mcVersion < 12100) {
+                modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
+            }
         }
     }
 
@@ -152,7 +157,7 @@ var modVersionSuffix = ""
 //var artifactVersionSuffix = ""
 // detect github action environment variables
 // https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
-if (System.getenv("BUILD_RELEASE") != "true") {
+if (!releasing) {
     var buildNumber = System.getenv("BUILD_ID")
     modVersionSuffix += buildNumber != null ? ("+build." + buildNumber) : "-SNAPSHOT"
     //artifactVersionSuffix = "-SNAPSHOT"  // A non-release artifact is always a SNAPSHOT artifact

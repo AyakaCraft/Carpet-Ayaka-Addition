@@ -23,6 +23,8 @@ package com.ayakacraft.carpetayakaaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.ayakacraft.carpetayakaaddition.commands.*;
+import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.ayakacraft.carpetayakaaddition.utils.waypoint.WaypointManager;
 import com.google.gson.reflect.TypeToken;
@@ -62,6 +64,8 @@ public final class CarpetAyakaServer implements CarpetExtension {
     @Override
     public void onServerLoaded(MinecraftServer server) {
         this.mcServer = server;
+
+        addTickTask(LoadedChunksLogger.initLoadedChunksCountTask);
     }
 
     //#if MC>=11600
@@ -93,9 +97,17 @@ public final class CarpetAyakaServer implements CarpetExtension {
         KillItemCommand.register(dispatcher);
     }
 
+    //#if MC>=11500
+    @Override
+    public void registerLoggers() {
+        AyakaLoggerRegistry.registerLoggers();
+    }
+    //#endif
+
     @Override
     public void onServerClosed(MinecraftServer server) {
         WaypointManager.removeWaypointManager(mcServer);
+        cancelTickTasksMatching(it -> true);
 
         this.mcServer = null;
     }

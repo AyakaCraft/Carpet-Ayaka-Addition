@@ -47,36 +47,29 @@ public final class TextUtils {
         //#endif
     }
 
-    public static Text of(String str, Object... args) {
-        //#if MC>=11600
-        return Text.of(String.format(str, args));
-        //#else
-        //$$ return li(str, args);
-        //#endif
+    @Deprecated
+    public static MutableText of(String str, Object... args) {
+        return li(str, args);
     }
 
-    public static Text enter() {
-        return of(System.lineSeparator());
+    public static MutableText enter() {
+        return li(System.lineSeparator());
     }
 
-    public static <T> MutableText join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
+    public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
         //#if MC>=11700
         return net.minecraft.text.Texts.join(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
         //$$     return new net.minecraft.text.LiteralText("");
         //$$ } else if (elements.size() == 1) {
-        //#endif
-        //#if MC>=11700
-        //#elseif MC>=11600
+        //$$ //#if MC>=11600
         //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
-        //#else
-        //$$     return transformer.apply(elements.iterator().next()).deepCopy();
-        //#endif
-        //#if MC>=11700
-        //#else
+        //$$ //#else
+        //$$ //$$     return transformer.apply(elements.iterator().next()).deepCopy();
+        //$$ //#endif
         //$$ } else {
-        //$$     MutableText mutableText = new net.minecraft.text.LiteralText("");
+        //$$     net.minecraft.text.BaseText mutableText = new net.minecraft.text.LiteralText("");
         //$$     boolean bl = true;
         //$$
         //$$     for(T object : elements) {
@@ -92,11 +85,11 @@ public final class TextUtils {
         //#endif
     }
 
-    public static MutableText joinTexts(Collection<Text> elements) {
+    public static Text joinTexts(Collection<Text> elements) {
         return join(elements, of(""), Function.identity());
     }
 
-    public static MutableText joinTexts(Text... elements) {
+    public static Text joinTexts(Text... elements) {
         return joinTexts(Arrays.asList(elements));
     }
 

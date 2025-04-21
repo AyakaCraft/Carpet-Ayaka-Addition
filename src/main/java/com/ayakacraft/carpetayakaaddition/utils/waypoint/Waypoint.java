@@ -20,7 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils.waypoint;
 
-import net.minecraft.util.Identifier;
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -58,17 +58,18 @@ public class Waypoint {
 
     //#if MC>=11600
     public net.minecraft.registry.RegistryKey<World> getDimension() {
-        //#if MC>=12100
-        //$$ return net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, Identifier.of(dim));
-        //#elseif MC>=11904
-        return net.minecraft.registry.RegistryKey.of(net.minecraft.registry.RegistryKeys.WORLD, new Identifier(dim));
-        //#else
-        //$$ return net.minecraft.util.registry.RegistryKey.of(net.minecraft.util.registry.Registry.WORLD_KEY, new Identifier(dim));
-        //#endif
+        return net.minecraft.registry.RegistryKey.of(
+                //#if MC>=11904
+                net.minecraft.registry.RegistryKeys.WORLD,
+                //#else
+                //$$ net.minecraft.util.registry.Registry.WORLD_KEY,
+                //#endif
+                IdentifierUtils.ofVanilla(dim)
+        );
     }
     //#else
     //$$ public net.minecraft.world.dimension.DimensionType getDimension() {
-    //$$     return net.minecraft.world.dimension.DimensionType.byId(new Identifier(dim));
+    //$$     return net.minecraft.world.dimension.DimensionType.byId(IdentifierUtils.ofVanilla(dim));
     //$$ }
     //#endif
 

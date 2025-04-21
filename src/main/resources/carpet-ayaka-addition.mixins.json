@@ -4,6 +4,9 @@
   "package": "com.ayakacraft.carpetayakaaddition.mixin",
   "compatibilityLevel": "${COMPATIBILITY_LEVEL}",
   "mixins": [
+    "carpet.HUDControllerMixin",
+    "carpet.LoggerRegistryMixin",
+    "logging.loadedchunks.ServerWorldMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
     "rules.betterOpPlayerNoCheat.ItemCommandMixin",

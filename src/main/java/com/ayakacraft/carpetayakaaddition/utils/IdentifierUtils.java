@@ -20,36 +20,24 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.Identifier;
 
-public abstract class TickTask {
+public final class IdentifierUtils {
 
-    protected final CarpetAyakaServer modServer;
-
-    protected final MinecraftServer mcServer;
-
-    private boolean finished;
-
-    public TickTask(CarpetAyakaServer modServer) {
-        this.modServer = modServer;
-        this.mcServer = modServer != null ? modServer.mcServer : null;
+    public static Identifier ofVanilla(String id) {
+        //#if MC>=12100
+        //$$ return Identifier.of(id);
+        //#else
+        return new Identifier(id);
+        //#endif
     }
 
-    public void start() {
-    }
-
-    protected void finish() {
-        this.finished = true;
-    }
-
-    public void cancel() {
-    }
-
-    public abstract void tick();
-
-    public boolean isFinished() {
-        return finished;
+    public static Identifier of(String namespace, String path) {
+        //#if MC>=12100
+        //$$ return Identifier.of(namespace, path);
+        //#else
+        return new Identifier(namespace, path);
+        //#endif
     }
 
 }
