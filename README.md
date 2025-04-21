@@ -43,7 +43,7 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.19.4            | ✔️ Long Term Support                        |
 | 1.20.1            | ✔️ Long Term Support                        |
 | 1.20.6            | ✔️ Long Term Support                        |
-| 1.21.1            | 🕒 When Minecraft 1.23 snapshot is released |
+| 1.21.1            | 🕒 When Minecraft 1.22 is released          |
 | 1.21.4            | 🕒 When Minecraft 1.23 snapshot is released |
 
 ### End-of-life versions
@@ -58,9 +58,9 @@ The following Minecraft versions are out of the support range. There's no suppor
 
 The following Minecraft versions are scheduled to be supported in the later versions
 
-| Minecraft Version | Support When                      |
-|-------------------|-----------------------------------|
-| 1.21.5            | 🕒 When Minecraft 1.21.6 released |
+| Minecraft Version | Support Starts                       |
+|-------------------|--------------------------------------|
+| 1.21.5            | 🕒 When Minecraft 1.21.6 is released |
 
 ## Functions
 
@@ -96,6 +96,10 @@ The following Minecraft versions are scheduled to be supported in the later vers
         - *Renames the waypoint, removes the existing one*
     - desc \<id> \<desc>
         - *Sets the description of the waypoint*
+
+### Carpet Loggers
+- loadedChunks
+    - Shows the count of loaded chunks in HUD for each dimension (experimental)
 
 ### Rules
 

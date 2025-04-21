@@ -43,7 +43,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 | 1.19.4       | ✔️ 长期支持                 |
 | 1.20.1       | ✔️ 长期支持                 |
 | 1.20.6       | ✔️ 长期支持                 |
-| 1.21.1       | 🕒 Minecraft 1.23 快照发布时 |
+| 1.21.1       | 🕒 Minecraft 1.22 发布时   |
 | 1.21.4       | 🕒 Minecraft 1.23 快照发布时 |
 
 ### 已结束支持的版本
@@ -96,6 +96,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *重命名路径点并覆盖已有的*
     - desc \<id> \<desc>
         - *设置或修改路径点的描述*
+
+### Carpet 记录器
+- loadedChunks
+    - 在HUD中显示每个维度加载的区块数（实验性）
 
 ### 规则
 
