@@ -68,7 +68,7 @@ tasks.register("buildAndGather") {
 tasks.register("publishAll") {
     mustRunAfter(rootProject.tasks.buildAndGather)
     subprojects {
-        dependsOn(it.tasks.publishMod)
+        dependsOn(it.tasks.publishMod, it.tasks.publish)
     }
 }
 
