@@ -58,7 +58,7 @@ public abstract class LoggerRegistryMixin {
         try {
             ayakaLogger.getField().setBoolean(null, logger.hasOnlineSubscribers());
         } catch (IllegalAccessException e) {
-            CarpetAyakaAddition.LOGGER.error("Cannot change logger quick access field");
+            CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
         }
     }
 

@@ -38,6 +38,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
@@ -98,7 +99,8 @@ public final class GcaHelper {
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        File file = ServerUtils.worldRootPath(server).resolve("fake_player.gca.json").toFile();
+        Path path = ServerUtils.worldRootPath(server).resolve("fake_player.gca.json");
+        File file = path.toFile();
         if (!file.isFile()) {
             try {
                 //noinspection ResultOfMethodCallIgnored
@@ -112,7 +114,7 @@ public final class GcaHelper {
         //(BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8))
         {
             //bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
-            Files.write(file.toPath(), CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
+            Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

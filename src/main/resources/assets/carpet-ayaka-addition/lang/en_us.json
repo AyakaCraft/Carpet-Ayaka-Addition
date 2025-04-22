@@ -66,5 +66,8 @@
   "carpet.rule.itemDiscardAge.desc": "Modifies the ticks before an item entity is discarded, max value 72000 (an hour), set to 0 to use vanilla option",
 
   "carpet.rule.forceTickPlantsReintroduce.name": "0-tick force update plants",
-  "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower"
+  "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower",
+
+  "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks"
+
 }

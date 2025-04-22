@@ -30,8 +30,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(HUDController.class)
 public class HUDControllerMixin {
 
-    //#if MC>=11600
-    //#else
+    //#if MC<11600
     //$$ @org.spongepowered.asm.mixin.injection.Inject(
     //$$         method = "update_hud",
     //$$         at = @org.spongepowered.asm.mixin.injection.At(

@@ -66,5 +66,8 @@
   "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数，最大为72000 (一小时)，设置为0以使用原版设置",
 
   "carpet.rule.forceTickPlantsReintroduce.name": "0t强制更新植物状态",
-  "carpet.rule.forceTickPlantsReintroduce.desc": "重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性"
+  "carpet.rule.forceTickPlantsReintroduce.desc": "重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性",
+
+  "carpet-ayaka-addition.logger.loadedChunks": "加载区块"
+
 }

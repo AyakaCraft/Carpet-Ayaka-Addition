@@ -35,6 +35,7 @@ public final class ModUtils {
 
     public static final String MC_ID = "minecraft";
 
+    @Deprecated
     public static boolean isModLoaded(String modId) {
         return LOADER.isModLoaded(modId);
     }
@@ -43,10 +44,12 @@ public final class ModUtils {
         return LOADER.getModContainer(modId);
     }
 
+    @Deprecated(forRemoval = true)
     public static boolean isTISLoaded() {
         return isModLoaded(TIS_ID);
     }
 
+    @Deprecated(forRemoval = true)
     public static boolean isGCALoaded() {
         return isModLoaded(GCA_ID);
     }

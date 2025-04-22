@@ -70,13 +70,14 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
                 //#if MC<11904
                 //$$ (BaseText)
                 //#endif
-                TextUtils.li("Loaded Chunks " + loadedChunksCountAll)
+                TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks")
+                        .append(" " + loadedChunksCountAll).formatted(Formatting.GRAY)
                         .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountOverworld)).formatted(Formatting.GREEN))
+                        .append(TextUtils.li(Integer.toString(loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN))
                         .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountNether)).formatted(Formatting.RED))
+                        .append(TextUtils.li(Integer.toString(loadedChunksCountNether)).formatted(Formatting.DARK_RED))
                         .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountEnd)).formatted(Formatting.AQUA))
+                        .append(TextUtils.li(Integer.toString(loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA))
         };
     }
 

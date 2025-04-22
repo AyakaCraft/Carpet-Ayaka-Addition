@@ -23,18 +23,21 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.fakePlayerResidentBackupF
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.mods.GcaHelper;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+@Restriction(require = @Condition(ModUtils.GCA_ID))
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
     @Inject(method = "save", at = @At("RETURN"))
     private void save(boolean suppressLogs, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
-        if (CarpetAyakaSettings.fakePlayerResidentBackupFix && ModUtils.isGCALoaded()) {
+        if (CarpetAyakaSettings.fakePlayerResidentBackupFix) {
             GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
         }
     }
