@@ -26,10 +26,12 @@ import java.lang.reflect.Field;
 
 public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensionLogger {
 
-    private Field acceleratorField;
+    //#if MC<11500
+    //$$ private final Field acceleratorField;
+    //#endif
 
     public AbstractAyakaLogger(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
-        this(AyakaLoggerRegistry.class.getField("__"+logName), logName, def, options, strictOptions);
+        this(AyakaLoggerRegistry.class.getField("__" + logName), logName, def, options, strictOptions);
     }
 
     public AbstractAyakaLogger(Field field, String logName, String def, String[] options, boolean strictOptions) {
@@ -43,14 +45,13 @@ public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensi
                 //#endif
         );
 
-        //#if MC>=11500
-        //#else
+        //#if MC<11500
         //$$ this.acceleratorField = field;
         //#endif
     }
 
-    //#if MC>=11500
-    //#else
+    //#if MC<11500
+    //$$ @Override
     //$$ public Field getField() {
     //$$     return acceleratorField;
     //$$ }

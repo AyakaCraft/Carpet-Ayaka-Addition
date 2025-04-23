@@ -23,8 +23,8 @@ package com.ayakacraft.carpetayakaaddition.mixin.carpet;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaExtensionLogger;
+import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -41,6 +41,7 @@ public abstract class LoggerRegistryMixin {
     @Inject(method = "initLoggers", at = @At("RETURN"), remap = false)
     private static void onRegisterLoggers(CallbackInfo ci) {
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> registerLogger(it.getLogName(), it));
+        AyakaLoggerRegistry.ayakaHUDLoggers.forEach(it -> registerLogger(it.getLogName(), it));
     }
 
     @Shadow(remap = false)
@@ -53,8 +54,7 @@ public abstract class LoggerRegistryMixin {
         if (!(logger instanceof AyakaExtensionLogger)) {
             return;
         }
-        @SuppressWarnings("PatternVariableCanBeUsed")
-        final AyakaExtensionLogger ayakaLogger = (AyakaExtensionLogger) logger;
+        @SuppressWarnings("PatternVariableCanBeUsed") final AyakaExtensionLogger ayakaLogger = (AyakaExtensionLogger) logger;
         try {
             ayakaLogger.getField().setBoolean(null, logger.hasOnlineSubscribers());
         } catch (IllegalAccessException e) {

@@ -21,7 +21,6 @@
 package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.HUDController;
-import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 
@@ -30,28 +29,29 @@ import java.util.Set;
 
 public class AyakaLoggerRegistry {
 
+    public static final Set<AbstractAyakaLogger> ayakaLoggers = new HashSet<>();
+
+    public static final Set<AbstractAyakaHUDLogger> ayakaHUDLoggers = new HashSet<>();
+
     public static boolean __loadedChunks = false;
 
-    public static final Set<Logger> ayakaLoggers = new HashSet<>();
-
     static {
-        ayakaLoggers.add(LoadedChunksLogger.INSTANCE);
+        ayakaHUDLoggers.add(LoadedChunksLogger.INSTANCE);
     }
 
+    //#if MC>=11500
     public static void registerLoggers() {
-        //#if MC>=11500
         ayakaLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
-        //#endif
+        ayakaHUDLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
 
         //#if MC>=11600
         HUDController.register(minecraftServer -> updateHUD()); // We use mixin to deal with 1.14 and 1.15
         //#endif
     }
+    //#endif
 
     public static void updateHUD() {
-        if (__loadedChunks) {
-            LoadedChunksLogger.INSTANCE.doLogging();
-        }
+        ayakaHUDLoggers.stream().filter(AyakaExtensionLogger::isEnabled).forEach(AyakaExtensionLogger::doLogging);
     }
 
 }

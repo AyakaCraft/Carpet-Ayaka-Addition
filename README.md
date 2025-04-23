@@ -98,6 +98,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
         - *Sets the description of the waypoint*
 
 ### Carpet Loggers
+
 - loadedChunks
     - Shows the count of loaded chunks in HUD for each dimension (experimental)
 

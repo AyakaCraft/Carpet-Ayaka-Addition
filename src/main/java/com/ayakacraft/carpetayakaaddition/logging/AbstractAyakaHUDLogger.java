@@ -21,20 +21,17 @@
 package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.HUDLogger;
-import carpet.logging.LoggerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
 
 import java.lang.reflect.Field;
 
 public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionLogger {
 
     //#if MC<11500
-    private Field acceleratorField;
+    //$$ private final Field acceleratorField;
     //#endif
 
     public AbstractAyakaHUDLogger(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
-        this(AyakaLoggerRegistry.class.getField("__"+logName), logName, def, options, strictOptions);
+        this(AyakaLoggerRegistry.class.getField("__" + logName), logName, def, options, strictOptions);
     }
 
     public AbstractAyakaHUDLogger(Field field, String logName, String def, String[] options, boolean strictOptions) {
@@ -54,15 +51,10 @@ public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaE
     }
 
     //#if MC<11500
+    //$$ @Override
     //$$ public Field getField() {
     //$$     return acceleratorField;
     //$$ }
     //#endif
-
-    public void doLogging() {
-        LoggerRegistry.getLogger(getLogName()).log(this::onHUDUpdate);
-    }
-
-    public abstract MutableText[] onHUDUpdate(String playerOption, PlayerEntity player);
 
 }

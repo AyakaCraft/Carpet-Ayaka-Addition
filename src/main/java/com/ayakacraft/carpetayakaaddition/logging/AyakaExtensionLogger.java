@@ -20,10 +20,46 @@
 
 package com.ayakacraft.carpetayakaaddition.logging;
 
+import carpet.logging.Logger;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.MutableText;
+
 import java.lang.reflect.Field;
 
 public interface AyakaExtensionLogger {
 
+    /**
+     * Quick access to get the field.
+     */
+    default boolean isEnabled() {
+        try {
+            getField().setAccessible(true);
+            return getField().getBoolean(this);
+        } catch (IllegalAccessException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Just a placeholder in MC 1.15+
+     *
+     * @see Logger#getField()
+     */
     Field getField();
+
+    MutableText[] updateContent(String playerOption, PlayerEntity player);
+
+    /**
+     * Just a placeholder
+     *
+     * @see Logger#log(Logger.lMessage)
+     */
+    void log(Logger.lMessage messagePromise);
+
+    default void doLogging() {
+        if (isEnabled()) {
+            log(this::updateContent);
+        }
+    }
 
 }

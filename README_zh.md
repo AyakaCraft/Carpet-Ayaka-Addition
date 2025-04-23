@@ -98,6 +98,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *设置或修改路径点的描述*
 
 ### Carpet 记录器
+
 - loadedChunks
     - 在HUD中显示每个维度加载的区块数（实验性）
 

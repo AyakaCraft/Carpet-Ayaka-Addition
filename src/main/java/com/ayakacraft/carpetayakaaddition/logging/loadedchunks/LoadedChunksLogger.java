@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLogger;
+import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import net.minecraft.entity.player.PlayerEntity;
@@ -65,7 +66,12 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
     }
 
     @Override
-    public MutableText[] onHUDUpdate(String playerOption, PlayerEntity player) {
+    public boolean isEnabled() {
+        return AyakaLoggerRegistry.__loadedChunks;
+    }
+
+    @Override
+    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
         return new MutableText[]{
                 //#if MC<11904
                 //$$ (BaseText)
