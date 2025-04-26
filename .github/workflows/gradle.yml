@@ -11,6 +11,7 @@ env:
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   AYAKA_MAVEN_TOKEN: ${{ secrets.AYAKA_MAVEN_TOKEN }}
+  REPO_URL: "${{ github.server_url }}/${{ github.repository }}"
 
 
 permissions:
@@ -39,6 +40,14 @@ jobs:
         run: ./gradlew clean buildAndGather publishAll --warning-mode all --stacktrace
 
       - name: Publish to Github
-        uses: Kir-Antipov/mc-publish@v3.3
+        uses: Kira-NT/mc-publish@v3.3.0
         with:
-          github-token: "${{secrets.GITHUB_TOKEN}}"
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Discord Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: appleboy/discord-action@v1.2.0
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it out on [Github Release](${{ env.REPO_URL }}/releases)"
