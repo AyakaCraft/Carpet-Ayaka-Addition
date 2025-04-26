@@ -289,12 +289,12 @@ publisher {
     }
 
     curseDepends {
-        required "fabric-api", "carpet"
+        required "carpet"
         optional "carpet-tis-addition", "guglecarpetaddition"
     }
 
     modrinthDepends {
-        required "fabric-api", "carpet"
+        required "carpet"
         optional "carpet-tis-addition", "gca"
     }
 

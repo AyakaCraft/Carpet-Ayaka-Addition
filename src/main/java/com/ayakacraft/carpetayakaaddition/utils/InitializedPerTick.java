@@ -20,33 +20,35 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 
-public final class IdentifierUtils {
+public interface InitializedPerTick {
 
-    public static Identifier ofVanilla(String id) {
-        //#if MC>=12100
-        //$$ return Identifier.of(id);
-        //#else
-        return new Identifier(id);
-        //#endif
+    void init();
+
+    default TickTask getInitTask(CarpetAyakaServer modServer) {
+        return new CounterInitTask(modServer, this);
     }
 
-    public static Identifier of(String namespace, String path) {
-        //#if MC>=12100
-        //$$ return Identifier.of(namespace, path);
-        //#else
-        return new Identifier(namespace, path);
-        //#endif
-    }
+    class CounterInitTask extends TickTask {
 
-    public static Identifier ofWorld(World world) {
-        //#if MC>=11600
-        return world.getRegistryKey().getValue();
-        //#else
-        //$$ return net.minecraft.world.dimension.DimensionType.getId(world.getDimension().getType());
-        //#endif
+        private final InitializedPerTick initializedPerTick;
+
+        public CounterInitTask(CarpetAyakaServer modServer, InitializedPerTick initializedPerTick) {
+            super(modServer);
+            this.initializedPerTick = initializedPerTick;
+        }
+
+        @Override
+        public void tick() {
+            initializedPerTick.init();
+        }
+
+        @Override
+        public void cancel() {
+            initializedPerTick.init();
+        }
+
     }
 
 }

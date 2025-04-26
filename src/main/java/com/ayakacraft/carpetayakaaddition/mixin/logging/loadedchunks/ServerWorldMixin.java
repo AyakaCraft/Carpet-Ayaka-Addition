@@ -20,31 +20,59 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
+import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
+import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.function.BooleanSupplier;
+
 @Mixin(ServerWorld.class)
-public class ServerWorldMixin {
+public abstract class ServerWorldMixin {
 
     @Inject(method = "tickChunk", at = @At("RETURN"))
     private void onTickChunk(WorldChunk chunk, int randomTickSpeed, CallbackInfo ci) {
-        LoadedChunksLogger.loadedChunksCountAll++;
-        //#if MC>=11600
-        String string = ((ServerWorld) (Object) this).getRegistryKey().getValue().toString();
-        //#else
-        //$$ String string = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(((ServerWorld) (Object) this).getDimension().getType()));
-        //#endif
-        if ("minecraft:overworld".equals(string)) {
-            LoadedChunksLogger.loadedChunksCountOverworld++;
-        } else if ("minecraft:the_nether".equals(string)) {
-            LoadedChunksLogger.loadedChunksCountNether++;
-        } else if ("minecraft:the_end".equals(string)) {
-            LoadedChunksLogger.loadedChunksCountEnd++;
+        if (AyakaLoggerRegistry.__loadedChunks) {
+            LoadedChunksLogger.INSTANCE.loadedChunksCountAllP++;
+
+            String dim = IdentifierUtils.ofWorld((World) (Object) this).toString();
+
+            if ("minecraft:overworld".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountOverworldP++;
+            } else if ("minecraft:the_nether".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountNetherP++;
+            } else if ("minecraft:the_end".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountEndP++;
+            }
+        }
+    }
+
+    @Shadow
+    public abstract ServerChunkManager getChunkManager();
+
+    @Inject(method = "tick", at = @At("RETURN"))
+    private void onTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+        if (AyakaLoggerRegistry.__loadedChunks) {
+            int count = getChunkManager().threadedAnvilChunkStorage.getLoadedChunkCount();
+
+            LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
+
+            String dim = IdentifierUtils.ofWorld((World) (Object) this).toString();
+            if ("minecraft:overworld".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountOverworld += count;
+            } else if ("minecraft:the_nether".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountNether += count;
+            } else if ("minecraft:the_end".equals(dim)) {
+                LoadedChunksLogger.INSTANCE.loadedChunksCountEnd += count;
+            }
         }
     }
 

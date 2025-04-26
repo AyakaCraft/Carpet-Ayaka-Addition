@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.waypoint.Waypoint;
@@ -229,7 +230,7 @@ public final class WaypointCommand {
     private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source = context.getSource();
         //#if MC>=11600
-        final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
+        final String dim = IdentifierUtils.ofWorld(DimensionArgumentType.getDimensionArgument(context, "dim")).toString();
         //#else
         //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
         //#endif

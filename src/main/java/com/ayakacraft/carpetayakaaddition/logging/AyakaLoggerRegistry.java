@@ -20,33 +20,46 @@
 
 package com.ayakacraft.carpetayakaaddition.logging;
 
-import carpet.logging.HUDController;
+import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
+import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class AyakaLoggerRegistry {
 
-    public static final Set<AbstractAyakaLogger> ayakaLoggers = new HashSet<>();
+    public static final Set<Logger> ayakaLoggers = new HashSet<>();
 
     public static final Set<AbstractAyakaHUDLogger> ayakaHUDLoggers = new HashSet<>();
 
     public static boolean __loadedChunks = false;
 
+    public static boolean __movingBlocks = false;
+
     static {
-        ayakaHUDLoggers.add(LoadedChunksLogger.INSTANCE);
+        registerAyakaLogger(LoadedChunksLogger.INSTANCE);
+        //TODO complete movingBlocksLogger
+        //registerAyakaLogger(MovingBlocksLogger.INSTANCE);
+    }
+
+    public static void registerAyakaLogger(AbstractAyakaLogger logger) {
+        ayakaLoggers.add(logger);
+    }
+
+    public static void registerAyakaLogger(AbstractAyakaHUDLogger logger) {
+        ayakaHUDLoggers.add(logger);
+        ayakaLoggers.add(logger);
     }
 
     //#if MC>=11500
-    public static void registerLoggers() {
-        ayakaLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
-        ayakaHUDLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
-
-        //#if MC>=11600
-        HUDController.register(minecraftServer -> updateHUD()); // We use mixin to deal with 1.14 and 1.15
-        //#endif
+    public static void registerToCarpet() {
+        ayakaLoggers.forEach(it -> {
+            LoggerRegistry.registerLogger(it.getLogName(), it);
+            CarpetAyakaServer.INSTANCE.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.INSTANCE));
+        });
     }
     //#endif
 

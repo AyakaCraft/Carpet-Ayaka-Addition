@@ -22,35 +22,22 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
-import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
 
     public static final String NAME = "loadedChunks";
 
+    private static final String[] OPTIONS = {"all", "dynamic", "overworld", "the_nether", "the_end"};
+
+    private static final short DEFAULT_INDEX = 1;
+
     public static final LoadedChunksLogger INSTANCE;
-
-    public static int loadedChunksCountAll = 0;
-
-    public static int loadedChunksCountOverworld = 0;
-
-    public static int loadedChunksCountNether = 0;
-
-    public static int loadedChunksCountEnd = 0;
-
-    public static final TickTask initLoadedChunksCountTask = new TickTask(null) {
-        @Override
-        public void tick() {
-            loadedChunksCountAll = 0;
-            loadedChunksCountOverworld = 0;
-            loadedChunksCountNether = 0;
-            loadedChunksCountEnd = 0;
-        }
-    };
 
     static {
         LoadedChunksLogger i = null;
@@ -61,8 +48,36 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
         INSTANCE = i;
     }
 
+    public int loadedChunksCountAll = 0;
+
+    public int loadedChunksCountOverworld = 0;
+
+    public int loadedChunksCountNether = 0;
+
+    public int loadedChunksCountEnd = 0;
+
+    public int loadedChunksCountAllP = 0;
+
+    public int loadedChunksCountOverworldP = 0;
+
+    public int loadedChunksCountNetherP = 0;
+
+    public int loadedChunksCountEndP = 0;
+
     private LoadedChunksLogger() throws NoSuchFieldException {
-        super(NAME, null, new String[0], false);
+        super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
+    }
+
+    @Override
+    public void init() {
+        loadedChunksCountAll = 0;
+        loadedChunksCountOverworld = 0;
+        loadedChunksCountNether = 0;
+        loadedChunksCountEnd = 0;
+        loadedChunksCountAllP = 0;
+        loadedChunksCountOverworldP = 0;
+        loadedChunksCountNetherP = 0;
+        loadedChunksCountEndP = 0;
     }
 
     @Override
@@ -70,21 +85,46 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
         return AyakaLoggerRegistry.__loadedChunks;
     }
 
+    private static final String FORMAT = "%d/%d";
+
     @Override
+    @SuppressWarnings("RedundantCast")
     public MutableText[] updateContent(String playerOption, PlayerEntity player) {
-        return new MutableText[]{
-                //#if MC<11904
-                //$$ (BaseText)
-                //#endif
-                TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks")
-                        .append(" " + loadedChunksCountAll).formatted(Formatting.GRAY)
-                        .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN))
-                        .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountNether)).formatted(Formatting.DARK_RED))
-                        .append(" ")
-                        .append(TextUtils.li(Integer.toString(loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA))
-        };
+        MutableText header = (MutableText) TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
+        Text value;
+
+        if (OPTIONS[1].equals(playerOption)) {
+            playerOption = IdentifierUtils.ofWorld(player.getEntityWorld()).getPath();
+        }
+
+        if (OPTIONS[0].equals(playerOption)) {
+            value = header
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll)))
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountOverworldP, loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN))
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountNetherP, loadedChunksCountNether)).formatted(Formatting.DARK_RED))
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountEndP, loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA));
+        } else if (OPTIONS[2].equals(playerOption)) {
+            value = header
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountOverworldP, loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN));
+        } else if (OPTIONS[3].equals(playerOption)) {
+            value = header
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountNetherP, loadedChunksCountNether)).formatted(Formatting.DARK_RED));
+        } else if (OPTIONS[4].equals(playerOption)) {
+            value = header
+                    .append(" ")
+                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountEndP, loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA));
+        } else {
+            value = null;
+        }
+
+        //noinspection CastCanBeRemovedNarrowingVariableType
+        return new MutableText[]{(MutableText) value};
     }
 
 }

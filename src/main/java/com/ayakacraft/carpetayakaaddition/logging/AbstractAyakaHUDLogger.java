@@ -21,10 +21,11 @@
 package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.HUDLogger;
+import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 
 import java.lang.reflect.Field;
 
-public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionLogger {
+public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionLogger, InitializedPerTick {
 
     //#if MC<11500
     //$$ private final Field acceleratorField;

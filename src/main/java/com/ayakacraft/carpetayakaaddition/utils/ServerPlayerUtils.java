@@ -67,16 +67,6 @@ public final class ServerPlayerUtils {
         //#endif
     }
 
-    public static ServerWorld getServerWorld(ServerPlayerEntity player) {
-        //#if MC>=12000
-        return player.getServerWorld();
-        //#elseif MC>=11800
-        //$$ return player.getWorld();
-        //#else
-        //$$ return player.getServerWorld();
-        //#endif
-    }
-
     public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z, float yaw, float pitch) {
         player.teleport(dim, x, y, z,
                 //#if MC>=11900
@@ -94,7 +84,7 @@ public final class ServerPlayerUtils {
     }
 
     public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
-        teleport(player, getServerWorld(target), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
+        teleport(player, (ServerWorld) target.getEntityWorld(), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
     }
 
 }
