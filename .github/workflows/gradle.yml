@@ -47,7 +47,6 @@ jobs:
       - name: Discord Notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: appleboy/discord-action@v1.2.0
+        uses: Ilshidur/action-discord@0.3.2
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          message: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases)"
+          args: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases)"
