@@ -18,37 +18,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
+import net.minecraft.server.world.ChunkHolder;
+import net.minecraft.server.world.ThreadedAnvilChunkStorage;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-public interface InitializedPerTick {
+@Mixin(ThreadedAnvilChunkStorage.class)
+public interface ThreadedAnvilChunkStorageInvoker {
 
-    void init();
+    @Invoker("entryIterator")
+    Iterable<ChunkHolder> getEntryIterator();
 
-    default TickTask getInitTask(CarpetAyakaServer modServer) {
-        return new CounterInitTask(modServer, this);
-    }
-
-    class CounterInitTask extends TickTask {
-
-        private final InitializedPerTick initializedPerTick;
-
-        public CounterInitTask(CarpetAyakaServer modServer, InitializedPerTick initializedPerTick) {
-            super(modServer);
-            this.initializedPerTick = initializedPerTick;
-        }
-
-        @Override
-        public void cancel() {
-            initializedPerTick.init();
-        }
-
-        @Override
-        public void tick() {
-            initializedPerTick.init();
-        }
-
-    }
+    //#if MC<11800
+    //$$ @Invoker("isTooFarFromPlayersToSpawnMobs")
+    //$$ boolean whetherTooFarFromPlayersToSpawnMobs(net.minecraft.util.math.ChunkPos chunkPos);
+    //#endif
 
 }

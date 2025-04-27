@@ -99,13 +99,6 @@ public final class CarpetAyakaServer implements CarpetExtension {
         KillItemCommand.register(dispatcher);
     }
 
-    //#if MC>=11500
-    @Override
-    public void registerLoggers() {
-        AyakaLoggerRegistry.registerToCarpet();
-    }
-    //#endif
-
     @Override
     public void onServerClosed(MinecraftServer server) {
         WaypointManager.removeWaypointManager(mcServer);
@@ -118,6 +111,13 @@ public final class CarpetAyakaServer implements CarpetExtension {
     public String version() {
         return CarpetAyakaAddition.MOD_ID;
     }
+
+    //#if MC>=11500
+    @Override
+    public void registerLoggers() {
+        AyakaLoggerRegistry.registerToCarpet();
+    }
+    //#endif
 
     //#if MC>=11500
     @Override

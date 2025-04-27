@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.logging.pistons;
+package com.ayakacraft.carpetayakaaddition.mixin.logging.movingblocks;
 
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
 import net.minecraft.block.piston.PistonHandler;
@@ -35,14 +35,14 @@ import java.util.List;
 @Mixin(PistonHandler.class)
 public abstract class PistonHandlerMixin {
 
-    @Shadow
-    public abstract List<BlockPos> getMovedBlocks();
-
     @Inject(method = "tryMove", at = @At("RETURN"))
     private void onTryMove(BlockPos pos, Direction dir, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValueZ()) {
             MovingBlocksLogger.INSTANCE.movingBlocks += getMovedBlocks().size();
         }
     }
+
+    @Shadow
+    public abstract List<BlockPos> getMovedBlocks();
 
 }

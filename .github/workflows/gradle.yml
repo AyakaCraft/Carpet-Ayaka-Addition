@@ -42,7 +42,7 @@ jobs:
       - name: Publish to Github
         uses: Kira-NT/mc-publish@v3.3.0
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Discord Notification
         env:
@@ -50,4 +50,4 @@ jobs:
         uses: appleboy/discord-action@v1.2.0
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          message: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it out on [Github Release](${{ env.REPO_URL }}/releases)"
+          message: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases)"

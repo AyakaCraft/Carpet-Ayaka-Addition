@@ -31,11 +31,13 @@ import net.minecraft.util.Formatting;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
 
-    public static final String NAME = "loadedChunks";
-
     private static final String[] OPTIONS = {"all", "dynamic", "overworld", "the_nether", "the_end"};
 
     private static final short DEFAULT_INDEX = 1;
+
+    private static final String FORMAT = "%d/%d";
+
+    public static final String NAME = "loadedChunks";
 
     public static final LoadedChunksLogger INSTANCE;
 
@@ -85,13 +87,11 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
         return AyakaLoggerRegistry.__loadedChunks;
     }
 
-    private static final String FORMAT = "%d/%d";
-
     @Override
     @SuppressWarnings("RedundantCast")
     public MutableText[] updateContent(String playerOption, PlayerEntity player) {
         MutableText header = (MutableText) TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
-        Text value;
+        Text        value;
 
         if (OPTIONS[1].equals(playerOption)) {
             playerOption = IdentifierUtils.ofWorld(player.getEntityWorld()).getPath();

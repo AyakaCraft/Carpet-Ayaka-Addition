@@ -60,7 +60,7 @@ public class MovingBlocksLogger extends AbstractAyakaHUDLogger {
     @Override
     public MutableText[] updateContent(String playerOption, PlayerEntity player) {
         //noinspection RedundantCast
-        return new MutableText[]{ (MutableText) TextUtils.li(Integer.toString(movingBlocks)) };
+        return new MutableText[]{(MutableText) TextUtils.li(Integer.toString(movingBlocks))};
     }
 
 }

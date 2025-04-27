@@ -18,37 +18,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.mixin;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
+import me.fallenbreath.conditionalmixin.api.mixin.ConditionTester;
 
-public interface InitializedPerTick {
+public class DeprecatedMixinTester implements ConditionTester {
 
-    void init();
-
-    default TickTask getInitTask(CarpetAyakaServer modServer) {
-        return new CounterInitTask(modServer, this);
-    }
-
-    class CounterInitTask extends TickTask {
-
-        private final InitializedPerTick initializedPerTick;
-
-        public CounterInitTask(CarpetAyakaServer modServer, InitializedPerTick initializedPerTick) {
-            super(modServer);
-            this.initializedPerTick = initializedPerTick;
-        }
-
-        @Override
-        public void cancel() {
-            initializedPerTick.init();
-        }
-
-        @Override
-        public void tick() {
-            initializedPerTick.init();
-        }
-
+    @Override
+    public boolean isSatisfied(String mixinClassName) {
+        return false;
     }
 
 }
