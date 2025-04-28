@@ -27,6 +27,7 @@ import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,7 +54,7 @@ public abstract class ServerChunkManagerMixin {
     @Final
     public ThreadedAnvilChunkStorage threadedAnvilChunkStorage;
 
-    @Inject(method = "tickChunks", at = @At("RETURN"))
+    @Inject(method = "tickChunks()V", at = @At("RETURN"))
     private void onTickChunks(CallbackInfo ci) {
         if (AyakaLoggerRegistry.__loadedChunks) {
             ThreadedAnvilChunkStorageInvoker tacsi = (ThreadedAnvilChunkStorageInvoker) this.threadedAnvilChunkStorage;
@@ -74,20 +75,13 @@ public abstract class ServerChunkManagerMixin {
                 }
             });
 
-            String dim = IdentifierUtils.ofWorld(world).toString();
+            Identifier id = IdentifierUtils.ofWorld(world);
 
             LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
             LoadedChunksLogger.INSTANCE.loadedChunksCountAllP += countP[0];
-            if ("minecraft:overworld".equals(dim)) {
-                LoadedChunksLogger.INSTANCE.loadedChunksCountOverworld += count;
-                LoadedChunksLogger.INSTANCE.loadedChunksCountOverworldP += countP[0];
-            } else if ("minecraft:the_nether".equals(dim)) {
-                LoadedChunksLogger.INSTANCE.loadedChunksCountNether += count;
-                LoadedChunksLogger.INSTANCE.loadedChunksCountNetherP += countP[0];
-            } else if ("minecraft:the_end".equals(dim)) {
-                LoadedChunksLogger.INSTANCE.loadedChunksCountEnd += count;
-                LoadedChunksLogger.INSTANCE.loadedChunksCountEndP += countP[0];
-            }
+
+            LoadedChunksLogger.INSTANCE.loadedChunksCount.put(id, count);
+            LoadedChunksLogger.INSTANCE.loadedChunksCountP.put(id, countP[0]);
 
         }
     }

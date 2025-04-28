@@ -20,22 +20,40 @@
 
 package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
-import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLogger;
+import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
+import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
-public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+import static com.ayakacraft.carpetayakaaddition.utils.TextUtils.*;
+
+public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
     private static final String[] OPTIONS = {"all", "dynamic", "overworld", "the_nether", "the_end"};
 
     private static final short DEFAULT_INDEX = 1;
 
     private static final String FORMAT = "%d/%d";
+
+    private static final Text SEPARATOR = li("/").formatted(Formatting.GRAY);
+
+    private static final Identifier OVW_ID = IdentifierUtils.ofVanilla("minecraft:overworld");
+
+    private static final Identifier NETHER_ID = IdentifierUtils.ofVanilla("minecraft:the_nether");
+
+    private static final Identifier END_ID = IdentifierUtils.ofVanilla("minecraft:the_end");
 
     public static final String NAME = "loadedChunks";
 
@@ -50,21 +68,13 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
         INSTANCE = i;
     }
 
+    public final Map<Identifier, Integer> loadedChunksCount = new LinkedHashMap<>(3);
+
+    public final Map<Identifier, Integer> loadedChunksCountP = new LinkedHashMap<>(3);
+
     public int loadedChunksCountAll = 0;
 
-    public int loadedChunksCountOverworld = 0;
-
-    public int loadedChunksCountNether = 0;
-
-    public int loadedChunksCountEnd = 0;
-
     public int loadedChunksCountAllP = 0;
-
-    public int loadedChunksCountOverworldP = 0;
-
-    public int loadedChunksCountNetherP = 0;
-
-    public int loadedChunksCountEndP = 0;
 
     private LoadedChunksLogger() throws NoSuchFieldException {
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
@@ -73,13 +83,11 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
     @Override
     public void init() {
         loadedChunksCountAll = 0;
-        loadedChunksCountOverworld = 0;
-        loadedChunksCountNether = 0;
-        loadedChunksCountEnd = 0;
         loadedChunksCountAllP = 0;
-        loadedChunksCountOverworldP = 0;
-        loadedChunksCountNetherP = 0;
-        loadedChunksCountEndP = 0;
+
+        loadedChunksCount.clear();
+        loadedChunksCountP.clear();
+
     }
 
     @Override
@@ -88,43 +96,60 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLogger {
     }
 
     @Override
-    @SuppressWarnings("RedundantCast")
-    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
-        MutableText header = (MutableText) TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
-        Text        value;
+    public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
+        Text header = TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
+        Text value;
 
         if (OPTIONS[1].equals(playerOption)) {
             playerOption = IdentifierUtils.ofWorld(player.getEntityWorld()).getPath();
         }
 
         if (OPTIONS[0].equals(playerOption)) {
-            value = header
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll)))
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountOverworldP, loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN))
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountNetherP, loadedChunksCountNether)).formatted(Formatting.DARK_RED))
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountEndP, loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA));
+            List<Text> txtList = new LinkedList<>();
+            txtList.add(header);
+            txtList.add(li(String.format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll)).formatted(Formatting.GRAY));
+            loadedChunksCount.keySet().forEach(id -> txtList.add(getCountText(id)));
+            value = join(txtList, space(), Function.identity());
         } else if (OPTIONS[2].equals(playerOption)) {
-            value = header
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountOverworldP, loadedChunksCountOverworld)).formatted(Formatting.DARK_GREEN));
+            value = joinTexts(
+                    header,
+                    space(),
+                    getCountText(OVW_ID)
+            );
         } else if (OPTIONS[3].equals(playerOption)) {
-            value = header
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountNetherP, loadedChunksCountNether)).formatted(Formatting.DARK_RED));
+            value = joinTexts(
+                    header,
+                    space(),
+                    getCountText(NETHER_ID)
+            );
         } else if (OPTIONS[4].equals(playerOption)) {
-            value = header
-                    .append(" ")
-                    .append(TextUtils.li(String.format(FORMAT, loadedChunksCountEndP, loadedChunksCountEnd)).formatted(Formatting.DARK_AQUA));
+            value = joinTexts(
+                    header,
+                    space(),
+                    getCountText(END_ID)
+            );
         } else {
             value = null;
         }
 
-        //noinspection CastCanBeRemovedNarrowingVariableType
-        return new MutableText[]{(MutableText) value};
+        return (MutableText) value;
+    }
+
+    public Text getCountText(Identifier id) {
+        MutableText t1 = li(loadedChunksCountP.getOrDefault(id, 0).toString());
+        MutableText t2 = li(loadedChunksCount.getOrDefault(id, 0).toString());
+        if (OVW_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_GREEN);
+            t2.formatted(Formatting.DARK_GREEN);
+        } else if (NETHER_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_RED);
+            t2.formatted(Formatting.DARK_RED);
+        } else if (END_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_AQUA);
+            t2.formatted(Formatting.DARK_AQUA);
+        }
+
+        return empty().append(t1).append(SEPARATOR).append(t2);
     }
 
 }

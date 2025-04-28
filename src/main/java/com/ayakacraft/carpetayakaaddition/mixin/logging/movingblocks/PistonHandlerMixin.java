@@ -38,7 +38,7 @@ public abstract class PistonHandlerMixin {
     @Inject(method = "tryMove", at = @At("RETURN"))
     private void onTryMove(BlockPos pos, Direction dir, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValueZ()) {
-            MovingBlocksLogger.INSTANCE.movingBlocks += getMovedBlocks().size();
+            MovingBlocksLogger.INSTANCE.movingBlocksCount += getMovedBlocks().size();
         }
     }
 

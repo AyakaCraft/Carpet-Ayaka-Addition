@@ -56,6 +56,14 @@ public final class TextUtils {
         return li(System.lineSeparator());
     }
 
+    public static MutableText space() {
+        return li(" ");
+    }
+
+    public static MutableText empty() {
+        return li("");
+    }
+
     public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
         //#if MC>=11700
         return net.minecraft.text.Texts.join(elements, separator, transformer);

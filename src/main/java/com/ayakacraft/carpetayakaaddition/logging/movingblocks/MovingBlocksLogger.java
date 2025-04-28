@@ -20,13 +20,15 @@
 
 package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 
-import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLogger;
+import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.MutableText;
+import net.minecraft.util.Formatting;
 
-public class MovingBlocksLogger extends AbstractAyakaHUDLogger {
+public class MovingBlocksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
     public static final String NAME = "movingBlocks";
 
@@ -41,15 +43,15 @@ public class MovingBlocksLogger extends AbstractAyakaHUDLogger {
         INSTANCE = i;
     }
 
-    public int movingBlocks = 0;
+    public int movingBlocksCount = 0;
 
     private MovingBlocksLogger() throws NoSuchFieldException {
-        super(NAME, null, new String[0], true);
+        super(NAME, null, new String[0], false);
     }
 
     @Override
     public void init() {
-        movingBlocks = 0;
+        movingBlocksCount = 0;
     }
 
     @Override
@@ -58,9 +60,9 @@ public class MovingBlocksLogger extends AbstractAyakaHUDLogger {
     }
 
     @Override
-    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
+    public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
         //noinspection RedundantCast
-        return new MutableText[]{(MutableText) TextUtils.li(Integer.toString(movingBlocks))};
+        return (MutableText) TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks", movingBlocksCount).formatted(Formatting.GRAY);
     }
 
 }

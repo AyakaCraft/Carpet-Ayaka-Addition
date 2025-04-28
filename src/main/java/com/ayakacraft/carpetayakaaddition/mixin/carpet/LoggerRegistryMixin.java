@@ -44,7 +44,9 @@ public abstract class LoggerRegistryMixin {
     private static void registerToCarpet(CallbackInfo ci) {
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
             registerLogger(it.getLogName(), it);
-            CarpetAyakaServer.INSTANCE.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.INSTANCE));
+            if (it instanceof InitializedPerTick) {
+                CarpetAyakaServer.INSTANCE.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.INSTANCE));
+            }
         });
     }
 
@@ -53,16 +55,14 @@ public abstract class LoggerRegistryMixin {
     private static void registerLogger(String name, Logger logger) {
     }
 
-    @Inject(method = "setAccess", at = @At("RETURN"), remap = false)
+    @Inject(method = "setAccess", at = @At("HEAD"), remap = false)
     private static void onSetAccess(Logger logger, CallbackInfo ci) {
-        if (!(logger instanceof AyakaExtensionLogger)) {
-            return;
-        }
-        @SuppressWarnings("PatternVariableCanBeUsed") final AyakaExtensionLogger ayakaLogger = (AyakaExtensionLogger) logger;
-        try {
-            ayakaLogger.getField().setBoolean(null, logger.hasOnlineSubscribers());
-        } catch (IllegalAccessException e) {
-            CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
+        if (logger instanceof AyakaExtensionLogger) {
+            try {
+                ((AyakaExtensionLogger) logger).getField().setBoolean(null, logger.hasOnlineSubscribers());
+            } catch (IllegalAccessException e) {
+                CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
+            }
         }
     }
 

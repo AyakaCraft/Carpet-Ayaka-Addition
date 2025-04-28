@@ -68,6 +68,7 @@
   "carpet.rule.forceTickPlantsReintroduce.name": "0-tick force update plants",
   "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower",
 
-  "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks"
+  "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks",
+  "carpet-ayaka-addition.logger.movingBlocks": "Moving Blocks %d"
 
 }

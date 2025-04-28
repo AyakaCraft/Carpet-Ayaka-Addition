@@ -46,9 +46,15 @@ public abstract class BambooBlockMixin {
             randomTick(state, world, pos, random);
         }
     }
+    //#endif
 
-    @Shadow
-    protected abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+    //#if MC>=12006
+    @Shadow protected
+    //#elseif MC>=11600
+    //$$ @Shadow public
+    //#endif
+    //#if MC>=11600
+    abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
     //#endif
 
 }
