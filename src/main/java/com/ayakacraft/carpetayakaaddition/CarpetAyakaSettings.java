@@ -34,40 +34,40 @@ public final class CarpetAyakaSettings {
 
     public static final String REINTRODUCE = "reintroduce";
 
-    public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
+    public static final String CHEAT = "cheat";
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND})
+    @Rule(categories = {AYAKA, COMMAND, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Teleport to players")
+    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /tpt to teleport to another player in your server")
     //#endif
     public static boolean commandTpt = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND})
+    @Rule(categories = {AYAKA, COMMAND, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Teleport to spawn point")
+    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /gohome to teleport right back to your spawn point")
     //#endif
     public static boolean commandGoHome = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND})
+    @Rule(categories = {AYAKA, COMMAND, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Global waypoints on server")
+    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /waypoint to manipulate and teleport to shared waypoints")
     //#endif
     public static boolean commandWaypoint = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND})
+    @Rule(categories = {AYAKA, COMMAND, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Spectator Switching")
+    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /c to switch your gamemode between spectator and survival")
     //#endif
     public static boolean commandC = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Clear items")
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Enables /killitem to clear dropped items with one shot")
     //#endif
     public static boolean commandKillItem = false;
 
@@ -78,35 +78,35 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Await seconds for killitem", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
+    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Seconds to wait before clearing the items", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
     //#endif
     public static int killItemAwaitSeconds = 5;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, FEATURE})
     //#else
-    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disable bat spawning")
+    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disables natural spawning of bats")
     //#endif
     public static boolean disableBatSpawning = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, FEATURE})
     //#else
-    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disable foxes picking up items")
+    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Prevents foxes from picking up dropped items")
     //#endif
     public static boolean foxNoPickupItem = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, SURVIVAL})
+    @Rule(categories = {AYAKA, SURVIVAL, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, SURVIVAL}, desc = "Better opPlayerNoCheat option")
+    //$$ @Rule(category = {AYAKA, SURVIVAL, CHEAT}, desc = "Stops operators from using /kill, /clear, /effect and /item", extra = {"Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"})
     //#endif
     public static boolean betterOpPlayerNoCheat = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, EXPERIMENTAL, BUGFIX})
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX}, desc = "Fake player resident ineffective in backups fix")
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX}, desc = "Fixes the bug that fake players are not reconnected after retracements", extra = {"Only active when Gca is loaded and fakePlayerResident is set to true"})
     //#endif
     public static boolean fakePlayerResidentBackupFix = false;
 
@@ -117,14 +117,14 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Item discard ticks", validate = ItemDiscardAgeValidator.class, options = {"0", "3000", "3600", "6000", "12000", "72000"}, strict = false)
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Modifies the ticks before an item entity is discarded", validate = ItemDiscardAgeValidator.class, options = {"0", "3000", "3600", "6000", "12000", "72000"}, extra = {"Set to 0 (or 6000) to use vanilla value", "Max value 72000 (an hour)"}, strict = false)
     //#endif
-    public static int itemDiscardAge = 6000;
+    public static int itemDiscardAge = 0;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE})
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}, desc = "0-tick force update plants")
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}, desc = "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower")
     //#endif
     public static boolean forceTickPlantsReintroduce = false;
 
@@ -143,6 +143,8 @@ public final class CarpetAyakaSettings {
     }
 
     private static final class ItemDiscardAgeValidator extends Validator<Integer> {
+
+        public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
 
         @Override
         public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {

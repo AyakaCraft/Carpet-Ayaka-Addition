@@ -33,7 +33,7 @@ public class FoxEntityMixin {
 
     @Inject(method = "canPickupItem", at = @At("RETURN"), cancellable = true)
     private void onPickupItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.foxNoPickupItem) {
+        if (CarpetAyakaSettings.foxNoPickupItem && cir.getReturnValue()) {
             cir.setReturnValue(false);
         }
     }

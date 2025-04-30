@@ -30,40 +30,44 @@
   "command.carpet-ayaka-addition.killitem.cancel.multiple": "取消了%d个任务",
 
   "carpet.category.reintroduce": "再引入",
+  "carpet.category.cheat": "作弊",
 
-  "carpet.rule.commandTpt.name": "传送到玩家",
+  "carpet.rule.commandTpt.name": "传送到玩家命令开关",
   "carpet.rule.commandTpt.desc": "启用 /tpt 命令以传送到其他玩家",
 
-  "carpet.rule.commandGoHome.name": "回程",
+  "carpet.rule.commandGoHome.name": "回程命令开关",
   "carpet.rule.commandGoHome.desc": "启用 /gohome 命令以传送到重生点",
 
-  "carpet.rule.commandWaypoint.name": "全局路径点",
+  "carpet.rule.commandWaypoint.name": "全局路径点命令开关",
   "carpet.rule.commandWaypoint.desc": "启用 /waypoint 命令以操作并传送到服务器全局路径点",
 
-  "carpet.rule.commandC.name": "旁观者模式切换",
+  "carpet.rule.commandC.name": "旁观者模式切换命令开关",
   "carpet.rule.commandC.desc": "启用 /c 命令以在生存模式和旁观者模式中切换",
-  "carpet.rule.commandC.extra.1": "源自骗子妈服的!c插件，觉得不原版就关掉",
 
   "carpet.rule.disableBatSpawning.name": "禁用蝙蝠生成",
   "carpet.rule.disableBatSpawning.desc": "禁用蝙蝠的自然生成",
 
-  "carpet.rule.commandKillItem.name": "清除掉落物",
-  "carpet.rule.commandKillItem.desc": "清除加载范围内的掉落物",
+  "carpet.rule.commandKillItem.name": "清除掉落物命令开关",
+  "carpet.rule.commandKillItem.desc": "启用 /killitem 命令以清除加载范围内的掉落物",
 
-  "carpet.rule.killItemAwaitSeconds.name": "killitem 执行延迟",
-  "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数，默认为5",
+  "carpet.rule.killItemAwaitSeconds.name": "清除掉落物执行延迟",
+  "carpet.rule.killItemAwaitSeconds.desc": "清理掉落物之前的等待秒数",
 
   "carpet.rule.foxNoPickupItem.name": "禁用狐狸叼起物品",
-  "carpet.rule.foxNoPickupItem.desc": "阻止狐狸叼起掉落物",
+  "carpet.rule.foxNoPickupItem.desc": "阻止狐狸叼起掉落物，但仍会吸引它",
 
   "carpet.rule.betterOpPlayerNoCheat.name": "更好的opPlayerNoCheat选项",
-  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill，/clear，/effect 和 /item 指令，仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
+  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill，/clear，/effect 和 /item 指令",
+  "carpet.rule.betterOpPlayerNoCheat.extra.0": "仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
 
-  "carpet.rule.fakePlayerResidentBackupFix.name": "修复备份时不保留假人的问题",
-  "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题，仅在加载了Gca且fakePlayerResident为true时生效",
+  "carpet.rule.fakePlayerResidentBackupFix.name": "备份不保留假人修复",
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题",
+  "carpet.rule.fakePlayerResidentBackupFix.extra.0": "仅在加载了GCA且fakePlayerResident为true时生效",
 
   "carpet.rule.itemDiscardAge.name": "掉落物消失刻",
-  "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数，最大为72000 (一小时)，设置为0以使用原版设置",
+  "carpet.rule.itemDiscardAge.desc": "修改掉落物自然消失前的游戏刻数",
+  "carpet.rule.itemDiscardAge.extra.0": "设置为0或6000以使用原版值",
+  "carpet.rule.itemDiscardAge.extra.1": "最大值为72000 (一小时)",
 
   "carpet.rule.forceTickPlantsReintroduce.name": "0t强制更新植物状态",
   "carpet.rule.forceTickPlantsReintroduce.desc": "重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性",

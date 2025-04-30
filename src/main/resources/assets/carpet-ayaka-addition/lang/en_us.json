@@ -30,42 +30,34 @@
   "command.carpet-ayaka-addition.killitem.cancel.multiple": "Cancelled %d tasks",
 
   "carpet.category.reintroduce": "reintroduce",
+  "carpet.category.cheat": "cheat",
 
-  "carpet.rule.commandTpt.name": "Teleport to players",
   "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to another player in your server",
 
-  "carpet.rule.commandGoHome.name": "Teleport to spawn point",
   "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
 
-  "carpet.rule.commandWaypoint.name": "Global waypoints on server",
   "carpet.rule.commandWaypoint.desc": "Enables /waypoint to manipulate and teleport to shared waypoints",
 
-  "carpet.rule.commandC.name": "Spectator Switching",
   "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
-  "carpet.rule.commandC.extra.1": "Turn it off if you think it's not vanilla",
 
-  "carpet.rule.disableBatSpawning.name": "Disable bat spawning",
-  "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
-
-  "carpet.rule.commandKillItem.name": "Clear items",
   "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
 
-  "carpet.rule.killItemAwaitSeconds.name": "Await seconds for killitem",
-  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before killing the items, default to 5",
+  "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
 
-  "carpet.rule.foxNoPickupItem.name": "Disable foxes picking up items",
-  "carpet.rule.foxNoPickupItem.desc": "Stops foxes from picking up dropped items",
+  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before clearing the items",
 
-  "carpet.rule.betterOpPlayerNoCheat.name": "Better opPlayerNoCheat option",
-  "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill, /clear, /effect and /item, only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
+  "carpet.rule.foxNoPickupItem.desc": "Prevents foxes from picking up dropped items",
 
-  "carpet.rule.fakePlayerResidentBackupFix.name": "Fake player resident ineffective in backups fix",
-  "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements, only active when Gca is loaded and fakePlayerResident is set to true",
+  "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill, /clear, /effect and /item",
+  "carpet.rule.betterOpPlayerNoCheat.extra.0": "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
 
-  "carpet.rule.itemDiscardAge.name": "Item discard ticks",
-  "carpet.rule.itemDiscardAge.desc": "Modifies the ticks before an item entity is discarded, max value 72000 (an hour), set to 0 to use vanilla option",
+  "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements",
+  "carpet.rule.fakePlayerResidentBackupFix.extra.0": "Only active when Gca is loaded and fakePlayerResident is set to true",
 
-  "carpet.rule.forceTickPlantsReintroduce.name": "0-tick force update plants",
+  "carpet.rule.itemDiscardAge.desc": "Modifies the ticks before an item entity is discarded",
+  "carpet.rule.itemDiscardAge.extra.0": "Set to 0 (or 6000) to use vanilla value",
+  "carpet.rule.itemDiscardAge.extra.1": "Max value 72000 (an hour)",
+
   "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower",
 
   "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks",

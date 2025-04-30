@@ -27,6 +27,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed for AyakaCraft server.
 
+## External Links
+
+- [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
+- [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+
 ## EOL
 
 ### Current supported versions
@@ -100,26 +106,104 @@ The following Minecraft versions are scheduled to be supported in the later vers
 ### Carpet Loggers
 
 - loadedChunks
-    - Shows the count of loaded chunks in HUD for each dimension (experimental)
+    - HUD logger
+    - Shows the count of loaded chunks for selected dimension (experimental)
+- movingBlocks
+    - HUD logger
+    - Shows the count of blocks moving (experimental)
 
 ### Rules
 
-- disableBatSpawning
-    - Disables natual spawning of bats
-- killItemAwaitSeconds
-    - Seconds to wait before clearing the items
-- foxNoPickupItem
-    - Stops foxes from picking up dropped items
-- betterOpPlayerNoCheat
-    - Stops operators from using /kill, /clear, /effect and /item
-    - Only active when [Carpet Tis Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and opPlayerNoCheat is set to true
-- fakePlayerResidentBackupFix
-    - Fixes the bug that fake players are not reconnected after retracements
-    - Only active when [Gca](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and fakePlayerResident is set to true
-- itemDiscardAge
-    - Modifies the ticks before an item entity is discarded
-    - Max value 72000 (an hour)
-    - Set to 0 to use vanilla option
-- forceTickPlantsReintroduce
-    - Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
-- Command rules are omitted here
+#### betterOpPlayerNoCheat
+Prevents operators from using `/kill`, `/clear`, `/effect` and `/item`
+
+Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and `opPlayerNoCheat` is set to `true`
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `SURVIVAL`, `CHEAT`
+
+#### commandC
+Enables `/c` to switch your gamemode between `spectator` and `survival`
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### commandGoHome
+Enables `/gohome` to teleport right back to your spawn point
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### commandKillItem
+Enables `/killitem` to clear dropped items with one shot
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`
+
+#### commandTpt
+Enables `/tpt` to teleport to another player in your server
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### commandWaypoint
+Enables `/waypoint` to manipulate and teleport to shared waypoints
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### disableBatSpawning
+Disables natual spawning of bats
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`
+
+#### fakePlayerResidentBackupFix
+Fixes the bug that fake players are not reconnected after retracements
+
+Only active when [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded and `fakePlayerResident` is set to `true`
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`
+
+#### forceTickPlantsReintroduce
+Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`
+
+#### foxNoPickupItem
+Stops foxes from picking up dropped items
+- Type: `boolean`
+- Default Value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`
+
+#### itemDiscardAge
+Modifies the ticks before an item entity is discarded
+
+Set to `0` (or `6000`) to use vanilla option
+
+Max value `72000` (an hour)
+- Type: `int`
+- Default Value: `6000`
+- Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
+- Range: `[0,72000]`
+- Categories: `AYAKA`, `EXPERIMENTAL`
+
+#### killItemAwaitSeconds
+Seconds to wait before clearing the items
+- Type: `int`
+- Default Value: `5`
+- Suggested options: `0`, `5`, `10`, `30`
+- Range: `[0,)`
+- Categories: `AYAKA`, `COMMAND`

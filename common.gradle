@@ -15,6 +15,10 @@ boolean releasing = System.getenv("BUILD_RELEASE") == "true"
 
 repositories {
     maven {
+        name = "Fabric"
+        url = "https://maven.fabricmc.net/"
+    }
+    maven {
         name = "masa"
         url = "https://masa.dy.fi/maven"
     }
