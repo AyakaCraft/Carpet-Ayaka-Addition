@@ -99,12 +99,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 ### Carpet 记录器
 
-- loadedChunks
-    - HUD 记录器
-    - 显示选择的维度加载的区块数（实验性）
-- movingBlocks
-    - HUD 记录器
-    - 显示“移动的方块”的数量
+#### 加载区块数 (loadedChunks)
+显示选择的维度加载的区块数 (实验性)
+- 类型: HUD 记录器
+- 选项: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
+- 默认: `dynamic`
+
+#### 移动方块数 (movingBlocks)
+显示“移动的方块”的数量 (实验性)
+- 类型: HUD 记录器
+- 选项: 不适用
+- 默认: 不适用
 
 ### 规则
 
