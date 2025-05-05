@@ -39,11 +39,15 @@ public abstract class TickTask {
     public void start() {
     }
 
+    /**
+     * Called internally when the process is done
+     */
     protected void finish() {
         this.finished = true;
     }
 
     public void cancel() {
+        finish();
     }
 
     public abstract void tick();

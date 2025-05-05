@@ -24,7 +24,7 @@ import net.minecraft.server.MinecraftServer;
 
 import java.nio.file.Path;
 
-public class ServerUtils {
+public final class ServerUtils {
 
     public static Path worldRootPath(MinecraftServer server) {
         //#if MC>=11600

@@ -35,10 +35,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
@@ -82,7 +79,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         preTickTasks.forEach(TickTask::start);
         preTickTasks.drainTo(tickTasks);
         tickTasks.forEach(TickTask::tick);
-        new LinkedList<>(tickTasks).stream().filter(TickTask::isFinished).forEach(tickTasks::remove);
+        tickTasks.removeIf(TickTask::isFinished);
     }
 
     @Override
@@ -149,13 +146,17 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     public int cancelTickTasksMatching(Predicate<? super TickTask> predicate) {
-        final int[] i = {0};
-        new LinkedList<>(tickTasks).stream().filter(predicate).forEach(t -> {
-            t.cancel();
-            tickTasks.remove(t);
-            i[0]++;
-        });
-        return i[0];
+        int i = 0;
+        final Iterator<TickTask> each = tickTasks.iterator();
+        while (each.hasNext()) {
+            TickTask task = each.next();
+            if (predicate.test(task)) {
+                task.cancel();
+                each.remove();
+                i++;
+            }
+        }
+        return i;
     }
 
     public void onServerLoadedWorlds$Ayaka() {

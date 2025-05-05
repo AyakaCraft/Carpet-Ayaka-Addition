@@ -91,7 +91,7 @@ public final class KillItemCommand {
                         .then(literal("cancel").executes(KillItemCommand::cancel)));
     }
 
-    private static class KillItemTickTask extends TickTask {
+    private static final class KillItemTickTask extends TickTask {
 
         private final int awaitSeconds;
 
@@ -113,6 +113,7 @@ public final class KillItemCommand {
 
         @Override
         public void cancel() {
+            super.cancel();
             TextUtils.broadcastToPlayers(mcServer, TextUtils.tr("command.carpet-ayaka-addition.killitem.task.cancelled"), false);
         }
 

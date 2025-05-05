@@ -27,6 +27,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed for AyakaCraft server.
 
+Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabric-mod-template)
+
 ## External Links
 
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)

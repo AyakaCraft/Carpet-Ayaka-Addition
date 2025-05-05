@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 
+@FunctionalInterface
 public interface InitializedPerTick {
 
     void init();
@@ -41,6 +42,7 @@ public interface InitializedPerTick {
 
         @Override
         public void cancel() {
+            super.cancel();
             initializedPerTick.init();
         }
 
