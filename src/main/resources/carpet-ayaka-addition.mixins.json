@@ -10,6 +10,7 @@
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonHandlerMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
+    "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
     "rules.betterOpPlayerNoCheat.ItemCommandMixin",
     "rules.betterOpPlayerNoCheat.KillCommandMixin",

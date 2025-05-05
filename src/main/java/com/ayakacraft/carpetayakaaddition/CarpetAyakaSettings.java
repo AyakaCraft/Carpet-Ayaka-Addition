@@ -99,7 +99,7 @@ public final class CarpetAyakaSettings {
     //#if MC>=11900
     @Rule(categories = {AYAKA, SURVIVAL, CHEAT})
     //#else
-    //$$ @Rule(category = {AYAKA, SURVIVAL, CHEAT}, desc = "Stops operators from using /kill, /clear, /effect and /item", extra = {"Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"})
+    //$$ @Rule(category = {AYAKA, SURVIVAL, CHEAT}, desc = "Stops operators from using /kill, /clear, /effect, /item and /difficulty", extra = {"Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"})
     //#endif
     public static boolean betterOpPlayerNoCheat = false;
 

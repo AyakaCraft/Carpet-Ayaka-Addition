@@ -115,7 +115,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
 ### Rules
 
 #### betterOpPlayerNoCheat
-Prevents operators from using `/kill`, `/clear`, `/effect` and `/item`
+Prevents operators from using `/kill`, `/clear`, `/effect`, `/item` and `/difficulty`
 
 Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and `opPlayerNoCheat` is set to `true`
 - Type: `boolean`

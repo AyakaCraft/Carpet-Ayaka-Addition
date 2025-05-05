@@ -57,8 +57,9 @@
   "carpet.rule.foxNoPickupItem.desc": "阻止狐狸叼起掉落物，但仍会吸引它",
 
   "carpet.rule.betterOpPlayerNoCheat.name": "更好的opPlayerNoCheat选项",
-  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill，/clear，/effect 和 /item 指令",
+  "carpet.rule.betterOpPlayerNoCheat.desc": "阻止管理员玩家使用/kill，/clear，/effect，/item 和 /difficulty 指令",
   "carpet.rule.betterOpPlayerNoCheat.extra.0": "仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
+  "carpet.rule.betterOpPlayerNoCheat.extra.1": "你也不想失去刷铁机里面的掠夺者，对吧",
 
   "carpet.rule.fakePlayerResidentBackupFix.name": "备份不保留假人修复",
   "carpet.rule.fakePlayerResidentBackupFix.desc": "修复回档后假人不会重新加入世界的问题",

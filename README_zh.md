@@ -109,7 +109,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 ### 规则
 
 #### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
-阻止管理员玩家使用`/kill`，`/clear`，`/effect` 和 `/item` 指令
+阻止管理员玩家使用`/kill`，`/clear`，`/effect`，`/item` 和 `/difficulty` 指令
 
 仅在加载了 [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) 且 `opPlayerNoCheat` 为 `true` 时生效
 - 类型: `boolean`
