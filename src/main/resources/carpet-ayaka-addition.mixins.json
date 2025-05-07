@@ -6,6 +6,7 @@
   "mixins": [
     "carpet.HUDControllerMixin",
     "carpet.LoggerRegistryMixin",
+    "commands.waypoint.MinecraftServerMixin",
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonHandlerMixin",
@@ -21,6 +22,7 @@
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
+    "rules.maxPlayersOverwrite.PlayerManagerMixin",
     "utils.MinecraftServerMixin"
   ],
   "injectors": {
