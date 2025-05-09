@@ -20,15 +20,22 @@
 
 package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 
-import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
+import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.PistonHeadBlock;
+import net.minecraft.block.entity.PistonBlockEntity;
+import net.minecraft.block.enums.PistonType;
 import net.minecraft.text.MutableText;
-import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 
-public class MovingBlocksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
+import java.util.HashSet;
+
+public class MovingBlocksLogger extends AbstractAyakaLogger implements InitializedPerTick {
 
     public static final String NAME = "movingBlocks";
 
@@ -43,15 +50,15 @@ public class MovingBlocksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         INSTANCE = i;
     }
 
-    public int movingBlocksCount = 0;
-
     private MovingBlocksLogger() throws NoSuchFieldException {
         super(NAME, null, new String[0], false);
     }
 
+    private final HashSet<BlockPos> loggedPos = new HashSet<>();
+
     @Override
     public void init() {
-        movingBlocksCount = 0;
+        loggedPos.clear();
     }
 
     @Override
@@ -59,10 +66,33 @@ public class MovingBlocksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         return AyakaLoggerRegistry.__movingBlocks;
     }
 
-    @Override
-    public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
-        //noinspection RedundantCast
-        return (MutableText) TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks", movingBlocksCount).formatted(Formatting.GRAY);
+    public void tryLog(PistonBlockEntity pistonBlockEntity) {
+        if (isEnabled() && !loggedPos.contains(pistonBlockEntity.getPos())) {
+            log((playerOption, player) -> doLogging(pistonBlockEntity));
+            loggedPos.add(pistonBlockEntity.getPos());
+        }
+    }
+
+    private MutableText[] doLogging(PistonBlockEntity entity) {
+        BlockPos pos = entity.getPos();
+        BlockState  state     = entity.getPushedBlock();
+        Block       block     = state.getBlock();
+        MutableText direction = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
+
+        MutableText txt;
+        if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
+            if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
+                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend",Blocks.PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            } else {
+                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend",Blocks.STICKY_PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            }
+        } else if (entity.isSource() && !entity.isExtending()) {
+            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+        } else {
+            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+        }
+
+        return new MutableText[]{txt};
     }
 
 }

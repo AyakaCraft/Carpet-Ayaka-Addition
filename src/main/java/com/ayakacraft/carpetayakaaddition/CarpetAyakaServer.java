@@ -23,10 +23,14 @@ package com.ayakacraft.carpetayakaaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.logging.HUDController;
-import com.ayakacraft.carpetayakaaddition.commands.*;
+import com.ayakacraft.carpetayakaaddition.commands.c.CCommand;
+import com.ayakacraft.carpetayakaaddition.commands.gohome.GoHomeCommand;
+import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
+import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
+import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointCommand;
+import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointManager;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
-import com.ayakacraft.carpetayakaaddition.utils.waypoint.WaypointManager;
 import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -146,7 +150,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     public int cancelTickTasksMatching(Predicate<? super TickTask> predicate) {
-        int i = 0;
+        int                      i    = 0;
         final Iterator<TickTask> each = tickTasks.iterator();
         while (each.hasNext()) {
             TickTask task = each.next();

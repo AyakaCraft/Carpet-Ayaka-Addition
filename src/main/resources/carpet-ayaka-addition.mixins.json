@@ -8,7 +8,7 @@
     "carpet.LoggerRegistryMixin",
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
-    "logging.movingblocks.PistonHandlerMixin",
+    "logging.movingblocks.PistonBlockEntityMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
@@ -21,6 +21,7 @@
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
+    "rules.maxPlayersOverwrite.PlayerManagerMixin",
     "utils.MinecraftServerMixin"
   ],
   "injectors": {

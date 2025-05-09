@@ -100,109 +100,149 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 ### Carpet 记录器
 
 #### 加载区块数 (loadedChunks)
+
 显示选择的维度加载的区块数 (实验性)
-- 类型: HUD 记录器
+
+- 类型: HUD
 - 选项: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
 - 默认: `dynamic`
 
 #### 移动方块数 (movingBlocks)
-显示“移动的方块”的数量 (实验性)
-- 类型: HUD 记录器
+
+在方块移动结束时进行记录 (实验性)
+
+- 类型: 控制台
 - 选项: 不适用
 - 默认: 不适用
 
 ### 规则
 
 #### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
+
 阻止管理员玩家使用`/kill`，`/clear`，`/effect`，`/item` 和 `/difficulty` 指令
 
 仅在加载了 [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) 且 `opPlayerNoCheat` 为 `true` 时生效
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `SURVIVAL`, `CHEAT`
 
 #### 旁观者模式切换命令开关 (commandC)
+
 启用 `/c` 命令以在 生存模式 和 旁观者模式 中切换
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 回程命令开关 (commandGoHome)
+
 启用 `/gohome` 命令以传送到重生点
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 清除掉落物命令开关 (commandKillItem)
+
 启用 `/killitem` 命令以清除加载范围内的掉落物
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `COMMAND`
 
 #### 传送到玩家命令开关 (commandTpt)
+
 启用 `/tpt` 命令以传送到其他玩家
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 全局路径点命令开关 (commandWaypoint)
+
 启用 `/waypoint` 命令以操作并传送到服务器全局路径点
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 禁用蝙蝠生成 (disableBatSpawning)
+
 禁用蝙蝠的自然生成
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
 
 #### 备份不保留假人修复 (fakePlayerResidentBackupFix)
+
 修复回档后假人不会重新加入世界的问题
 
 仅在加载了 [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) 且 `fakePlayerResident` 为 `true` 时生效
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce)
+
 重新引入 1.15.2 及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
 
 #### 禁用狐狸叼起物品 (foxNoPickupItem)
+
 阻止狐狸叼起掉落物，但仍会吸引它
+
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
 
 #### 掉落物消失刻 (itemDiscardAge)
+
 修改掉落物自然消失前的游戏刻数
 
 设置为 `0` 或 `6000` 以使用原版值
 
 最大值为 `72000` (一小时)
+
 - 类型: `int`
-- 默认值: `6000`
+- 默认值: `0`
 - 参考选项: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - 范围: `[0,72000]`
 - 分类: `AYAKA`, `EXPERIMENTAL`
 
 #### 清除掉落物执行延迟 (killItemAwaitSeconds)
+
 清理掉落物之前的等待秒数
+
 - 类型: `int`
 - 默认值: `5`
 - 参考选项: `0`, `5`, `10`, `30`
 - 范围: `[0,)`
 - 分类: `AYAKA`, `COMMAND`
+
+#### 最大玩家数量重写 (maxPlayersOverwrite)
+
+重写服务器最大玩家数量
+
+设置为0以使用原版值
+
+- 类型: `int`
+- 默认值: `0`
+- 参考选项: `0`, `8`, `10`, `20`, `50`, `100`
+- 范围: `[0,)`
+- 分类: `AYAKA`, `EXPERIMENTAL`

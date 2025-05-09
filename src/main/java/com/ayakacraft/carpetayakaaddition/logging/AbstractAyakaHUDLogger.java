@@ -24,7 +24,7 @@ import carpet.logging.HUDLogger;
 
 import java.lang.reflect.Field;
 
-public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionLogger {
+public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionHUDLogger {
 
     //#if MC<11500
     //$$ private final Field acceleratorField;

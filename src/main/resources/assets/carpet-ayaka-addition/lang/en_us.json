@@ -29,39 +29,47 @@
   "command.carpet-ayaka-addition.killitem.cancel.single": "Cancelled one task",
   "command.carpet-ayaka-addition.killitem.cancel.multiple": "Cancelled %d tasks",
 
-  "carpet.category.reintroduce": "reintroduce",
-  "carpet.category.cheat": "cheat",
-
-  "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to another player in your server",
-
-  "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
-
-  "carpet.rule.commandWaypoint.desc": "Enables /waypoint to manipulate and teleport to shared waypoints",
-
-  "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
-
-  "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
-
-  "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
-
-  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before clearing the items",
-
-  "carpet.rule.foxNoPickupItem.desc": "Prevents foxes from picking up dropped items",
-
   "carpet.rule.betterOpPlayerNoCheat.desc": "Stops operators from using /kill, /clear, /effect, /item and /difficulty",
   "carpet.rule.betterOpPlayerNoCheat.extra.0": "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
   "carpet.rule.betterOpPlayerNoCheat.extra.1": "You don't want to lose your pillager, do you?",
 
+  "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
+
+  "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
+
+  "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
+
+  "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to another player in your server",
+
+  "carpet.rule.commandWaypoint.desc": "Enables /waypoint to manipulate and teleport to shared waypoints",
+
+  "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
+
   "carpet.rule.fakePlayerResidentBackupFix.desc": "Fixes the bug that fake players are not reconnected after retracements",
   "carpet.rule.fakePlayerResidentBackupFix.extra.0": "Only active when Gca is loaded and fakePlayerResident is set to true",
+
+  "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower",
+
+  "carpet.rule.foxNoPickupItem.desc": "Prevents foxes from picking up dropped items",
 
   "carpet.rule.itemDiscardAge.desc": "Modifies the ticks before an item entity is discarded",
   "carpet.rule.itemDiscardAge.extra.0": "Set to 0 (or 6000) to use vanilla value",
   "carpet.rule.itemDiscardAge.extra.1": "Max value 72000 (an hour)",
 
-  "carpet.rule.forceTickPlantsReintroduce.desc": "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower",
+  "carpet.rule.killItemAwaitSeconds.desc": "Seconds to wait before clearing the items",
+
+  "carpet.rule.maxPlayersOverwrite.desc": "Overwrites the max player count in a server",
+  "carpet.rule.maxPlayersOverwrite.extra.0": "Set to 0 to use vanilla value",
 
   "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks",
-  "carpet-ayaka-addition.logger.movingBlocks": "Moving Blocks %d"
+  "carpet-ayaka-addition.logger.movingBlocks.common": "%s moved %s to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.extend": "%s facing %s extended to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.pull_back": "%s facing %s pulled back to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.west": "west",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.east": "east",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.north": "north",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.south": "south",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.up": "up",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.down": "down"
 
 }

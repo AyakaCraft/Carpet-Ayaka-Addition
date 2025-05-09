@@ -36,6 +36,8 @@ public final class CarpetAyakaSettings {
 
     public static final String CHEAT = "cheat";
 
+    public static final String BOT = "BOT";
+
     //#if MC>=11900
     @Rule(categories = {AYAKA, SURVIVAL, CHEAT})
     //#else
@@ -86,9 +88,9 @@ public final class CarpetAyakaSettings {
     public static boolean disableBatSpawning = false;
 
     //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL, BUGFIX})
+    @Rule(categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT})
     //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX}, desc = "Fixes the bug that fake players are not reconnected after retracements", extra = {"Only active when Gca is loaded and fakePlayerResident is set to true"})
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}, desc = "Fixes the bug that fake players are not reconnected after retracements", extra = {"Only active when Gca is loaded and fakePlayerResident is set to true"})
     //#endif
     public static boolean fakePlayerResidentBackupFix = false;
 
@@ -127,6 +129,18 @@ public final class CarpetAyakaSettings {
     //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Seconds to wait before clearing the items", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
     //#endif
     public static int killItemAwaitSeconds = 5;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, EXPERIMENTAL},
+            validators = UnsignedIntegerValidator.class,
+            options = {"0", "8", "10", "20", "50", "100"},
+            strict = false
+    )
+    //#else
+    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Overwrites the max player count in a server", validate = UnsignedIntegerValidator.class, options = {"0", "8", "10", "20", "50", "100"}, extra = {"Set to 0 to use vanilla value"}, strict = false)
+    //#endif
+    public static int maxPlayersOverwrite = 0;
+
 
     private static final class UnsignedIntegerValidator extends Validator<Integer> {
 

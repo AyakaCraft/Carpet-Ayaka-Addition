@@ -46,9 +46,16 @@ public abstract class SugarCaneBlockMixin {
             randomTick(state, world, pos, random);
         }
     }
+    //#endif
 
+    //#if MC>=12006
     @Shadow
-    protected abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+    protected
+    //#elseif MC>=11600
+    //$$ @Shadow public
+    //#endif
+    //#if MC>=11600
+    abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
     //#endif
 
 }

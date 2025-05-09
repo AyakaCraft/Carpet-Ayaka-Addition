@@ -49,7 +49,8 @@ public abstract class BambooBlockMixin {
     //#endif
 
     //#if MC>=12006
-    @Shadow protected
+    @Shadow
+    protected
     //#elseif MC>=11600
     //$$ @Shadow public
     //#endif

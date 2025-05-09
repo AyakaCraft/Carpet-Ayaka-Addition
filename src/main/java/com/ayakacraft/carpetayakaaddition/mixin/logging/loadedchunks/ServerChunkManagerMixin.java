@@ -45,7 +45,9 @@ public abstract class ServerChunkManagerMixin {
 
     @Shadow
     @Final
-    //#if MC<11600
+    //#if MC<11700
+    //$$ private
+    //#elseif MC>=12104
     //$$ private
     //#endif
     ServerWorld world;
