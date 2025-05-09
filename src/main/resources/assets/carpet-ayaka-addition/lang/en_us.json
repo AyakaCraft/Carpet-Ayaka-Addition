@@ -62,6 +62,14 @@
   "carpet.rule.maxPlayersOverwrite.extra.0": "Set to 0 to use vanilla value",
 
   "carpet-ayaka-addition.logger.loadedChunks": "Loaded Chunks",
-  "carpet-ayaka-addition.logger.movingBlocks": "Moving Blocks %d"
+  "carpet-ayaka-addition.logger.movingBlocks.common": "%s moved %s to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.extend": "%s facing %s extended to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.pull_back": "%s facing %s pulled back to [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.west": "west",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.east": "east",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.north": "north",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.south": "south",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.up": "up",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.down": "down"
 
 }

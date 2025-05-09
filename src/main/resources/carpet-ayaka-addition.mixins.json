@@ -6,10 +6,9 @@
   "mixins": [
     "carpet.HUDControllerMixin",
     "carpet.LoggerRegistryMixin",
-    "commands.waypoint.MinecraftServerMixin",
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
-    "logging.movingblocks.PistonHandlerMixin",
+    "logging.movingblocks.PistonBlockEntityMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",

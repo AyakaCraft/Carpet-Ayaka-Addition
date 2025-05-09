@@ -103,15 +103,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 显示选择的维度加载的区块数 (实验性)
 
-- 类型: HUD 记录器
+- 类型: HUD
 - 选项: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
 - 默认: `dynamic`
 
 #### 移动方块数 (movingBlocks)
 
-显示“移动的方块”的数量 (实验性)
+在方块移动结束时进行记录 (实验性)
 
-- 类型: HUD 记录器
+- 类型: 控制台
 - 选项: 不适用
 - 默认: 不适用
 

@@ -66,7 +66,7 @@ public class AyakaLoggerRegistry {
     //#endif
 
     public static void updateHUD() {
-        ayakaHUDLoggers.stream().filter(AyakaExtensionLogger::isEnabled).forEach(AyakaExtensionLogger::doLogging);
+        ayakaHUDLoggers.stream().filter(AyakaExtensionHUDLogger::isEnabled).forEach(AyakaExtensionHUDLogger::doLogging);
     }
 
 }

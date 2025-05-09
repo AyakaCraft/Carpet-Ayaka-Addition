@@ -42,6 +42,10 @@ public class PlayerManagerMixin {
             MinecraftServer server
             //#if MC>=11900
             , net.minecraft.registry.CombinedDynamicRegistries<net.minecraft.registry.ServerDynamicRegistryType> registryManager, net.minecraft.world.WorldSaveHandler saveHandler
+            //#elseif MC>=11800
+            //$$ , net.minecraft.util.registry.DynamicRegistryManager.Immutable registryManager, net.minecraft.world.WorldSaveHandler saveHandler
+            //#elseif MC>=11600
+            //$$ , net.minecraft.util.registry.DynamicRegistryManager.Impl registryManager, net.minecraft.world.WorldSaveHandler saveHandler
             //#endif
             , int maxPlayers, CallbackInfo ci) {
         initialMaxPlayers = maxPlayers;

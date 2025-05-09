@@ -51,7 +51,9 @@ public abstract class LoggerRegistryMixin {
     }
 
     @Shadow(remap = false)
+    //#if MC>=11500
     @SuppressWarnings("ShadowModifiers")
+    //#endif
     private static void registerLogger(String name, Logger logger) {
     }
 

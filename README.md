@@ -111,15 +111,15 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 Shows the count of loaded chunks for selected dimension (experimental)
 
-- Type: HUD logger
+- Type: HUD
 - Options: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
 - Default: `dynamic`
 
 #### movingBlocks
 
-Shows the count of blocks moving (experimental)
+Logs block movements at their ends (experimental)
 
-- Type: HUD logger
+- Type: Console
 - Options: N/A
 - Default: N/A
 

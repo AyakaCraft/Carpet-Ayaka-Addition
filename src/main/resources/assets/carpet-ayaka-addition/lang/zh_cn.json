@@ -29,7 +29,7 @@
   "command.carpet-ayaka-addition.killitem.cancel.single": "取消了一个任务",
   "command.carpet-ayaka-addition.killitem.cancel.multiple": "取消了%d个任务",
 
-  "carpet.category.reintroduce": "再引入",
+  "carpet.category.reintroduce": "移植",
   "carpet.category.cheat": "作弊",
   "carpet.category.BOT": "假人",
 
@@ -79,6 +79,14 @@
   "carpet.rule.maxPlayersOverwrite.extra.0": "设置为0以使用原版值",
 
   "carpet-ayaka-addition.logger.loadedChunks": "加载区块",
-  "carpet-ayaka-addition.logger.movingBlocks": "移动的方块 %d"
+  "carpet-ayaka-addition.logger.movingBlocks.common": "%s 向 %s 移动至 [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.extend": "%s 面向 %s 伸展至 [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.pull_back": "%s 面向 %s 收回至 [%d %d %d]",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.west": "西",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.east": "东",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.north": "北",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.south": "南",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.up": "上",
+  "carpet-ayaka-addition.logger.movingBlocks.direction.down": "下"
 
 }
