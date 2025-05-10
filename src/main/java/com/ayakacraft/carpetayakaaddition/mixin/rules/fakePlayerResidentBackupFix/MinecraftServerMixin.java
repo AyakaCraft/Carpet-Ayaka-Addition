@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MinecraftServerMixin {
 
     @Inject(method = "save", at = @At("RETURN"))
-    private void save(boolean suppressLogs, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
+    private void save(CallbackInfoReturnable<Boolean> cir) {
         if (CarpetAyakaSettings.fakePlayerResidentBackupFix) {
             GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
         }

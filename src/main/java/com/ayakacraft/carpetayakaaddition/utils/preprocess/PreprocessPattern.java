@@ -18,22 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.preprocess;
 
-import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.server.MinecraftServer;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.nio.file.Path;
-
-public final class ServerUtils {
-
-    @PreprocessPattern
-    public static Path worldRootPath(MinecraftServer server) {
-        //#if MC>=11600
-        return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
-        //#else
-        //$$ return server.getWorld(net.minecraft.world.dimension.DimensionType.OVERWORLD).getSaveHandler().getWorldDir().toPath();
-        //#endif
-    }
-
+@Retention(RetentionPolicy.SOURCE)
+@Target(ElementType.METHOD)
+public @interface PreprocessPattern {
 }

@@ -30,7 +30,7 @@ import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AyakaLoggerRegistry {
+public final class AyakaLoggerRegistry {
 
     public static final Set<Logger> ayakaLoggers = new HashSet<>();
 

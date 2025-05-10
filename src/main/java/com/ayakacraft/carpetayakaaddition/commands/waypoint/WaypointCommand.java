@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
-import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
@@ -228,7 +227,7 @@ public final class WaypointCommand {
     private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source = context.getSource();
         //#if MC>=11600
-        final String dim = IdentifierUtils.ofWorld(DimensionArgumentType.getDimensionArgument(context, "dim")).toString();
+        final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
         //#else
         //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
         //#endif
@@ -289,6 +288,7 @@ public final class WaypointCommand {
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+        //noinspection Convert2MethodRef
         dispatcher.register(
                 literal("waypoint")
                         .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandWaypoint, false))
@@ -312,7 +312,7 @@ public final class WaypointCommand {
                                         .suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::remove)))
                         .then(literal("tp")
-                                .requires(CommandUtils::isExecutedByPlayer)
+                                .requires(source -> source.isExecutedByPlayer())
                                 .then(argument("id", StringArgumentType.string()).suggests(WaypointCommand::suggestWaypoints)
                                         .executes(WaypointCommand::tp)))
                         .then(literal("rename")

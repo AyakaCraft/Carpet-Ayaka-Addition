@@ -21,28 +21,39 @@
 package com.ayakacraft.carpetayakaaddition.mixin.carpet;
 
 import carpet.logging.HUDController;
+import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
 @Mixin(HUDController.class)
 public class HUDControllerMixin {
 
-    //#if MC<11600
-    //$$ @org.spongepowered.asm.mixin.injection.Inject(
-    //$$         method = "update_hud",
-    //$$         at = @org.spongepowered.asm.mixin.injection.At(
-    //$$                 value = "INVOKE",
-    //$$                 target = "Ljava/util/Map;keySet()Ljava/util/Set;"
-    //$$         ),
-    //$$         remap = false
-    //$$ )
-    //$$ private static void updateAyakaHUDLoggers(net.minecraft.server.MinecraftServer server, org.spongepowered.asm.mixin.injection.callback.CallbackInfo ci)
-    //$$ {
-    //$$     com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry.updateHUD();
-    //$$ }
-    //#endif
+    @Inject(
+            method = "update_hud",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/Map;keySet()Ljava/util/Set;"
+            ),
+            remap = false
+    )
+    private static void updateAyakaHUDLoggers(
+            MinecraftServer server
+            //#if MC>=11600
+            , List<ServerPlayerEntity> force
+            //#endif
+            , CallbackInfo ci)
+    {
+        AyakaLoggerRegistry.updateHUD();
+    }
 
 }

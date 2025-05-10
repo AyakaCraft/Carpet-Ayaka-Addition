@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
@@ -32,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
 public final class CommandUtils {
 
     public static boolean checkPermission(ServerCommandSource source, boolean needsOp, boolean needsPlayer) {
-        return (isExecutedByPlayer(source) || !needsPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || !needsOp);
+        return (source.isExecutedByPlayer() || !needsPlayer) && (source.hasPermissionLevel(source.getServer().getOpPermissionLevel()) || !needsOp);
     }
 
     public static CompletableFuture<Suggestions> playerSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
@@ -47,6 +48,7 @@ public final class CommandUtils {
         //#endif
     }
 
+    @PreprocessPattern
     public static boolean isExecutedByPlayer(ServerCommandSource source) {
         //#if MC>=11900
         return source.isExecutedByPlayer();

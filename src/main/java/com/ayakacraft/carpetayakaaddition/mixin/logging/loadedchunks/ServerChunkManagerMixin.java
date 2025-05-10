@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
-import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
@@ -77,7 +76,7 @@ public abstract class ServerChunkManagerMixin {
                 }
             });
 
-            Identifier id = IdentifierUtils.ofWorld(world);
+            Identifier id = world.getRegistryKey().getValue();
 
             LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
             LoadedChunksLogger.INSTANCE.loadedChunksCountAllP += countP[0];

@@ -139,6 +139,10 @@ loom {
     }
 }
 
+preprocess {
+    patternAnnotation.set("com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern")
+}
+
 shadowJar {
     configurations = [project.configurations.shadow]
     exclude("META-INF")

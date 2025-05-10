@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.utils.mods;
 
 import carpet.patches.EntityPlayerMPFake;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.utils.ServerUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
@@ -32,7 +31,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -48,7 +46,7 @@ public final class GcaHelper {
     private static final Method savePlayerMethod;
 
     static {
-        Method spm;
+        Method spm = null;
         try {
             Optional<ModContainer> o = ModUtils.getModContainer(ModUtils.GCA_ID);
             if (o.isPresent()) {
@@ -63,11 +61,9 @@ public final class GcaHelper {
                 spm.setAccessible(true);
             } else {
                 LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
-                spm = null;
             }
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             LOGGER.warn("Failed to load GCA, fakePlayerResidentBackupFix won't be activated", e);
-            spm = null;
         }
         savePlayerMethod = spm;
     }
@@ -77,10 +73,10 @@ public final class GcaHelper {
             if (savePlayerMethod != null) {
                 return (JsonElement) savePlayerMethod.invoke(null, player);
             }
-            return null;
         } catch (InvocationTargetException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            LOGGER.warn("Failed to invoke save player method in GCA, fakePlayerResidentBackupFix might not work", e);
         }
+        return null;
     }
 
     public static void storeFakesIfNeeded(MinecraftServer server) {
@@ -99,21 +95,8 @@ public final class GcaHelper {
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        Path path = ServerUtils.worldRootPath(server).resolve("fake_player.gca.json");
-        File file = path.toFile();
-        if (!file.isFile()) {
-            try {
-                //noinspection ResultOfMethodCallIgnored
-                file.createNewFile();
-            } catch (IOException e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-        }
-
-        try
-        //(BufferedWriter bfw = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8))
-        {
-            //bfw.write(CarpetAyakaAddition.GSON.toJson(fakePlayerList));
+        Path path = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("fake_player.gca.json");
+        try {
             Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);

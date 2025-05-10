@@ -21,7 +21,6 @@
 package com.ayakacraft.carpetayakaaddition.commands.waypoint;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.utils.ServerUtils;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
 
@@ -72,7 +71,7 @@ public class WaypointManager {
     private final LinkedHashMap<String, Waypoint> waypointMap = new LinkedHashMap<>(3);
 
     private WaypointManager(MinecraftServer server) {
-        waypointStoragePath = ServerUtils.worldRootPath(server).resolve(WAYPOINT_FILE_NAME);
+        waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);
         try {
             load();
         } catch (IOException e) {

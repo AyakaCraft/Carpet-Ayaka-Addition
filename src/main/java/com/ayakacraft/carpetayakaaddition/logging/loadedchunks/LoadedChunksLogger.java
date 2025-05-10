@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,11 +48,11 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private static final Text SEPARATOR = li("/").formatted(Formatting.GRAY);
 
-    private static final Identifier OVW_ID = IdentifierUtils.ofVanilla("minecraft:overworld");
+    private static final Identifier OVW_ID = new Identifier("minecraft:overworld");
 
-    private static final Identifier NETHER_ID = IdentifierUtils.ofVanilla("minecraft:the_nether");
+    private static final Identifier NETHER_ID = new Identifier("minecraft:the_nether");
 
-    private static final Identifier END_ID = IdentifierUtils.ofVanilla("minecraft:the_end");
+    private static final Identifier END_ID = new Identifier("minecraft:the_end");
 
     public static final String NAME = "loadedChunks";
 
@@ -101,7 +100,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         Text value;
 
         if (OPTIONS[1].equals(playerOption)) {
-            playerOption = IdentifierUtils.ofWorld(player.getEntityWorld()).getPath();
+            playerOption = player.getEntityWorld().getRegistryKey().getValue().getPath();
         }
 
         if (OPTIONS[0].equals(playerOption)) {
