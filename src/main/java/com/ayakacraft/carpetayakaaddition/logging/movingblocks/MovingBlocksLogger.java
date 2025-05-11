@@ -50,11 +50,33 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
         INSTANCE = i;
     }
 
+    private final HashSet<BlockPos> loggedPos = new HashSet<>();
+
     private MovingBlocksLogger() throws NoSuchFieldException {
         super(NAME, null, new String[0], false);
     }
 
-    private final HashSet<BlockPos> loggedPos = new HashSet<>();
+    private MutableText[] doLogging(PistonBlockEntity entity) {
+        BlockPos    pos       = entity.getPos();
+        BlockState  state     = entity.getPushedBlock();
+        Block       block     = state.getBlock();
+        MutableText direction = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
+
+        MutableText txt;
+        if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
+            if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
+                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            } else {
+                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            }
+        } else if (entity.isSource() && !entity.isExtending()) {
+            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+        } else {
+            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+        }
+
+        return new MutableText[]{txt};
+    }
 
     @Override
     public void init() {
@@ -71,28 +93,6 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
             log((playerOption, player) -> doLogging(pistonBlockEntity));
             loggedPos.add(pistonBlockEntity.getPos());
         }
-    }
-
-    private MutableText[] doLogging(PistonBlockEntity entity) {
-        BlockPos pos = entity.getPos();
-        BlockState  state     = entity.getPushedBlock();
-        Block       block     = state.getBlock();
-        MutableText direction = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
-
-        MutableText txt;
-        if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
-            if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
-                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend",Blocks.PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
-            } else {
-                txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.extend",Blocks.STICKY_PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
-            }
-        } else if (entity.isSource() && !entity.isExtending()) {
-            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
-        } else {
-            txt = TextUtils.tr("carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
-        }
-
-        return new MutableText[]{txt};
     }
 
 }

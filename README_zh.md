@@ -76,7 +76,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - *将你传送至服务器内其他玩家*
 - /c
     - *将你的游戏模式切换回生存模式/到旁观者模式*
-- /waypoint
+- /address
     - *服务端的路径点*
     - reload
         - *重新加载路径点*
@@ -128,6 +128,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `SURVIVAL`, `CHEAT`
 
+#### 全局路径点命令开关 (commandWaypoint)
+
+启用 `/waypoint` 命令以操作并传送到服务器全局路径点
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `COMMAND`, `CHEAT`
+
 #### 旁观者模式切换命令开关 (commandC)
 
 启用 `/c` 命令以在 生存模式 和 旁观者模式 中切换
@@ -158,15 +167,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 #### 传送到玩家命令开关 (commandTpt)
 
 启用 `/tpt` 命令以传送到其他玩家
-
-- 类型: `boolean`
-- 默认值: `false`
-- 参考选项: `false`, `true`
-- 分类: `AYAKA`, `COMMAND`, `CHEAT`
-
-#### 全局路径点命令开关 (commandWaypoint)
-
-启用 `/waypoint` 命令以操作并传送到服务器全局路径点
 
 - 类型: `boolean`
 - 默认值: `false`

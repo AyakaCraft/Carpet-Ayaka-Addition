@@ -1,6 +1,6 @@
 name: Bug Report
 description: Something doesn't seem correct and it might be a bug
-labels: ["bug"]
+labels: [ "bug" ]
 body:
   - type: textarea
     id: description
@@ -45,7 +45,7 @@ body:
         Please upload the log file as an attachment, or upload the log to [pastebin](https://pastebin.com/) / [mclo.gs](https://mclo.gs/) and paste the url here.
         Please refrain from pasting the entire log file directly.
         Leave empty if there is none.
-      placeholder: https://pastebin.com/J6b7lKxR 
+      placeholder: ...
   - type: input
     id: minecraft-version
     attributes:

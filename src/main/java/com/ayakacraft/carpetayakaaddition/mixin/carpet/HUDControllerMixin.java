@@ -51,8 +51,8 @@ public class HUDControllerMixin {
             //#if MC>=11600
             , List<ServerPlayerEntity> force
             //#endif
-            , CallbackInfo ci)
-    {
+            , CallbackInfo ci
+    ) {
         AyakaLoggerRegistry.updateHUD();
     }
 

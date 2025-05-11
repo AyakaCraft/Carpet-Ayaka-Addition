@@ -31,12 +31,11 @@ public abstract class TickTask {
 
     private boolean finished;
 
+    private boolean cancelled;
+
     public TickTask(CarpetAyakaServer modServer) {
         this.modServer = modServer;
         this.mcServer = modServer != null ? modServer.mcServer : null;
-    }
-
-    public void start() {
     }
 
     /**
@@ -46,14 +45,17 @@ public abstract class TickTask {
         this.finished = true;
     }
 
+    public void start() {
+    }
+
     public void cancel() {
-        finish();
+        this.cancelled = true;
     }
 
     public abstract void tick();
 
     public boolean isFinished() {
-        return finished;
+        return this.finished || this.cancelled;
     }
 
 }

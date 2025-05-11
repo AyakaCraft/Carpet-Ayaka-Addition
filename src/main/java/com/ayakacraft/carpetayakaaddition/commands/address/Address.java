@@ -18,13 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.commands.waypoint;
+package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class Waypoint {
+public class Address {
 
     public static final String DESC_NONE = "#none";
 
@@ -37,14 +37,14 @@ public class Waypoint {
     private String desc;
 
     //#if MC>=11600
-    public Waypoint(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
+    public Address(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
         this.id = id;
         this.dim = dim.getValue().toString();
         this.pos = pos;
         setDesc(desc);
     }
     //#else
-    //$$ public Waypoint(String id, net.minecraft.world.dimension.DimensionType dim, Vec3d pos, String desc) {
+    //$$ public Address(String id, net.minecraft.world.dimension.DimensionType dim, Vec3d pos, String desc) {
     //$$     this.id = id;
     //$$     this.dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim));
     //$$     this.pos = pos;

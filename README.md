@@ -84,7 +84,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
     - *Teleports you to another player in your server*
 - /c
     - *Switches your gamemode between spectator and survival*
-- /waypoint
+- /address
     - *Server-side waypoints*
     - reload
         - *Reloads the waypoints*
@@ -136,6 +136,15 @@ Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Ad
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `SURVIVAL`, `CHEAT`
 
+#### commandAddress
+
+Enables `/address` to manipulate and teleport to shared waypoints
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
 #### commandC
 
 Enables `/c` to switch your gamemode between `spectator` and `survival`
@@ -166,15 +175,6 @@ Enables `/killitem` to clear dropped items with one shot
 #### commandTpt
 
 Enables `/tpt` to teleport to another player in your server
-
-- Type: `boolean`
-- Default value: `false`
-- Suggested options: `false`, `true`
-- Categories: `AYAKA`, `COMMAND`, `CHEAT`
-
-#### commandWaypoint
-
-Enables `/waypoint` to manipulate and teleport to shared waypoints
 
 - Type: `boolean`
 - Default value: `false`
