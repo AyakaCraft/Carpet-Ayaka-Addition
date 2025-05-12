@@ -68,9 +68,9 @@ public final class AddressCommand {
     }
 
     private static int detail(CommandContext<ServerCommandSource> context) {
-        ServerCommandSource source   = context.getSource();
-        final String  id      = StringArgumentType.getString(context, "id");
-        final Address address = AddressManager.getOrCreate(source.getServer()).get(id);
+        ServerCommandSource source  = context.getSource();
+        final String        id      = StringArgumentType.getString(context, "id");
+        final Address       address = AddressManager.getOrCreate(source.getServer()).get(id);
         if (address == null) {
             source.sendError(tr("command.carpet-ayaka-addition.address.not_exist", id));
             return 0;
@@ -155,10 +155,10 @@ public final class AddressCommand {
     }
 
     private static int tp(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-        final ServerCommandSource source   = context.getSource();
-        final String             id      = StringArgumentType.getString(context, "id");
-        final Address            address = AddressManager.getOrCreate(source.getServer()).get(id);
-        final ServerPlayerEntity self    = source.getPlayerOrThrow();
+        final ServerCommandSource source  = context.getSource();
+        final String              id      = StringArgumentType.getString(context, "id");
+        final Address             address = AddressManager.getOrCreate(source.getServer()).get(id);
+        final ServerPlayerEntity  self    = source.getPlayerOrThrow();
         if (address == null) {
             source.sendError(tr("command.carpet-ayaka-addition.address.not_exist", id));
             return 0;
@@ -181,11 +181,8 @@ public final class AddressCommand {
     private static int rename(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source  = context.getSource();
         final String              oldId   = StringArgumentType.getString(context, "oldId");
-        final String         newId   = StringArgumentType.getString(context, "id");
-        final AddressManager manager = AddressManager.getOrCreate(source.getServer());
-        if (manager.get(newId) != null) {
-            remove(context);
-        }
+        final String              newId   = StringArgumentType.getString(context, "id");
+        final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
         try {
             if (manager.rename(oldId, newId) == null) {
                 source.sendError(tr("command.carpet-ayaka-addition.address.not_exist", oldId));
@@ -203,8 +200,8 @@ public final class AddressCommand {
         final ServerCommandSource source  = context.getSource();
         final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
         final String              id      = StringArgumentType.getString(context, "id");
-        final String  desc = StringArgumentType.getString(context, "desc");
-        final Address w    = manager.get(id);
+        final String              desc    = StringArgumentType.getString(context, "desc");
+        final Address             w       = manager.get(id);
         if (w == null) {
             source.sendError(tr("command.carpet-ayaka-addition.address.not_exist", id));
             return 0;
@@ -248,14 +245,14 @@ public final class AddressCommand {
                 tr("command.carpet-ayaka-addition.address.list.detail")
                         .styled(style -> style
                                 .withColor(Formatting.GOLD)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/waypoint detail \"%s\"", id)))
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address detail \"%s\"", id)))
                                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr("command.carpet-ayaka-addition.address.list.detail.hover")))
                         ),
                 li("] ["),
                 tr("command.carpet-ayaka-addition.address.list.tp")
                         .styled(style -> style
                                 .withColor(Formatting.RED)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/waypoint tp \"%s\"", id)))
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address tp \"%s\"", id)))
                                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr("command.carpet-ayaka-addition.address.list.tp.hover")))
                         ),
                 li("]")

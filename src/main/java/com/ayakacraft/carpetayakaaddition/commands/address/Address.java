@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 
 public class Address {
 
-    public static final String DESC_NONE = "#none";
+    public static final String DESC_PLACEHOLDER = "#none";
 
     private final String id;
 
@@ -36,19 +36,20 @@ public class Address {
 
     private String desc;
 
-    //#if MC>=11600
-    public Address(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
+    public Address(String id, String dim, Vec3d pos, String desc) {
         this.id = id;
-        this.dim = dim.getValue().toString();
+        this.dim = dim;
         this.pos = pos;
         setDesc(desc);
     }
+
+    //#if MC>=11600
+    public Address(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
+        this(id, dim.getValue().toString(), pos, desc);
+    }
     //#else
     //$$ public Address(String id, net.minecraft.world.dimension.DimensionType dim, Vec3d pos, String desc) {
-    //$$     this.id = id;
-    //$$     this.dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim));
-    //$$     this.pos = pos;
-    //$$     setDesc(desc);
+    //$$     this(id, String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim)), pos, desc);
     //$$ }
     //#endif
 
@@ -94,11 +95,16 @@ public class Address {
     }
 
     public String getDesc() {
-        return (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
+        return (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
+        this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("address[id=%s, dim=%s, pos=%s, desc=%s]", id, dim, pos, desc);
     }
 
 }

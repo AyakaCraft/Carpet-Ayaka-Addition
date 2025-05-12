@@ -46,6 +46,12 @@ public class AddressManager {
 
     public static final String WAYPOINT_FILE_NAME = "ayaka_addresses.json";
 
+    private static Collection<Address> loadFromPath(Path storagePath) throws IOException {
+        String              str       = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(storagePath))).toString();
+        Collection<Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE);
+        return addresses == null ? Collections.emptyList() : addresses;
+    }
+
     public static AddressManager getOrCreate(MinecraftServer server) {
         if (managerMap.containsKey(server)) {
             return managerMap.get(server);
@@ -62,7 +68,7 @@ public class AddressManager {
         try {
             managerMap.remove(server).save();
         } catch (IOException e) {
-            LOGGER.error("Failed to save waypoints", e);
+            LOGGER.error("Failed to save addresses", e);
         }
     }
 
@@ -79,38 +85,35 @@ public class AddressManager {
         try {
             load();
         } catch (IOException e) {
-            LOGGER.error("Failed to load waypoints", e);
+            LOGGER.error("Failed to load addresses", e);
         }
     }
 
     private Address put(Address address) {
+        LOGGER.debug("Put address {}", address);
         return addressMap.put(address.getId(), address);
-    }
-
-    private static Collection<Address> loadFromPath(Path storagePath) throws IOException {
-        String str = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(storagePath))).toString();
-        Collection<Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE);
-        return addresses == null ? Collections.emptyList() : addresses;
     }
 
     public void load() throws IOException {
         addressMap.clear();
 
         if (Files.isRegularFile(waypointStoragePathOld)) {
-            LOGGER.warn("Loading waypoints from {} which is deprecated", waypointStoragePathOld);
+            LOGGER.warn("Loading addresses from {} which is deprecated", waypointStoragePathOld);
             loadFromPath(waypointStoragePathOld).forEach(this::put);
             Files.delete(waypointStoragePathOld);
         }
 
         if (Files.isRegularFile(waypointStoragePath)) {
-            LOGGER.debug("Loading waypoints from {}", waypointStoragePath);
+            LOGGER.debug("Loading addresses from {}", waypointStoragePath);
             loadFromPath(waypointStoragePath).forEach(this::put);
         }
+
+        save();
 
     }
 
     public void save() throws IOException {
-        LOGGER.debug("Saving waypoints to {}", waypointStoragePath);
+        LOGGER.debug("Saving addresses to {}", waypointStoragePath);
         Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap.values(), COLLECTION_TYPE).getBytes(StandardCharsets.UTF_8));
     }
 
@@ -131,19 +134,25 @@ public class AddressManager {
         if (w == null) {
             return null;
         }
-        put(new Address(newId, w.getDimension(), w.getPos(), w.getDesc()));
+        Address a = new Address(newId, w.getDim(), w.getPos(), w.getDesc());
+        if (put(a) != null) {
+            LOGGER.warn("Address named {} already exists", newId);
+        }
+        LOGGER.debug("Renaming {} to {}", w, a);
         save();
         return w;
     }
 
     public Address remove(String id) throws IOException {
         Address w = addressMap.remove(id);
+        LOGGER.debug("Removed address {}", w);
         save();
         return w;
     }
 
     public Address set(Address address) throws IOException {
         Address w = put(address);
+        LOGGER.debug("Set address {}", address);
         save();
         return w;
     }

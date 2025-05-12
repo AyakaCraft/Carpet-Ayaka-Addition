@@ -38,6 +38,9 @@
   "carpet.rule.betterOpPlayerNoCheat.extra.0": "仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效",
   "carpet.rule.betterOpPlayerNoCheat.extra.1": "你也不想失去刷铁机里面的掠夺者，对吧",
 
+  "carpet.rule.commandAddress.name": "服务端路径点命令开关",
+  "carpet.rule.commandAddress.desc": "启用 /address 命令以操作并传送到服务端路径点",
+
   "carpet.rule.commandC.name": "旁观者模式切换命令开关",
   "carpet.rule.commandC.desc": "启用 /c 命令以在生存模式和旁观者模式中切换",
 
@@ -49,9 +52,6 @@
 
   "carpet.rule.commandTpt.name": "传送到玩家命令开关",
   "carpet.rule.commandTpt.desc": "启用 /tpt 命令以传送到其他玩家",
-
-  "carpet.rule.commandWaypoint.name": "全局路径点命令开关",
-  "carpet.rule.commandWaypoint.desc": "启用 /waypoint 命令以操作并传送到服务器全局路径点",
 
   "carpet.rule.disableBatSpawning.name": "禁用蝙蝠生成",
   "carpet.rule.disableBatSpawning.desc": "禁用蝙蝠的自然生成",

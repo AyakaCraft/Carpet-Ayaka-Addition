@@ -1,24 +1,24 @@
 {
-  "command.carpet-ayaka-addition.address.list.empty": "No waypoints available",
-  "command.carpet-ayaka-addition.address.list": "The waypoints are as below:",
+  "command.carpet-ayaka-addition.address.list.empty": "No address available",
+  "command.carpet-ayaka-addition.address.list": "The addresses are as below:",
   "command.carpet-ayaka-addition.address.list.detail": "Detail",
   "command.carpet-ayaka-addition.address.list.detail.hover": "Click to show detailed info",
   "command.carpet-ayaka-addition.address.list.tp": "Teleport",
   "command.carpet-ayaka-addition.address.list.tp.hover": "Click to teleport",
-  "command.carpet-ayaka-addition.address.not_exist": "Waypoint [%s] does not exist",
-  "command.carpet-ayaka-addition.address.detail.1": "Detail of waypoint [%s]:",
+  "command.carpet-ayaka-addition.address.not_exist": "Address [%s] does not exist",
+  "command.carpet-ayaka-addition.address.detail.1": "Detail of address [%s]:",
   "command.carpet-ayaka-addition.address.detail.2": "ID:          ",
   "command.carpet-ayaka-addition.address.detail.3": "Dimension:   ",
   "command.carpet-ayaka-addition.address.detail.4": "Position:    ",
   "command.carpet-ayaka-addition.address.detail.5": "Description: ",
-  "command.carpet-ayaka-addition.address.reload.success": "Succeeded reloading waypoints",
-  "command.carpet-ayaka-addition.address.reload.failed": "Failed to reload waypoints",
-  "command.carpet-ayaka-addition.address.set.success": "Saved waypoint [%s]",
-  "command.carpet-ayaka-addition.address.remove.success": "Removed waypoint [%s]",
-  "command.carpet-ayaka-addition.address.save.failed": "Failed to save waypoints",
+  "command.carpet-ayaka-addition.address.reload.success": "Succeeded reloading addresses",
+  "command.carpet-ayaka-addition.address.reload.failed": "Failed to reload addresses",
+  "command.carpet-ayaka-addition.address.set.success": "Saved address [%s]",
+  "command.carpet-ayaka-addition.address.remove.success": "Removed address [%s]",
+  "command.carpet-ayaka-addition.address.save.failed": "Failed to save addresses",
   "command.carpet-ayaka-addition.address.dimension_unrecognized": "Unrecognized dimension \"%s\"",
-  "command.carpet-ayaka-addition.address.out_of_world_border": "Waypoint [%s] out of world border",
-  "command.carpet-ayaka-addition.address.rename.success": "Renamed waypoint [%s] to [%s]",
+  "command.carpet-ayaka-addition.address.out_of_world_border": "Address [%s] out of world border",
+  "command.carpet-ayaka-addition.address.rename.success": "Renamed address [%s] to [%s]",
   "command.carpet-ayaka-addition.address.desc.success": "Set description of [%s] to \"%s\"",
   "command.carpet-ayaka-addition.killitem.none": "No item cleared",
   "command.carpet-ayaka-addition.killitem.single": "Cleared one item",
@@ -33,6 +33,8 @@
   "carpet.rule.betterOpPlayerNoCheat.extra.0": "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
   "carpet.rule.betterOpPlayerNoCheat.extra.1": "You don't want to lose your pillager, do you?",
 
+  "carpet.rule.commandAddress.desc": "Enables /address to manipulate and teleport to server-side addresses",
+
   "carpet.rule.commandC.desc": "Enables /c to switch your gamemode between spectator and survival",
 
   "carpet.rule.commandGoHome.desc": "Enables /gohome to teleport right back to your spawn point",
@@ -40,8 +42,6 @@
   "carpet.rule.commandKillItem.desc": "Enables /killitem to clear dropped items with one shot",
 
   "carpet.rule.commandTpt.desc": "Enables /tpt to teleport to another player in your server",
-
-  "carpet.rule.commandWaypoint.desc": "Enables /waypoint to manipulate and teleport to shared waypoints",
 
   "carpet.rule.disableBatSpawning.desc": "Disables natural spawning of bats",
 
