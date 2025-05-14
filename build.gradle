@@ -3,12 +3,16 @@ plugins {
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version("9d21b334a7")
+    id("com.replaymod.preprocess") version("0a04a5668b")
 
     id("com.gradleup.shadow") version("8.3.6") apply(false)
 
     id("com.hypherionmc.modutils.modpublisher") version("2.1.7+snapshot.2") apply(false)
     id("com.github.hierynomus.license") version("0.16.1") apply(false)
+
+    // https://github.com/Fallen-Breath/yamlang
+    //TODO open PR at https://github.com/Crec0/carpet-rules-database
+    id("me.fallenbreath.yamlang") version("1.4.1") apply(false)
 }
 
 version = project.mod_version

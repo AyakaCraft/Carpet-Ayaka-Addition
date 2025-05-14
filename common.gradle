@@ -6,6 +6,7 @@ apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.hypherionmc.modutils.modpublisher"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "maven-publish"
+apply plugin: "me.fallenbreath.yamlang"
 
 Map<String, ?> properties = project.getProperties()
 
@@ -104,6 +105,7 @@ dependencies {
 }
 
 var MIXIN_CONFIG_PATH = "carpet-ayaka-addition.mixins.json"
+var LANG_DIR = "assets/carpet-ayaka-addition/lang"
 var JAVA_COMPATIBILITY
 if (mcVersion >= 12005) {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_21
@@ -141,6 +143,12 @@ loom {
 
 preprocess {
     patternAnnotation.set("com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern")
+}
+
+// https://github.com/Fallen-Breath/yamlang
+yamlang {
+    targetSourceSets = [sourceSets.main]
+    inputDir = LANG_DIR
 }
 
 shadowJar {
@@ -329,6 +337,7 @@ publishing {
                 password = System.getenv("AYAKA_MAVEN_TOKEN")
             }
             authentication {
+                //noinspection GroovyAssignabilityCheck
                 basic(BasicAuthentication)
             }
         }
