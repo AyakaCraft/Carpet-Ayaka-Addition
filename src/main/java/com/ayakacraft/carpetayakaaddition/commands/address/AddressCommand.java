@@ -77,19 +77,19 @@ public final class AddressCommand {
         }
         sendFeedback(source,
                 TextUtils.joinTexts(
-                        tr("command.carpet-ayaka-addition.address.detail.1", address.getId())
+                        tr("command.carpet-ayaka-addition.address.detail.0", address.getId())
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
-                        tr("command.carpet-ayaka-addition.address.detail.2").formatted(Formatting.GREEN),
+                        tr("command.carpet-ayaka-addition.address.detail.1").formatted(Formatting.GREEN),
                         li(address.getId()),
                         enter(),
-                        tr("command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
+                        tr("command.carpet-ayaka-addition.address.detail.2").formatted(Formatting.GREEN),
                         li(address.getDim()),
                         enter(),
-                        tr("command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
+                        tr("command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
                         li(String.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ())),
                         enter(),
-                        tr("command.carpet-ayaka-addition.address.detail.5").formatted(Formatting.GREEN),
+                        tr("command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
                         li(address.getDesc())
                 ),
                 false);
@@ -101,7 +101,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).load();
         } catch (IOException e) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.reload.failed"));
+            source.sendError(tr("command.carpet-ayaka-addition.address.reload.failure"));
             return 0;
         }
         sendFeedback(source, tr("command.carpet-ayaka-addition.address.reload.success"), false);
@@ -130,7 +130,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc));
         } catch (IOException e) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.save.failed"));
+            source.sendError(tr("command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
         sendFeedback(source, tr("command.carpet-ayaka-addition.address.set.success", id), false);
@@ -167,11 +167,11 @@ public final class AddressCommand {
         final ServerWorld dim = source.getServer().getWorld(address.getDimension());
         final Vec3d       pos = address.getPos();
         if (dim == null) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.dimension_unrecognized", address.getDim()));
+            source.sendError(tr("command.carpet-ayaka-addition.address.tp.dimension_unrecognized", address.getDim()));
             return 0;
         }
         if (!dim.getWorldBorder().contains(new BlockPos(MathHelper.floor(pos.getX()), MathHelper.floor(pos.getY()), MathHelper.floor(pos.getZ())))) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.out_of_world_border", id));
+            source.sendError(tr("command.carpet-ayaka-addition.address.tp.out_of_world_border", id));
             return 0;
         }
         ServerPlayerUtils.teleport(self, dim, pos.getX(), pos.getY(), pos.getZ());
@@ -189,7 +189,7 @@ public final class AddressCommand {
                 return 0;
             }
         } catch (IOException e) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.save.failed"));
+            source.sendError(tr("command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
         sendFeedback(source, tr("command.carpet-ayaka-addition.address.rename.success", oldId, newId), false);
@@ -210,7 +210,7 @@ public final class AddressCommand {
         try {
             manager.save();
         } catch (IOException e) {
-            source.sendError(tr("command.carpet-ayaka-addition.address.save.failed"));
+            source.sendError(tr("command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
         sendFeedback(source, tr("command.carpet-ayaka-addition.address.desc.success", id, desc), false);

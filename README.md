@@ -35,6 +35,13 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
 - [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 
+## Open-source libs
+- Dependencies of Minecraft
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
+- [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
+- [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
+- [fabric-carpet](https://github.com/gnembon/fabric-carpet)
+
 ## EOL
 
 ### Current supported versions

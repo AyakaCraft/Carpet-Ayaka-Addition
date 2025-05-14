@@ -12,33 +12,27 @@ command:
           hover: 点击以传送到路径点
       not_exist: 路径点 [%s] 不存在
       detail:
-        '1': '路径点 [%s] 的详情:'
-        '2': '标识: '
-        '3': '维度: '
-        '4': '位置: '
-        '5': '描述: '
+        '0': '路径点 [%s] 的详情:'
+        '1': '标识: '
+        '2': '维度: '
+        '3': '位置: '
+        '4': '描述: '
       reload:
         success: 重载路径点成功
-        failed: 重载路径点失败
-      set:
-        success: 已保存路径点 [%s]
-      remove:
-        success: 已移除路径点 [%s]
-      save:
-        failed: 保存路径点失败
-      dimension_unrecognized: 未识别的维度 "%s"
-      out_of_world_border: 路径点 [%s] 在世界边界以外
-      rename:
-        success: 重命名路径点 [%s] 为 [%s]
-      desc:
-        success: 设置路径点 [%s] 的描述为 "%s"
+        failure: 重载路径点失败
+      save.failure: 保存路径点失败
+      desc.success: 设置路径点 [%s] 的描述为 "%s"
+      remove.success: 已移除路径点 [%s]
+      rename.success: 重命名路径点 [%s] 为 [%s]
+      set.success: 已保存路径点 [%s]
+      tp:
+        dimension_unrecognized: 未识别的维度 "%s"
+        out_of_world_border: 路径点 [%s] 在世界边界以外
     killitem:
       none: 没有可清除的掉落物
       single: 清除了1个掉落物
       multiple: 清除了%d个掉落物
-      task:
-        start: 警告：掉落物将在%d秒后清除
-        cancelled: 取消清除掉落物
+      task.start: 警告：掉落物将在%d秒后清除
       cancel:
         none: 没有任务被取消
         single: 取消了一个任务

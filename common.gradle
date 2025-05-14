@@ -279,6 +279,7 @@ license {
 tasks.classes.dependsOn(tasks.licenseFormatMain)
 tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
+//https://github.com/firstdarkdev/modpublisher
 publisher {
 
     apiKeys {
@@ -292,7 +293,7 @@ publisher {
     setModrinthID("hGOHBiok")
 
     setVersionType("release")
-    setChangelog("See github releases for more information")
+    setChangelog(rootProject.file("changelog.md"))
 
     setProjectVersion(fullProjectVersion)
     setGameVersions([project.minecraft_version])

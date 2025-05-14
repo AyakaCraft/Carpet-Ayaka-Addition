@@ -12,33 +12,27 @@ command:
           hover: Click to teleport
       not_exist: Address [%s] does not exist
       detail:
-        '1': 'Detail of address [%s]:'
-        '2': 'ID:          '
-        '3': 'Dimension:   '
-        '4': 'Position:    '
-        '5': 'Description: '
+        '0': 'Detail of address [%s]:'
+        '1': 'ID:          '
+        '2': 'Dimension:   '
+        '3': 'Position:    '
+        '4': 'Description: '
       reload:
         success: Succeeded reloading addresses
-        failed: Failed to reload addresses
-      set:
-        success: Saved address [%s]
-      remove:
-        success: Removed address [%s]
-      save:
-        failed: Failed to save addresses
-      dimension_unrecognized: Unrecognized dimension "%s"
-      out_of_world_border: Address [%s] out of world border
-      rename:
-        success: Renamed address [%s] to [%s]
-      desc:
-        success: Set description of [%s] to "%s"
+        failure: Failed to reload addresses
+      save.failure: Failed to save addresses
+      desc.success: Set description of [%s] to "%s"
+      remove.success: Removed address [%s]
+      rename.success: Renamed address [%s] to [%s]
+      set.success: Saved address [%s]
+      tp:
+        dimension_unrecognized: Unrecognized dimension "%s"
+        out_of_world_border: Address [%s] out of world border
     killitem:
       none: No item cleared
       single: Cleared one item
       multiple: Cleared %d items
-      task:
-        start: 'Warning: clearing the items in %d seconds'
-        cancelled: Cancelled clearing items
+      task.start: 'Warning: clearing the items in %d seconds'
       cancel:
         none: No task was cancelled
         single: Cancelled one task

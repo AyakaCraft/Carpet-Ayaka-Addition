@@ -112,12 +112,6 @@ public final class KillItemCommand {
         }
 
         @Override
-        public void cancel() {
-            super.cancel();
-            TextUtils.broadcastToPlayers(mcServer, TextUtils.tr("command.carpet-ayaka-addition.killitem.task.cancelled"), false);
-        }
-
-        @Override
         public void tick() {
             if ((--ticks) <= 0) {
                 killItem0(source);
