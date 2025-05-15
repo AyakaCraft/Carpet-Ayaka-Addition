@@ -28,6 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 一个为 Ayakacraft 服务器设计的 [fabric-carpet](https://github.com/gnembon/fabric-carpet) 扩展
 
 ## 使用的开源库
+
 - Minecraft使用的库
 - [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom)和[yarn映射](https://github.com/FabricMC/yarn)
 - [preprocessor](https://github.com/ReplayMod/preprocessor) (或[Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
@@ -108,7 +109,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 加载区块数 (loadedChunks)
 
-显示选择的维度加载的区块数 (实验性)
+显示选择的维度加载的区块数
 
 - 类型: HUD
 - 选项: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
@@ -116,11 +117,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 移动方块数 (movingBlocks)
 
-在方块移动结束时进行记录 (实验性)
+在方块移动结束时进行记录
 
 - 类型: 控制台
 - 选项: 不适用
 - 默认: 不适用
+
+#### poi
+
+记录兴趣点的变更 (实验性)
+
+- 类型: 控制台
+- 选项:
+    - 不适用 (1.18.2 及更低版本)
+    - `all`, `village`, `bee_home`, `acquirable_job_site` (1.19.4 及更高版本)
+- 默认
+    - 不适用 (1.18.2 及更低版本)
+    - `all` (1.19.4 及更高版本)
 
 ### 规则
 

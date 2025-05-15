@@ -3,7 +3,7 @@ command:
     address:
       list:
         empty: 无路径点
-        .: '路径点如下: '
+        .: "路径点如下: "
         detail:
           .: 详细信息
           hover: 点击以显示详细信息
@@ -12,11 +12,11 @@ command:
           hover: 点击以传送到路径点
       not_exist: 路径点 [%s] 不存在
       detail:
-        '0': '路径点 [%s] 的详情:'
-        '1': '标识: '
-        '2': '维度: '
-        '3': '位置: '
-        '4': '描述: '
+        "0": "路径点 [%s] 的详情:"
+        "1": "标识: "
+        "2": "维度: "
+        "3": "位置: "
+        "4": "描述: "
       reload:
         success: 重载路径点成功
         failure: 重载路径点失败
@@ -47,8 +47,8 @@ carpet:
       name: 更好的opPlayerNoCheat选项
       desc: 阻止管理员玩家使用/kill，/clear，/effect，/item 和 /difficulty 指令
       extra:
-        '0': 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
-        '1': 你也不想失去刷铁机里面的掠夺者，对吧
+        "0": 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
+        "1": 你也不想失去刷铁机里面的掠夺者，对吧
     commandAddress:
       name: 服务端路径点命令开关
       desc: 启用 /address 命令以操作并传送到服务端路径点
@@ -71,7 +71,7 @@ carpet:
       name: 备份不保留假人修复
       desc: 修复回档后假人不会重新加入世界的问题
       extra:
-        '0': 仅在加载了GCA且fakePlayerResident为true时生效
+        "0": 仅在加载了GCA且fakePlayerResident为true时生效
     forceTickPlantsReintroduce:
       name: 0t强制更新植物状态
       desc: 重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
@@ -82,8 +82,8 @@ carpet:
       name: 掉落物消失刻
       desc: 修改掉落物自然消失前的游戏刻数
       extra:
-        '0': 设置为0或6000以使用原版值
-        '1': 最大值为72000 (一小时)
+        "0": 设置为0或6000以使用原版值
+        "1": 最大值为72000 (一小时)
     killItemAwaitSeconds:
       name: 清除掉落物执行延迟
       desc: 清理掉落物之前的等待秒数
@@ -91,14 +91,14 @@ carpet:
       name: 最大玩家数量重写
       desc: 重写服务器最大玩家数量
       extra:
-        '0': 设置为0以使用原版值
+        "0": 设置为0以使用原版值
 carpet-ayaka-addition:
   logger:
     loadedChunks: 加载区块
     movingBlocks:
-      common: '%s 向 %s 移动至 [%d %d %d]'
-      extend: '%s 面向 %s 伸展至 [%d %d %d]'
-      pull_back: '%s 面向 %s 收回至 [%d %d %d]'
+      common: "%s 向 %s 移动至 [%d %d %d]"
+      extend: "%s 面向 %s 伸展至 [%d %d %d]"
+      pull_back: "%s 面向 %s 收回至 [%d %d %d]"
       direction:
         west: 西
         east: 东
@@ -106,3 +106,6 @@ carpet-ayaka-addition:
         south: 南
         up: 上
         down: 下
+    poi:
+      added: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被添加，类型为 %s
+      removed: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被移除

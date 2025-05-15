@@ -9,6 +9,7 @@
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonBlockEntityMixin",
+    "logging.poi.PointOfInterestSetMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",

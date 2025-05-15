@@ -76,7 +76,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     public int loadedChunksCountAllP = 0;
 
     private LoadedChunksLogger() throws NoSuchFieldException {
-        super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
+        super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
     }
 
     @Override

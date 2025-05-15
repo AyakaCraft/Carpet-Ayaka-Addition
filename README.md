@@ -36,6 +36,7 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 
 ## Open-source libs
+
 - Dependencies of Minecraft
 - [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
 - [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
@@ -81,16 +82,6 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 ### Commands
 
-- /killitem
-    - *Clears dropped items with one shot*
-    - cancel
-        - *Cancels the scheduled kill-item tasks*
-- /gohome
-    - *Teleport you right back to your spawn point*
-- /tpt \<player>
-    - *Teleports you to another player in your server*
-- /c
-    - *Switches your gamemode between spectator and survival*
 - /address
     - *Server-side waypoints*
     - reload
@@ -111,12 +102,22 @@ The following Minecraft versions are scheduled to be supported in the later vers
         - *Renames the waypoint, removes the existing one*
     - desc \<id> \<desc>
         - *Sets the description of the waypoint*
+- /c
+    - *Switches your gamemode between spectator and survival*
+- /gohome
+    - *Teleport you right back to your spawn point*
+- /killitem
+    - *Clears dropped items with one shot*
+    - cancel
+        - *Cancels the scheduled kill-item tasks*
+- /tpt \<player>
+    - *Teleports you to another player in your server*
 
 ### Carpet Loggers
 
 #### loadedChunks
 
-Shows the count of loaded chunks for selected dimension (experimental)
+Shows the count of loaded chunks for selected dimension
 
 - Type: HUD
 - Options: `dynamic`, `all`, `overworld`, `the_nether`, `the_end`
@@ -124,11 +125,23 @@ Shows the count of loaded chunks for selected dimension (experimental)
 
 #### movingBlocks
 
-Logs block movements at their ends (experimental)
+Logs block movements at their ends
 
 - Type: Console
 - Options: N/A
 - Default: N/A
+
+#### poi
+
+Logs the change of points-of-interest (experimental)
+
+- Type: Console
+- Options:
+    - N/A for 1.18.2 and below
+    - `all`, `village`, `bee_home`, `acquirable_job_site` for 1.19.4 and above
+- Default
+    - N/A for 1.18.2 and below
+    - `all` for 1.19.4 and above
 
 ### Rules
 

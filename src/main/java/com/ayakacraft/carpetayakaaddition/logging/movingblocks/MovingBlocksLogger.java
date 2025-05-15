@@ -89,9 +89,8 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
     }
 
     public void tryLog(PistonBlockEntity pistonBlockEntity) {
-        if (isEnabled() && !loggedPos.contains(pistonBlockEntity.getPos())) {
+        if (isEnabled() && !loggedPos.add(pistonBlockEntity.getPos())) {
             log((playerOption, player) -> doLogging(pistonBlockEntity));
-            loggedPos.add(pistonBlockEntity.getPos());
         }
     }
 
