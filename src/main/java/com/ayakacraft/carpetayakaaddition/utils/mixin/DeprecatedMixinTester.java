@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.utils.mixin;
 
 import me.fallenbreath.conditionalmixin.api.mixin.ConditionTester;
 
+@SuppressWarnings("unused")
 public class DeprecatedMixinTester implements ConditionTester {
 
     @Override

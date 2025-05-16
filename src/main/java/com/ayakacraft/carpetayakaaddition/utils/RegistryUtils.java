@@ -20,20 +20,17 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.server.MinecraftServer;
 
-import java.nio.file.Path;
+public final class RegistryUtils {
 
-public final class ServerUtils {
-
-    @PreprocessPattern
-    public static Path worldRootPath(MinecraftServer server) {
-        //#if MC>=11600
-        return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
+    //#if MC>=11900
+    public static String getIdAsString(net.minecraft.registry.entry.RegistryEntry<?> entry) {
+        //#if MC>=12006
+        return entry.getIdAsString();
         //#else
-        //$$ return server.getWorld(net.minecraft.world.dimension.DimensionType.OVERWORLD).getSaveHandler().getWorldDir().toPath();
+        //$$ return entry.getKey().map((key) -> key.getValue().toString()).orElse("[unregistered]");
         //#endif
     }
+    //#endif
 
 }

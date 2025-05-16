@@ -37,7 +37,7 @@ public class BatEntityMixin {
 
     @Inject(method = "canSpawn", at = @At("RETURN"), cancellable = true)
     private static void disableBatSpawning(EntityType<BatEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> cir) {
-        if (spawnReason != SpawnReason.SPAWNER && CarpetAyakaSettings.disableBatSpawning && cir.getReturnValue()) {
+        if (CarpetAyakaSettings.disableBatSpawning && (spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION) && cir.getReturnValue()) {
             cir.setReturnValue(false);
         }
     }

@@ -23,23 +23,21 @@ package com.ayakacraft.carpetayakaaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.logging.HUDController;
+import com.ayakacraft.carpetayakaaddition.commands.address.AddressCommand;
+import com.ayakacraft.carpetayakaaddition.commands.address.AddressManager;
 import com.ayakacraft.carpetayakaaddition.commands.c.CCommand;
 import com.ayakacraft.carpetayakaaddition.commands.gohome.GoHomeCommand;
 import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
 import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
-import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointCommand;
-import com.ayakacraft.carpetayakaaddition.commands.waypoint.WaypointManager;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
-import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
@@ -49,7 +47,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     private final LinkedList<TickTask> tickTasks = new LinkedList<>();
 
-    private final LinkedBlockingQueue<TickTask> preTickTasks = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<TickTask> scheduledTickTasks = new LinkedBlockingQueue<>();
 
     public MinecraftServer mcServer;
 
@@ -80,10 +78,10 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     @Override
     public void onTick(MinecraftServer server) {
-        preTickTasks.forEach(TickTask::start);
-        preTickTasks.drainTo(tickTasks);
         tickTasks.forEach(TickTask::tick);
         tickTasks.removeIf(TickTask::isFinished);
+        scheduledTickTasks.forEach(TickTask::start);
+        scheduledTickTasks.drainTo(tickTasks);
     }
 
     @Override
@@ -95,14 +93,14 @@ public final class CarpetAyakaServer implements CarpetExtension {
     ) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
-        WaypointCommand.register(dispatcher);
+        AddressCommand.register(dispatcher);
         CCommand.register(dispatcher);
         KillItemCommand.register(dispatcher);
     }
 
     @Override
     public void onServerClosed(MinecraftServer server) {
-        WaypointManager.removeWaypointManager(mcServer);
+        AddressManager.removeWaypointManager(mcServer);
         cancelTickTasksMatching(it -> true);
 
         this.mcServer = null;
@@ -123,38 +121,20 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
-        final InputStream langStream = CarpetAyakaServer.class.getClassLoader().getResourceAsStream(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
-        if (langStream == null) {
-            // we don't have that language
-            return Collections.emptyMap();
-        }
-        final String jsonData;
-        try {
-            byte[] data = new byte[langStream.available()];
-            int    i    = langStream.read(data);
-            if (i != data.length) {
-                data = Arrays.copyOf(data, i);
-            }
-            jsonData = new String(data, StandardCharsets.UTF_8);
-            langStream.close();
-        } catch (final IOException e) {
-            return Collections.emptyMap();
-        }
-        return CarpetAyakaAddition.GSON.fromJson(jsonData, new TypeToken<Map<String, String>>() {
-        }.getType());
+        return CarpetAyakaAddition.canHasTranslations(lang);
     }
     //#endif
 
     public void addTickTask(TickTask tickTask) {
-        preTickTasks.add(tickTask);
+        scheduledTickTasks.add(tickTask);
     }
 
-    public int cancelTickTasksMatching(Predicate<? super TickTask> predicate) {
+    public synchronized int cancelTickTasksMatching(Predicate<? super TickTask> filter) {
         int                      i    = 0;
         final Iterator<TickTask> each = tickTasks.iterator();
         while (each.hasNext()) {
             TickTask task = each.next();
-            if (predicate.test(task)) {
+            if (filter.test(task)) {
                 task.cancel();
                 each.remove();
                 i++;
@@ -164,7 +144,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     public void onServerLoadedWorlds$Ayaka() {
-        WaypointManager.getOrCreate(mcServer);
+        AddressManager.getOrCreate(mcServer);
     }
 
 }

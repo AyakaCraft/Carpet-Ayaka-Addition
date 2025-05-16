@@ -48,6 +48,13 @@ public final class CarpetAyakaSettings {
     //#if MC>=11900
     @Rule(categories = {AYAKA, COMMAND, CHEAT})
     //#else
+    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /address to manipulate and teleport to shared waypoints")
+    //#endif
+    public static boolean commandAddress = false;
+
+    //#if MC>=11900
+    @Rule(categories = {AYAKA, COMMAND, CHEAT})
+    //#else
     //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /c to switch your gamemode between spectator and survival")
     //#endif
     public static boolean commandC = false;
@@ -72,13 +79,6 @@ public final class CarpetAyakaSettings {
     //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /tpt to teleport to another player in your server")
     //#endif
     public static boolean commandTpt = false;
-
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /waypoint to manipulate and teleport to shared waypoints")
-    //#endif
-    public static boolean commandWaypoint = false;
 
     //#if MC>=11900
     @Rule(categories = {AYAKA, FEATURE})

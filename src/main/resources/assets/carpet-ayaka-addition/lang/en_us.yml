@@ -1,0 +1,94 @@
+command:
+  carpet-ayaka-addition:
+    address:
+      list:
+        empty: No address available
+        .: "The addresses are as below:"
+        detail:
+          .: Detail
+          hover: Click to show detailed info
+        tp:
+          .: Teleport
+          hover: Click to teleport
+      not_exist: Address [%s] does not exist
+      detail:
+        "0": "Detail of address [%s]:"
+        "1": "ID:          "
+        "2": "Dimension:   "
+        "3": "Position:    "
+        "4": "Description: "
+      reload:
+        success: Succeeded reloading addresses
+        failure: Failed to reload addresses
+      save.failure: Failed to save addresses
+      desc.success: Set description of [%s] to "%s"
+      remove.success: Removed address [%s]
+      rename.success: Renamed address [%s] to [%s]
+      set.success: Saved address [%s]
+      tp:
+        dimension_unrecognized: Unrecognized dimension "%s"
+        out_of_world_border: Address [%s] out of world border
+    killitem:
+      none: No item cleared
+      single: Cleared one item
+      multiple: Cleared %d items
+      task.start: "Warning: clearing the items in %d seconds"
+      cancel:
+        none: No task was cancelled
+        single: Cancelled one task
+        multiple: Cancelled %d tasks
+carpet:
+  rule:
+    betterOpPlayerNoCheat:
+      desc: Stops operators from using /kill, /clear, /effect, /item and /difficulty
+      extra:
+        "0": Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true
+        "1": You don"t want to lose your pillager, do you?
+    commandAddress:
+      desc: Enables /address to manipulate and teleport to server-side addresses
+    commandC:
+      desc: Enables /c to switch your gamemode between spectator and survival
+    commandGoHome:
+      desc: Enables /gohome to teleport right back to your spawn point
+    commandKillItem:
+      desc: Enables /killitem to clear dropped items with one shot
+    commandTpt:
+      desc: Enables /tpt to teleport to another player in your server
+    disableBatSpawning:
+      desc: Disables natural spawning of bats
+    fakePlayerResidentBackupFix:
+      desc: Fixes the bug that fake players are not reconnected after retracements
+      extra:
+        "0": Only active when Gca is loaded and fakePlayerResident is set to true
+    forceTickPlantsReintroduce:
+      desc: Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
+    foxNoPickupItem:
+      desc: Prevents foxes from picking up dropped items
+    itemDiscardAge:
+      desc: Modifies the ticks before an item entity is discarded
+      extra:
+        "0": Set to 0 (or 6000) to use vanilla value
+        "1": Max value 72000 (an hour)
+    killItemAwaitSeconds:
+      desc: Seconds to wait before clearing the items
+    maxPlayersOverwrite:
+      desc: Overwrites the max player count in a server
+      extra:
+        "0": Set to 0 to use vanilla value
+carpet-ayaka-addition:
+  logger:
+    loadedChunks: Loaded Chunks
+    movingBlocks:
+      common: "%s moved %s to [%d %d %d]"
+      extend: "%s facing %s extended to [%d %d %d]"
+      pull_back: "%s facing %s pulled back to [%d %d %d]"
+      direction:
+        west: west
+        east: east
+        north: north
+        south: south
+        up: up
+        down: down
+    poi:
+      added: POI added in sub-chunk [%d %d %d] at [%d %d %d] with type %s
+      removed: POI removed in sub-chunk [%d %d %d] at [%d %d %d]

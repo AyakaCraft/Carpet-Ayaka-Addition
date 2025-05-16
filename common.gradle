@@ -6,6 +6,7 @@ apply plugin: "com.replaymod.preprocess"
 apply plugin: "com.hypherionmc.modutils.modpublisher"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "maven-publish"
+apply plugin: "me.fallenbreath.yamlang"
 
 Map<String, ?> properties = project.getProperties()
 
@@ -66,8 +67,6 @@ dependencies {
 
     // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
-    // We currently don't need fabric-api
-    // modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     //libs
     include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
@@ -84,10 +83,12 @@ dependencies {
     }
 
     if (!releasing) {
+        // For translation loading
+        modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+
         if (mcVersion >= 11500) {
             modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
             if (mcVersion >= 12006) {
-                modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
                 modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
             }
         }
@@ -104,6 +105,7 @@ dependencies {
 }
 
 var MIXIN_CONFIG_PATH = "carpet-ayaka-addition.mixins.json"
+var LANG_DIR = "assets/carpet-ayaka-addition/lang"
 var JAVA_COMPATIBILITY
 if (mcVersion >= 12005) {
     JAVA_COMPATIBILITY = JavaVersion.VERSION_21
@@ -137,6 +139,16 @@ loom {
             ideConfigGenerated false
         }
     }
+}
+
+preprocess {
+    patternAnnotation.set("com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern")
+}
+
+// https://github.com/Fallen-Breath/yamlang
+yamlang {
+    targetSourceSets = [sourceSets.main]
+    inputDir = LANG_DIR
 }
 
 shadowJar {
@@ -267,6 +279,7 @@ license {
 tasks.classes.dependsOn(tasks.licenseFormatMain)
 tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
+//https://github.com/firstdarkdev/modpublisher
 publisher {
 
     apiKeys {
@@ -280,7 +293,7 @@ publisher {
     setModrinthID("hGOHBiok")
 
     setVersionType("release")
-    setChangelog("See github releases for more information")
+    setChangelog(rootProject.file("changelog.md"))
 
     setProjectVersion(fullProjectVersion)
     setGameVersions([project.minecraft_version])
@@ -293,12 +306,12 @@ publisher {
     }
 
     curseDepends {
-        required "carpet"
+        required "fabric-api", "carpet"
         optional "carpet-tis-addition", "guglecarpetaddition"
     }
 
     modrinthDepends {
-        required "carpet"
+        required "fabric-api", "carpet"
         optional "carpet-tis-addition", "gca"
     }
 

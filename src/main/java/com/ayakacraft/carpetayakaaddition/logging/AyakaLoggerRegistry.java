@@ -25,12 +25,13 @@ import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
+import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class AyakaLoggerRegistry {
+public final class AyakaLoggerRegistry {
 
     public static final Set<Logger> ayakaLoggers = new HashSet<>();
 
@@ -40,9 +41,12 @@ public class AyakaLoggerRegistry {
 
     public static boolean __movingBlocks = false;
 
+    public static boolean __poi = false;
+
     static {
         registerAyakaLogger(LoadedChunksLogger.INSTANCE);
         registerAyakaLogger(MovingBlocksLogger.INSTANCE);
+        registerAyakaLogger(POILogger.INSTANCE);
     }
 
     public static void registerAyakaLogger(AbstractAyakaLogger logger) {

@@ -18,15 +18,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.commands.waypoint;
+package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class Waypoint {
+public class Address {
 
-    public static final String DESC_NONE = "#none";
+    public static final String DESC_PLACEHOLDER = "#none";
 
     private final String id;
 
@@ -36,19 +36,20 @@ public class Waypoint {
 
     private String desc;
 
-    //#if MC>=11600
-    public Waypoint(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
+    public Address(String id, String dim, Vec3d pos, String desc) {
         this.id = id;
-        this.dim = dim.getValue().toString();
+        this.dim = dim;
         this.pos = pos;
         setDesc(desc);
     }
+
+    //#if MC>=11600
+    public Address(String id, net.minecraft.registry.RegistryKey<World> dim, Vec3d pos, String desc) {
+        this(id, dim.getValue().toString(), pos, desc);
+    }
     //#else
-    //$$ public Waypoint(String id, net.minecraft.world.dimension.DimensionType dim, Vec3d pos, String desc) {
-    //$$     this.id = id;
-    //$$     this.dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim));
-    //$$     this.pos = pos;
-    //$$     setDesc(desc);
+    //$$ public Address(String id, net.minecraft.world.dimension.DimensionType dim, Vec3d pos, String desc) {
+    //$$     this(id, String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim)), pos, desc);
     //$$ }
     //#endif
 
@@ -64,12 +65,12 @@ public class Waypoint {
                 //#else
                 //$$ net.minecraft.util.registry.Registry.WORLD_KEY,
                 //#endif
-                IdentifierUtils.ofVanilla(dim)
+                new Identifier(dim)
         );
     }
     //#else
     //$$ public net.minecraft.world.dimension.DimensionType getDimension() {
-    //$$     return net.minecraft.world.dimension.DimensionType.byId(IdentifierUtils.ofVanilla(dim));
+    //$$     return net.minecraft.world.dimension.DimensionType.byId(new Identifier(id));
     //$$ }
     //#endif
 
@@ -94,11 +95,16 @@ public class Waypoint {
     }
 
     public String getDesc() {
-        return (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
+        return (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = (desc == null || desc.isEmpty()) ? DESC_NONE : desc;
+        this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("address[id=%s, dim=%s, pos=%s, desc=%s]", id, dim, pos, desc);
     }
 
 }

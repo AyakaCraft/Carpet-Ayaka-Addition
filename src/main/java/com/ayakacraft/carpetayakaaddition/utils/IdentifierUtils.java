@@ -20,12 +20,14 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public final class IdentifierUtils {
 
-    public static Identifier ofVanilla(String id) {
+    @PreprocessPattern
+    public static Identifier of(String id) {
         //#if MC>=12100
         //$$ return Identifier.of(id);
         //#else
@@ -33,6 +35,7 @@ public final class IdentifierUtils {
         //#endif
     }
 
+    @PreprocessPattern
     public static Identifier of(String namespace, String path) {
         //#if MC>=12100
         //$$ return Identifier.of(namespace, path);
@@ -41,6 +44,7 @@ public final class IdentifierUtils {
         //#endif
     }
 
+    @PreprocessPattern
     public static Identifier ofWorld(World world) {
         //#if MC>=11600
         return world.getRegistryKey().getValue();
