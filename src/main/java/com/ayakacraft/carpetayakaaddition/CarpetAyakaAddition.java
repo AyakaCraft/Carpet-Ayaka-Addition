@@ -24,14 +24,24 @@ import carpet.CarpetServer;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Optional;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public final class CarpetAyakaAddition implements ModInitializer {
+
+    private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
+    }.getType();
+
+    private static final Map<String, Map<String, String>> translations = new HashMap<>(2);
 
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting()
             //#if MC>=12104
@@ -59,6 +69,33 @@ public final class CarpetAyakaAddition implements ModInitializer {
             MOD_VERSION = "dev";
         }
         LOGGER = LogManager.getLogger(MOD_NAME);
+    }
+
+    public static Map<String, String> canHasTranslations(String lang) {
+        if (translations.containsKey(lang)) {
+            return translations.get(lang);
+        }
+        Map<String, String> translation = Collections.emptyMap();
+        final InputStream   langStream  = CarpetAyakaServer.class.getClassLoader().getResourceAsStream(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
+        if (langStream != null) { // otherwise we don't have that language
+            final String jsonData;
+            try {
+                byte[] data = new byte[langStream.available()];
+                int    i    = langStream.read(data);
+                if (i != data.length) {
+                    data = Arrays.copyOf(data, i);
+                }
+                jsonData = new String(data, StandardCharsets.UTF_8);
+                langStream.close();
+
+                translations.put(lang,
+                        (translation = CarpetAyakaAddition.GSON.fromJson(jsonData, MAP_TYPE))
+                );
+            } catch (final IOException ignored) {
+            }
+        }
+
+        return translation;
     }
 
     @Override

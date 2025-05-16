@@ -67,8 +67,6 @@ dependencies {
 
     // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
-    // We currently don't need fabric-api
-    // modImplementation("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
     //libs
     include(modImplementation("me.fallenbreath:conditional-mixin-fabric:${project.conditionalmixin_version}"))
@@ -85,10 +83,12 @@ dependencies {
     }
 
     if (!releasing) {
+        // For translation loading
+        modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
+
         if (mcVersion >= 11500) {
             modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
             if (mcVersion >= 12006) {
-                modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
                 modRuntimeOnly("eu.pb4:placeholder-api:${project.placeholder_version}")
             }
         }
@@ -306,12 +306,12 @@ publisher {
     }
 
     curseDepends {
-        required "carpet"
+        required "fabric-api", "carpet"
         optional "carpet-tis-addition", "guglecarpetaddition"
     }
 
     modrinthDepends {
-        required "carpet"
+        required "fabric-api", "carpet"
         optional "carpet-tis-addition", "gca"
     }
 

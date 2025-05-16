@@ -3,6 +3,7 @@
 - ***Renamed*** `/waypoint` to `/address` for the upcoming Minecraft 1.21.6
 - ***Added*** poi logger
 - Updated translations
+- Added back the dependency of fabric-api for translation loading
 
 ## Bugfix
 

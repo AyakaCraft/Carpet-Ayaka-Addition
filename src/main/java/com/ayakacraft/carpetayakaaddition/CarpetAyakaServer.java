@@ -31,27 +31,19 @@ import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
 import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
-import com.google.gson.reflect.TypeToken;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
 public final class CarpetAyakaServer implements CarpetExtension {
 
-    private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
-    }.getType();
-
     public static final CarpetAyakaServer INSTANCE = new CarpetAyakaServer();
-
-    private final Map<String, Map<String, String>> translations = new HashMap<>(2);
 
     private final LinkedList<TickTask> tickTasks = new LinkedList<>();
 
@@ -129,30 +121,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
-        if (translations.containsKey(lang)) {
-            return translations.get(lang);
-        }
-        Map<String, String> translation = Collections.emptyMap();
-        final InputStream   langStream  = CarpetAyakaServer.class.getClassLoader().getResourceAsStream(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
-        if (langStream != null) { // otherwise we don't have that language
-            final String jsonData;
-            try {
-                byte[] data = new byte[langStream.available()];
-                int    i    = langStream.read(data);
-                if (i != data.length) {
-                    data = Arrays.copyOf(data, i);
-                }
-                jsonData = new String(data, StandardCharsets.UTF_8);
-                langStream.close();
-
-                translations.put(lang,
-                        (translation = CarpetAyakaAddition.GSON.fromJson(jsonData, MAP_TYPE))
-                );
-            } catch (final IOException ignored) {
-            }
-        }
-
-        return translation;
+        return CarpetAyakaAddition.canHasTranslations(lang);
     }
     //#endif
 
