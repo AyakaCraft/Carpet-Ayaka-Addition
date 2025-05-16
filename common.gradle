@@ -317,9 +317,8 @@ publishing {
     // select the repositories you want to publish to
     repositories {
         maven {
-            allowInsecureProtocol = true
             name = "AyakaCraft"
-            url = "http://222.186.148.96:7000/releases"
+            url = "https://mc.ayakacraft.com:7000/releases"
             credentials(PasswordCredentials) {
                 username = "Publisher"
                 password = System.getenv("AYAKA_MAVEN_TOKEN")
