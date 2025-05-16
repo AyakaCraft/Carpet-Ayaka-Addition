@@ -29,6 +29,8 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 
 Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabric-mod-template)
 
+Also required on client side for translations
+
 ## External Links
 
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
