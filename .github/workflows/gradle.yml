@@ -12,7 +12,7 @@ env:
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
   AYAKA_MAVEN_TOKEN: ${{ secrets.AYAKA_MAVEN_TOKEN }}
   REPO_URL: "${{ github.server_url }}/${{ github.repository }}"
-
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
 permissions:
   contents: write
@@ -45,8 +45,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Discord Notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases)"
