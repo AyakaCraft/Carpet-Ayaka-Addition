@@ -18,22 +18,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.logging;
+package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
+import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
 
-public abstract class AbstractAyakaHUDLoggerSingleLine extends AbstractAyakaHUDLogger {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "[1.16, 1.17)"))
+//#if MC>=11800
+@Mixin(DummyClass.class)
+//#else
+//$$ @Mixin(net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket.class)
+//#endif
+public interface ClientSettingsC2SPacketAccessor {
 
-    public AbstractAyakaHUDLoggerSingleLine(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
-        super(logName, def, options, strictOptions);
-    }
-
-    @Override
-    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
-        return new MutableText[]{updateSingleLine(playerOption, player)};
-    }
-
-    public abstract MutableText updateSingleLine(String playerOption, PlayerEntity player);
+    //#if MC>=11800
+    //#elseif MC<11600
+    //#else
+    //$$ @org.spongepowered.asm.mixin.gen.Accessor("language")
+    //$$ String getLanguage();
+    //#endif
 
 }

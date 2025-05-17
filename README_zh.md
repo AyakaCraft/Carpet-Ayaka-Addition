@@ -27,15 +27,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 一个为 Ayakacraft 服务器设计的 [fabric-carpet](https://github.com/gnembon/fabric-carpet) 扩展
 
+大部分基于 [Fallen Breath 的模板](https://github.com/Fallen-Breath/fabric-mod-template)
+
+## 链接
+
+- [Github](https://github.com/AyakaCraft/Carpet-Ayaka-Addition)
+- [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
+- [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+
 ## 使用的开源库
 
 - Minecraft使用的库
-- [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom)和[yarn映射](https://github.com/FabricMC/yarn)
-- [preprocessor](https://github.com/ReplayMod/preprocessor) (或[Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom) 和 [yarn映射](https://github.com/FabricMC/yarn)
+- [preprocessor](https://github.com/ReplayMod/preprocessor) (或 [Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
 - [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
 - [fabric-carpet](https://github.com/gnembon/fabric-carpet)
 
-## EOL
+## 生命周期计划
 
 ### 当前支持的版本
 

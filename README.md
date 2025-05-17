@@ -29,10 +29,9 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 
 Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabric-mod-template)
 
-Also required on client side for translations
+## Links
 
-## External Links
-
+- [Github](https://github.com/AyakaCraft/Carpet-Ayaka-Addition)
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
 - [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)

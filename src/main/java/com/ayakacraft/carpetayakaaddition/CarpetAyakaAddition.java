@@ -71,7 +71,7 @@ public final class CarpetAyakaAddition implements ModInitializer {
         LOGGER = LogManager.getLogger(MOD_NAME);
     }
 
-    public static Map<String, String> canHasTranslations(String lang) {
+    public static Map<String, String> getTranslations(String lang) {
         if (translations.containsKey(lang)) {
             return translations.get(lang);
         }

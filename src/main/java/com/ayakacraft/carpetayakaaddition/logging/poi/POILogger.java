@@ -24,6 +24,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
@@ -74,10 +75,10 @@ public class POILogger extends AbstractAyakaLogger {
     }
 
     //#if MC>=11900
-    private MutableText[] doAddedLogging(BlockPos pos, net.minecraft.registry.entry.RegistryEntry<PointOfInterestType> type, String option) {
+    private MutableText[] doAddedLogging(BlockPos pos, net.minecraft.registry.entry.RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
             ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TextUtils.tr("carpet-ayaka-addition.logger.poi.added",
+            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
                     sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
                     pos.getX(), pos.getY(), pos.getZ(),
                     RegistryUtils.getIdAsString(type)
@@ -87,9 +88,9 @@ public class POILogger extends AbstractAyakaLogger {
         }
     }
     //#else
-    //$$ private BaseText[] doAddedLogging(BlockPos pos, PointOfInterestType type, String option) {
+    //$$ private BaseText[] doAddedLogging(BlockPos pos, PointOfInterestType type, String option, ServerPlayerEntity player) {
     //$$     ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-    //$$     return new BaseText[]{TextUtils.tr("carpet-ayaka-addition.logger.poi.added",
+    //$$     return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
     //$$             sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
     //$$             pos.getX(), pos.getY(), pos.getZ(),
     //$$             type.toString()
@@ -97,9 +98,9 @@ public class POILogger extends AbstractAyakaLogger {
     //$$ }
     //#endif
 
-    private MutableText[] doRemovedLogging(BlockPos pos) {
+    private MutableText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
         ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new MutableText[]{TextUtils.tr("carpet-ayaka-addition.logger.poi.removed",
+        return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.removed",
                 sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
                 pos.getX(), pos.getY(), pos.getZ()
         )};
@@ -119,13 +120,13 @@ public class POILogger extends AbstractAyakaLogger {
             //#endif
     ) {
         if (isEnabled()) {
-            log((playerOption, player) -> doAddedLogging(pos, type, playerOption));
+            log((playerOption, player) -> doAddedLogging(pos, type, playerOption, (ServerPlayerEntity) player));
         }
     }
 
     public void onRemoved(BlockPos pos) {
         if (isEnabled()) {
-            log((playerOption -> doRemovedLogging(pos)));
+            log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayerEntity) player)));
         }
     }
 

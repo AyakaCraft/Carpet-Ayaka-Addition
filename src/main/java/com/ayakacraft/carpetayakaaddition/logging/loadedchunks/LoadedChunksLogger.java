@@ -25,6 +25,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -96,7 +97,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     @Override
     public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
-        Text header = TextUtils.tr("carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
+        Text header = TextUtils.tr((ServerPlayerEntity) player, "carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
         Text value;
 
         if (OPTIONS[1].equals(playerOption)) {
