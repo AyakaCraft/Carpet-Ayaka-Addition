@@ -51,7 +51,7 @@ carpet:
         "1": 你也不想失去刷铁机里面的掠夺者，对吧
     commandAddress:
       name: 服务端路径点命令开关
-      desc: 启用 /address 命令以操作并传送到服务端路径点
+      desc: 启用 /address 和 /ad 命令以操作并传送到服务端路径点
     commandC:
       name: 旁观者模式切换命令开关
       desc: 启用 /c 命令以在生存模式和旁观者模式中切换

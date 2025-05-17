@@ -84,7 +84,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 ### Commands
 
-- /address
+- /address | /ad
     - *Server-side waypoints*
     - reload
         - *Reloads the waypoints*
@@ -160,7 +160,7 @@ Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Ad
 
 #### commandAddress
 
-Enables `/address` to manipulate and teleport to shared waypoints
+Enables `/address` and `/ad` to manipulate and teleport to shared waypoints
 
 - Type: `boolean`
 - Default value: `false`

@@ -26,6 +26,7 @@ import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
@@ -284,43 +285,46 @@ public final class AddressCommand {
         }
     }
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    private static LiteralArgumentBuilder<ServerCommandSource> registerSubCommands(LiteralArgumentBuilder<ServerCommandSource> builder) {
         //noinspection Convert2MethodRef
-        dispatcher.register(
-                literal("address")
-                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandAddress, false))
-                        .then(literal("reload").executes(AddressCommand::reload))
-                        .then(literal("list").executes(AddressCommand::list)
+        return builder
+                .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandAddress, false))
+                .then(literal("reload").executes(AddressCommand::reload))
+                .then(literal("list").executes(AddressCommand::list)
+                        .then(argument("dim", DimensionArgumentType.dimension())
+                                .executes(AddressCommand::listDimension)))
+                .then(literal("detail")
+                        .then(argument("id", StringArgumentType.string())
+                                .suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::detail)))
+                .then(literal("set")
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
                                 .then(argument("dim", DimensionArgumentType.dimension())
-                                        .executes(AddressCommand::listDimension)))
-                        .then(literal("detail")
+                                        .then(argument("pos", Vec3ArgumentType.vec3())
+                                                .executes(AddressCommand::set)
+                                                .then(argument("desc", StringArgumentType.string())
+                                                        .executes(AddressCommand::set))))))
+                .then(literal("remove")
+                        .then(argument("id", StringArgumentType.string())
+                                .suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::remove)))
+                .then(literal("tp")
+                        .requires(source -> source.isExecutedByPlayer())
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::tp)))
+                .then(literal("rename")
+                        .then(argument("oldId", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
                                 .then(argument("id", StringArgumentType.string())
-                                        .suggests(AddressCommand::suggestWaypoints)
-                                        .executes(AddressCommand::detail)))
-                        .then(literal("set")
-                                .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                        .then(argument("dim", DimensionArgumentType.dimension())
-                                                .then(argument("pos", Vec3ArgumentType.vec3())
-                                                        .executes(AddressCommand::set)
-                                                        .then(argument("desc", StringArgumentType.string())
-                                                                .executes(AddressCommand::set))))))
-                        .then(literal("remove")
-                                .then(argument("id", StringArgumentType.string())
-                                        .suggests(AddressCommand::suggestWaypoints)
-                                        .executes(AddressCommand::remove)))
-                        .then(literal("tp")
-                                .requires(source -> source.isExecutedByPlayer())
-                                .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                        .executes(AddressCommand::tp)))
-                        .then(literal("rename")
-                                .then(argument("oldId", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                        .then(argument("id", StringArgumentType.string())
-                                                .executes(AddressCommand::rename))))
-                        .then(literal("desc")
-                                .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                        .then(argument("desc", StringArgumentType.string())
-                                                .executes(AddressCommand::desc))))
-        );
+                                        .executes(AddressCommand::rename))))
+                .then(literal("desc")
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
+                                .then(argument("desc", StringArgumentType.string())
+                                        .executes(AddressCommand::desc))));
+    }
+
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+        dispatcher.register(registerSubCommands(literal("address")));
+        dispatcher.register(registerSubCommands(literal("ad")));
     }
 
 }

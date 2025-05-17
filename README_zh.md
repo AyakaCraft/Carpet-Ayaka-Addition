@@ -74,17 +74,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 ### 命令
 
-- /killitem
-    - *一键清除掉落物*
-    - cancel
-        - *取消计划的清除掉落物任务*
-- /gohome
-    - *将你传送回出生点/重生点*
-- /tpt \<player>
-    - *将你传送至服务器内其他玩家*
-- /c
-    - *将你的游戏模式切换回生存模式/到旁观者模式*
-- /address
+- /address | /ad
     - *服务端的路径点*
     - reload
         - *重新加载路径点*
@@ -104,6 +94,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *重命名路径点并覆盖已有的*
     - desc \<id> \<desc>
         - *设置或修改路径点的描述*
+- /c
+    - *将你的游戏模式切换回生存模式/到旁观者模式*
+- /gohome
+    - *将你传送回出生点/重生点*
+- /killitem
+    - *一键清除掉落物*
+    - cancel
+        - *取消计划的清除掉落物任务*
+- /tpt \<player>
+    - *将你传送至服务器内其他玩家*
 
 ### Carpet 记录器
 
@@ -148,9 +148,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `SURVIVAL`, `CHEAT`
 
-#### 全局路径点命令开关 (commandWaypoint)
+#### 全局路径点命令开关 (commandAddress)
 
-启用 `/waypoint` 命令以操作并传送到服务器全局路径点
+启用 `/address` 和 `/ad` 命令以操作并传送到服务器全局路径点
 
 - 类型: `boolean`
 - 默认值: `false`
