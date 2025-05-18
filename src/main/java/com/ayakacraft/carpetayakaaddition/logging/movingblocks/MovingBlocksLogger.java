@@ -61,19 +61,19 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
         BlockPos    pos       = entity.getPos();
         BlockState  state     = entity.getPushedBlock();
         Block       block     = state.getBlock();
-        MutableText direction = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
+        String      direction = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName()).getString();
 
         MutableText txt;
         if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
             if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName().getString(), direction, pos.getX(), pos.getY(), pos.getZ());
             } else {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName().getString(), direction, pos.getX(), pos.getY(), pos.getZ());
             }
         } else if (entity.isSource() && !entity.isExtending()) {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName().getString(), direction, pos.getX(), pos.getY(), pos.getZ());
         } else {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName().getString(), direction, pos.getX(), pos.getY(), pos.getZ());
         }
 
         return new MutableText[]{txt};
@@ -90,7 +90,7 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
     }
 
     public void tryLog(PistonBlockEntity pistonBlockEntity) {
-        if (isEnabled() && !loggedPos.add(pistonBlockEntity.getPos())) {
+        if (isEnabled() && loggedPos.add(pistonBlockEntity.getPos())) {
             log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player));
         }
     }

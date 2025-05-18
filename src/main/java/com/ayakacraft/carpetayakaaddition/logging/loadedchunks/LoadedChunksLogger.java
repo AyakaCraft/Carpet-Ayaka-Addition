@@ -101,7 +101,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         Text value;
 
         if (OPTIONS[1].equals(playerOption)) {
-            playerOption = player.getEntityWorld().getRegistryKey().getValue().getPath();
+            playerOption = ((ServerPlayerEntity) player).getServerWorld().getRegistryKey().getValue().getPath();
         }
 
         if (OPTIONS[0].equals(playerOption)) {

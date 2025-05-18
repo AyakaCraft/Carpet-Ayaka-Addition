@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -55,7 +56,10 @@ public final class TextUtils {
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        return trLang(player.getClientOptions().language(), key, args);
+        if (player.getServerWorld().getServer().isDedicated()) {
+            return trLang(player.getClientOptions().language(), key, args);
+        }
+        return Text.translatable(key, args);
     }
 
     public static MutableText tr(ServerCommandSource source, String key, Object... args) {
@@ -130,6 +134,15 @@ public final class TextUtils {
         playerManager.broadcast(text, overlay);
         //#else
         //$$ playerManager.getPlayerList().forEach(player -> player.sendMessage(text, overlay));
+        //#endif
+    }
+
+    @PreprocessPattern
+    public static MutableText trText(String key, Object... args) {
+        //#if MC>=11900
+        return Text.translatable(key, args);
+        //#else
+        //$$ return new net.minecraft.text.TranslatableText(key, args);
         //#endif
     }
 
