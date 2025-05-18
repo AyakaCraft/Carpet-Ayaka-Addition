@@ -1,14 +1,7 @@
 ## General
 
-- ***Renamed*** `/waypoint` to `/address` for the upcoming Minecraft 1.21.6
-- ***Added*** poi logger
-- Updated translations
-- Added back the dependency of fabric-api for translation loading
+- ***Added*** `/ad` as a shortcut for `/address`
+- Translations are now loaded on the server side, so no more fabric-api needed
 
 ## Bugfix
-
-- Fixed lost of waypoint when trying to rename it to its own id
-
-## Github
-
-- Added issue templates
+- Fixed the problem of unable to teleport to an address in 1.14.4 and 1.15.2

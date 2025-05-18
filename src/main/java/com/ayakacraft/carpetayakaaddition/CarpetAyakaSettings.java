@@ -38,107 +38,152 @@ public final class CarpetAyakaSettings {
 
     public static final String BOT = "BOT";
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, SURVIVAL, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, SURVIVAL, CHEAT}, desc = "Stops operators from using /kill, /clear, /effect, /item and /difficulty", extra = {"Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"})
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, SURVIVAL, CHEAT}
+            //#else
+            //$$ category = {AYAKA, SURVIVAL, CHEAT},
+            //$$ desc = "Stops operators from using /kill, /clear, /effect, /item and /difficulty",
+            //$$ extra = "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"
+            //#endif
+    )
     public static boolean betterOpPlayerNoCheat = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /address to manipulate and teleport to shared waypoints")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND, CHEAT}
+            //#else
+            //$$ category = {AYAKA, COMMAND, CHEAT},
+            //$$ desc = "Enables /address and /ad to manipulate and teleport to shared waypoints"
+            //#endif
+    )
     public static boolean commandAddress = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /c to switch your gamemode between spectator and survival")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND, CHEAT}
+            //#else
+            //$$ category = {AYAKA, COMMAND, CHEAT},
+            //$$ desc = "Enables /c to switch your gamemode between spectator and survival"
+            //#endif
+    )
     public static boolean commandC = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /gohome to teleport right back to your spawn point")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND, CHEAT}
+            //#else
+            //$$ category = {AYAKA, COMMAND, CHEAT},
+            //$$ desc = "Enables /gohome to teleport right back to your spawn point"
+            //#endif
+    )
     public static boolean commandGoHome = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Enables /killitem to clear dropped items with one shot")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND}
+            //#else
+            //$$ category = {AYAKA, COMMAND},
+            //$$ desc = "Enables /killitem to clear dropped items with one shot"
+            //#endif
+    )
     public static boolean commandKillItem = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND, CHEAT})
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND, CHEAT}, desc = "Enables /tpt to teleport to another player in your server")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND, CHEAT}
+            //#else
+            //$$ category = {AYAKA, COMMAND, CHEAT},
+            //$$ desc = "Enables /tpt to teleport to another player in your server"
+            //#endif
+    )
     public static boolean commandTpt = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, FEATURE})
-    //#else
-    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Disables natural spawning of bats")
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, FEATURE}
+            //#else
+            //$$ category = {AYAKA, FEATURE},
+            //$$ desc = "Disables natural spawning of bats"
+            //#endif
+    )
     public static boolean disableBatSpawning = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT})
-    //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}, desc = "Fixes the bug that fake players are not reconnected after retracements", extra = {"Only active when Gca is loaded and fakePlayerResident is set to true"})
-    //#endif
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}
+            //#else
+            //$$ category = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
+            //$$ desc = "Fixes the bug that fake players are not reconnected after retracements",
+            //$$ extra = "Only active when Gca is loaded and fakePlayerResident is set to true"
+            //#endif
+    )
     public static boolean fakePlayerResidentBackupFix = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE})
-    //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}, desc = "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower")
-    //#endif
+    //#if MC>=11600
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}
+            //#else
+            //$$ category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE},
+            //$$ desc = "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower"
+            //#endif
+    )
     public static boolean forceTickPlantsReintroduce = false;
-
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, FEATURE})
-    //#else
-    //$$ @Rule(category = {AYAKA, FEATURE}, desc = "Prevents foxes from picking up dropped items")
     //#endif
+
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, FEATURE}
+            //#else
+            //$$ category = {AYAKA, FEATURE},
+            //$$ desc = "Prevents foxes from picking up dropped items"
+            //#endif
+    )
     public static boolean foxNoPickupItem = false;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL},
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, EXPERIMENTAL},
             validators = ItemDiscardAgeValidator.class,
+            //#else
+            //$$ category = {AYAKA, EXPERIMENTAL},
+            //$$ desc = "Modifies the ticks before an item entity is discarded",
+            //$$ extra = {"Set to 0 (or 6000) to use vanilla value", "Max value 72000 (an hour)"},
+            //$$ validate = ItemDiscardAgeValidator.class,
+            //#endif
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
     )
-    //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Modifies the ticks before an item entity is discarded", validate = ItemDiscardAgeValidator.class, options = {"0", "3000", "3600", "6000", "12000", "72000"}, extra = {"Set to 0 (or 6000) to use vanilla value", "Max value 72000 (an hour)"}, strict = false)
-    //#endif
     public static int itemDiscardAge = 0;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, COMMAND},
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, COMMAND},
             validators = UnsignedIntegerValidator.class,
+            //#else
+            //$$ category = {AYAKA, COMMAND},
+            //$$ desc = "Seconds to wait before clearing the items",
+            //$$ validate = UnsignedIntegerValidator.class,
+            //#endif
             options = {"0", "5", "10", "30"},
             strict = false
     )
-    //#else
-    //$$ @Rule(category = {AYAKA, COMMAND}, desc = "Seconds to wait before clearing the items", validate = UnsignedIntegerValidator.class, options = {"0", "5", "10", "30"}, strict = false)
-    //#endif
     public static int killItemAwaitSeconds = 5;
 
-    //#if MC>=11900
-    @Rule(categories = {AYAKA, EXPERIMENTAL},
+    @Rule(
+            //#if MC>=11900
+            categories = {AYAKA, EXPERIMENTAL},
             validators = UnsignedIntegerValidator.class,
+            //#else
+            //$$ category = {AYAKA, EXPERIMENTAL},
+            //$$ desc = "Overwrites the max player count in a server",
+            //$$ extra = {"Set to 0 to use vanilla value"},
+            //$$ validate = UnsignedIntegerValidator.class,
+            //#endif
             options = {"0", "8", "10", "20", "50", "100"},
             strict = false
     )
-    //#else
-    //$$ @Rule(category = {AYAKA, EXPERIMENTAL}, desc = "Overwrites the max player count in a server", validate = UnsignedIntegerValidator.class, options = {"0", "8", "10", "20", "50", "100"}, extra = {"Set to 0 to use vanilla value"}, strict = false)
-    //#endif
     public static int maxPlayersOverwrite = 0;
 
 

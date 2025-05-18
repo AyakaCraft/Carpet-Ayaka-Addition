@@ -18,22 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.logging;
+package com.ayakacraft.carpetayakaaddition.utils;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
+public interface WithClientLanguage {
 
-public abstract class AbstractAyakaHUDLoggerSingleLine extends AbstractAyakaHUDLogger {
-
-    public AbstractAyakaHUDLoggerSingleLine(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
-        super(logName, def, options, strictOptions);
-    }
-
-    @Override
-    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
-        return new MutableText[]{updateSingleLine(playerOption, player)};
-    }
-
-    public abstract MutableText updateSingleLine(String playerOption, PlayerEntity player);
+    //#if MC>=12006
+    @SuppressWarnings("unused")
+    //#endif
+    String getClientLanguage$Ayaka();
 
 }

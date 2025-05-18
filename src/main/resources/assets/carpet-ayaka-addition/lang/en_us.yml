@@ -45,7 +45,7 @@ carpet:
         "0": Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true
         "1": You don"t want to lose your pillager, do you?
     commandAddress:
-      desc: Enables /address to manipulate and teleport to server-side addresses
+      desc: Enables /address and /ad to manipulate and teleport to server-side addresses
     commandC:
       desc: Enables /c to switch your gamemode between spectator and survival
     commandGoHome:

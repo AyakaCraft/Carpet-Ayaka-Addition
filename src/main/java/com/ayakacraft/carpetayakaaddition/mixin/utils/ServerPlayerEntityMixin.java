@@ -18,41 +18,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import carpet.logging.HUDController;
-import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.WithClientLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.20.6"))
+@Mixin(ServerPlayerEntity.class)
+public class ServerPlayerEntityMixin implements WithClientLanguage {
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
-@Mixin(value = HUDController.class, remap = false)
-public class HUDControllerMixin {
+    @Unique
+    private String clientLanguage = "en_US";
 
-    @Inject(
-            method = "update_hud",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/Map;keySet()Ljava/util/Set;"
-            )
-    )
-    private static void updateAyakaHUDLoggers(
-            MinecraftServer server
-            //#if MC>=11600
-            , List<ServerPlayerEntity> force
-            //#endif
-            , CallbackInfo ci
-    ) {
-        AyakaLoggerRegistry.updateHUD();
+    @Inject(method = "setClientOptions", at = @At("RETURN"))
+    //#if MC>=11800
+    private void catchClientLanguage(SyncedClientOptions clientOptions, CallbackInfo ci) {
+        clientLanguage = clientOptions.language();
+    }
+    //#elseif MC<11600
+    //$$ private void catchClientLanguage(ClientSettingsC2SPacket clientOptions, CallbackInfo ci) {
+    //$$     clientLanguage = clientOptions.getLanguage();
+    //$$ }
+    //#else
+    //$$ private void catchClientLanguage(ClientSettingsC2SPacket clientOptions, CallbackInfo ci) {
+    //$$     clientLanguage = ((ClientSettingsC2SPacketAccessor) clientOptions).getLanguage();
+    //$$ }
+    //#endif
+
+
+
+    @Override
+    public String getClientLanguage$Ayaka() {
+        return clientLanguage;
     }
 
 }

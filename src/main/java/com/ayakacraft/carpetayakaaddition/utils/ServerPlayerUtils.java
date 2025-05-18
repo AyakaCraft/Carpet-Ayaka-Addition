@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameMode;
@@ -85,6 +86,15 @@ public final class ServerPlayerUtils {
 
     public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
         teleport(player, (ServerWorld) target.getEntityWorld(), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
+    }
+
+    @PreprocessPattern
+    public static String getClientLanguage(ServerPlayerEntity player) {
+        //#if MC>=12006
+        return player.getClientOptions().language();
+        //#else
+        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.WithClientLanguage) player).getClientLanguage$Ayaka();
+        //#endif
     }
 
 }

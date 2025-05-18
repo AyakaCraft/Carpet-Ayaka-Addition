@@ -70,7 +70,7 @@ public class Address {
     }
     //#else
     //$$ public net.minecraft.world.dimension.DimensionType getDimension() {
-    //$$     return net.minecraft.world.dimension.DimensionType.byId(new Identifier(id));
+    //$$     return net.minecraft.world.dimension.DimensionType.byId(new Identifier(dim));
     //$$ }
     //#endif
 

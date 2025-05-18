@@ -23,7 +23,9 @@
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",
-    "utils.MinecraftServerMixin"
+    "utils.ClientSettingsC2SPacketAccessor",
+    "utils.MinecraftServerMixin",
+    "utils.ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

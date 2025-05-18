@@ -20,8 +20,11 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
@@ -31,12 +34,36 @@ import java.util.function.Function;
 
 public final class TextUtils {
 
-    public static MutableText tr(String key, Object... args) {
+    @SuppressWarnings("unused")
+    public static final String DEFAULT_LANG = "en_us";
+
+    public static MutableText trServer(String key, Object... args) {
         //#if MC>=11900
-        return Text.translatable(key, args);
+        return trLang(carpet.CarpetSettings.language, key, args);
+        //#elseif MC>=11500
+        //$$ return trLang(
+        //$$         "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language
+        //$$         , key, args
+        //$$ );
         //#else
-        //$$ return new net.minecraft.text.TranslatableText(key, args);
+        //$$ return trLang(DEFAULT_LANG, key, args);
         //#endif
+    }
+
+    public static MutableText trLang(String lang, String key, Object... args) {
+        return li(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).get(key), args);
+    }
+
+    public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
+        return trLang(player.getClientOptions().language(), key, args);
+    }
+
+    public static MutableText tr(ServerCommandSource source, String key, Object... args) {
+        if (source.isExecutedByPlayer()) {
+            return tr((ServerPlayerEntity) source.getEntity(), key, args);
+        } else {
+            return trServer(key, args);
+        }
     }
 
     public static MutableText li(String str, Object... args) {

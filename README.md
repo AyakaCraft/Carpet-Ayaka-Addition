@@ -29,10 +29,9 @@ A [fabric-carpet](https://github.com/gnembon/fabric-carpet/) extension designed 
 
 Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabric-mod-template)
 
-Also required on client side for translations
+## Links
 
-## External Links
-
+- [Github](https://github.com/AyakaCraft/Carpet-Ayaka-Addition)
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
 - [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
@@ -84,7 +83,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 ### Commands
 
-- /address
+- /address | /ad
     - *Server-side waypoints*
     - reload
         - *Reloads the waypoints*
@@ -160,7 +159,7 @@ Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Ad
 
 #### commandAddress
 
-Enables `/address` to manipulate and teleport to shared waypoints
+Enables `/address` and `/ad` to manipulate and teleport to shared waypoints
 
 - Type: `boolean`
 - Default value: `false`
