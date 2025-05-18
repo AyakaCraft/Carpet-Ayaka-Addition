@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
-@Mixin(HUDController.class)
+@Mixin(value = HUDController.class, remap = false)
 public class HUDControllerMixin {
 
     @Inject(
@@ -43,8 +43,7 @@ public class HUDControllerMixin {
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Map;keySet()Ljava/util/Set;"
-            ),
-            remap = false
+            )
     )
     private static void updateAyakaHUDLoggers(
             MinecraftServer server

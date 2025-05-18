@@ -37,10 +37,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.15"))
-@Mixin(LoggerRegistry.class)
+@Mixin(value = LoggerRegistry.class, remap = false)
 public abstract class LoggerRegistryMixin {
 
-    @Inject(method = "initLoggers", at = @At("RETURN"), remap = false)
+    @Inject(method = "initLoggers", at = @At("RETURN"))
     private static void registerToCarpet(CallbackInfo ci) {
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
             registerLogger(it.getLogName(), it);
@@ -50,14 +50,14 @@ public abstract class LoggerRegistryMixin {
         });
     }
 
-    @Shadow(remap = false)
+    @Shadow
     //#if MC>=11500
     @SuppressWarnings("ShadowModifiers")
     //#endif
     private static void registerLogger(String name, Logger logger) {
     }
 
-    @Inject(method = "setAccess", at = @At("HEAD"), remap = false)
+    @Inject(method = "setAccess", at = @At("HEAD"))
     private static void onSetAccess(Logger logger, CallbackInfo ci) {
         if (logger instanceof AyakaExtensionLogger) {
             try {
