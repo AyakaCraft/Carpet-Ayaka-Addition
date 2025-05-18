@@ -93,7 +93,7 @@ public final class ServerPlayerUtils {
         //#if MC>=12006
         return player.getClientOptions().language();
         //#else
-        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.WithClientLanguage) player).getClientLanguage$Ayaka();
+        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage) player).getClientLanguage$Ayaka();
         //#endif
     }
 

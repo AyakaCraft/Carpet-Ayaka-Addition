@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
-import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import static com.ayakacraft.carpetayakaaddition.utils.TextUtils.*;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.*;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
