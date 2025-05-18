@@ -111,23 +111,23 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             loadedChunksCount.keySet().forEach(id -> txtList.add(getCountText(id)));
             value = join(txtList, space(), Function.identity());
         } else if (OPTIONS[2].equals(playerOption)) {
-            value = joinTexts(
+            value = joinTexts(new Text[]{
                     header,
                     space(),
                     getCountText(OVW_ID)
-            );
+            });
         } else if (OPTIONS[3].equals(playerOption)) {
-            value = joinTexts(
+            value = joinTexts(new Text[]{
                     header,
                     space(),
                     getCountText(NETHER_ID)
-            );
+            });
         } else if (OPTIONS[4].equals(playerOption)) {
-            value = joinTexts(
+            value = joinTexts(new Text[]{
                     header,
                     space(),
                     getCountText(END_ID)
-            );
+            });
         } else {
             value = null;
         }

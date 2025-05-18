@@ -18,34 +18,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils.mixin;
+package com.ayakacraft.carpetayakaaddition.utils.preprocess;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
-import java.util.Set;
 
-public class AyakaMixinConfigPlugin extends RestrictiveMixinConfigPlugin {
+public final class NonMinecraftPatterns {
 
-    @Override
-    protected void onRestrictionCheckFailed(String mixinClassName, String reason) {
-        CarpetAyakaAddition.LOGGER.debug("Disabled mixin {} due to {}", mixinClassName, reason);
-    }
-
-    @Override
-    public String getRefMapperConfig() {
-        return null;
-    }
-
-    @Override
-    public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
-    }
-
-    @Override
-    public List<String> getMixins() {
+    @PreprocessPattern
+    public static <T> List<T> emptyList() {
+        //#if MC>=11700
         return List.of();
+        //#else
+        //$$ return new java.util.ArrayList<>();
+        //#endif
+    }
+
+    @PreprocessPattern
+    public static GsonBuilder setLenient(GsonBuilder builder) {
+        //#if MC>=12104
+        //$$ return builder.setStrictness(com.google.gson.Strictness.LENIENT);
+        //#else
+        return builder.setLenient();
+        //#endif
     }
 
 }

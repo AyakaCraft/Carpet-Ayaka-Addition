@@ -55,7 +55,6 @@ public class ServerPlayerEntityMixin implements WithClientLanguage {
     //#endif
 
 
-
     @Override
     public String getClientLanguage$Ayaka() {
         return clientLanguage;

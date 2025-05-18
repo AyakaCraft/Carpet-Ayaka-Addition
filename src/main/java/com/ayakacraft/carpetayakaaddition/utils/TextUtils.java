@@ -51,7 +51,7 @@ public final class TextUtils {
     }
 
     public static MutableText trLang(String lang, String key, Object... args) {
-        return li(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).get(key), args);
+        return li(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).getOrDefault(key, key), args);
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
@@ -96,15 +96,11 @@ public final class TextUtils {
         return net.minecraft.text.Texts.join(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
-        //$$     return new net.minecraft.text.LiteralText("");
+        //$$     return empty();
         //$$ } else if (elements.size() == 1) {
-        //$$ //#if MC>=11600
         //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
-        //$$ //#else
-        //$$ //$$     return transformer.apply(elements.iterator().next()).deepCopy();
-        //$$ //#endif
         //$$ } else {
-        //$$     net.minecraft.text.BaseText mutableText = new net.minecraft.text.LiteralText("");
+        //$$     BaseText mutableText = empty();
         //$$     boolean bl = true;
         //$$
         //$$     for(T object : elements) {
@@ -124,7 +120,7 @@ public final class TextUtils {
         return join(elements, of(""), Function.identity());
     }
 
-    public static Text joinTexts(Text... elements) {
+    public static Text joinTexts(Text[] elements) {
         return joinTexts(Arrays.asList(elements));
     }
 

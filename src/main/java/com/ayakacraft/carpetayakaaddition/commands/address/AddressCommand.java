@@ -77,7 +77,7 @@ public final class AddressCommand {
             return 0;
         }
         sendFeedback(source,
-                TextUtils.joinTexts(
+                TextUtils.joinTexts(new Text[]{
                         tr(source, "command.carpet-ayaka-addition.address.detail.0", address.getId())
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
@@ -92,7 +92,7 @@ public final class AddressCommand {
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
                         li(address.getDesc())
-                ),
+                }),
                 false);
         return 1;
     }
@@ -239,25 +239,27 @@ public final class AddressCommand {
     }
 
     private static Text waypointIdText(String id, ServerCommandSource source) {
-        return TextUtils.joinTexts(
+        return TextUtils.joinTexts(new Text[]{
                 li("["),
                 li(id).formatted(Formatting.GREEN),
                 li("] ["),
                 tr(source, "command.carpet-ayaka-addition.address.list.detail")
-                        .styled(style -> style
+                        .styled(style ->
+                        style
                                 .withColor(Formatting.GOLD)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address detail \"%s\"", id)))
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
                                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
-                        ),
+                ),
                 li("] ["),
                 tr(source, "command.carpet-ayaka-addition.address.list.tp")
-                        .styled(style -> style
+                        .styled(style ->
+                        style
                                 .withColor(Formatting.RED)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address tp \"%s\"", id)))
+                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
                                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
-                        ),
+                ),
                 li("]")
-        );
+        });
     }
 
     private static Text listWaypointIdsText(Collection<String> ids, ServerCommandSource source) {
@@ -275,11 +277,11 @@ public final class AddressCommand {
         } else {
             sendFeedback(
                     source,
-                    TextUtils.joinTexts(
+                    TextUtils.joinTexts(new Text[]{
                             tr(source, "command.carpet-ayaka-addition.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
                             listWaypointIdsText(ids, source)
-                    ),
+                    }),
                     false
             );
         }

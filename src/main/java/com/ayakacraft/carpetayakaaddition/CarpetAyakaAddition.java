@@ -43,13 +43,7 @@ public final class CarpetAyakaAddition implements ModInitializer {
 
     private static final Map<String, Map<String, String>> translations = new HashMap<>(2);
 
-    public static final Gson GSON = new GsonBuilder().setPrettyPrinting()
-            //#if MC>=12104
-            //$$ .setStrictness(com.google.gson.Strictness.LENIENT)
-            //#else
-            .setLenient()
-            //#endif
-            .create();
+    public static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
 
     public static final String MOD_ID = "carpet-ayaka-addition";
 
@@ -88,9 +82,11 @@ public final class CarpetAyakaAddition implements ModInitializer {
                 jsonData = new String(data, StandardCharsets.UTF_8);
                 langStream.close();
 
-                translations.put(lang,
-                        (translation = CarpetAyakaAddition.GSON.fromJson(jsonData, MAP_TYPE))
-                );
+                Map<String, String> map = GSON.fromJson(jsonData, MAP_TYPE);
+                if (map != null) {
+                    translation = map;
+                    translations.put(lang, translation);
+                }
             } catch (final IOException ignored) {
             }
         }
