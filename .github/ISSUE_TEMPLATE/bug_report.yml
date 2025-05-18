@@ -59,7 +59,7 @@ body:
     attributes:
       label: Carpet Ayaka Addition version
       description: The Carpet Ayaka Addition version(s) where this bug occurs in.
-      placeholder: 0.5.2
+      placeholder: 0.6.0
     validations:
       required: true
   - type: input
