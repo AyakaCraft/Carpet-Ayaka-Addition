@@ -54,7 +54,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.ayakacraft.carpetayakaaddition.utils.CommandUtils.sendFeedback;
-import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.*;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.enter;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.tr;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -82,16 +83,16 @@ public final class AddressCommand {
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.1").formatted(Formatting.GREEN),
-                        li(address.getId()),
+                        Text.literal(address.getId()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.2").formatted(Formatting.GREEN),
-                        li(address.getDim()),
+                        Text.literal(address.getDim()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
-                        li(String.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ())),
+                        TextUtils.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
-                        li(address.getDesc())
+                        Text.literal(address.getDesc())
                 }),
                 false);
         return 1;
@@ -239,27 +240,24 @@ public final class AddressCommand {
     }
 
     private static Text waypointIdText(String id, ServerCommandSource source) {
-        return TextUtils.joinTexts(new Text[]{
-                li("["),
-                li(id).formatted(Formatting.GREEN),
-                li("] ["),
+        return TextUtils.format(
+                "[{}] [{}] [{}]",
+                Text.literal(id).formatted(Formatting.GREEN),
                 tr(source, "command.carpet-ayaka-addition.address.list.detail")
                         .styled(style ->
-                        style
-                                .withColor(Formatting.GOLD)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
-                ),
-                li("] ["),
+                                style
+                                        .withColor(Formatting.GOLD)
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
+                        ),
                 tr(source, "command.carpet-ayaka-addition.address.list.tp")
                         .styled(style ->
-                        style
-                                .withColor(Formatting.RED)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
-                ),
-                li("]")
-        });
+                                style
+                                        .withColor(Formatting.RED)
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
+                        )
+        );
     }
 
     private static Text listWaypointIdsText(Collection<String> ids, ServerCommandSource source) {
@@ -270,8 +268,7 @@ public final class AddressCommand {
         if (ids.isEmpty()) {
             sendFeedback(
                     source,
-                    tr(source, "command.carpet-ayaka-addition.address.list.empty")
-                            .formatted(Formatting.YELLOW, Formatting.BOLD),
+                    tr(source, "command.carpet-ayaka-addition.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
                     false
             );
         } else {

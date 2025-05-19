@@ -38,21 +38,22 @@ public final class TextUtils {
     @SuppressWarnings("unused")
     public static final String DEFAULT_LANG = "en_us";
 
-    public static MutableText trServer(String key, Object... args) {
+    public static String getServerLang() {
         //#if MC>=11900
-        return trLang(carpet.CarpetSettings.language, key, args);
+        return carpet.CarpetSettings.language;
         //#elseif MC>=11500
-        //$$ return trLang(
-        //$$         "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language
-        //$$         , key, args
-        //$$ );
+        //$$ return "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language;
         //#else
-        //$$ return trLang(DEFAULT_LANG, key, args);
+        //$$ return DEFAULT_LANG;
         //#endif
     }
 
+    public static MutableText trServer(String key, Object... args) {
+        return trLang(getServerLang(), key, args);
+    }
+
     public static MutableText trLang(String lang, String key, Object... args) {
-        return li(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).getOrDefault(key, key), args);
+        return format(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).getOrDefault(key, key), args);
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
@@ -70,29 +71,38 @@ public final class TextUtils {
         }
     }
 
-    public static MutableText li(String str, Object... args) {
+    public static MutableText format(String str, Object... args) {
+        return TextFormatter.format(str, args);
+    }
+
+    @PreprocessPattern
+    public static MutableText li(String str) {
         //#if MC>=11900
-        return Text.literal(String.format(str, args));
+        return Text.literal(str);
         //#else
-        //$$ return new net.minecraft.text.LiteralText(String.format(str, args));
+        //$$ return new net.minecraft.text.LiteralText(str);
         //#endif
     }
 
-    @Deprecated
-    public static MutableText of(String str, Object... args) {
-        return li(str, args);
+    public static MutableText li(Object obj) {
+        if (obj instanceof Text) {
+            MutableText txt = empty();
+            txt.append((Text) obj);
+            return txt;
+        }
+        return Text.literal(String.valueOf(obj));
     }
 
     public static MutableText enter() {
-        return li(System.lineSeparator());
+        return Text.literal(System.lineSeparator());
     }
 
     public static MutableText space() {
-        return li(" ");
+        return Text.literal(" ");
     }
 
     public static MutableText empty() {
-        return li("");
+        return Text.literal("");
     }
 
     public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
@@ -121,7 +131,7 @@ public final class TextUtils {
     }
 
     public static Text joinTexts(Collection<Text> elements) {
-        return join(elements, of(""), Function.identity());
+        return join(elements, empty(), Function.identity());
     }
 
     public static Text joinTexts(Text[] elements) {

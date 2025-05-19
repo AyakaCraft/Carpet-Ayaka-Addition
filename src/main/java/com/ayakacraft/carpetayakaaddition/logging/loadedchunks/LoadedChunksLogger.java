@@ -23,7 +23,6 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
-import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
@@ -47,7 +46,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private static final String FORMAT = "%d/%d";
 
-    private static final Text SEPARATOR = li("/").formatted(Formatting.GRAY);
+    private static final Text SEPARATOR = Text.literal("/").formatted(Formatting.GRAY);
 
     private static final Identifier OVW_ID = new Identifier("minecraft:overworld");
 
@@ -97,7 +96,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     @Override
     public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
-        Text header = TextUtils.tr((ServerPlayerEntity) player, "carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
+        Text header = tr((ServerPlayerEntity) player, "carpet-ayaka-addition.logger.loadedChunks").formatted(Formatting.GRAY);
         Text value;
 
         if (OPTIONS[1].equals(playerOption)) {
@@ -107,27 +106,15 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         if (OPTIONS[0].equals(playerOption)) {
             List<Text> txtList = new LinkedList<>();
             txtList.add(header);
-            txtList.add(li(String.format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll)).formatted(Formatting.GRAY));
+            txtList.add(format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll).formatted(Formatting.GRAY));
             loadedChunksCount.keySet().forEach(id -> txtList.add(getCountText(id)));
             value = join(txtList, space(), Function.identity());
         } else if (OPTIONS[2].equals(playerOption)) {
-            value = joinTexts(new Text[]{
-                    header,
-                    space(),
-                    getCountText(OVW_ID)
-            });
+            value = format("{} {}", header, getCountText(OVW_ID));
         } else if (OPTIONS[3].equals(playerOption)) {
-            value = joinTexts(new Text[]{
-                    header,
-                    space(),
-                    getCountText(NETHER_ID)
-            });
+            value = format("{} {}", header, getCountText(NETHER_ID));
         } else if (OPTIONS[4].equals(playerOption)) {
-            value = joinTexts(new Text[]{
-                    header,
-                    space(),
-                    getCountText(END_ID)
-            });
+            value = format("{} {}", header, getCountText(END_ID));
         } else {
             value = null;
         }
@@ -136,8 +123,8 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     }
 
     public Text getCountText(Identifier id) {
-        MutableText t1 = li(loadedChunksCountP.getOrDefault(id, 0).toString());
-        MutableText t2 = li(loadedChunksCount.getOrDefault(id, 0).toString());
+        MutableText t1 = li(loadedChunksCountP.getOrDefault(id, 0));
+        MutableText t2 = li(loadedChunksCount.getOrDefault(id, 0));
         if (OVW_ID.equals(id)) {
             t1.formatted(Formatting.DARK_GREEN);
             t2.formatted(Formatting.DARK_GREEN);
@@ -149,7 +136,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             t2.formatted(Formatting.DARK_AQUA);
         }
 
-        return empty().append(t1).append(SEPARATOR).append(t2);
+        return format("{}{}{}", t1, SEPARATOR, t2);
     }
 
 }
