@@ -75,10 +75,7 @@ public final class TextUtils {
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        if (player.getServerWorld().getServer().isDedicated()) {
-            return trLang(player.getClientOptions().language(), key, args);
-        }
-        return Text.translatable(key, args);
+        return trLang(player.getClientOptions().language(), key, args);
     }
 
     public static MutableText tr(ServerCommandSource source, String key, Object... args) {
