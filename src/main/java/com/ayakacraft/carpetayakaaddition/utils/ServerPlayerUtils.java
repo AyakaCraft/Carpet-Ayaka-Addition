@@ -40,6 +40,26 @@ public final class ServerPlayerUtils {
         return f;
     }
 
+    @PreprocessPattern
+    private static String getClientLanguage(ServerPlayerEntity player) {
+        //#if MC>=12006
+        return player.getClientOptions().language();
+        //#else
+        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage) player).getClientLanguage$Ayaka();
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static ServerWorld getServerWorld(ServerPlayerEntity player) {
+        //#if MC>=12000
+        return player.getServerWorld();
+        //#elseif MC>=11800
+        //$$ return player.getWorld();
+        //#else
+        //$$ return player.getServerWorld();
+        //#endif
+    }
+
     public static boolean changeGameMode(ServerPlayerEntity player, GameMode gameMode) {
         //#if MC>=11700
         return player.changeGameMode(gameMode);
@@ -86,26 +106,6 @@ public final class ServerPlayerUtils {
 
     public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
         teleport(player, target.getServerWorld(), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
-    }
-
-    @PreprocessPattern
-    public static String getClientLanguage(ServerPlayerEntity player) {
-        //#if MC>=12006
-        return player.getClientOptions().language();
-        //#else
-        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage) player).getClientLanguage$Ayaka();
-        //#endif
-    }
-
-    @PreprocessPattern
-    public static ServerWorld getServerWorld(ServerPlayerEntity player) {
-        //#if MC>=12000
-        return player.getServerWorld();
-        //#elseif MC>=11800
-        //$$ return player.getWorld();
-        //#else
-        //$$ return player.getServerWorld();
-        //#endif
     }
 
 }

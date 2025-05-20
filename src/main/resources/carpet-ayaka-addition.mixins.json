@@ -6,6 +6,7 @@
   "mixins": [
     "carpet.HUDControllerMixin",
     "carpet.LoggerRegistryMixin",
+    "carpet.MinecraftServerMixin",
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonBlockEntityMixin",
@@ -24,11 +25,13 @@
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",
     "utils.ClientSettingsC2SPacketAccessor",
-    "utils.MinecraftServerMixin",
     "utils.ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.ayakacraft.carpetayakaaddition.utils.mixin.AyakaMixinConfigPlugin"
+  "plugin": "com.ayakacraft.carpetayakaaddition.utils.mixin.AyakaMixinConfigPlugin",
+  "client": [
+    "carpet.IntegratedServerMixin"
+  ]
 }

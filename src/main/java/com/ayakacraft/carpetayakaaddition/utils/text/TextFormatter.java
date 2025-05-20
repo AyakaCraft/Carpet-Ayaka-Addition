@@ -56,10 +56,10 @@ public final class TextFormatter {
             return Text.literal(format);
         }
 
-        int            lenMinusOne   = format.length() - 1;
-        int            j     = 0;
-        Iterator<Text> it    = args.iterator();
-        List<String>   split = new LinkedList<>();
+        int            lenMinusOne = format.length() - 1;
+        int            j           = 0;
+        Iterator<Text> it          = args.iterator();
+        List<String>   split       = new LinkedList<>();
         for (int i = 0; i < lenMinusOne; i++) {
             if ("{}".equals(format.substring(i, i + 2)) && it.hasNext()) {
                 split.add(format.substring(j, i));

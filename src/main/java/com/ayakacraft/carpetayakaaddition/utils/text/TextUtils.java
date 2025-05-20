@@ -38,6 +38,24 @@ public final class TextUtils {
     @SuppressWarnings("unused")
     public static final String DEFAULT_LANG = "en_us";
 
+    @PreprocessPattern
+    private static MutableText literalText(String str) {
+        //#if MC>=11900
+        return Text.literal(str);
+        //#else
+        //$$ return new net.minecraft.text.LiteralText(str);
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static MutableText translatableText(String key, Object... args) {
+        //#if MC>=11900
+        return Text.translatable(key, args);
+        //#else
+        //$$ return new net.minecraft.text.TranslatableText(key, args);
+        //#endif
+    }
+
     public static String getServerLang() {
         //#if MC>=11900
         return carpet.CarpetSettings.language;
@@ -73,15 +91,6 @@ public final class TextUtils {
 
     public static MutableText format(String str, Object... args) {
         return TextFormatter.format(str, args);
-    }
-
-    @PreprocessPattern
-    public static MutableText li(String str) {
-        //#if MC>=11900
-        return Text.literal(str);
-        //#else
-        //$$ return new net.minecraft.text.LiteralText(str);
-        //#endif
     }
 
     public static MutableText li(Object obj) {
@@ -144,15 +153,6 @@ public final class TextUtils {
         playerManager.broadcast(text, overlay);
         //#else
         //$$ playerManager.getPlayerList().forEach(player -> player.sendMessage(text, overlay));
-        //#endif
-    }
-
-    @PreprocessPattern
-    public static MutableText trText(String key, Object... args) {
-        //#if MC>=11900
-        return Text.translatable(key, args);
-        //#else
-        //$$ return new net.minecraft.text.TranslatableText(key, args);
         //#endif
     }
 

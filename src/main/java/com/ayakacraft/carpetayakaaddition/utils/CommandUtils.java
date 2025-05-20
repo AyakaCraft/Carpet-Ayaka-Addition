@@ -32,6 +32,15 @@ import java.util.concurrent.CompletableFuture;
 
 public final class CommandUtils {
 
+    @PreprocessPattern
+    private static boolean isExecutedByPlayer(ServerCommandSource source) {
+        //#if MC>=11900
+        return source.isExecutedByPlayer();
+        //#else
+        //$$ return source.getEntity() instanceof net.minecraft.server.network.ServerPlayerEntity;
+        //#endif
+    }
+
     public static boolean checkPermission(ServerCommandSource source, boolean needsOp, boolean needsPlayer) {
         return (!needsPlayer || source.isExecutedByPlayer()) && (!needsOp || source.hasPermissionLevel(source.getServer().getOpPermissionLevel()));
     }
@@ -45,15 +54,6 @@ public final class CommandUtils {
         source.sendFeedback(() -> txt, broadcastToOps);
         //#else
         //$$ source.sendFeedback(txt, broadcastToOps);
-        //#endif
-    }
-
-    @PreprocessPattern
-    public static boolean isExecutedByPlayer(ServerCommandSource source) {
-        //#if MC>=11900
-        return source.isExecutedByPlayer();
-        //#else
-        //$$ return source.getEntity() instanceof net.minecraft.server.network.ServerPlayerEntity;
         //#endif
     }
 

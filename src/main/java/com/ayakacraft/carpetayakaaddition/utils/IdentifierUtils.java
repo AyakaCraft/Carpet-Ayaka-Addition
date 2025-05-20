@@ -27,7 +27,7 @@ import net.minecraft.world.World;
 public final class IdentifierUtils {
 
     @PreprocessPattern
-    public static Identifier of(String id) {
+    private static Identifier of(String id) {
         //#if MC>=12100
         //$$ return Identifier.of(id);
         //#else
@@ -36,7 +36,7 @@ public final class IdentifierUtils {
     }
 
     @PreprocessPattern
-    public static Identifier of(String namespace, String path) {
+    private static Identifier of(String namespace, String path) {
         //#if MC>=12100
         //$$ return Identifier.of(namespace, path);
         //#else
@@ -45,7 +45,7 @@ public final class IdentifierUtils {
     }
 
     @PreprocessPattern
-    public static Identifier ofWorld(World world) {
+    private static Identifier ofWorld(World world) {
         //#if MC>=11600
         return world.getRegistryKey().getValue();
         //#else

@@ -27,7 +27,7 @@ import java.util.List;
 public final class NonMinecraftPatterns {
 
     @PreprocessPattern
-    public static <T> List<T> emptyList() {
+    private static <T> List<T> emptyList() {
         //#if MC>=11700
         return List.of();
         //#else
@@ -36,7 +36,7 @@ public final class NonMinecraftPatterns {
     }
 
     @PreprocessPattern
-    public static GsonBuilder setLenient(GsonBuilder builder) {
+    private static GsonBuilder setLenient(GsonBuilder builder) {
         //#if MC>=12104
         //$$ return builder.setStrictness(com.google.gson.Strictness.LENIENT);
         //#else

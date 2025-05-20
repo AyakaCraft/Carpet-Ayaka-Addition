@@ -107,7 +107,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             List<Text> txtList = new LinkedList<>();
             txtList.add(header);
             txtList.add(format(FORMAT, loadedChunksCountAllP, loadedChunksCountAll).formatted(Formatting.GRAY));
-            loadedChunksCount.keySet().forEach(id -> txtList.add(getCountText(id)));
+            loadedChunksCount.keySet().stream().map(this::getCountText).forEach(txtList::add);
             value = join(txtList, space(), Function.identity());
         } else if (OPTIONS[2].equals(playerOption)) {
             value = format("{} {}", header, getCountText(OVW_ID));

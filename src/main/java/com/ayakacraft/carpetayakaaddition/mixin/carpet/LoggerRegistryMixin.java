@@ -23,10 +23,8 @@ package com.ayakacraft.carpetayakaaddition.mixin.carpet;
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaExtensionLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -42,12 +40,7 @@ public abstract class LoggerRegistryMixin {
 
     @Inject(method = "initLoggers", at = @At("RETURN"))
     private static void registerToCarpet(CallbackInfo ci) {
-        AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
-            registerLogger(it.getLogName(), it);
-            if (it instanceof InitializedPerTick) {
-                CarpetAyakaServer.INSTANCE.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.INSTANCE));
-            }
-        });
+        AyakaLoggerRegistry.ayakaLoggers.forEach(it -> registerLogger(it.getLogName(), it));
     }
 
     @Shadow
