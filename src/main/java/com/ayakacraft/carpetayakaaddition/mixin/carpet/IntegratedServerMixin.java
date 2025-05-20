@@ -18,25 +18,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.utils;
+package com.ayakacraft.carpetayakaaddition.mixin.carpet;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.integrated.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
-@Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
+@Mixin(IntegratedServer.class)
+public class IntegratedServerMixin {
 
-    @Inject(method = "loadWorld", at = @At("TAIL"))
-    private void onLoadWorld(CallbackInfo ci) {
-        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
-    }
+    //#if MC<11600
+    //$$ @org.spongepowered.asm.mixin.injection.Inject(method = "loadWorld", at = @org.spongepowered.asm.mixin.injection.At("TAIL"))
+    //$$ private void onLoadWorld(org.spongepowered.asm.mixin.injection.callback.CallbackInfo ci) {
+    //$$     com.ayakacraft.carpetayakaaddition.CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
+    //$$ }
+    //#endif
 
 }

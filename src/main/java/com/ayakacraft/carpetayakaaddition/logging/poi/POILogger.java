@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.poi;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
-import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;

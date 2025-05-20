@@ -18,13 +18,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.preprocess;
 
-public interface WithClientLanguage {
+import com.google.gson.GsonBuilder;
 
-    //#if MC>=12006
-    @SuppressWarnings("unused")
-    //#endif
-    String getClientLanguage$Ayaka();
+import java.util.List;
+
+public final class NonMinecraftPatterns {
+
+    @PreprocessPattern
+    private static <T> List<T> emptyList() {
+        //#if MC>=11700
+        return List.of();
+        //#else
+        //$$ return new java.util.ArrayList<>();
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static GsonBuilder setLenient(GsonBuilder builder) {
+        //#if MC>=12104
+        //$$ return builder.setStrictness(com.google.gson.Strictness.LENIENT);
+        //#else
+        return builder.setLenient();
+        //#endif
+    }
 
 }

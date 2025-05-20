@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.commands.address;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
-import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -54,7 +54,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.ayakacraft.carpetayakaaddition.utils.CommandUtils.sendFeedback;
-import static com.ayakacraft.carpetayakaaddition.utils.TextUtils.*;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.enter;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.tr;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -77,22 +78,22 @@ public final class AddressCommand {
             return 0;
         }
         sendFeedback(source,
-                TextUtils.joinTexts(
+                TextUtils.joinTexts(new Text[]{
                         tr(source, "command.carpet-ayaka-addition.address.detail.0", address.getId())
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.1").formatted(Formatting.GREEN),
-                        li(address.getId()),
+                        Text.literal(address.getId()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.2").formatted(Formatting.GREEN),
-                        li(address.getDim()),
+                        Text.literal(address.getDim()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
-                        li(String.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ())),
+                        TextUtils.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
-                        li(address.getDesc())
-                ),
+                        Text.literal(address.getDesc())
+                }),
                 false);
         return 1;
     }
@@ -239,24 +240,23 @@ public final class AddressCommand {
     }
 
     private static Text waypointIdText(String id, ServerCommandSource source) {
-        return TextUtils.joinTexts(
-                li("["),
-                li(id).formatted(Formatting.GREEN),
-                li("] ["),
+        return TextUtils.format(
+                "[{}] [{}] [{}]",
+                Text.literal(id).formatted(Formatting.GREEN),
                 tr(source, "command.carpet-ayaka-addition.address.list.detail")
-                        .styled(style -> style
-                                .withColor(Formatting.GOLD)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address detail \"%s\"", id)))
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
+                        .styled(style ->
+                                style
+                                        .withColor(Formatting.GOLD)
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
                         ),
-                li("] ["),
                 tr(source, "command.carpet-ayaka-addition.address.list.tp")
-                        .styled(style -> style
-                                .withColor(Formatting.RED)
-                                .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/address tp \"%s\"", id)))
-                                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
-                        ),
-                li("]")
+                        .styled(style ->
+                                style
+                                        .withColor(Formatting.RED)
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
+                        )
         );
     }
 
@@ -268,18 +268,17 @@ public final class AddressCommand {
         if (ids.isEmpty()) {
             sendFeedback(
                     source,
-                    tr(source, "command.carpet-ayaka-addition.address.list.empty")
-                            .formatted(Formatting.YELLOW, Formatting.BOLD),
+                    tr(source, "command.carpet-ayaka-addition.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
                     false
             );
         } else {
             sendFeedback(
                     source,
-                    TextUtils.joinTexts(
+                    TextUtils.joinTexts(new Text[]{
                             tr(source, "command.carpet-ayaka-addition.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
                             listWaypointIdsText(ids, source)
-                    ),
+                    }),
                     false
             );
         }

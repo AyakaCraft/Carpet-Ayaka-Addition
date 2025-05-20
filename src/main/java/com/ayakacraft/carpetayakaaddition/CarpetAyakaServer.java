@@ -30,6 +30,7 @@ import com.ayakacraft.carpetayakaaddition.commands.gohome.GoHomeCommand;
 import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
 import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
@@ -145,6 +146,11 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     public void onServerLoadedWorlds$Ayaka() {
         AddressManager.getOrCreate(mcServer);
+        AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
+            if (it instanceof InitializedPerTick) {
+                CarpetAyakaServer.this.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.this));
+            }
+        });
     }
 
 }

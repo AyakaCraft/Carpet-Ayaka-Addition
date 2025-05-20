@@ -1,7 +1,8 @@
 ## General
 
-- ***Added*** `/ad` as a shortcut for `/address`
-- Translations are now loaded on the server side, so no more fabric-api needed
+- Translations now have fallbacks
 
 ## Bugfix
-- Fixed the problem of unable to teleport to an address in 1.14.4 and 1.15.2
+
+- Fixed the problem of wrong translation in integrated servers
+- Fixed the problem of movingBlocks logger not working

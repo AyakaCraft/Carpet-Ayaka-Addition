@@ -79,9 +79,9 @@ carpet-ayaka-addition:
   logger:
     loadedChunks: Loaded Chunks
     movingBlocks:
-      common: "%s moved %s to [%d %d %d]"
-      extend: "%s facing %s extended to [%d %d %d]"
-      pull_back: "%s facing %s pulled back to [%d %d %d]"
+      common: "{} moved {} to [%d %d %d]"
+      extend: "{} facing {} extended to [%d %d %d]"
+      pull_back: "{} facing {} pulled back to [%d %d %d]"
       direction:
         west: west
         east: east

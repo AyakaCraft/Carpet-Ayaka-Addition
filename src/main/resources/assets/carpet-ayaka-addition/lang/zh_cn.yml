@@ -96,9 +96,9 @@ carpet-ayaka-addition:
   logger:
     loadedChunks: 加载区块
     movingBlocks:
-      common: "%s 向 %s 移动至 [%d %d %d]"
-      extend: "%s 面向 %s 伸展至 [%d %d %d]"
-      pull_back: "%s 面向 %s 收回至 [%d %d %d]"
+      common: "{} 向 {} 移动至 [%d %d %d]"
+      extend: "{} 面向 {} 伸展至 [%d %d %d]"
+      pull_back: "{} 面向 {} 收回至 [%d %d %d]"
       direction:
         west: 西
         east: 东

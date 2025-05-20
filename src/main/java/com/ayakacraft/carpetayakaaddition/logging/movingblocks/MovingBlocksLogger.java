@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
-import com.ayakacraft.carpetayakaaddition.utils.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -90,7 +90,7 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
     }
 
     public void tryLog(PistonBlockEntity pistonBlockEntity) {
-        if (isEnabled() && !loggedPos.add(pistonBlockEntity.getPos())) {
+        if (isEnabled() && loggedPos.add(pistonBlockEntity.getPos())) {
             log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player));
         }
     }

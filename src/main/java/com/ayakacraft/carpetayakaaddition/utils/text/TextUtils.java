@@ -18,9 +18,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.text;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -37,25 +38,47 @@ public final class TextUtils {
     @SuppressWarnings("unused")
     public static final String DEFAULT_LANG = "en_us";
 
-    public static MutableText trServer(String key, Object... args) {
+    @PreprocessPattern
+    private static MutableText literalText(String str) {
         //#if MC>=11900
-        return trLang(carpet.CarpetSettings.language, key, args);
-        //#elseif MC>=11500
-        //$$ return trLang(
-        //$$         "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language
-        //$$         , key, args
-        //$$ );
+        return Text.literal(str);
         //#else
-        //$$ return trLang(DEFAULT_LANG, key, args);
+        //$$ return new net.minecraft.text.LiteralText(str);
         //#endif
     }
 
+    @PreprocessPattern
+    private static MutableText translatableText(String key, Object... args) {
+        //#if MC>=11900
+        return Text.translatable(key, args);
+        //#else
+        //$$ return new net.minecraft.text.TranslatableText(key, args);
+        //#endif
+    }
+
+    public static String getServerLang() {
+        //#if MC>=11900
+        return carpet.CarpetSettings.language;
+        //#elseif MC>=11500
+        //$$ return "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language;
+        //#else
+        //$$ return DEFAULT_LANG;
+        //#endif
+    }
+
+    public static MutableText trServer(String key, Object... args) {
+        return trLang(getServerLang(), key, args);
+    }
+
     public static MutableText trLang(String lang, String key, Object... args) {
-        return li(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).get(key), args);
+        return format(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).getOrDefault(key, key), args);
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        return trLang(player.getClientOptions().language(), key, args);
+        if (player.getServerWorld().getServer().isDedicated()) {
+            return trLang(player.getClientOptions().language(), key, args);
+        }
+        return Text.translatable(key, args);
     }
 
     public static MutableText tr(ServerCommandSource source, String key, Object... args) {
@@ -66,29 +89,29 @@ public final class TextUtils {
         }
     }
 
-    public static MutableText li(String str, Object... args) {
-        //#if MC>=11900
-        return Text.literal(String.format(str, args));
-        //#else
-        //$$ return new net.minecraft.text.LiteralText(String.format(str, args));
-        //#endif
+    public static MutableText format(String str, Object... args) {
+        return TextFormatter.format(str, args);
     }
 
-    @Deprecated
-    public static MutableText of(String str, Object... args) {
-        return li(str, args);
+    public static MutableText li(Object obj) {
+        if (obj instanceof Text) {
+            MutableText txt = empty();
+            txt.append((Text) obj);
+            return txt;
+        }
+        return Text.literal(String.valueOf(obj));
     }
 
     public static MutableText enter() {
-        return li(System.lineSeparator());
+        return Text.literal(System.lineSeparator());
     }
 
     public static MutableText space() {
-        return li(" ");
+        return Text.literal(" ");
     }
 
     public static MutableText empty() {
-        return li("");
+        return Text.literal("");
     }
 
     public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
@@ -96,15 +119,11 @@ public final class TextUtils {
         return net.minecraft.text.Texts.join(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
-        //$$     return new net.minecraft.text.LiteralText("");
+        //$$     return empty();
         //$$ } else if (elements.size() == 1) {
-        //$$ //#if MC>=11600
         //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
-        //$$ //#else
-        //$$ //$$     return transformer.apply(elements.iterator().next()).deepCopy();
-        //$$ //#endif
         //$$ } else {
-        //$$     net.minecraft.text.BaseText mutableText = new net.minecraft.text.LiteralText("");
+        //$$     BaseText mutableText = empty();
         //$$     boolean bl = true;
         //$$
         //$$     for(T object : elements) {
@@ -121,10 +140,10 @@ public final class TextUtils {
     }
 
     public static Text joinTexts(Collection<Text> elements) {
-        return join(elements, of(""), Function.identity());
+        return join(elements, empty(), Function.identity());
     }
 
-    public static Text joinTexts(Text... elements) {
+    public static Text joinTexts(Text[] elements) {
         return joinTexts(Arrays.asList(elements));
     }
 

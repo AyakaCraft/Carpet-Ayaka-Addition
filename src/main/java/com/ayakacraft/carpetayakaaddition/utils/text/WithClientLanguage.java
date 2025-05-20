@@ -18,20 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.text;
 
-import net.minecraft.entity.Entity;
+public interface WithClientLanguage {
 
-public final class EntityUtils {
-
-    public static void kill(Entity entity) {
-        //#if MC>=12104
-        //$$ if (!entity.getWorld().isClient()) {
-        //$$     entity.kill((net.minecraft.server.world.ServerWorld) entity.getWorld());
-        //$$ }
-        //#else
-        entity.kill();
-        //#endif
-    }
+    //#if MC>=12006
+    @SuppressWarnings("unused")
+    //#endif
+    String getClientLanguage$Ayaka();
 
 }

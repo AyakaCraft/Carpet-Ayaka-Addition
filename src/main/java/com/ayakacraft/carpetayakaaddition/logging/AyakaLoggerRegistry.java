@@ -22,11 +22,9 @@ package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.Logger;
 import carpet.logging.LoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
-import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -60,12 +58,7 @@ public final class AyakaLoggerRegistry {
 
     //#if MC>=11500
     public static void registerToCarpet() {
-        ayakaLoggers.forEach(it -> {
-            LoggerRegistry.registerLogger(it.getLogName(), it);
-            if (it instanceof InitializedPerTick) {
-                CarpetAyakaServer.INSTANCE.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.INSTANCE));
-            }
-        });
+        ayakaLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
     }
     //#endif
 
