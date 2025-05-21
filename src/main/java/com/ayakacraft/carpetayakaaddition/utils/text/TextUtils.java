@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.utils.text;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -75,7 +76,7 @@ public final class TextUtils {
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        return trLang(player.getClientOptions().language(), key, args);
+        return trLang(ServerPlayerUtils.getLanguage(player), key, args);
     }
 
     public static MutableText tr(ServerCommandSource source, String key, Object... args) {
