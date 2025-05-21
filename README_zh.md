@@ -129,8 +129,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 在方块移动结束时进行记录
 
 - 类型: 控制台
-- 选项: 不适用
-- 默认: 不适用
+- 选项: `full`, `brief`
+- 默认: `full`
 
 #### poi
 

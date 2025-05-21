@@ -38,6 +38,10 @@ import java.util.HashSet;
 
 public class MovingBlocksLogger extends AbstractAyakaLogger implements InitializedPerTick {
 
+    private static final String[] OPTIONS = {"full", "brief"};
+
+    private static final short DEFAULT_INDEX = 0;
+
     public static final String NAME = "movingBlocks";
 
     public static final MovingBlocksLogger INSTANCE;
@@ -54,11 +58,16 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
     private final HashSet<BlockPos> loggedPos = new HashSet<>();
 
     private MovingBlocksLogger() throws NoSuchFieldException {
-        super(NAME, null, new String[0], false);
+        super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
     }
 
-    private MutableText[] doLogging(PistonBlockEntity entity, ServerPlayerEntity player) {
-        BlockPos    pos       = entity.getPos();
+    private MutableText[] doLogging(PistonBlockEntity entity, ServerPlayerEntity player, String option) {
+        BlockPos pos = entity.getPos();
+
+        if (OPTIONS[1].equals(option)) {
+            return new MutableText[]{TextUtils.format("[%d %d %d]", pos.getX(), pos.getY(), pos.getZ())};
+        }
+
         BlockState  state     = entity.getPushedBlock();
         Block       block     = state.getBlock();
         MutableText direction = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
@@ -91,7 +100,7 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
 
     public void tryLog(PistonBlockEntity pistonBlockEntity) {
         if (isEnabled() && loggedPos.add(pistonBlockEntity.getPos())) {
-            log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player));
+            log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player, playerOption));
         }
     }
 

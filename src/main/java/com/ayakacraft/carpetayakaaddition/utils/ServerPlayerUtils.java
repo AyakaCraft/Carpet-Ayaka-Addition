@@ -20,7 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameMode;
@@ -41,7 +43,7 @@ public final class ServerPlayerUtils {
     }
 
     @PreprocessPattern
-    private static String getClientLanguage(ServerPlayerEntity player) {
+    private static String getClientLanguageServerSide(ServerPlayerEntity player) {
         //#if MC>=12006
         return player.getClientOptions().language();
         //#else
@@ -58,6 +60,20 @@ public final class ServerPlayerUtils {
         //#else
         //$$ return player.getServerWorld();
         //#endif
+    }
+
+    public static String getLanguage(ServerPlayerEntity player) {
+        String lang;
+        if (player.getServerWorld().getServer().isDedicated()) {
+            lang = player.getClientOptions().language().toLowerCase();
+        } else {
+            lang = ClientUtils.getLanguageCode().toLowerCase();
+        }
+        if (CarpetAyakaAddition.getTranslations(lang).isEmpty()) {
+            return TextUtils.getServerLang();
+        } else {
+            return lang;
+        }
     }
 
     public static boolean changeGameMode(ServerPlayerEntity player, GameMode gameMode) {
