@@ -129,8 +129,8 @@ Shows the count of loaded chunks for selected dimension
 Logs block movements at their ends
 
 - Type: Console
-- Options: N/A
-- Default: N/A
+- Options: `full`, `brief`
+- Default: `full`
 
 #### poi
 

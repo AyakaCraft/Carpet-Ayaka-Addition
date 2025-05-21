@@ -1,1 +1,3 @@
-## Bugfix
+## General
+
+- Added brief movingBlocks logger
