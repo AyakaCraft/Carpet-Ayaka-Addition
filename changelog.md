@@ -1,3 +1,3 @@
 ## General
 
-- Added brief movingBlocks logger
+- Translation now use `en_us` as its default fallback

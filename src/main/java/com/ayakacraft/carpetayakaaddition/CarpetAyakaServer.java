@@ -23,13 +23,10 @@ package com.ayakacraft.carpetayakaaddition;
 import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import carpet.logging.HUDController;
-import com.ayakacraft.carpetayakaaddition.commands.address.AddressCommand;
+import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.commands.address.AddressManager;
-import com.ayakacraft.carpetayakaaddition.commands.c.CCommand;
-import com.ayakacraft.carpetayakaaddition.commands.gohome.GoHomeCommand;
-import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
-import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.mojang.brigadier.CommandDispatcher;
@@ -92,11 +89,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
             , final net.minecraft.command.CommandRegistryAccess registryAccess
             //#endif
     ) {
-        TptCommand.register(dispatcher);
-        GoHomeCommand.register(dispatcher);
-        AddressCommand.register(dispatcher);
-        CCommand.register(dispatcher);
-        KillItemCommand.register(dispatcher);
+        AyakaCommandRegistry.registerCommands(dispatcher);
     }
 
     @Override
@@ -122,7 +115,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
-        return CarpetAyakaAddition.getTranslations(lang);
+        return AyakaLanguage.getOrEnglish(lang).translations();
     }
     //#endif
 

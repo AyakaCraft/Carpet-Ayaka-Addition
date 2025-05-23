@@ -20,8 +20,8 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerPlayerEntityMixin implements WithClientLanguage {
 
     @Unique
-    private String clientLanguage = TextUtils.getServerLang();
+    private String clientLanguage = AyakaLanguage.getServerLanguage().code();
 
     @Inject(method = "setClientOptions", at = @At("RETURN"))
     //#if MC>=11800

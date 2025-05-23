@@ -20,7 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils.text;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.MinecraftServer;
@@ -35,9 +35,6 @@ import java.util.Collection;
 import java.util.function.Function;
 
 public final class TextUtils {
-
-    @SuppressWarnings("unused")
-    public static final String DEFAULT_LANG = "en_us";
 
     @PreprocessPattern
     private static MutableText literalText(String str) {
@@ -57,33 +54,23 @@ public final class TextUtils {
         //#endif
     }
 
-    public static String getServerLang() {
-        //#if MC>=11900
-        return carpet.CarpetSettings.language;
-        //#elseif MC>=11500
-        //$$ return "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language;
-        //#else
-        //$$ return DEFAULT_LANG;
-        //#endif
+    public static MutableText tr(AyakaLanguage lang, String key, Object... args) {
+        return format(lang.translate(key), args);
     }
 
-    public static MutableText trServer(String key, Object... args) {
-        return trLang(getServerLang(), key, args);
-    }
-
-    public static MutableText trLang(String lang, String key, Object... args) {
-        return format(CarpetAyakaAddition.getTranslations(lang.toLowerCase()).getOrDefault(key, key), args);
+    public static MutableText tr(String key, Object... args) {
+        return tr(AyakaLanguage.getServerLanguage(), key, args);
     }
 
     public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        return trLang(ServerPlayerUtils.getLanguage(player), key, args);
+        return tr(ServerPlayerUtils.getLanguage(player), key, args);
     }
 
     public static MutableText tr(ServerCommandSource source, String key, Object... args) {
         if (source.isExecutedByPlayer()) {
             return tr((ServerPlayerEntity) source.getEntity(), key, args);
         } else {
-            return trServer(key, args);
+            return tr(key, args);
         }
     }
 

@@ -23,7 +23,6 @@ package com.ayakacraft.carpetayakaaddition.commands.address;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
-import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -54,8 +53,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import static com.ayakacraft.carpetayakaaddition.utils.CommandUtils.sendFeedback;
-import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.enter;
-import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.tr;
+import static com.ayakacraft.carpetayakaaddition.utils.text.TextUtils.*;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
@@ -78,7 +76,7 @@ public final class AddressCommand {
             return 0;
         }
         sendFeedback(source,
-                TextUtils.joinTexts(new Text[]{
+                joinTexts(new Text[]{
                         tr(source, "command.carpet-ayaka-addition.address.detail.0", address.getId())
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
@@ -89,7 +87,7 @@ public final class AddressCommand {
                         Text.literal(address.getDim()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
-                        TextUtils.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
+                        format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
                         enter(),
                         tr(source, "command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
                         Text.literal(address.getDesc())
@@ -240,7 +238,7 @@ public final class AddressCommand {
     }
 
     private static Text waypointIdText(String id, ServerCommandSource source) {
-        return TextUtils.format(
+        return format(
                 "[{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
                 tr(source, "command.carpet-ayaka-addition.address.list.detail")
@@ -261,7 +259,7 @@ public final class AddressCommand {
     }
 
     private static Text listWaypointIdsText(Collection<String> ids, ServerCommandSource source) {
-        return TextUtils.join(ids, enter(), id -> waypointIdText(id, source));
+        return join(ids, enter(), id -> waypointIdText(id, source));
     }
 
     private static void sendWaypointList(ServerCommandSource source, Collection<String> ids) {
@@ -274,7 +272,7 @@ public final class AddressCommand {
         } else {
             sendFeedback(
                     source,
-                    TextUtils.joinTexts(new Text[]{
+                    joinTexts(new Text[]{
                             tr(source, "command.carpet-ayaka-addition.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
                             listWaypointIdsText(ids, source)
