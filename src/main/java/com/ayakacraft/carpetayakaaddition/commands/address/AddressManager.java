@@ -21,12 +21,13 @@
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +37,11 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
 public class AddressManager {
 
-    private static final Type COLLECTION_TYPE = new TypeToken<Collection<Address>>() {
+    @Deprecated
+    private static final Type COLLECTION_TYPE_OLD = new TypeToken<Collection<AddressOld>>() {
+    }.getType();
+
+    private static final Type MAP_TYPE = new TypeToken<Map<String, Address>>() {
     }.getType();
 
     private static final HashMap<MinecraftServer, AddressManager> managerMap = new HashMap<>(1);
@@ -46,10 +51,17 @@ public class AddressManager {
 
     public static final String WAYPOINT_FILE_NAME = "ayaka_addresses.json";
 
-    private static Collection<Address> loadFromPath(Path storagePath) throws IOException {
-        String              str       = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(storagePath))).toString();
-        Collection<Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE);
+    @Deprecated
+    private static Collection<AddressOld> loadFromPathOld(Path storagePath) throws IOException {
+        String                 str       = FileUtils.readString(storagePath);
+        Collection<AddressOld> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE_OLD);
         return addresses == null ? Collections.emptyList() : addresses;
+    }
+
+    private static Map<String, Address> loadFromPath(Path storagePath) throws IOException {
+        String               str       = FileUtils.readString(storagePath);
+        Map<String, Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, MAP_TYPE);
+        return addresses == null ? Collections.emptyMap() : addresses;
     }
 
     public static AddressManager getOrCreate(MinecraftServer server) {
@@ -89,6 +101,10 @@ public class AddressManager {
         }
     }
 
+    private void put(AddressOld addressOld) {
+        put(new Address(addressOld));
+    }
+
     private Address put(Address address) {
         LOGGER.debug("Put address {}", address);
         return addressMap.put(address.getId(), address);
@@ -99,13 +115,18 @@ public class AddressManager {
 
         if (Files.isRegularFile(waypointStoragePathOld)) {
             LOGGER.warn("Loading addresses from {} which is deprecated", waypointStoragePathOld);
-            loadFromPath(waypointStoragePathOld).forEach(this::put);
+            loadFromPathOld(waypointStoragePathOld).forEach(this::put);
             Files.delete(waypointStoragePathOld);
         }
 
         if (Files.isRegularFile(waypointStoragePath)) {
             LOGGER.debug("Loading addresses from {}", waypointStoragePath);
-            loadFromPath(waypointStoragePath).forEach(this::put);
+            try {
+                addressMap.putAll(loadFromPath(waypointStoragePath));
+            } catch (JsonSyntaxException e) {
+                LOGGER.warn("Loading addresses from {} with old form which is deprecated", waypointStoragePath);
+                loadFromPathOld(waypointStoragePath).forEach(this::put);
+            }
         }
 
         save();
@@ -114,7 +135,7 @@ public class AddressManager {
 
     public void save() throws IOException {
         LOGGER.debug("Saving addresses to {}", waypointStoragePath);
-        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap.values(), COLLECTION_TYPE).getBytes(StandardCharsets.UTF_8));
+        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap, MAP_TYPE).getBytes(StandardCharsets.UTF_8));
     }
 
     public Address get(String id) {
@@ -125,7 +146,7 @@ public class AddressManager {
         return addressMap.keySet();
     }
 
-    public Collection<Address> getWaypoints() {
+    public Collection<Address> getAddresses() {
         return addressMap.values();
     }
 

@@ -32,14 +32,16 @@ public class Address {
 
     private final String dim;
 
-    private final Vec3d pos;
+    private final double x, y, z;
 
     private String desc;
 
     public Address(String id, String dim, Vec3d pos, String desc) {
         this.id = id;
         this.dim = dim;
-        this.pos = pos;
+        this.x = pos.x;
+        this.y = pos.y;
+        this.z = pos.z;
         setDesc(desc);
     }
 
@@ -52,6 +54,10 @@ public class Address {
     //$$     this(id, String.valueOf(net.minecraft.world.dimension.DimensionType.getId(dim)), pos, desc);
     //$$ }
     //#endif
+
+    public Address(AddressOld old) {
+        this(old.getId(), old.getDim(), old.getPos(), old.getDesc());
+    }
 
     public String getDim() {
         return dim;
@@ -75,15 +81,15 @@ public class Address {
     //#endif
 
     public double getX() {
-        return pos.getX();
+        return x;
     }
 
     public double getY() {
-        return pos.getY();
+        return y;
     }
 
     public double getZ() {
-        return pos.getZ();
+        return z;
     }
 
     public String getId() {
@@ -91,7 +97,7 @@ public class Address {
     }
 
     public Vec3d getPos() {
-        return pos;
+        return new Vec3d(x, y, z);
     }
 
     public String getDesc() {
@@ -104,7 +110,7 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.format("address[id=%s, dim=%s, pos=%s, desc=%s]", id, dim, pos, desc);
+        return String.format("address[id=%s, dim=%s, pos=[%.2f %.2f %.2f], desc=%s]", id, dim, x, y, z, desc);
     }
 
 }

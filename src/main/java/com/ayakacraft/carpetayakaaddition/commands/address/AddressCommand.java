@@ -229,7 +229,7 @@ public final class AddressCommand {
         //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
         //#endif
         final AddressManager      manager   = AddressManager.getOrCreate(source.getServer());
-        final Collection<Address> addresses = manager.getWaypoints();
+        final Collection<Address> addresses = manager.getAddresses();
         final List<String>        idList    = addresses.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Address::getId).collect(Collectors.toList());
 
         sendWaypointList(source, idList);

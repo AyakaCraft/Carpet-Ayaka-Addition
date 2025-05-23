@@ -56,7 +56,7 @@ public final class AyakaLanguage {
         }
 
         try {
-            final String data      = IOUtils.readResource(LANG_META);
+            final String data      = FileUtils.readResource(LANG_META);
             String[]     languages = GSON.fromJson(data, STRING_ARRAY_TYPE);
 
             for (String lang : languages) {
@@ -115,7 +115,7 @@ public final class AyakaLanguage {
 
         Map<String, String> tr = Collections.emptyMap();
         try {
-            final String        data = IOUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
+            final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
             Map<String, String> map  = GSON.fromJson(data, MAP_TYPE);
             if (map != null) {
                 tr = map;
