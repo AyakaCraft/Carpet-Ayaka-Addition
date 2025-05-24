@@ -8,7 +8,7 @@
 
 [简体中文](README_zh.md) ｜ English
 
-Copyright (c) 2025
+Copyright (c) 2025  Calboot and contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,49 +35,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
 - [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
-
-## 使用的开源库
-
-- Minecraft使用的库
-- [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom) 和 [yarn映射](https://github.com/FabricMC/yarn)
-- [preprocessor](https://github.com/ReplayMod/preprocessor) (或 [Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
-- [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
-- [fabric-carpet](https://github.com/gnembon/fabric-carpet)
-
-## 生命周期计划
-
-### 当前支持的版本
-
-目前，以下 Minecraft 版本正在积极地获得新功能和错误修复的支持
-
-| Minecraft 版本 | **支持至**                 |
-|--------------|-------------------------|
-| 1.14.4       | ✔️ 长期支持                 |
-| 1.15.2       | ✔️ 长期支持                 |
-| 1.16.5       | ✔️ 长期支持                 |
-| 1.17.1       | ✔️ 长期支持                 |
-| 1.18.2       | ✔️ 长期支持                 |
-| 1.19.4       | ✔️ 长期支持                 |
-| 1.20.1       | ✔️ 长期支持                 |
-| 1.20.6       | ✔️ 长期支持                 |
-| 1.21.1       | 🕒 Minecraft 1.22 发布时   |
-| 1.21.4       | 🕒 Minecraft 1.23 快照发布时 |
-
-### 已结束支持的版本
-
-以下 Minecraft 版本已不在支持范围内。 除非出现了严重的漏洞，否则这些 Minecraft 版本将不再获得支持
-
-| Minecraft 版本 | **最后的版本**                                                                         | **发布日期**       |
-|--------------|-----------------------------------------------------------------------------------|----------------|
-| 1.19.2       | [v0.3.1](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases/tag/v0.3.1) | 2025 年 3 月 2 日 |
-
-### 计划支持的版本
-
-以下 Minecraft 版本计划在未来的版本中得到支持
-
-| Minecraft 版本 | 支持时间                    |
-|--------------|-------------------------|
-| 1.21.5       | 🕒 Minecraft 1.21.6 发布时 |
 
 ## 功能
 
@@ -275,3 +232,47 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `0`, `8`, `10`, `20`, `50`, `100`
 - 范围: `[0,)`
 - 分类: `AYAKA`, `EXPERIMENTAL`
+
+## 生命周期计划
+
+### 当前支持的版本
+
+目前，以下 Minecraft 版本正在积极地获得新功能和错误修复的支持
+
+| Minecraft 版本 | **支持至**                 |
+|--------------|-------------------------|
+| 1.14.4       | ✔️ 长期支持                 |
+| 1.15.2       | ✔️ 长期支持                 |
+| 1.16.5       | ✔️ 长期支持                 |
+| 1.17.1       | ✔️ 长期支持                 |
+| 1.18.2       | ✔️ 长期支持                 |
+| 1.19.4       | ✔️ 长期支持                 |
+| 1.20.1       | ✔️ 长期支持                 |
+| 1.20.6       | ✔️ 长期支持                 |
+| 1.21.1       | 🕒 Minecraft 1.22 发布时   |
+| 1.21.4       | 🕒 Minecraft 1.23 快照发布时 |
+
+### 已结束支持的版本
+
+以下 Minecraft 版本已不在支持范围内。 除非出现了严重的漏洞，否则这些 Minecraft 版本将不再获得支持
+
+| Minecraft 版本 | **最后的版本**                                                                         | **发布日期**       |
+|--------------|-----------------------------------------------------------------------------------|----------------|
+| 1.19.2       | [v0.3.1](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases/tag/v0.3.1) | 2025 年 3 月 2 日 |
+
+### 计划支持的版本
+
+以下 Minecraft 版本计划在未来的版本中得到支持
+
+| Minecraft 版本 | 支持时间                    |
+|--------------|-------------------------|
+| 1.21.5       | 🕒 Minecraft 1.21.6 发布时 |
+
+## 使用的开源库
+
+- Minecraft使用的库
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom) 和 [yarn映射](https://github.com/FabricMC/yarn)
+- [preprocessor](https://github.com/ReplayMod/preprocessor) (或 [Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
+- [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
+- [fabric-carpet](https://github.com/gnembon/fabric-carpet)
+- [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) 和 [GCA](https://github.com/Gu-ZT/gugle-carpet-addition)

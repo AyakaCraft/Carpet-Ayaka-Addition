@@ -8,7 +8,7 @@
 
 [简体中文](README_zh.md) ｜ English
 
-Copyright (c) 2025
+Copyright (c) 2025  Calboot and contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -35,49 +35,6 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
 - [Discord](https://discord.com/channels/1360172405485469796/1360256724392476774)
 - [Modrinth](https://modrinth.com/mod/carpet-ayaka-addition)
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
-
-## Open-source libs
-
-- Dependencies of Minecraft
-- [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
-- [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
-- [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
-- [fabric-carpet](https://github.com/gnembon/fabric-carpet)
-
-## EOL
-
-### Current supported versions
-
-Currently, the following Minecraft versions are actively supported with new features and bug fixes
-
-| Minecraft Version | Support Until                               |
-|-------------------|---------------------------------------------|
-| 1.14.4            | ✔️ Long Term Support                        |
-| 1.15.2            | ✔️ Long Term Support                        |
-| 1.16.5            | ✔️ Long Term Support                        |
-| 1.17.1            | ✔️ Long Term Support                        |
-| 1.18.2            | ✔️ Long Term Support                        |
-| 1.19.4            | ✔️ Long Term Support                        |
-| 1.20.1            | ✔️ Long Term Support                        |
-| 1.20.6            | ✔️ Long Term Support                        |
-| 1.21.1            | 🕒 When Minecraft 1.22 is released          |
-| 1.21.4            | 🕒 When Minecraft 1.23 snapshot is released |
-
-### End-of-life versions
-
-The following Minecraft versions are out of the support range. There's no support for these Minecraft versions, unless some critical bugs occur
-
-| Minecraft Version | Last Version                                                                      | Release Date |
-|-------------------|-----------------------------------------------------------------------------------|--------------|
-| 1.19.2            | [v0.3.1](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases/tag/v0.3.1) | Mar 2, 2025  |
-
-### Scheduled to be supported versions
-
-The following Minecraft versions are scheduled to be supported in the later versions
-
-| Minecraft Version | Support Starts                       |
-|-------------------|--------------------------------------|
-| 1.21.5            | 🕒 When Minecraft 1.21.6 is released |
 
 ## Functions
 
@@ -275,3 +232,47 @@ Set to 0 to use vanilla value
 - Suggested options: `0`, `8`, `10`, `20`, `50`, `100`
 - Range: `[0,)`
 - Categories: `AYAKA`, `EXPERIMENTAL`
+
+## EOL
+
+### Current supported versions
+
+Currently, the following Minecraft versions are actively supported with new features and bug fixes
+
+| Minecraft Version | Support Until                               |
+|-------------------|---------------------------------------------|
+| 1.14.4            | ✔️ Long Term Support                        |
+| 1.15.2            | ✔️ Long Term Support                        |
+| 1.16.5            | ✔️ Long Term Support                        |
+| 1.17.1            | ✔️ Long Term Support                        |
+| 1.18.2            | ✔️ Long Term Support                        |
+| 1.19.4            | ✔️ Long Term Support                        |
+| 1.20.1            | ✔️ Long Term Support                        |
+| 1.20.6            | ✔️ Long Term Support                        |
+| 1.21.1            | 🕒 When Minecraft 1.22 is released          |
+| 1.21.4            | 🕒 When Minecraft 1.23 snapshot is released |
+
+### End-of-life versions
+
+The following Minecraft versions are out of the support range. There's no support for these Minecraft versions, unless some critical bugs occur
+
+| Minecraft Version | Last Version                                                                      | Release Date |
+|-------------------|-----------------------------------------------------------------------------------|--------------|
+| 1.19.2            | [v0.3.1](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases/tag/v0.3.1) | Mar 2, 2025  |
+
+### Scheduled to be supported versions
+
+The following Minecraft versions are scheduled to be supported in the later versions
+
+| Minecraft Version | Support Starts                       |
+|-------------------|--------------------------------------|
+| 1.21.5            | 🕒 When Minecraft 1.21.6 is released |
+
+## Open-source libs
+
+- Dependencies of Minecraft
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
+- [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
+- [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
+- [fabric-carpet](https://github.com/gnembon/fabric-carpet)
+- [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) and [GCA](https://github.com/Gu-ZT/gugle-carpet-addition)
