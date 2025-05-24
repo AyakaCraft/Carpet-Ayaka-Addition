@@ -18,25 +18,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.block.SugarCaneBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
-@Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
-
-    @Inject(method = "loadWorld", at = @At("RETURN"))
-    private void onLoadWorld(CallbackInfo ci) {
-        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
-    }
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
+@Mixin(SugarCaneBlock.class)
+public abstract class SugarCaneBlockMixin {
 
 }

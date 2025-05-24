@@ -39,23 +39,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SugarCaneBlock.class)
 public abstract class SugarCaneBlockMixin {
 
-    //#if MC>=11600
     @Inject(method = "scheduledTick", at = @At("RETURN"))
     private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canPlaceAt(world, pos)) {
             randomTick(state, world, pos, random);
         }
     }
-    //#endif
 
-    //#if MC>=12006
     @Shadow
+    //#if MC>=12006
     protected
-    //#elseif MC>=11600
-    //$$ @Shadow public
+    //#else
+    //$$ public
     //#endif
-    //#if MC>=11600
     abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
-    //#endif
 
 }

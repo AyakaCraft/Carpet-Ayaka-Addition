@@ -24,11 +24,9 @@ import carpet.logging.Logger;
 
 import java.lang.reflect.Field;
 
+//Do not remove the line below
+//TODO update in 1.14.4
 public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensionLogger {
-
-    //#if MC<11500
-    //$$ private final Field acceleratorField;
-    //#endif
 
     public AbstractAyakaLogger(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
         this(AyakaLoggerRegistry.class.getField("__" + logName), logName, def, options, strictOptions);
@@ -36,25 +34,11 @@ public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensi
 
     public AbstractAyakaLogger(Field field, String logName, String def, String[] options, boolean strictOptions) {
         super(
-                //#if MC>=11500
-                field,
-                //#endif
-                logName, def, options
+                field, logName, def, options
                 //#if MC>=11700
                 , strictOptions
                 //#endif
         );
-
-        //#if MC<11500
-        //$$ this.acceleratorField = field;
-        //#endif
     }
-
-    //#if MC<11500
-    //$$ @Override
-    //$$ public Field getField() {
-    //$$     return acceleratorField;
-    //$$ }
-    //#endif
 
 }

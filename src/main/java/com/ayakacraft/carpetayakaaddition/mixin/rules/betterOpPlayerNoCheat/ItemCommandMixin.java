@@ -25,6 +25,7 @@ import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.mods.TISHelper;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.server.command.ItemCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,11 +33,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Restriction(require = @Condition(ModUtils.TIS_ID))
-//#if MC>=11700
-@Mixin(net.minecraft.server.command.ItemCommand.class)
-//#else
-//$$ @Mixin(net.minecraft.server.command.ReplaceItemCommand.class)
-//#endif
+@Mixin(ItemCommand.class)
 public class ItemCommandMixin {
 
     @Inject(

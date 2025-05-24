@@ -18,25 +18,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
-@Mixin(MinecraftServer.class)
-public class MinecraftServerMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "[1.16, 1.18)"))
+@Mixin(ClientSettingsC2SPacket.class)
+public interface ClientSettingsC2SPacketAccessor {
 
-    @Inject(method = "loadWorld", at = @At("RETURN"))
-    private void onLoadWorld(CallbackInfo ci) {
-        CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
-    }
+    @Accessor("language")
+    String getLanguage();
 
 }

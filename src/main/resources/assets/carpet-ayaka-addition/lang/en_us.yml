@@ -92,3 +92,5 @@ carpet-ayaka-addition:
     poi:
       added: POI added in sub-chunk [%d %d %d] at [%d %d %d] with type %s
       removed: POI removed in sub-chunk [%d %d %d] at [%d %d %d]
+      ticket_reserved: POI reserved in sub-chunk [%d %d %d] at [%d %d %d] with type %s (%d/%d)
+      ticket_released: POI released in sub-chunk [%d %d %d] at [%d %d %d] with type %s (%d/%d)

@@ -10,6 +10,7 @@
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonBlockEntityMixin",
+    "logging.poi.PointOfInterestMixin",
     "logging.poi.PointOfInterestSetMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
@@ -27,11 +28,11 @@
     "utils.ClientSettingsC2SPacketAccessor",
     "utils.ServerPlayerEntityMixin"
   ],
+  "client": [
+    "carpet.IntegratedServerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.ayakacraft.carpetayakaaddition.utils.mixin.AyakaMixinConfigPlugin",
-  "client": [
-    "carpet.IntegratedServerMixin"
-  ]
+  "plugin": "com.ayakacraft.carpetayakaaddition.utils.mixin.AyakaMixinConfigPlugin"
 }

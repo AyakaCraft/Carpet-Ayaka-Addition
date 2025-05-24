@@ -18,18 +18,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.utils;
+package com.ayakacraft.carpetayakaaddition.logging;
 
-import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
+import carpet.logging.Logger;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "[1.16, 1.18)"))
-@Mixin(DummyClass.class)
-public interface ClientSettingsC2SPacketAccessor {
+import java.lang.reflect.Field;
 
-    // Implementation in 1.17.1
+public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensionLogger {
+
+    private final Field acceleratorField;
+
+    public AbstractAyakaLogger(String logName, String def, String[] options, boolean strictOptions) throws NoSuchFieldException {
+        this(AyakaLoggerRegistry.class.getField("__" + logName), logName, def, options, strictOptions);
+    }
+
+    public AbstractAyakaLogger(Field field, String logName, String def, String[] options, boolean strictOptions) {
+        super(logName, def, options);
+        this.acceleratorField = field;
+    }
+
+    @Override
+    public Field getField() {
+        return acceleratorField;
+    }
 
 }

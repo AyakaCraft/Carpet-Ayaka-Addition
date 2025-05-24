@@ -43,14 +43,7 @@ public abstract class LoggerRegistryMixin {
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> registerLogger(it.getLogName(), it));
     }
 
-    @Shadow
-    //#if MC>=11500
-    @SuppressWarnings("ShadowModifiers")
-    //#endif
-    private static void registerLogger(String name, Logger logger) {
-    }
-
-    @Inject(method = "setAccess", at = @At("HEAD"))
+    @Inject(method = "setAccess", at = @At("HEAD"), cancellable = true)
     private static void onSetAccess(Logger logger, CallbackInfo ci) {
         if (logger instanceof AyakaExtensionLogger) {
             try {
@@ -58,7 +51,17 @@ public abstract class LoggerRegistryMixin {
             } catch (IllegalAccessException e) {
                 CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
             }
+            ci.cancel();
         }
+    }
+
+    @Shadow
+    //#if MC>=11500
+    public
+    //#else
+    //$$ private
+    //#endif
+    static void registerLogger(String name, Logger logger) {
     }
 
 }

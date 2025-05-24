@@ -24,6 +24,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
@@ -33,19 +34,15 @@ import net.minecraft.world.poi.PointOfInterestType;
 import java.util.HashMap;
 import java.util.Map;
 
+//Do not remove the line below
+//TODO update in 1.18.2
 public class POILogger extends AbstractAyakaLogger {
 
-    //#if MC>=11900
     private static final String[] OPTIONS = {"all", "village", "bee_home", "acquirable_job_site"};
-    //#endif
 
-    //#if MC>=11900
     private static final short DEFAULT_INDEX = 0;
-    //#endif
 
-    //#if MC>=11900
     private static final Map<String, net.minecraft.registry.tag.TagKey<PointOfInterestType>> POI_TAGS = new HashMap<>(3);
-    //#endif
 
     public static final String NAME = "poi";
 
@@ -59,23 +56,16 @@ public class POILogger extends AbstractAyakaLogger {
         }
         INSTANCE = i;
 
-        //#if MC>=11900
         POI_TAGS.put("village", net.minecraft.registry.tag.PointOfInterestTypeTags.VILLAGE);
         POI_TAGS.put("bee_home", net.minecraft.registry.tag.PointOfInterestTypeTags.BEE_HOME);
         POI_TAGS.put("acquirable_job_site", net.minecraft.registry.tag.PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
-        //#endif
     }
 
     private POILogger() throws NoSuchFieldException {
-        //#if MC>=11900
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
-        //#else
-        //$$ super(NAME, null, new String[0], false);
-        //#endif
     }
 
-    //#if MC>=11900
-    private MutableText[] doAddedLogging(BlockPos pos, net.minecraft.registry.entry.RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
+    private MutableText[] doAddedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
             ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
             return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
@@ -87,16 +77,6 @@ public class POILogger extends AbstractAyakaLogger {
             return null;
         }
     }
-    //#else
-    //$$ private BaseText[] doAddedLogging(BlockPos pos, PointOfInterestType type, String option, ServerPlayerEntity player) {
-    //$$     ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-    //$$     return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
-    //$$             sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-    //$$             pos.getX(), pos.getY(), pos.getZ(),
-    //$$             type.toString()
-    //$$     )};
-    //$$ }
-    //#endif
 
     private MutableText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
         ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
@@ -106,19 +86,40 @@ public class POILogger extends AbstractAyakaLogger {
         )};
     }
 
+    private MutableText[] doTickedReservedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
+        if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
+            ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
+            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_reserved",
+                    sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
+                    pos.getX(), pos.getY(), pos.getZ(),
+                    RegistryUtils.getIdAsString(type),
+                    freeTickets, type.value().ticketCount()
+            )};
+        } else {
+            return null;
+        }
+    }
+
+    private MutableText[] doTickedReleasedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
+        if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
+            ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
+            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_released",
+                    sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
+                    pos.getX(), pos.getY(), pos.getZ(),
+                    RegistryUtils.getIdAsString(type),
+                    freeTickets, type.value().ticketCount()
+            )};
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public boolean isEnabled() {
         return AyakaLoggerRegistry.__poi;
     }
 
-    public void onAdded(
-            BlockPos pos,
-            //#if MC>=11900
-            net.minecraft.registry.entry.RegistryEntry<PointOfInterestType> type
-            //#else
-            //$$ PointOfInterestType type
-            //#endif
-    ) {
+    public void onAdded(BlockPos pos, RegistryEntry<PointOfInterestType> type) {
         if (isEnabled()) {
             log((playerOption, player) -> doAddedLogging(pos, type, playerOption, (ServerPlayerEntity) player));
         }
@@ -127,6 +128,22 @@ public class POILogger extends AbstractAyakaLogger {
     public void onRemoved(BlockPos pos) {
         if (isEnabled()) {
             log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayerEntity) player)));
+        }
+    }
+
+    public void onTicketReserved(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets) {
+        if (isEnabled()) {
+            log(((playerOption, player) ->
+                    doTickedReservedLogging(pos, type, freeTickets, playerOption, (ServerPlayerEntity) player)
+            ));
+        }
+    }
+
+    public void onTicketReleased(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets) {
+        if (isEnabled()) {
+            log(((playerOption, player) ->
+                    doTickedReleasedLogging(pos, type, freeTickets, playerOption, (ServerPlayerEntity) player)
+            ));
         }
     }
 

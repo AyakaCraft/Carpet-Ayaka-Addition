@@ -30,11 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(IntegratedServer.class)
 public class IntegratedServerMixin {
 
-    //#if MC<11600
-    //$$ @org.spongepowered.asm.mixin.injection.Inject(method = "loadWorld", at = @org.spongepowered.asm.mixin.injection.At("TAIL"))
-    //$$ private void onLoadWorld(org.spongepowered.asm.mixin.injection.callback.CallbackInfo ci) {
-    //$$     com.ayakacraft.carpetayakaaddition.CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
-    //$$ }
-    //#endif
+    //Implementation in 1.15.2
 
 }

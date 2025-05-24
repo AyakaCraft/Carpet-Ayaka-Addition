@@ -71,6 +71,10 @@ public final class AyakaLanguage {
 
     }
 
+    public static AyakaLanguage getDefaultLanguage() {
+        return languageMap.get(DEFAULT_LANG);
+    }
+
     public static AyakaLanguage getServerLanguage() {
         return getOrEnglish(
                 //#if MC>=11900
@@ -130,12 +134,15 @@ public final class AyakaLanguage {
         return Collections.unmodifiableMap(translations);
     }
 
-    public String translate(String key) {
-        return translations.getOrDefault(key, key);
-    }
-
     public String code() {
         return code;
+    }
+
+    public String translate(String key) {
+        if (DEFAULT_LANG.equals(this.code)) {
+            return translations.getOrDefault(key, key);
+        }
+        return translations.getOrDefault(key, getDefaultLanguage().translate(key));
     }
 
 }

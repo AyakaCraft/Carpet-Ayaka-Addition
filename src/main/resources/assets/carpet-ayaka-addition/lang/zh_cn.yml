@@ -109,3 +109,5 @@ carpet-ayaka-addition:
     poi:
       added: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被添加，类型为 %s
       removed: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被移除
+      ticket_reserved: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被认领，类型为 %s (%d/%d)
+      ticket_released: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被释放，类型为 %s (%d/%d)
