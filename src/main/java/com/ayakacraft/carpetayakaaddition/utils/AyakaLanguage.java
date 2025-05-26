@@ -22,9 +22,7 @@ package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.google.gson.reflect.TypeToken;
-import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +30,7 @@ import java.util.Map;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
 
-public final class AyakaLanguage {
+public abstract class AyakaLanguage {
 
     private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
@@ -61,14 +59,18 @@ public final class AyakaLanguage {
 
             for (String lang : languages) {
                 lang = lang.toLowerCase();
-                languageMap.put(lang, new AyakaLanguage(lang));
+                languageMap.put(lang, new AyakaLanguageImpl(lang));
             }
 
             loaded = true;
-        } catch (IOException e) {
+        } catch (Throwable e) {
             CarpetAyakaAddition.LOGGER.error("Failed to load language list", e);
         }
 
+    }
+
+    public static AyakaLanguage get(String lang) {
+        return languageMap.computeIfAbsent(lang.toLowerCase(), AyakaLanguageEmpty::new);
     }
 
     public static AyakaLanguage getDefaultLanguage() {
@@ -76,73 +78,89 @@ public final class AyakaLanguage {
     }
 
     public static AyakaLanguage getServerLanguage() {
-        return getOrEnglish(
+        return get(
                 //#if MC>=11900
                 carpet.CarpetSettings.language
-                //#elseif MC>=11500
-                //$$ "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language
                 //#else
                 //$$ DEFAULT_LANG
                 //#endif
         );
     }
 
-    public static AyakaLanguage getOrEnglish(String lang) {
-        lang = lang.toLowerCase();
-        if (languageMap.containsKey(lang)) {
-            return languageMap.get(lang);
-        } else {
-            return languageMap.get(DEFAULT_LANG);
-        }
-    }
-
     public static AyakaLanguage getOrServer(String lang) {
         lang = lang.toLowerCase();
         if (languageMap.containsKey(lang)) {
-            return languageMap.get(lang);
+            return get(lang);
         } else {
             return getServerLanguage();
         }
     }
 
-    @Nullable
-    public static AyakaLanguage get(String lang) {
-        return languageMap.get(lang.toLowerCase());
-    }
-
-    private final Map<String, String> translations;
-
     private final String code;
 
-    private AyakaLanguage(String lang) {
+    public AyakaLanguage(String lang) {
         this.code = lang;
-
-        Map<String, String> tr = Collections.emptyMap();
-        try {
-            final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", lang));
-            Map<String, String> map  = GSON.fromJson(data, MAP_TYPE);
-            if (map != null) {
-                tr = map;
-            }
-        } catch (Exception e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to load language {}", lang, e);
-        }
-        this.translations = tr;
-    }
-
-    public Map<String, String> translations() {
-        return Collections.unmodifiableMap(translations);
     }
 
     public String code() {
         return code;
     }
 
-    public String translate(String key) {
-        if (DEFAULT_LANG.equals(this.code)) {
-            return translations.getOrDefault(key, key);
+    public abstract Map<String, String> translations();
+
+    public abstract String translate(String key);
+
+    private static class AyakaLanguageImpl extends AyakaLanguage {
+
+        private final Map<String, String> translations;
+
+        private AyakaLanguageImpl(String code) {
+            super(code);
+
+            Map<String, String> tr = Collections.emptyMap();
+            try {
+                final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", code));
+                Map<String, String> map  = GSON.fromJson(data, MAP_TYPE);
+                if (map != null) {
+                    tr = map;
+                }
+            } catch (Exception e) {
+                CarpetAyakaAddition.LOGGER.error("Failed to load language {}", code, e);
+            }
+            this.translations = Collections.unmodifiableMap(tr);
         }
-        return translations.getOrDefault(key, getDefaultLanguage().translate(key));
+
+        @Override
+        public Map<String, String> translations() {
+            return translations;
+        }
+
+        @Override
+        public String translate(String key) {
+            if (DEFAULT_LANG.equals(code())) {
+                return translations.getOrDefault(key, key);
+            }
+            return translations.getOrDefault(key, getDefaultLanguage().translate(key));
+        }
+
+    }
+
+    private static class AyakaLanguageEmpty extends AyakaLanguage {
+
+        public AyakaLanguageEmpty(String code) {
+            super(code);
+        }
+
+        @Override
+        public Map<String, String> translations() {
+            return Collections.emptyMap();
+        }
+
+        @Override
+        public String translate(String key) {
+            return getDefaultLanguage().translate(key);
+        }
+
     }
 
 }

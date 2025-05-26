@@ -115,7 +115,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
-        return AyakaLanguage.getOrEnglish(lang).translations();
+        return AyakaLanguage.get(lang).translations();
     }
     //#endif
 
