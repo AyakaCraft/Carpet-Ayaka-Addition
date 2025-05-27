@@ -1,0 +1,108 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'java-gradle-plugin'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'com.gradle.plugin-publish' version '1.2.1'
+    id 'com.diffplug.spotless' version '6.13.0'
+    id 'com.hypherionmc.modutils.orion' version '1.0.+'
+}
+apply plugin: 'maven-publish'
+
+orion.setup {
+    enableReleasesMaven = true
+
+    versioning {
+        var relType = project.properties["reltype"] ?: "${release_type}"
+        identifier("${relType}")
+        isUploadBuild = (relType == 'release')
+    }
+}
+
+group = 'com.hypherionmc.modutils'
+description = "Gradle plugin to Upload and Publish mods to CurseForge/Modrinth/Github"
+archivesBaseName = 'ModPublisher'
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+configurations {
+    shadeMe
+    implementation.extendsFrom shadeMe
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation gradleApi()
+
+    shadeMe "me.hypherionmc.modutils:CurseUpload4j:${curse4j}"
+    shadeMe 'com.github.masecla22:Modrinth4J:-SNAPSHOT'
+    //shadeMe "dev.masecla:Modrinth4J:${modrinth4j}"
+    shadeMe "org.kohsuke:github-api:${github}"
+    shadeMe "org.apache.maven:maven-artifact:${mavenart}"
+    shadeMe "com.hypherionmc.nightbloom:nightbloom4j:${nightbloom}"
+
+    shadeMe "org.ow2.asm:asm:${asm}"
+    shadeMe "org.ow2.asm:asm-tree:${asm}"
+
+    compileOnly "org.projectlombok:lombok:${lombok}"
+    annotationProcessor "org.projectlombok:lombok:${lombok}"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit}"
+
+    testCompileOnly "org.projectlombok:lombok:${lombok}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombok}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    configurations = [project.configurations.getByName("shadeMe")]
+    archiveClassifier.set(null)
+}
+
+gradlePlugin {
+    plugins {
+        modPublisherPlugin {
+            id = 'com.hypherionmc.modutils.modpublisher'
+            description = project.description
+            displayName = 'ModPublisher'
+            version = project.version
+            implementationClass = "com.hypherionmc.modpublisher.plugin.ModPublisherPlugin"
+            tags.set(['modrinth', 'publish', 'mods', 'github', 'minecraft', 'curseforge'])
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                'Timestamp'               : System.currentTimeMillis(),
+                'Specification-Title'     : project.archivesBaseName,
+                'Specification-Version'   : project.version,
+                'Implementation-Title'    : project.archivesBaseName,
+                'Implementation-Version'  : project.version,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'Built-On-Java'           : "${System.getProperty('java.vm.version')} (${System.getProperty('java.vm.vendor')})"
+        ])
+    }
+}
+
+spotless {
+    java {
+        targetExclude("src/test/**", "src/main/java/me/hypherionmc/modpublisher/util/scanner/**")
+        licenseHeaderFile(rootProject.file("HEADER")).yearSeparator("-")
+    }
+}
+
+publishing {
+    repositories {
+        maven orion.getPublishingMaven()
+    }
+}

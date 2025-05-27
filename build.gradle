@@ -7,12 +7,13 @@ plugins {
 
     id("com.gradleup.shadow") version("8.3.6") apply(false)
 
-    id("com.hypherionmc.modutils.modpublisher") version("2.1.7+snapshot.2") apply(false)
     id("com.github.hierynomus.license") version("0.16.1") apply(false)
 
     // https://github.com/Fallen-Breath/yamlang
-    //TODO open PR at https://github.com/Crec0/carpet-rules-database
     id("me.fallenbreath.yamlang") version("1.4.1") apply(false)
+
+    //id("com.hypherionmc.modutils.modpublisher") version("2.1.6") apply(false)
+    id("maven-publish")
 }
 
 version = project.mod_version

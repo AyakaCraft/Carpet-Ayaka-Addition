@@ -20,13 +20,10 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 
-//Do not remove the line below
-//TODO update in 1.15.2
 public class Address {
 
     public static final String DESC_PLACEHOLDER = "#none";
@@ -48,8 +45,8 @@ public class Address {
         setDesc(desc);
     }
 
-    public Address(String id, RegistryKey<World> dim, Vec3d pos, String desc) {
-        this(id, dim.getValue().toString(), pos, desc);
+    public Address(String id, DimensionType dim, Vec3d pos, String desc) {
+        this(id, String.valueOf(DimensionType.getId(dim)), pos, desc);
     }
 
     public Address(AddressOld old) {
@@ -60,15 +57,8 @@ public class Address {
         return dim;
     }
 
-    public RegistryKey<World> getDimension() {
-        return RegistryKey.of(
-                //#if MC>=11904
-                net.minecraft.registry.RegistryKeys.WORLD,
-                //#else
-                //$$ net.minecraft.util.registry.Registry.WORLD_KEY,
-                //#endif
-                new Identifier(dim)
-        );
+    public DimensionType getDimension() {
+        return DimensionType.byId(new Identifier(dim));
     }
 
     public double getX() {

@@ -13,9 +13,6 @@ pluginManagement {
         maven {
             url = "https://maven.firstdark.dev/releases" // For ModPublisher
         }
-        maven {
-            url = "https://maven.firstdark.dev/snapshots" // For ModPublisher
-        }
         mavenCentral()
         gradlePluginPortal()
     }

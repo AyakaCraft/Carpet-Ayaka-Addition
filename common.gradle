@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.hypherionmc.modpublisher.plugin.ModPublisherPlugin
 
 apply plugin: "com.gradleup.shadow"
 apply plugin: "fabric-loom"
@@ -7,6 +8,7 @@ apply plugin: "com.hypherionmc.modutils.modpublisher"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "maven-publish"
 apply plugin: "me.fallenbreath.yamlang"
+apply plugin: ModPublisherPlugin
 
 Map<String, ?> properties = project.getProperties()
 
@@ -15,6 +17,7 @@ int mcVersion = (Integer) properties.mcVersion
 boolean releasing = System.getenv("BUILD_RELEASE") == "true"
 
 repositories {
+    mavenCentral()
     maven {
         name = "Fabric"
         url = "https://maven.fabricmc.net/"
@@ -26,6 +29,9 @@ repositories {
     maven {
         name = "Fallen"
         url = "https://maven.fallenbreath.me/releases"  // Fallen orz
+    }
+    maven {
+        url = 'https://maven.fallenbreath.me/jitpack'
     }
     maven {
         name = "Jitpack"
@@ -100,7 +106,11 @@ dependencies {
                 modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
             }
         }
+
+        implementation("org.ow2.asm:asm:9.8")
     }
+
+    testImplementation("junit:junit:${project.junit_version}")
 
 }
 

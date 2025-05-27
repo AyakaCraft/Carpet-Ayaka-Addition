@@ -20,14 +20,23 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.LanguageManager;
+
 public final class ClientUtils {
 
-    public static String getLanguageCode() {
+    @PreprocessPattern
+    private static String getLanguageCode(LanguageManager manager) {
         //#if MC>=11900
-        return net.minecraft.client.MinecraftClient.getInstance().getLanguageManager().getLanguage();
+        return manager.getLanguage();
         //#else
-        //$$ return net.minecraft.client.MinecraftClient.getInstance().getLanguageManager().getLanguage().getCode();
+        //$$ return manager.getLanguage().getCode();
         //#endif
+    }
+
+    public static String getLanguageCode() {
+        return MinecraftClient.getInstance().getLanguageManager().getLanguage();
     }
 
 }

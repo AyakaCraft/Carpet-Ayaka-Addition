@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.google.gson.reflect.TypeToken;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -65,6 +66,9 @@ public abstract class AyakaLanguage {
             loaded = true;
         } catch (Throwable e) {
             CarpetAyakaAddition.LOGGER.error("Failed to load language list", e);
+            if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
