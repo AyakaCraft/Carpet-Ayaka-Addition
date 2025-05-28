@@ -1,5 +1,4 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.hypherionmc.modpublisher.plugin.ModPublisherPlugin
 
 apply plugin: "com.gradleup.shadow"
 apply plugin: "fabric-loom"
@@ -8,7 +7,6 @@ apply plugin: "com.hypherionmc.modutils.modpublisher"
 apply plugin: "com.github.hierynomus.license"
 apply plugin: "maven-publish"
 apply plugin: "me.fallenbreath.yamlang"
-apply plugin: ModPublisherPlugin
 
 Map<String, ?> properties = project.getProperties()
 

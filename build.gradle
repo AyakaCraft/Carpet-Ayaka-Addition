@@ -12,7 +12,7 @@ plugins {
     // https://github.com/Fallen-Breath/yamlang
     id("me.fallenbreath.yamlang") version("1.4.1") apply(false)
 
-    //id("com.hypherionmc.modutils.modpublisher") version("2.1.6") apply(false)
+    id("com.hypherionmc.modutils.modpublisher") version("2.1.7") apply(false)
     id("maven-publish")
 }
 
