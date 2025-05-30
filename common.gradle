@@ -287,7 +287,6 @@ license {
 tasks.classes.dependsOn(tasks.licenseFormatMain)
 tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
-//https://github.com/firstdarkdev/modpublisher
 publisher {
 
     apiKeys {

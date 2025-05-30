@@ -5,14 +5,18 @@ plugins {
     // https://github.com/Fallen-Breath/preprocessor
     id("com.replaymod.preprocess") version("0a04a5668b")
 
+    // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version("8.3.6") apply(false)
 
+    // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version("0.16.1") apply(false)
 
     // https://github.com/Fallen-Breath/yamlang
     id("me.fallenbreath.yamlang") version("1.4.1") apply(false)
 
+    // https://github.com/firstdarkdev/modpublisher
     id("com.hypherionmc.modutils.modpublisher") version("2.1.7") apply(false)
+
     id("maven-publish")
 }
 

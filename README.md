@@ -240,18 +240,17 @@ Set to 0 to use vanilla value
 
 Currently, the following Minecraft versions are actively supported with new features and bug fixes
 
-| Minecraft Version | Support Until                               |
-|-------------------|---------------------------------------------|
-| 1.14.4            | ✔️ Long Term Support                        |
-| 1.15.2            | ✔️ Long Term Support                        |
-| 1.16.5            | ✔️ Long Term Support                        |
-| 1.17.1            | ✔️ Long Term Support                        |
-| 1.18.2            | ✔️ Long Term Support                        |
-| 1.19.4            | ✔️ Long Term Support                        |
-| 1.20.1            | ✔️ Long Term Support                        |
-| 1.20.6            | ✔️ Long Term Support                        |
-| 1.21.1            | 🕒 When Minecraft 1.22 is released          |
-| 1.21.4            | 🕒 When Minecraft 1.23 snapshot is released |
+| Minecraft Version | Support Until                      |
+|-------------------|------------------------------------|
+| 1.14.4            | ✔️ Long Term Support               |
+| 1.15.2            | ✔️ Long Term Support               |
+| 1.16.5            | ✔️ Long Term Support               |
+| 1.17.1            | ✔️ Long Term Support               |
+| 1.18.2            | ✔️ Long Term Support               |
+| 1.19.4            | ✔️ Long Term Support               |
+| 1.20.1            | ✔️ Long Term Support               |
+| 1.20.6            | ✔️ Long Term Support               |
+| 1.21.1, 1.21.4    | 🕒 When Minecraft 1.22 is released |
 
 ### End-of-life versions
 
@@ -267,13 +266,14 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 | Minecraft Version | Support Starts                       |
 |-------------------|--------------------------------------|
-| 1.21.5            | 🕒 When Minecraft 1.21.6 is released |
+| 1.21.5, 1.21.6    | 🕒 When Minecraft 1.21.6 is released |
 
 ## Open-source libs
 
 - Dependencies of Minecraft
 - [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
 - [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
+- [shadow](https://github.com/GradleUp/shadow), [license-gradle](https://github.com/hierynomus/license-gradle-plugin), [modpublisher](https://github.com/firstdarkdev/modpublisher)
 - [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)
 - [fabric-carpet](https://github.com/gnembon/fabric-carpet)
 - [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) and [GCA](https://github.com/Gu-ZT/gugle-carpet-addition)
