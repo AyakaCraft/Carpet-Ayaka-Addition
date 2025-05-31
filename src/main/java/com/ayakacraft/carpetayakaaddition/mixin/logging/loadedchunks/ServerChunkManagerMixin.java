@@ -67,7 +67,7 @@ public abstract class ServerChunkManagerMixin {
                 WorldChunk worldChunk = chunkHolder.getWorldChunk();
                 if (worldChunk != null &&
                         //#if MC>=11800
-                        ticketManager.shouldTickBlocks(worldChunk.getPos().toLong())
+                        this.ticketManager.shouldTickBlocks(worldChunk.getPos().toLong())
                     //#else
                     //$$ tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
                     //#endif
