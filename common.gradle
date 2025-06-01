@@ -213,12 +213,12 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand([
-                "id"               : properties.mod_id,
-                "name"             : properties.mod_name,
-                "version"          : fullModVersion,
-                "carpet_dependency": properties.carpet_dependency,
-                "minecraft_version": properties.minecraft_version,
-                "loader_min"       : properties.loader_min
+                "id"                  : properties.mod_id,
+                "name"                : properties.mod_name,
+                "version"             : fullModVersion,
+                "carpet_dependency"   : properties.carpet_dependency,
+                "minecraft_dependency": properties.minecraft_dependency,
+                "loader_dependency"   : properties.loader_dependency
         ])
     }
 
@@ -303,7 +303,7 @@ publisher {
     setChangelog(rootProject.file("changelog.md"))
 
     setProjectVersion(fullProjectVersion)
-    setGameVersions([project.minecraft_version])
+    setGameVersions([project.minecraft_dependency])
     setLoaders("fabric")
     setCurseEnvironment("server")
 

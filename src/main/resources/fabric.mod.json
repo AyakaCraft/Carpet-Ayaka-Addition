@@ -25,9 +25,9 @@
     "carpet-ayaka-addition.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_min}",
+    "fabricloader": "${loader_dependency}",
     "carpet": "${carpet_dependency}",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft_dependency}"
   },
   "custom": {
     "modmenu": {
