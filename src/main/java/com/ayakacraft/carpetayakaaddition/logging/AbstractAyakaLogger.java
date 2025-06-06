@@ -24,7 +24,7 @@ import carpet.logging.Logger;
 
 import java.lang.reflect.Field;
 
-//Do not remove the line below
+//Do not remove the lines below
 //TODO update in 1.14.4
 public abstract class AbstractAyakaLogger extends Logger implements AyakaExtensionLogger {
 

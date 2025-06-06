@@ -30,4 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(CactusBlock.class)
 public abstract class CactusBlockMixin {
 
+    // Implementation in main project
+
 }

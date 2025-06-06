@@ -25,7 +25,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-//Do not remove the line below
+//Do not remove the lines below
 //TODO update in 1.15.2
 public class Address {
 

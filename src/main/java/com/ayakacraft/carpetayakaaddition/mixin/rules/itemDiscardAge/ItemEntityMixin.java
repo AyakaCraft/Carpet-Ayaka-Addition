@@ -43,13 +43,18 @@ public class ItemEntityMixin {
     }
 
     @Inject(method = "setDespawnImmediately", at = @At("TAIL"))
-    private void setDespawnImmediately_mix(CallbackInfo ci) {
+    private void onSetDespawnImmediately(CallbackInfo ci) {
         this.itemAge = getDiscardAge() - 1;
     }
 
     @ModifyConstant(method = {"tick", "canMerge()Z"}, constant = @Constant(intValue = 6000))
-    private int injected(int value) {
+    private int modifyDiscardAge(int value) {
         return getDiscardAge();
+    }
+
+    @Inject(method = "setCovetedItem", at = @At("TAIL"))
+    private void onSetCovetedItem(CallbackInfo ci) {
+        this.itemAge = -getDiscardAge();
     }
 
 }

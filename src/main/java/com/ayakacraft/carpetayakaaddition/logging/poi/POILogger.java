@@ -34,7 +34,7 @@ import net.minecraft.world.poi.PointOfInterestType;
 import java.util.HashMap;
 import java.util.Map;
 
-//Do not remove the line below
+//Do not remove the lines below
 //TODO update in 1.18.2
 public class POILogger extends AbstractAyakaLogger {
 

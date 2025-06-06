@@ -30,4 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(BambooBlock.class)
 public abstract class BambooBlockMixin {
 
+    // Implementation in main project
+
 }

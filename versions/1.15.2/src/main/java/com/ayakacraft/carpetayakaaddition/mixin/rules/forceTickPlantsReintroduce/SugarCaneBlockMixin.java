@@ -30,4 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(SugarCaneBlock.class)
 public abstract class SugarCaneBlockMixin {
 
+    // Implementation in main project
+
 }
