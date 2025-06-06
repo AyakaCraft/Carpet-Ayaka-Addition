@@ -67,6 +67,11 @@ carpet:
     disableBatSpawning:
       name: 禁用蝙蝠生成
       desc: 禁用蝙蝠的自然生成
+    fakePlayerForceOffline:
+      name: 假人强制离线
+      desc: 强制假人以离线模式生成
+      extra:
+        "0": (1.16+) 仅在 allowSpawningOfflinePlayers 为 true 时生效
     fakePlayerResidentBackupFix:
       name: 备份不保留假人修复
       desc: 修复回档后假人不会重新加入世界的问题

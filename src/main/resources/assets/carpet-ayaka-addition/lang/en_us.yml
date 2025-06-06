@@ -56,6 +56,10 @@ carpet:
       desc: Enables /tpt to teleport to another player in your server
     disableBatSpawning:
       desc: Disables natural spawning of bats
+    fakePlayerForceOffline:
+      desc: Forces fake players to spawn in offline mode
+      extra:
+        "0": (1.16+) Only active when allowSpawningOfflinePlayers is set to true
     fakePlayerResidentBackupFix:
       desc: Fixes the bug that fake players are not reconnected after retracements
       extra:

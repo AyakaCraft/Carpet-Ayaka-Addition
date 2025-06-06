@@ -28,8 +28,9 @@ import org.jetbrains.annotations.Nullable;
 
 import static carpet.api.settings.RuleCategory.*;
 
-//Do not remove the line below
+//Do not remove the lines below
 //TODO update in 1.18.2
+//TODO update translation
 public final class CarpetAyakaSettings {
 
     public static final String AYAKA = "Ayaka";
@@ -74,6 +75,11 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, FEATURE}
     )
     public static boolean disableBatSpawning = false;
+
+    @Rule(
+            categories = {AYAKA, EXPERIMENTAL, BOT}
+    )
+    public static boolean fakePlayerForceOffline = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}

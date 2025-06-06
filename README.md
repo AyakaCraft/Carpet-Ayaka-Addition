@@ -169,6 +169,17 @@ Disables natual spawning of bats
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`
 
+#### fakePlayerForceOffline
+
+Forces fake players to spawn in offline mode
+
+(1.16+) Only active when allowSpawningOfflinePlayers is set to true
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `EXPERIMENTAL`, `BOT`
+
 #### fakePlayerResidentBackupFix
 
 Fixes the bug that fake players are not reconnected after retracements
@@ -178,7 +189,7 @@ Only active when [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`
+- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
 
 #### forceTickPlantsReintroduce
 
@@ -250,7 +261,8 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.19.4            | ✔️ Long Term Support               |
 | 1.20.1            | ✔️ Long Term Support               |
 | 1.20.6            | ✔️ Long Term Support               |
-| 1.21.1, 1.21.4    | 🕒 When Minecraft 1.22 is released |
+| 1.21.1, 1.21.4    | 🕒 When Minecraft 1.22 is Released |
+| 1.21.5, 1.21.6    | 🕒 To Be Determined                |
 
 ### End-of-life versions
 
@@ -266,7 +278,6 @@ The following Minecraft versions are scheduled to be supported in the later vers
 
 | Minecraft Version | Support Starts                       |
 |-------------------|--------------------------------------|
-| 1.21.5, 1.21.6    | 🕒 When Minecraft 1.21.6 is released |
 
 ## Open-source libs
 

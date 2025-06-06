@@ -169,6 +169,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
 
+#### 假人强制离线 (fakePlayerForceOffline)
+
+强制假人以离线模式生成
+
+(1.16+) 仅在 allowSpawningOfflinePlayers 为 true 时生效
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `EXPERIMENTAL`, `BOT`
+
 #### 备份不保留假人修复 (fakePlayerResidentBackupFix)
 
 修复回档后假人不会重新加入世界的问题
@@ -178,7 +189,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`
+- 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce)
 
@@ -251,6 +262,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 | 1.20.1         | ✔️ 长期支持               |
 | 1.20.6         | ✔️ 长期支持               |
 | 1.21.1, 1.21.4 | 🕒 Minecraft 1.22 发布时 |
+| 1.21.5, 1.21.6 | 🕒 待定                 |
 
 ### 已结束支持的版本
 
@@ -266,7 +278,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 | Minecraft 版本   | 支持时间                    |
 |----------------|-------------------------|
-| 1.21.5, 1.21.6 | 🕒 Minecraft 1.21.6 发布时 |
 
 ## 使用的开源库
 

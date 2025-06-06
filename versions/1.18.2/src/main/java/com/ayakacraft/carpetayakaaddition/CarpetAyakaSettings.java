@@ -82,6 +82,13 @@ public final class CarpetAyakaSettings {
     public static boolean disableBatSpawning = false;
 
     @Rule(
+            category = {AYAKA, EXPERIMENTAL, BOT},
+            desc = "Forces fake players to spawn in offline mode",
+            extra = "(1.16+) Only active when allowSpawningOfflinePlayers is set to true"
+    )
+    public static boolean fakePlayerForceOffline = false;
+
+    @Rule(
             category = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
             desc = "Fixes the bug that fake players are not reconnected after retracements",
             extra = "Only active when Gca is loaded and fakePlayerResident is set to true"

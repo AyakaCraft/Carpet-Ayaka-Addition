@@ -18,6 +18,7 @@
     "rules.betterOpPlayerNoCheat.ItemCommandMixin",
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.disableBatSpawning.BatEntityMixin",
+    "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.forceTickPlantsReintroduce.BambooBlockMixin",
     "rules.forceTickPlantsReintroduce.CactusBlockMixin",
