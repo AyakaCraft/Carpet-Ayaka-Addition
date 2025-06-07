@@ -90,7 +90,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 选项: `full`, `brief`
 - 默认: `full`
 
-#### poi
+#### 兴趣点 (poi)
 
 记录兴趣点的变更 (实验性)
 
@@ -103,6 +103,41 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - `all` (1.19.4 及更高版本)
 
 ### 规则
+
+#### 认证代理类型
+
+获取玩家帐户信息所使用的代理类型
+
+仅限物理服务端
+
+如果设置为 DIRECT，host 和 port 会被忽略
+
+- 类型: `java.net.Proxy.Type`
+- 默认值: `DIRECT`
+- 参考选项: `DIRECT`, `HTTP`, `SOCKS`
+- 分类: `AYAKA`, `EXPERIMENTAL`
+
+#### 认证代理主机
+
+获取玩家帐户信息所使用的代理主机
+
+仅限物理服务端
+
+- 类型: `String`
+- 默认值: `127.0.0.1`
+- 参考选项: `127.0.0.1`
+- 分类: `AYAKA`, `EXPERIMENTAL`
+
+#### 认证代理端口
+
+获取玩家帐户信息所使用的代理端口
+
+仅限物理服务端
+
+- 类型: `int`
+- 默认值: `7897`
+- 参考选项: `7897`
+- 分类: `AYAKA`, `EXPERIMENTAL`
 
 #### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
 

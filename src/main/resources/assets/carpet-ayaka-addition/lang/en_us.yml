@@ -39,6 +39,19 @@ command:
         multiple: Cancelled %d tasks
 carpet:
   rule:
+    authProxyType:
+      desc: Type of proxy used for contacting Mojang server
+      extra:
+        "0": Dedicated server only
+        "1": If set to DIRECT, host and port will be ignored
+    authProxyHost:
+      desc: Host of proxy used for contacting Mojang server
+      extra:
+        "0": Dedicated server only
+    authProxyPort:
+      desc: Port of proxy used for contacting Mojang server
+      extra:
+        "0": Dedicated server only
     betterOpPlayerNoCheat:
       desc: Stops operators from using /kill, /clear, /effect, /item and /difficulty
       extra:

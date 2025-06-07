@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
@@ -101,6 +102,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).load();
         } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to load addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.reload.failure"));
             return 0;
         }
@@ -130,6 +132,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc));
         } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
@@ -147,6 +150,7 @@ public final class AddressCommand {
                 return 0;
             }
         } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failed"));
             return 0;
         }
@@ -189,6 +193,7 @@ public final class AddressCommand {
                 return 0;
             }
         } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
@@ -210,6 +215,7 @@ public final class AddressCommand {
         try {
             manager.save();
         } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
             return 0;
         }
@@ -226,7 +232,7 @@ public final class AddressCommand {
         //#if MC>=11600
         final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
         //#else
-        //$$ final String dim = String.valueOf(net.minecraft.world.dimension.DimensionType.getId(DimensionArgumentType.getDimensionArgument(context, "dim")));
+        //$$ final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").toString();
         //#endif
         final AddressManager      manager   = AddressManager.getOrCreate(source.getServer());
         final Collection<Address> addresses = manager.getAddresses();

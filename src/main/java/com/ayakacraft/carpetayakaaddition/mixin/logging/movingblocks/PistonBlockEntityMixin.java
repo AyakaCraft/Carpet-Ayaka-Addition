@@ -35,7 +35,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PistonBlockEntityMixin {
 
     //#if MC>=11700
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V"))
+    @Inject(
+            method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V")
+    )
     private static void onTick(World world, BlockPos pos, BlockState state, PistonBlockEntity blockEntity, CallbackInfo ci) {
         MovingBlocksLogger.INSTANCE.tryLog(blockEntity);
     }
@@ -44,12 +47,15 @@ public class PistonBlockEntityMixin {
     @Unique
     private final PistonBlockEntity self = (PistonBlockEntity) (Object) this;
 
-    @Inject(method = {
-            "finish"
-            //#if MC<11700
-            //$$ , "tick"
-            //#endif
-    }, at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V"))
+    @Inject(
+            method = {
+                    "finish"
+                    //#if MC<11700
+                    //$$ , "tick"
+                    //#endif
+            },
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V")
+    )
     private void onFinish(CallbackInfo ci) {
         MovingBlocksLogger.INSTANCE.tryLog(self);
     }

@@ -51,7 +51,8 @@ public class PointOfInterestSetMixin {
         POILogger.INSTANCE.onAdded(pos, type);
     }
 
-    @Inject(method = "remove",
+    @Inject(
+            method = "remove",
             at = @At(value = "INVOKE", target = "Ljava/lang/Runnable;run()V")
     )
     private void onRemovedPOI(BlockPos pos, CallbackInfo ci) {

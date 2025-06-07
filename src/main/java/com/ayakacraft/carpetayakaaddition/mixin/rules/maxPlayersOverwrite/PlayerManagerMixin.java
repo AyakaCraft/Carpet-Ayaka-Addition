@@ -36,7 +36,14 @@ public class PlayerManagerMixin {
     @Final
     protected int maxPlayers;
 
-    @Redirect(method = {"checkCanJoin", "getMaxPlayerCount"}, at = @At(value = "FIELD", target = "Lnet/minecraft/server/PlayerManager;maxPlayers:I", opcode = Opcodes.GETFIELD))
+    @Redirect(
+            method = {"checkCanJoin", "getMaxPlayerCount"},
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/server/PlayerManager;maxPlayers:I",
+                    opcode = Opcodes.GETFIELD
+            )
+    )
     private int onGetMaxPlayers(PlayerManager instance) {
         if (CarpetAyakaSettings.maxPlayersOverwrite == 0) {
             return this.maxPlayers;

@@ -37,7 +37,13 @@ import java.util.Optional;
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public class EntityPlayerMPFakeMixin {
 
-    @WrapOperation(method = "createFake", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Ljava/util/Optional;"))
+    @WrapOperation(
+            method = "createFake",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Ljava/util/Optional;"
+            )
+    )
     private static Optional<GameProfile> createFake(UserCache instance, String name, Operation<Optional<GameProfile>> original) {
         if (CarpetAyakaSettings.fakePlayerForceOffline && CarpetSettings.allowSpawningOfflinePlayers) {
             return Optional.of(
