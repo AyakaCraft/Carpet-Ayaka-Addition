@@ -26,8 +26,6 @@ import carpet.settings.Validator;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.Nullable;
 
-import java.net.Proxy;
-
 import static carpet.settings.RuleCategory.*;
 
 public final class CarpetAyakaSettings {
@@ -39,32 +37,6 @@ public final class CarpetAyakaSettings {
     public static final String CHEAT = "cheat";
 
     public static final String BOT = "BOT";
-
-    @Rule(
-            category = {AYAKA, EXPERIMENTAL},
-            desc = "Type of proxy used for contacting Mojang server",
-            extra = {"Dedicated server only", "If set to DIRECT, host and port will be ignored"}
-    )
-    public static Proxy.Type authProxyType = Proxy.Type.DIRECT;
-
-    @Rule(
-            category = {AYAKA, EXPERIMENTAL},
-            desc = "Host of proxy used for contacting Mojang server",
-            extra = "Dedicated server only",
-            options = "127.0.0.1",
-            strict = false
-    )
-    public static String authProxyHost = "127.0.0.1";
-
-    @Rule(
-            category = {AYAKA, EXPERIMENTAL},
-            desc = "Port of proxy used for contacting Mojang server",
-            extra = "Dedicated server only",
-            validate = AddressPortValidator.class,
-            options = "7897",
-            strict = false
-    )
-    public static int authProxyPort = 7897;
 
     @Rule(
             category = {AYAKA, SURVIVAL, CHEAT},
@@ -193,18 +165,6 @@ public final class CarpetAyakaSettings {
         @Override
         public String description() {
             return "Must not be negative or larger than " + ITEM_DISCARD_AGE_MAX_VALUE;
-        }
-
-    }
-
-    private static final class AddressPortValidator extends Validator<Integer> {
-
-        @Override
-        public Integer validate(@Nullable ServerCommandSource source, ParsedRule<Integer> changingRule, Integer newValue, String userInput) {
-            if (newValue < 0 || newValue > 65535) {
-                return null;
-            }
-            return newValue;
         }
 
     }

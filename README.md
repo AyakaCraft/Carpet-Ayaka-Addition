@@ -104,41 +104,6 @@ Logs the change of points-of-interest (experimental)
 
 ### Rules
 
-#### authProxyType
-
-Type of proxy used for contacting Mojang server
-
-Dedicated server only
-
-If set to DIRECT, host and port will be ignored
-
-- Type: `java.net.Proxy.Type`
-- Default value: `DIRECT`
-- Suggested options: `DIRECT`, `HTTP`, `SOCKS`
-- Categories: `AYAKA`, `EXPERIMENTAL`
-
-#### authProxyHost
-
-Host of proxy used for contacting Mojang server
-
-Dedicated server only
-
-- Type: `String`
-- Default value: `127.0.0.1`
-- Suggested options: `127.0.0.1`
-- Categories: `AYAKA`, `EXPERIMENTAL`
-
-#### authProxyPort
-
-Port of proxy used for contacting Mojang server
-
-Dedicated server only
-
-- Type: `int`
-- Default value: `7897`
-- Suggested options: `7897`
-- Categories: `AYAKA`, `EXPERIMENTAL`
-
 #### betterOpPlayerNoCheat
 
 Prevents operators from using `/kill`, `/clear`, `/effect`, `/item` and `/difficulty`

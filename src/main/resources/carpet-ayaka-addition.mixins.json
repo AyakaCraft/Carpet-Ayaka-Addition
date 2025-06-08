@@ -12,7 +12,6 @@
     "logging.movingblocks.PistonBlockEntityMixin",
     "logging.poi.PointOfInterestMixin",
     "logging.poi.PointOfInterestSetMixin",
-    "rules.authProxy.ServerMainMixin",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
