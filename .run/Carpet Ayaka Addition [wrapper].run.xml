@@ -11,8 +11,8 @@
             <option name="taskNames">
                 <list>
                     <option value="wrapper"/>
-                    <option value="--gradle-distribution-url"/>
-                    <option value="https://services.gradle.org/distributions/gradle-8.14-all.zip"/>
+                    <option value="--gradle-version=8.14.2"/>
+                    <option value="--distribution-type=all"/>
                 </list>
             </option>
             <option name="vmOptions"/>

@@ -20,6 +20,8 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -34,7 +36,7 @@ public final class FileUtils {
         if (inputStream == null) {
             throw new IOException("Null input stream from path " + path);
         }
-        return org.apache.commons.io.IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        return IOUtils.toString(inputStream, StandardCharsets.UTF_8);
     }
 
     public static String readString(Path path) throws IOException {

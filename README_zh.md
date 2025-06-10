@@ -1,15 +1,16 @@
 # Carpet Ayaka Addition
 
-[![许可证](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red)](http://www.gnu.org/licenses/gpl-3.0.txt)
+[![许可证](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red)](https://www.gnu.org/licenses/gpl-3.0.txt)
 [![Modrinth 下载量](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads)](https://modrinth.com/mod/carpet-ayaka-addition)
 [![CurseForge 下载量](https://cf.way2muchnoise.eu/full_carpet-ayaka-addition_CurseForge%20Downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![GitHub 下载量](https://img.shields.io/github/downloads/AyakaCraft/Carpet-Ayaka-Addition/total?label=Github%20Downloads&logo=github)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
 [![MC 版本](https://cf.way2muchnoise.eu/versions/MC%20Version_carpet-ayaka-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
-[![Release](https://img.shields.io/github/v/release/AyakaCraft/Carpet-Ayaka-Addition?label=Release&include_prereleases)](https://github.com/Nyan-Work/plusls-carpet-addition/releases)
+[![Build & Publish](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/gradle.yml/badge.svg)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/gradle.yml)
+[![Release](https://img.shields.io/github/v/release/AyakaCraft/Carpet-Ayaka-Addition?label=Release&include_prereleases)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
 
-[简体中文](README_zh.md) ｜ English
+简体中文 ｜ [English](README.md)
 
-Copyright (c) 2025  Calboot and contributors
+Copyright (c) 2025 Calboot and contributors
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -276,8 +277,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 以下 Minecraft 版本计划在未来的版本中得到支持
 
-| Minecraft 版本   | 支持时间                    |
-|----------------|-------------------------|
+| Minecraft 版本 | 支持时间 |
+|--------------|------|
 
 ## 使用的开源库
 
