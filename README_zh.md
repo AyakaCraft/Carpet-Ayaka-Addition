@@ -97,11 +97,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 - 类型: 控制台
 - 选项:
-    - 不适用 (1.18.2 及更低版本)
-    - `all`, `village`, `bee_home`, `acquirable_job_site` (1.19.4 及更高版本)
+    - 不适用 (1.18.2-)
+    - `all`, `village`, `bee_home`, `acquirable_job_site` (1.19.4+)
 - 默认
-    - 不适用 (1.18.2 及更低版本)
-    - `all` (1.19.4 及更高版本)
+    - 不适用 (1.18.2-)
+    - `all` (1.19.4+)
 
 ### 规则
 
@@ -192,14 +192,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
 
-#### 0t强制更新植物状态 (forceTickPlantsReintroduce)
+#### 0t强制更新植物状态 (forceTickPlantsReintroduce) (1.16+)
 
 重新引入 1.15.2 及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
 
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### 禁用狐狸叼起物品 (foxNoPickupItem)
 
@@ -233,6 +233,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `0`, `5`, `10`, `30`
 - 范围: `[0,)`
 - 分类: `AYAKA`, `COMMAND`
+
+#### 老式蜂蜜块滑落 (legacyHoneyBlockSliding)
+
+将蜂蜜块滑落时的速度计算替换为 1.21.1 及更低版本中的方法
+
+参见 [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### 最大玩家数量重写 (maxPlayersOverwrite)
 

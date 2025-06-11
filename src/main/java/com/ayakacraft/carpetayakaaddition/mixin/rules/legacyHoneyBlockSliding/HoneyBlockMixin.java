@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
 
 import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
@@ -26,10 +26,10 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.16"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
 @Mixin(DummyClass.class)
-public class IntegratedServerMixin {
+public class HoneyBlockMixin {
 
-    //Implementation in 1.15.2
+    // Implementation in 1.21.4
 
 }

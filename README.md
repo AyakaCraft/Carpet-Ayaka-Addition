@@ -97,11 +97,11 @@ Logs the change of points-of-interest (experimental)
 
 - Type: Console
 - Options:
-    - N/A for 1.18.2 and below
-    - `all`, `village`, `bee_home`, `acquirable_job_site` for 1.19.4 and above
+    - N/A for 1.18.2-
+    - `all`, `village`, `bee_home`, `acquirable_job_site` for 1.19.4+
 - Default
-    - N/A for 1.18.2 and below
-    - `all` for 1.19.4 and above
+    - N/A for 1.18.2-
+    - `all` for 1.19.4+
 
 ### Rules
 
@@ -192,14 +192,14 @@ Only active when [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
 
-#### forceTickPlantsReintroduce
+#### forceTickPlantsReintroduce (1.16+)
 
-Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
+Reintroduces the feature of cactuses, bamboos and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
 
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### foxNoPickupItem
 
@@ -233,6 +233,17 @@ Seconds to wait before clearing the items
 - Suggested options: `0`, `5`, `10`, `30`
 - Range: `[0,)`
 - Categories: `AYAKA`, `COMMAND`
+
+#### legacyHoneyBlockSliding (1.21.4+)
+
+Changes the way sliding velocity is calculated back to the original way in 1.21.1 and below
+
+See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### maxPlayersOverwrite
 

@@ -20,14 +20,14 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.CactusBlock;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
-@Mixin(CactusBlock.class)
+@Mixin(DummyClass.class)
 public abstract class CactusBlockMixin {
 
     // Implementation in main project

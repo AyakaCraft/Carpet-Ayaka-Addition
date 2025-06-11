@@ -20,14 +20,14 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BambooBlock;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
-@Mixin(BambooBlock.class)
+@Mixin(DummyClass.class)
 public abstract class BambooBlockMixin {
 
     // Implementation in main project

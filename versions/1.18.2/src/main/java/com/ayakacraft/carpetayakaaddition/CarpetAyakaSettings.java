@@ -98,7 +98,7 @@ public final class CarpetAyakaSettings {
     //#if MC>=11600
     @Rule(
             category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE},
-            desc = "Reintroduces the feature of cactuses, bamboos and sugarcanes being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower"
+            desc = "Reintroduces the feature of cactuses, bamboos and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower"
     )
     public static boolean forceTickPlantsReintroduce = false;
     //#endif

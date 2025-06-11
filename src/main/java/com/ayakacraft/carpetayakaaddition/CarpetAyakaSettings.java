@@ -112,6 +112,13 @@ public final class CarpetAyakaSettings {
     )
     public static int killItemAwaitSeconds = 5;
 
+    //#if MC>12101
+    //$$ @Rule(
+    //$$         categories = {AYAKA, FEATURE, EXPERIMENTAL, REINTRODUCE}
+    //$$ )
+    //$$ public static boolean legacyHoneyBlockSliding = false;
+    //#endif
+
     @Rule(
             categories = {AYAKA, EXPERIMENTAL},
             validators = UnsignedIntegerValidator.class,

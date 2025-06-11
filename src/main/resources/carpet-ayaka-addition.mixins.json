@@ -25,6 +25,7 @@
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
+    "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",
     "utils.ClientSettingsC2SPacketAccessor",
     "utils.ServerPlayerEntityMixin"
