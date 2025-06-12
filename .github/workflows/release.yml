@@ -14,7 +14,6 @@ env:
   REPO_URL: "${{ github.server_url }}/${{ github.repository }}"
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
   TAG: ${{ github.ref_name }}
-  DISCORD_INFO: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases/tag/${{ env.TAG }})"
 
 permissions:
   contents: write
@@ -49,4 +48,4 @@ jobs:
       - name: Discord Notification
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: ${{ env.DISCORD_INFO }}
+          args: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases/tag/${{ env.TAG }})"
