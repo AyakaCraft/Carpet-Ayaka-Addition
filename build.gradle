@@ -37,6 +37,7 @@ preprocess {
     var mc12101 = createNode("1.21.1", 1_21_01, "")
     var mc12104 = createNode("1.21.4", 1_21_04, "")
     var mc12105 = createNode("1.21.5", 1_21_05, "")
+    // var mc12106 = createNode("1.21.6", 1_21_06, "")
 
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
@@ -49,6 +50,7 @@ preprocess {
     mc12006.link(mc12101, file("versions/mapping_12006_12101.txt"))
     mc12101.link(mc12104, file("versions/mapping_12101_12104.txt"))
     mc12104.link(mc12105, file("versions/mapping_12104_12105.txt"))
+    // mc12105.link(mc12106, file("versions/mapping_12105_12106.txt"))
 }
 
 tasks.register("buildAndGather") {
