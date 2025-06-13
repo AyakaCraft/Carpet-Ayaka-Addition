@@ -41,7 +41,8 @@ public class EntityPlayerMPFakeMixin {
             method = "createFake",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Ljava/util/Optional;"
+                    target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Ljava/util/Optional;",
+                    remap = true
             )
     )
     private static Optional<GameProfile> createFake(UserCache instance, String name, Operation<Optional<GameProfile>> original) {
