@@ -40,10 +40,11 @@ command:
 carpet:
   rule:
     betterOpPlayerNoCheat:
-      desc: Stops operators from using /kill, /clear, /effect, /item and /difficulty
+      desc: More commands for opPlayerNoCheat
       extra:
-        "0": Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true
-        "1": You don"t want to lose your pillager, do you?
+        "0": "Influenced commands: /kill, /clear, /effect, /item and /difficulty"
+        "1": Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true
+        "2": You don't want to lose your pillagers, do you?
     commandAddress:
       desc: Enables /address and /ad to manipulate and teleport to server-side addresses
     commandC:

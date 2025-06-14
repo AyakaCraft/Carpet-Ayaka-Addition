@@ -38,7 +38,7 @@ public final class GoHomeCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("gohome")
-                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandGoHome, true))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, true))
                         .executes(context -> {
                             final ServerCommandSource         source = context.getSource();
                             final MinecraftServer             server = source.getServer();

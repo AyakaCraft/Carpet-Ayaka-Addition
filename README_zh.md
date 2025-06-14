@@ -107,9 +107,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
 
-阻止管理员玩家使用`/kill`，`/clear`，`/effect`，`/item` 和 `/difficulty` 指令
+为 opPlayerNoCheat 添加更多影响的指令
+
+影响的指令列表：`/kill`，`/clear`，`/effect`，`/item` 和 `/difficulty`
 
 仅在加载了 [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) 且 `opPlayerNoCheat` 为 `true` 时生效
+
+~~你也不想失去刷铁机里面的掠夺者，对吧~~
 
 - 类型: `boolean`
 - 默认值: `false`
@@ -120,45 +124,45 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 启用 `/address` 和 `/ad` 命令以操作并传送到服务器全局路径点
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 旁观者模式切换命令开关 (commandC)
 
 启用 `/c` 命令以在 生存模式 和 旁观者模式 中切换
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 回程命令开关 (commandGoHome)
 
 启用 `/gohome` 命令以传送到重生点
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 清除掉落物命令开关 (commandKillItem)
 
 启用 `/killitem` 命令以清除加载范围内的掉落物
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`
 
 #### 传送到玩家命令开关 (commandTpt)
 
 启用 `/tpt` 命令以传送到其他玩家
 
-- 类型: `boolean`
+- 类型: `String`
 - 默认值: `false`
-- 参考选项: `false`, `true`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### 禁用蝙蝠生成 (disableBatSpawning)

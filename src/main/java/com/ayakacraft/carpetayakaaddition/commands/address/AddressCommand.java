@@ -291,7 +291,7 @@ public final class AddressCommand {
     private static LiteralArgumentBuilder<ServerCommandSource> registerSubCommands(LiteralArgumentBuilder<ServerCommandSource> builder) {
         //noinspection Convert2MethodRef
         return builder
-                .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandAddress, false))
+                .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandAddress, false))
                 .then(literal("reload").executes(AddressCommand::reload))
                 .then(literal("list").executes(AddressCommand::list)
                         .then(argument("dim", DimensionArgumentType.dimension())

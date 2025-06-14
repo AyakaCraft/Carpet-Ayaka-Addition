@@ -47,29 +47,34 @@ public final class CarpetAyakaSettings {
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
-            categories = {AYAKA, COMMAND, CHEAT}
+            categories = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
-    public static boolean commandAddress = false;
+    public static String commandAddress = "false";
 
     @Rule(
-            categories = {AYAKA, COMMAND, CHEAT}
+            categories = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
-    public static boolean commandC = false;
+    public static String commandC = "false";
 
     @Rule(
-            categories = {AYAKA, COMMAND, CHEAT}
+            categories = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
-    public static boolean commandGoHome = false;
+    public static String commandGoHome = "false";
 
     @Rule(
-            categories = {AYAKA, COMMAND}
+            categories = {AYAKA, COMMAND},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
-    public static boolean commandKillItem = false;
+    public static String commandKillItem = "false";
 
     @Rule(
-            categories = {AYAKA, COMMAND, CHEAT}
+            categories = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
-    public static boolean commandTpt = false;
+    public static String commandTpt = "false";
 
     @Rule(
             categories = {AYAKA, FEATURE}

@@ -86,7 +86,7 @@ public final class KillItemCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("killitem")
-                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandKillItem, false))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
                         .executes(KillItemCommand::killItem)
                         .then(literal("cancel").executes(KillItemCommand::cancel)));
     }

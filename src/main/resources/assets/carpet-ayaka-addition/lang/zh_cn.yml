@@ -45,10 +45,11 @@ carpet:
   rule:
     betterOpPlayerNoCheat:
       name: 更好的opPlayerNoCheat选项
-      desc: 阻止管理员玩家使用/kill，/clear，/effect，/item 和 /difficulty 指令
+      desc: 为 opPlayerNoCheat 添加更多影响的指令
       extra:
-        "0": 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
-        "1": 你也不想失去刷铁机里面的掠夺者，对吧
+        "0": 影响的指令列表：/kill，/clear，/effect，/item 和 /difficulty
+        "1": 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
+        "2": 你也不想失去刷铁机里面的掠夺者，对吧
     commandAddress:
       name: 服务端路径点命令开关
       desc: 启用 /address 和 /ad 命令以操作并传送到服务端路径点

@@ -1,3 +1,3 @@
-## Bugfix
+## General
 
-- Crash when starting the game
+- Matched command rules with carpet

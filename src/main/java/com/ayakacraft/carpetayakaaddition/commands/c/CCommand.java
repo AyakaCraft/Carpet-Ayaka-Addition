@@ -37,7 +37,7 @@ public final class CCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 literal("c")
-                        .requires(source -> CommandUtils.checkPermission(source, !CarpetAyakaSettings.commandC, true))
+                        .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, true))
                         .executes(ctx -> {
                             final ServerCommandSource         source = ctx.getSource();
                             final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();

@@ -107,9 +107,13 @@ Logs the change of points-of-interest (experimental)
 
 #### betterOpPlayerNoCheat
 
-Prevents operators from using `/kill`, `/clear`, `/effect`, `/item` and `/difficulty`
+More commands for opPlayerNoCheat
+
+Influenced commands: `/kill`, `/clear`, `/effect`, `/item` and `/difficulty`
 
 Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and `opPlayerNoCheat` is set to `true`
+
+~~You don't want to lose your pillagers, do you?~~
 
 - Type: `boolean`
 - Default value: `false`
@@ -120,45 +124,45 @@ Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Ad
 
 Enables `/address` and `/ad` to manipulate and teleport to shared waypoints
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### commandC
 
 Enables `/c` to switch your gamemode between `spectator` and `survival`
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### commandGoHome
 
 Enables `/gohome` to teleport right back to your spawn point
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### commandKillItem
 
 Enables `/killitem` to clear dropped items with one shot
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`
 
 #### commandTpt
 
 Enables `/tpt` to teleport to another player in your server
 
-- Type: `boolean`
+- Type: `String`
 - Default value: `false`
-- Suggested options: `false`, `true`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`, `CHEAT`
 
 #### disableBatSpawning

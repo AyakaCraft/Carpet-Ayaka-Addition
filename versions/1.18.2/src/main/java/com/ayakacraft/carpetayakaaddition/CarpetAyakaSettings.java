@@ -40,40 +40,49 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             category = {AYAKA, SURVIVAL, CHEAT},
-            desc = "Stops operators from using /kill, /clear, /effect, /item and /difficulty",
-            extra = "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true"
+            desc = "More commands for opPlayerNoCheat",
+            extra = {
+                    "Influenced commands: /kill, /clear, /effect, /item and /difficulty",
+                    "Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true",
+                    "You don't want to lose your pillagers, do you?"
+            }
     )
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
             category = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"},
             desc = "Enables /address and /ad to manipulate and teleport to shared waypoints"
     )
-    public static boolean commandAddress = false;
+    public static String commandAddress = "false";
 
     @Rule(
             category = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"},
             desc = "Enables /c to switch your gamemode between spectator and survival"
     )
-    public static boolean commandC = false;
+    public static String commandC = "false";
 
     @Rule(
             category = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"},
             desc = "Enables /gohome to teleport right back to your spawn point"
     )
-    public static boolean commandGoHome = false;
+    public static String commandGoHome = "false";
 
     @Rule(
             category = {AYAKA, COMMAND},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"},
             desc = "Enables /killitem to clear dropped items with one shot"
     )
-    public static boolean commandKillItem = false;
+    public static String commandKillItem = "false";
 
     @Rule(
             category = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"},
             desc = "Enables /tpt to teleport to another player in your server"
     )
-    public static boolean commandTpt = false;
+    public static String commandTpt = "false";
 
     @Rule(
             category = {AYAKA, FEATURE},

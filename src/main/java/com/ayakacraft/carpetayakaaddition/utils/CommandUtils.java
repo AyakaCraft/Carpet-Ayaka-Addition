@@ -37,12 +37,38 @@ public final class CommandUtils {
         //#if MC>=11900
         return source.isExecutedByPlayer();
         //#else
-        //$$ return source.getEntity() instanceof net.minecraft.server.network.ServerPlayerEntity;
+        //$$ return (source.getEntity() instanceof net.minecraft.server.network.ServerPlayerEntity);
         //#endif
     }
 
-    public static boolean checkPermission(ServerCommandSource source, boolean needsOp, boolean needsPlayer) {
-        return (!needsPlayer || source.isExecutedByPlayer()) && (!needsOp || source.hasPermissionLevel(source.getServer().getOpPermissionLevel()));
+    public static boolean checkPermission(ServerCommandSource source, Object commandLevel, boolean requiresPlayer) {
+        if (requiresPlayer && !source.isExecutedByPlayer()) {
+            return false;
+        }
+
+        // Copied from Carpet TIS Addition
+        //#if MC>=11900
+        return carpet.utils.CommandHelper.canUseCommand(source, commandLevel);
+        //#elseif MC>=11600
+        //$$ return carpet.settings.SettingsManager.canUseCommand(source, commandLevel);
+        //#else
+        //$$ if (commandLevel instanceof Boolean) {
+        //$$     return (Boolean) commandLevel;
+        //$$ }
+        //$$ String commandLevelString = commandLevel.toString();
+        //$$ switch (commandLevelString) {
+        //$$     case "true": return true;
+        //$$     case "false": return false;
+        //$$     case "ops": return source.hasPermissionLevel(source.getMinecraftServer().getOpPermissionLevel());
+        //$$     case "0":
+        //$$     case "1":
+        //$$     case "2":
+        //$$     case "3":
+        //$$     case "4":
+        //$$         return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
+        //$$ }
+        //$$ return false;
+        //#endif
     }
 
     public static CompletableFuture<Suggestions> playerSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
