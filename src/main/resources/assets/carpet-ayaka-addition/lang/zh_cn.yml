@@ -107,9 +107,9 @@ carpet-ayaka-addition:
   logger:
     loadedChunks: 加载区块
     movingBlocks:
-      common: "{} 向 {} 移动至 [%d %d %d]"
-      extend: "{} 面向 {} 伸展至 [%d %d %d]"
-      pull_back: "{} 面向 {} 收回至 [%d %d %d]"
+      common: "{} 向 {} 移动至 %s"
+      extend: "{} 面向 {} 伸展至 %s"
+      pull_back: "{} 面向 {} 收回至 %s"
       direction:
         west: 西
         east: 东
@@ -118,7 +118,7 @@ carpet-ayaka-addition:
         up: 上
         down: 下
     poi:
-      added: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被添加，类型为 %s
-      removed: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被移除
-      ticket_reserved: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被认领，类型为 %s (%d/%d)
-      ticket_released: 子区块 [%d %d %d] 位置 [%d %d %d] 处的POI被释放，类型为 %s (%d/%d)
+      added: 子区块 %s 位置 %s 处的POI被添加，类型为 %s
+      removed: 子区块 %s 位置 %s 处的POI被移除
+      ticket_reserved: 子区块 %s 位置 %s 处的POI被认领，类型为 %s (%d/%d)
+      ticket_released: 子区块 %s 位置 %s 处的POI被释放，类型为 %s (%d/%d)

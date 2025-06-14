@@ -23,7 +23,6 @@ package com.ayakacraft.carpetayakaaddition.commands.c;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -44,7 +43,7 @@ public final class CCommand {
                             if (!ServerPlayerUtils.changeGameMode(player, GameMode.SURVIVAL)) {
                                 ServerPlayerUtils.changeGameMode(player, GameMode.SPECTATOR);
                             }
-                            return Command.SINGLE_SUCCESS;
+                            return 1;
                         }));
     }
 

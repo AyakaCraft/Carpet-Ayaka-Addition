@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.logging.poi;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.BaseText;
@@ -49,37 +50,40 @@ public class POILogger extends AbstractAyakaLogger {
     }
 
     private BaseText[] doAddedLogging(BlockPos pos, PointOfInterestType type, ServerPlayerEntity player) {
-        ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
-                sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                pos.getX(), pos.getY(), pos.getZ(),
+        return new BaseText[]{TextUtils.tr(
+                player,
+                "carpet-ayaka-addition.logger.poi.added",
+                StringUtils.toString(ChunkSectionPos.from(pos)),
+                StringUtils.toString(pos),
                 type.toString()
         )};
     }
 
     private BaseText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
-        ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.removed",
-                sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                pos.getX(), pos.getY(), pos.getZ()
+        return new BaseText[]{TextUtils.tr(
+                player,
+                "carpet-ayaka-addition.logger.poi.removed",
+                StringUtils.toString(ChunkSectionPos.from(pos)),
+                StringUtils.toString(pos)
         )};
     }
 
     private BaseText[] doTickedReservedLogging(BlockPos pos, PointOfInterestType type, int freeTickets, ServerPlayerEntity player) {
-        ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_reserved",
-                sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                pos.getX(), pos.getY(), pos.getZ(),
+        return new BaseText[]{TextUtils.tr(
+                player,
+                "carpet-ayaka-addition.logger.poi.ticket_reserved",
+                StringUtils.toString(ChunkSectionPos.from(pos)),
+                StringUtils.toString(pos),
                 type.toString(),
                 freeTickets, type.getTicketCount()
         )};
     }
 
     private BaseText[] doTickedReleasedLogging(BlockPos pos, PointOfInterestType type, int freeTickets, ServerPlayerEntity player) {
-        ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new BaseText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_released",
-                sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                pos.getX(), pos.getY(), pos.getZ(),
+        return new BaseText[]{TextUtils.tr(player,
+                "carpet-ayaka-addition.logger.poi.ticket_released",
+                StringUtils.toString(ChunkSectionPos.from(pos)),
+                StringUtils.toString(pos),
                 type.toString(),
                 freeTickets, type.getTicketCount()
         )};

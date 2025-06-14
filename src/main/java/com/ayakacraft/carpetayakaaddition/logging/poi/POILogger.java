@@ -23,8 +23,11 @@ package com.ayakacraft.carpetayakaaddition.logging.poi;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
+import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.PointOfInterestTypeTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
@@ -42,7 +45,7 @@ public class POILogger extends AbstractAyakaLogger {
 
     private static final short DEFAULT_INDEX = 0;
 
-    private static final Map<String, net.minecraft.registry.tag.TagKey<PointOfInterestType>> POI_TAGS = new HashMap<>(3);
+    private static final Map<String, TagKey<PointOfInterestType>> POI_TAGS = new HashMap<>(3);
 
     public static final String NAME = "poi";
 
@@ -56,9 +59,9 @@ public class POILogger extends AbstractAyakaLogger {
         }
         INSTANCE = i;
 
-        POI_TAGS.put("village", net.minecraft.registry.tag.PointOfInterestTypeTags.VILLAGE);
-        POI_TAGS.put("bee_home", net.minecraft.registry.tag.PointOfInterestTypeTags.BEE_HOME);
-        POI_TAGS.put("acquirable_job_site", net.minecraft.registry.tag.PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
+        POI_TAGS.put("village", PointOfInterestTypeTags.VILLAGE);
+        POI_TAGS.put("bee_home", PointOfInterestTypeTags.BEE_HOME);
+        POI_TAGS.put("acquirable_job_site", PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
     }
 
     private POILogger() throws NoSuchFieldException {
@@ -67,10 +70,11 @@ public class POILogger extends AbstractAyakaLogger {
 
     private MutableText[] doAddedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.added",
-                    sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                    pos.getX(), pos.getY(), pos.getZ(),
+            return new MutableText[]{TextUtils.tr(
+                    player,
+                    "carpet-ayaka-addition.logger.poi.added",
+                    StringUtils.toString(ChunkSectionPos.from(pos)),
+                    StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type)
             )};
         } else {
@@ -79,19 +83,21 @@ public class POILogger extends AbstractAyakaLogger {
     }
 
     private MutableText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
-        ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-        return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.removed",
-                sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                pos.getX(), pos.getY(), pos.getZ()
+        return new MutableText[]{TextUtils.tr(
+                player,
+                "carpet-ayaka-addition.logger.poi.removed",
+                StringUtils.toString(ChunkSectionPos.from(pos)),
+                StringUtils.toString(pos)
         )};
     }
 
     private MutableText[] doTickedReservedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_reserved",
-                    sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                    pos.getX(), pos.getY(), pos.getZ(),
+            return new MutableText[]{TextUtils.tr(
+                    player,
+                    "carpet-ayaka-addition.logger.poi.ticket_reserved",
+                    StringUtils.toString(ChunkSectionPos.from(pos)),
+                    StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type),
                     freeTickets, type.value().ticketCount()
             )};
@@ -103,9 +109,11 @@ public class POILogger extends AbstractAyakaLogger {
     private MutableText[] doTickedReleasedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
             ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TextUtils.tr(player, "carpet-ayaka-addition.logger.poi.ticket_released",
-                    sectionPos.getX(), sectionPos.getY(), sectionPos.getZ(),
-                    pos.getX(), pos.getY(), pos.getZ(),
+            return new MutableText[]{TextUtils.tr(
+                    player,
+                    "carpet-ayaka-addition.logger.poi.ticket_released",
+                    StringUtils.toString(sectionPos),
+                    StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type),
                     freeTickets, type.value().ticketCount()
             )};

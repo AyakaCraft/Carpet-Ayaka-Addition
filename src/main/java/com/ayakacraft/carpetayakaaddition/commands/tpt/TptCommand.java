@@ -23,7 +23,6 @@ package com.ayakacraft.carpetayakaaddition.commands.tpt;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
@@ -42,7 +41,7 @@ public final class TptCommand {
                                         .suggests(CommandUtils::playerSuggestionProvider)
                                         .executes(context -> {
                                             ServerPlayerUtils.teleport(context.getSource().getPlayerOrThrow(), EntityArgumentType.getPlayer(context, "target"));
-                                            return Command.SINGLE_SUCCESS;
+                                            return 1;
                                         })));
     }
 

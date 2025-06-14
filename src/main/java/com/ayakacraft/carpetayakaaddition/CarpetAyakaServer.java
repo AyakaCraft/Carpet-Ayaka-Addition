@@ -34,7 +34,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
@@ -43,7 +42,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     public static final CarpetAyakaServer INSTANCE = new CarpetAyakaServer();
 
-    private final LinkedList<TickTask> tickTasks = new LinkedList<>();
+    private final LinkedBlockingQueue<TickTask> tickTasks = new LinkedBlockingQueue<>();
 
     private final LinkedBlockingQueue<TickTask> scheduledTickTasks = new LinkedBlockingQueue<>();
 
@@ -123,15 +122,17 @@ public final class CarpetAyakaServer implements CarpetExtension {
         scheduledTickTasks.add(tickTask);
     }
 
-    public synchronized int cancelTickTasksMatching(Predicate<? super TickTask> filter) {
+    public int cancelTickTasksMatching(Predicate<? super TickTask> filter) {
         int                      i    = 0;
-        final Iterator<TickTask> each = tickTasks.iterator();
-        while (each.hasNext()) {
-            TickTask task = each.next();
-            if (filter.test(task)) {
-                task.cancel();
-                each.remove();
-                i++;
+        synchronized (tickTasks) {
+            final Iterator<TickTask> each = tickTasks.iterator();
+            while (each.hasNext()) {
+                TickTask task = each.next();
+                if (filter.test(task)) {
+                    task.cancel();
+                    each.remove();
+                    i++;
+                }
             }
         }
         return i;

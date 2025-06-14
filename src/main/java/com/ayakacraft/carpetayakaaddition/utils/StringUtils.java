@@ -18,33 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.logging;
+package com.ayakacraft.carpetayakaaddition.utils;
 
-import carpet.logging.Logger;
+import net.minecraft.util.math.Vec3i;
 
-import java.lang.reflect.Field;
+public final class StringUtils {
 
-public interface AyakaExtensionLogger {
-
-    /**
-     * Quick access to the field
-     */
-    default boolean isEnabled() {
-        try {
-            getField().setAccessible(true);
-            return getField().getBoolean(this);
-        } catch (IllegalAccessException e) {
-            return false;
-        }
+    public static String toString(Vec3i pos) {
+        return "[" + pos.getX() + " " + pos.getY() + " " + pos.getZ() + "]";
     }
-
-    //#if MC>=11500
-    /**
-     * Just a placeholder in MC 1.15+
-     *
-     * @see Logger#getField()
-     */
-    //#endif
-    Field getField();
 
 }

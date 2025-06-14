@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
+import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -32,6 +33,7 @@ import net.minecraft.block.entity.PistonBlockEntity;
 import net.minecraft.block.enums.PistonType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
@@ -65,7 +67,7 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
         BlockPos pos = entity.getPos();
 
         if (OPTIONS[1].equals(option)) {
-            return new MutableText[]{TextUtils.format("[%d %d %d]", pos.getX(), pos.getY(), pos.getZ())};
+            return new MutableText[]{Text.literal(StringUtils.toString(pos))};
         }
 
         BlockState  state     = entity.getPushedBlock();
@@ -75,14 +77,14 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
         MutableText txt;
         if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
             if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName(), direction, StringUtils.toString(pos));
             } else {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.toString(pos));
             }
         } else if (entity.isSource() && !entity.isExtending()) {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, StringUtils.toString(pos));
         } else {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, pos.getX(), pos.getY(), pos.getZ());
+            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, StringUtils.toString(pos));
         }
 
         return new MutableText[]{txt};

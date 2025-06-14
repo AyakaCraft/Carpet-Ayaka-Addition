@@ -78,7 +78,7 @@ public final class KillItemCommand {
         } else if (i == 1) {
             CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.single"), false);
         } else {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.multiple"), false);
+            CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.multiple", i), false);
         }
         return i;
     }

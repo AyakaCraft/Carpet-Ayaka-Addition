@@ -88,9 +88,9 @@ carpet-ayaka-addition:
   logger:
     loadedChunks: Loaded Chunks
     movingBlocks:
-      common: "{} moved {} to [%d %d %d]"
-      extend: "{} facing {} extended to [%d %d %d]"
-      pull_back: "{} facing {} pulled back to [%d %d %d]"
+      common: "{} moved {} to %s"
+      extend: "{} facing {} extended to %s"
+      pull_back: "{} facing {} pulled back to %s"
       direction:
         west: west
         east: east
@@ -99,7 +99,7 @@ carpet-ayaka-addition:
         up: up
         down: down
     poi:
-      added: POI added in sub-chunk [%d %d %d] at [%d %d %d] with type %s
-      removed: POI removed in sub-chunk [%d %d %d] at [%d %d %d]
-      ticket_reserved: POI reserved in sub-chunk [%d %d %d] at [%d %d %d] with type %s (%d/%d)
-      ticket_released: POI released in sub-chunk [%d %d %d] at [%d %d %d] with type %s (%d/%d)
+      added: POI added in sub-chunk %s at %s with type %s
+      removed: POI removed in sub-chunk %s at %s
+      ticket_reserved: POI reserved in sub-chunk %s at %s with type %s (%d/%d)
+      ticket_released: POI released in sub-chunk %s at %s with type %s (%d/%d)

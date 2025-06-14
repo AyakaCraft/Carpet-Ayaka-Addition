@@ -57,6 +57,9 @@ public final class AyakaLoggerRegistry {
     }
 
     //#if MC>=11500
+    /**
+     * @see com.ayakacraft.carpetayakaaddition.mixin.carpet.LoggerRegistryMixin
+     */
     public static void registerToCarpet() {
         ayakaLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));
     }
