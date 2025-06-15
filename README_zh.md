@@ -240,14 +240,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 老式蜂蜜块滑落 (legacyHoneyBlockSliding)
 
-将蜂蜜块滑落时的速度计算替换为 1.21.1 及更低版本中的方法
+将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
 
-参见 [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572)
+参见 [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572) 和 [MC-275537](https://bugs.mojang.com/browse/MC/issues/MC-275537)
 
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+- 分类: `AYAKA`, `FEATURE`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### 最大玩家数量重写 (maxPlayersOverwrite)
 

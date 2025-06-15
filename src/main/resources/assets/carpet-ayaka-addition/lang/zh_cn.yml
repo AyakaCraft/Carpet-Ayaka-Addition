@@ -95,9 +95,9 @@ carpet:
       desc: 清理掉落物之前的等待秒数
     legacyHoneyBlockSliding:
       name: 老式蜂蜜块滑落
-      desc: 将蜂蜜块滑落时的速度计算替换为 1.21.1 及更低版本中的方法
+      desc: 将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
       extra:
-        "0": 参见 MC-278572
+        "0": 参见 MC-278572 和 MC-275537
     maxPlayersOverwrite:
       name: 最大玩家数量重写
       desc: 重写服务器最大玩家数量

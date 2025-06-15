@@ -325,7 +325,7 @@ publisher {
 
     github {
         repo = System.getenv("REPO")
-        tag = "v" + project.mod_version
+        tag = System.getenv("TAG")
     }
 
 }

@@ -119,7 +119,7 @@ public final class CarpetAyakaSettings {
 
     //#if MC>12101
     //$$ @Rule(
-    //$$         categories = {AYAKA, FEATURE, EXPERIMENTAL, REINTRODUCE}
+    //$$         categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE}
     //$$ )
     //$$ public static boolean legacyHoneyBlockSliding = false;
     //#endif

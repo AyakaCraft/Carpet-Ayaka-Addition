@@ -22,38 +22,55 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.block.HoneyBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
 @Mixin(HoneyBlock.class)
 public class HoneyBlockMixin {
 
-    @WrapOperation(
-            method = {"updateSlidingVelocity", "isSliding"},
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/HoneyBlock;method_65067(D)D", remap = false)
-    )
-    private double wrapVelocity65067(double v, Operation<Double> original) {
-        if (CarpetAyakaSettings.legacyHoneyBlockSliding) {
-            return v;
+    @WrapMethod(method = "isSliding")
+    private boolean wrapIsSliding(BlockPos pos, Entity entity, Operation<Boolean> original) {
+        if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
+            if (entity.isOnGround()) {
+                return false;
+            }
+            if (entity.getY() > (double) pos.getY() + 0.9375 - 1.0E-7) {
+                return false;
+            }
+            if (entity.getVelocity().y >= -0.08) {
+                return false;
+            }
+            double d = Math.abs((double) pos.getX() + 0.5 - entity.getX());
+            double e = Math.abs((double) pos.getZ() + 0.5 - entity.getZ());
+            double f = 0.4375 + (double) (entity.getWidth() / 2.0f);
+            return d + 1.0E-7 > f || e + 1.0E-7 > f;
         }
-        return original.call(v);
+        return original.call(pos, entity);
     }
 
-    @WrapOperation(
-            method = "updateSlidingVelocity",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/HoneyBlock;method_65068(D)D", remap = false)
-    )
-    private double wrapVelocity65068(double v, Operation<Double> original) {
-        if (CarpetAyakaSettings.legacyHoneyBlockSliding) {
-            return v;
+    @WrapMethod(method = "updateSlidingVelocity")
+    private void wrapUpdateSlidingVelocity(Entity entity, Operation<Void> original) {
+        if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
+            Vec3d vec3d = entity.getVelocity();
+            if (entity.getVelocity().y < -0.13) {
+                double d = -0.05 / entity.getVelocity().y;
+                entity.setVelocity(new Vec3d(vec3d.x * d, -0.05, vec3d.z * d));
+            } else {
+                entity.setVelocity(new Vec3d(vec3d.x, -0.05, vec3d.z));
+            }
+            entity.onLanding();
+        } else {
+            original.call(entity);
         }
-        return original.call(v);
     }
 
 }

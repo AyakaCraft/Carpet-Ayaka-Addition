@@ -77,9 +77,9 @@ carpet:
     killItemAwaitSeconds:
       desc: Seconds to wait before clearing the items
     legacyHoneyBlockSliding:
-      desc: Changes the way sliding velocity is calculated back to the original way in 1.21.1 and below
+      desc: Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below
       extra:
-        "0": See MC-278572
+        "0": See MC-278572 and MC-275537
     maxPlayersOverwrite:
       desc: Overwrites the max player count in a server
       extra:

@@ -240,14 +240,14 @@ Seconds to wait before clearing the items
 
 #### legacyHoneyBlockSliding (1.21.4+)
 
-Changes the way sliding velocity is calculated back to the original way in 1.21.1 and below
+Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below
 
-See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572)
+See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572) and [MC-275537](https://bugs.mojang.com/browse/MC/issues/MC-275537)
 
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+- Categories: `AYAKA`, `FEATURE`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### maxPlayersOverwrite
 
