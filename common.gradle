@@ -285,11 +285,13 @@ license {
 tasks.classes.dependsOn(tasks.licenseFormatMain)
 tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
+// https://github.com/firstdarkdev/modpublisher
 publisher {
 
     apiKeys {
         modrinth System.getenv("MODRINTH_TOKEN") ?: "unset"
         curseforge System.getenv("CURSEFORGE_TOKEN") ?: "unset"
+        github System.getenv("GITHUB_TOKEN") ?: "unset"
     }
 
     //setDebug(true)
@@ -319,6 +321,11 @@ publisher {
     modrinthDepends {
         required "carpet"
         optional "carpet-tis-addition", "gca"
+    }
+
+    github {
+        repo = System.getenv("REPO")
+        tag = "v" + project.mod_version
     }
 
 }

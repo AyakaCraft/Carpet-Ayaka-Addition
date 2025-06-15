@@ -10,7 +10,9 @@ env:
   BUILD_RELEASE: "true"
   CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
   MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   AYAKA_MAVEN_TOKEN: ${{ secrets.AYAKA_MAVEN_TOKEN }}
+  REPO: ${{ github.repository }}
   REPO_URL: "${{ github.server_url }}/${{ github.repository }}"
   DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
   TAG: ${{ github.ref_name }}
@@ -38,14 +40,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build and Publish
-        run: ./gradlew clean buildAndGather publishAll --warning-mode all --stacktrace
-
-      - name: Publish to Github
-        uses: Kira-NT/mc-publish@v3.3.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Discord Notification
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "New version of project [${{ github.repository }}](${{ env.REPO_URL }}) has been released, check it on [Github Release](${{ env.REPO_URL }}/releases/tag/${{ env.TAG }})"
+        run: ./gradlew clean buildAndGather publishAll sendDiscord --warning-mode all --stacktrace

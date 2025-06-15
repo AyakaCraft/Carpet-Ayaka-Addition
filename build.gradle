@@ -92,3 +92,31 @@ tasks.register("publishLocal") {
         dependsOn(it.tasks.publishToMavenLocal)
     }
 }
+
+tasks.register("sendDiscord") {
+    mustRunAfter(tasks.buildAndGather, tasks.publishAll)
+    doLast {
+        Map<String, String> env = System.getenv()
+        String msg = "New version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}/releases/tag/${env.TAG})"
+        println("Sending message to " + env.DISCORD_WEBHOOK + "...")
+
+        HttpURLConnection connection = (HttpURLConnection) new URI(env.DISCORD_WEBHOOK).toURL().openConnection()
+        connection.setRequestMethod("POST")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setDoInput(true)
+        connection.setDoOutput(true)
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())
+        writer.write("{\"content\" : \"${msg}\"}")
+        writer.flush()
+        writer.close()
+        connection.connect()
+
+        int code = connection.getResponseCode()
+        if (200 <= code && code < 300) {
+            print("Succeeded")
+        } else {
+            print("Failed")
+        }
+        println(" with code ${code} and message ${connection.getResponseMessage()}")
+    }
+}
