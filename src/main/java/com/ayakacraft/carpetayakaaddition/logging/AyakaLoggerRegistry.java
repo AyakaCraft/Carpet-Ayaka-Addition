@@ -57,6 +57,7 @@ public final class AyakaLoggerRegistry {
     }
 
     //#if MC>=11500
+
     /**
      * @see com.ayakacraft.carpetayakaaddition.mixin.carpet.LoggerRegistryMixin
      */

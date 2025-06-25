@@ -20,11 +20,12 @@
 
 package com.ayakacraft.carpetayakaaddition;
 
-import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Rule;
-import carpet.api.settings.Validator;
-import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.Condition;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
+import com.ayakacraft.carpetayakaaddition.settings.validators.ItemDiscardAgeValidator;
+import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedIntegerValidator;
 
 import static carpet.api.settings.RuleCategory.*;
 
@@ -94,6 +95,7 @@ public final class CarpetAyakaSettings {
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}
     )
+    @Condition(ForceTickPlantsReintroduceCondition.class)
     public static boolean forceTickPlantsReintroduce = false;
 
     @Rule(
@@ -117,12 +119,11 @@ public final class CarpetAyakaSettings {
     )
     public static int killItemAwaitSeconds = 5;
 
-    //#if MC>12101
-    //$$ @Rule(
-    //$$         categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE}
-    //$$ )
-    //$$ public static boolean legacyHoneyBlockSliding = false;
-    //#endif
+    @Rule(
+            categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE}
+    )
+    @Condition(LegacyHoneyBlockSlidingCondition.class)
+    public static boolean legacyHoneyBlockSliding = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL},
@@ -131,36 +132,5 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     public static int maxPlayersOverwrite = 0;
-
-
-    private static final class UnsignedIntegerValidator extends Validator<Integer> {
-
-        @Override
-        public Integer validate(@Nullable final ServerCommandSource source, final CarpetRule<Integer> changingRule, final Integer newValue, final String userInput) {
-            return newValue < 0 ? null : newValue;
-        }
-
-        @Override
-        public String description() {
-            return "Must not be negative";
-        }
-
-    }
-
-    private static final class ItemDiscardAgeValidator extends Validator<Integer> {
-
-        public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
-
-        @Override
-        public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
-            return (newValue < 0 || newValue > ITEM_DISCARD_AGE_MAX_VALUE) ? null : newValue;
-        }
-
-        @Override
-        public String description() {
-            return "Must not be negative or larger than " + ITEM_DISCARD_AGE_MAX_VALUE;
-        }
-
-    }
 
 }

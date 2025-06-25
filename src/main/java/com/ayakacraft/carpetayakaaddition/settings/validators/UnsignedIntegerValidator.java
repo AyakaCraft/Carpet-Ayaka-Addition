@@ -18,34 +18,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.logging;
+package com.ayakacraft.carpetayakaaddition.settings.validators;
 
-import carpet.logging.Logger;
+import carpet.api.settings.CarpetRule;
+import carpet.api.settings.Validator;
+import net.minecraft.server.command.ServerCommandSource;
+import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.Field;
+public class UnsignedIntegerValidator extends Validator<Integer> {
 
-public interface AyakaExtensionLogger {
-
-    /**
-     * Quick access to the field
-     */
-    default boolean isEnabled() {
-        try {
-            getField().setAccessible(true);
-            return getField().getBoolean(this);
-        } catch (IllegalAccessException e) {
-            return false;
-        }
+    @Override
+    public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
+        return newValue < 0 ? null : newValue;
     }
 
-    //#if MC>=11500
-
-    /**
-     * Just a placeholder in MC 1.15+
-     *
-     * @see Logger#getField()
-     */
-    //#endif
-    Field getField();
+    @Override
+    public String description() {
+        return "Must not be negative";
+    }
 
 }

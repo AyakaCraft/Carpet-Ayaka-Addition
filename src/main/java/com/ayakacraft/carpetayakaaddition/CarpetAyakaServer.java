@@ -123,7 +123,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
 
     public int cancelTickTasksMatching(Predicate<? super TickTask> filter) {
-        int                      i    = 0;
+        int i = 0;
         synchronized (tickTasks) {
             final Iterator<TickTask> each = tickTasks.iterator();
             while (each.hasNext()) {

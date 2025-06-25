@@ -1,9 +1,9 @@
 # Carpet Ayaka Addition
 
-[![许可证](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red)](https://www.gnu.org/licenses/gpl-3.0.txt)
-[![Modrinth 下载量](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads)](https://modrinth.com/mod/carpet-ayaka-addition)
+[![许可证](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red&logo=gnu)](https://www.gnu.org/licenses/gpl-3.0.txt)
+[![Modrinth 下载量](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads&logo=modrinth)](https://modrinth.com/mod/carpet-ayaka-addition)
 [![GitHub 下载量](https://img.shields.io/github/downloads/AyakaCraft/Carpet-Ayaka-Addition/total?label=Github%20Downloads&logo=github)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
-[![CurseForge 下载量](https://cf.way2muchnoise.eu/full_carpet-ayaka-addition_CurseForge%20Downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+[![CurseForge 下载量](https://img.shields.io/curseforge/dt/1220026?label=CurseForge%20Downloads&logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![MC 版本](https://cf.way2muchnoise.eu/versions/MC%20Versions_carpet-ayaka-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![Build & Publish](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml/badge.svg)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml)
 [![Release](https://img.shields.io/github/v/release/AyakaCraft/Carpet-Ayaka-Addition?label=Release&include_prereleases)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
@@ -104,6 +104,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - `all` (1.19.4+)
 
 ### 规则
+
+#### 索引
+
+- [betterOpPlayerNoCheat](#更好的opplayernocheat选项-betteropplayernocheat)
+- [commandAddress](#全局路径点命令开关-commandaddress)
+- [commandC](#旁观者模式切换命令开关-commandc)
+- [commandGoHome](#回程命令开关-commandgohome)
+- [commandKillItem](#清除掉落物命令开关-commandkillitem)
+- [commandTpt](#传送到玩家命令开关-commandtpt)
+- [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
+- [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
+- [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
+- [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
+- [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
+- [itemDiscardAge](#掉落物消失刻-itemdiscardage)
+- [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
+- [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
+- [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 
 #### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
 
@@ -238,7 +256,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 范围: `[0,)`
 - 分类: `AYAKA`, `COMMAND`
 
-#### 老式蜂蜜块滑落 (legacyHoneyBlockSliding)
+#### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.4+)
 
 将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
 

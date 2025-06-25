@@ -1,9 +1,9 @@
 # Carpet Ayaka Addition
 
-[![License](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red)](https://www.gnu.org/licenses/gpl-3.0.txt)
-[![Modrinth Downloads](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads)](https://modrinth.com/mod/carpet-ayaka-addition)
+[![License](https://img.shields.io/static/v1?label=License&message=gpl-v3.0&color=red&logo=gnu)](https://www.gnu.org/licenses/gpl-3.0.txt)
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/carpet-ayaka-addition?label=Modrinth%20Downloads&logo=modrinth)](https://modrinth.com/mod/carpet-ayaka-addition)
 [![GitHub Downloads](https://img.shields.io/github/downloads/AyakaCraft/Carpet-Ayaka-Addition/total?label=Github%20Downloads&logo=github)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
-[![CurseForge Downloads](https://cf.way2muchnoise.eu/full_carpet-ayaka-addition_CurseForge%20Downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/1220026?label=CurseForge%20Downloads&logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![MC Versions](https://cf.way2muchnoise.eu/versions/MC%20Versions_carpet-ayaka-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![Build & Publish](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml/badge.svg)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml)
 [![Release](https://img.shields.io/github/v/release/AyakaCraft/Carpet-Ayaka-Addition?label=Release&include_prereleases)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
@@ -104,6 +104,24 @@ Logs the change of points-of-interest (experimental)
     - `all` for 1.19.4+
 
 ### Rules
+
+#### Index
+
+- [betterOpPlayerNoCheat](#betteropplayernocheat)
+- [commandAddress](#commandaddress)
+- [commandC](#commandc)
+- [commandGoHome](#commandgohome)
+- [commandKillItem](#commandkillitem)
+- [commandTpt](#commandtpt)
+- [disableBatSpawning](#disablebatspawning)
+- [fakePlayerForceOffline](#fakeplayerforceoffline)
+- [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
+- [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
+- [foxNoPickupItem](#foxnopickupitem)
+- [itemDiscardAge](#itemdiscardage)
+- [killItemAwaitSeconds](#killitemawaitseconds)
+- [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
+- [maxPlayersOverwrite](#maxplayersoverwrite)
 
 #### betterOpPlayerNoCheat
 

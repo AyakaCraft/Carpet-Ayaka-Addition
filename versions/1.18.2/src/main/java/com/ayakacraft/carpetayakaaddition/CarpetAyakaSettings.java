@@ -20,11 +20,12 @@
 
 package com.ayakacraft.carpetayakaaddition;
 
-import carpet.settings.ParsedRule;
 import carpet.settings.Rule;
-import carpet.settings.Validator;
-import net.minecraft.server.command.ServerCommandSource;
-import org.jetbrains.annotations.Nullable;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.Condition;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
+import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
+import com.ayakacraft.carpetayakaaddition.settings.validators.ItemDiscardAgeValidator;
+import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedIntegerValidator;
 
 import static carpet.settings.RuleCategory.*;
 
@@ -104,13 +105,12 @@ public final class CarpetAyakaSettings {
     )
     public static boolean fakePlayerResidentBackupFix = false;
 
-    //#if MC>=11600
     @Rule(
             category = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE},
             desc = "Reintroduces the feature of cactuses, bamboos and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower"
     )
+    @Condition(ForceTickPlantsReintroduceCondition.class)
     public static boolean forceTickPlantsReintroduce = false;
-    //#endif
 
     @Rule(
             category = {AYAKA, FEATURE},
@@ -138,6 +138,14 @@ public final class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     @Rule(
+            category = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE},
+            desc = "Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below",
+            extra = "See MC-278572 and MC-275537"
+    )
+    @Condition(LegacyHoneyBlockSlidingCondition.class)
+    public static boolean legacyHoneyBlockSliding = false;
+
+    @Rule(
             category = {AYAKA, EXPERIMENTAL},
             desc = "Overwrites the max player count in a server",
             extra = {"Set to 0 to use vanilla value"},
@@ -146,36 +154,5 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     public static int maxPlayersOverwrite = 0;
-
-
-    private static final class UnsignedIntegerValidator extends Validator<Integer> {
-
-        @Override
-        public Integer validate(@Nullable final ServerCommandSource source, final ParsedRule<Integer> changingRule, final Integer newValue, final String userInput) {
-            return newValue < 0 ? null : newValue;
-        }
-
-        @Override
-        public String description() {
-            return "Must not be negative";
-        }
-
-    }
-
-    private static final class ItemDiscardAgeValidator extends Validator<Integer> {
-
-        public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
-
-        @Override
-        public Integer validate(@Nullable ServerCommandSource source, ParsedRule<Integer> changingRule, Integer newValue, String userInput) {
-            return (newValue < 0 || newValue > ITEM_DISCARD_AGE_MAX_VALUE) ? null : newValue;
-        }
-
-        @Override
-        public String description() {
-            return "Must not be negative or larger than " + ITEM_DISCARD_AGE_MAX_VALUE;
-        }
-
-    }
 
 }
