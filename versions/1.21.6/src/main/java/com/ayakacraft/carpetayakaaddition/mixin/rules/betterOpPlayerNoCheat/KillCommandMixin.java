@@ -29,20 +29,25 @@ import net.minecraft.server.command.KillCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-//Do not remove the lines below
-//TODO update in 1.21.6
+import java.util.function.Predicate;
+
 @Restriction(require = @Condition(ModUtils.TIS_ID))
 @Mixin(KillCommand.class)
 public class KillCommandMixin {
 
-    @Inject(method = "method_13432", remap = false, at = @At("RETURN"), cancellable = true)
-    private static void checkIfAllowCheating_killCommand(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source)) { // DO NOT change the order of the conditions
-            cir.setReturnValue(false);
-        }
+    @ModifyArg(
+            method = "register",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;requires(Ljava/util/function/Predicate;)Lcom/mojang/brigadier/builder/ArgumentBuilder;",
+                    remap = false
+            )
+    )
+    private static Predicate<ServerCommandSource> checkIfAllowCheating_clearCommand(Predicate<ServerCommandSource> original) {
+        return source -> original.test(source) && !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source));
     }
+
 
 }

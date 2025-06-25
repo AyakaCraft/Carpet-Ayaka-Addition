@@ -27,9 +27,10 @@ import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.storage.NbtWriteView;
+import net.minecraft.util.ErrorReporter;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +42,6 @@ import java.util.Optional;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
-//Do not remove the lines below
-//TODO update in 1.21.6
 public final class GcaHelper {
 
     private static final Method savePlayerMethod;
@@ -93,8 +92,25 @@ public final class GcaHelper {
         server.getPlayerManager()
                 .getPlayerList()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
-                .filter(player ->
-                        player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
+                .filter(player -> {
+                    if (!(player instanceof EntityPlayerMPFake)) {
+                        return false;
+                    }
+                    try (ErrorReporter.Logging reporter = new ErrorReporter.Logging(player.getErrorReporterContext(), LOGGER)) {
+                        try {
+                            NbtWriteView valueOutput = NbtWriteView.create(reporter, player.getRegistryManager());
+                            player.writeData(valueOutput);
+                            return !valueOutput.getNbt().contains("gca.NoResident");
+                        } catch (Throwable e) {
+                            try {
+                                reporter.close();
+                            } catch (Throwable t) {
+                                e.addSuppressed(t);
+                            }
+                            throw e;
+                        }
+                    }
+                })
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
         Path path = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("fake_player.gca.json");

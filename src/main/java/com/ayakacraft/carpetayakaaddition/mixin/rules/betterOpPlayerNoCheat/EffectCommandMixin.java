@@ -32,6 +32,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+//Do not remove the lines below
+//TODO update in 1.21.6
 @Restriction(require = @Condition(ModUtils.TIS_ID))
 @Mixin(EffectCommand.class)
 public class EffectCommandMixin {

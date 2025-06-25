@@ -35,7 +35,9 @@ public abstract class MinecraftVersionCondition implements AyakaCondition {
 
     @Override
     public boolean shouldRegister() {
-        //#if MC>=11600
+        //#if MC>=12106
+        //$$ return MinecraftVersion.CURRENT.stable() && shouldRegister(parseVersion(MinecraftVersion.CURRENT.name()));
+        //#elseif MC>=11600
         return MinecraftVersion.CURRENT.isStable() && shouldRegister(parseVersion(MinecraftVersion.CURRENT.getName()));
         //#else
         //$$ return new MinecraftVersion().isStable() && shouldRegister(parseVersion(new MinecraftVersion().getName()));

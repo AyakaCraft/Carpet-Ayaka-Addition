@@ -27,8 +27,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.ModContainer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
@@ -53,7 +53,7 @@ public final class CarpetAyakaAddition implements ModInitializer {
             MOD_NAME = "Carpet Ayaka Addition";
             MOD_VERSION = "dev";
         }
-        LOGGER = LogManager.getLogger(MOD_NAME);
+        LOGGER = LoggerFactory.getLogger(MOD_NAME);
     }
 
     @Override
