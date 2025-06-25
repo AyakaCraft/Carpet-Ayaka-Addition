@@ -23,6 +23,7 @@
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.forceTickPlantsReintroduce.BambooBlockMixin",
     "rules.forceTickPlantsReintroduce.CactusBlockMixin",
+    "rules.forceTickPlantsReintroduce.ChorusFlowerBlockMixin",
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.itemDiscardAge.ItemEntityMixin",

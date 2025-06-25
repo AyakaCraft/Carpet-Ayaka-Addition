@@ -216,7 +216,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce) (1.16+)
 
-重新引入 1.15.2 及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
+重新引入 1.15.2 及更早版本中仙人掌、竹子、紫颂花、甘蔗在计划刻中（错误地）触发随机刻的特性
 
 - 类型: `boolean`
 - 默认值: `false`

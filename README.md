@@ -216,7 +216,7 @@ Only active when [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded
 
 #### forceTickPlantsReintroduce (1.16+)
 
-Reintroduces the feature of cactuses, bamboos and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
+Reintroduces the feature of cactuses, bamboos, chorus flowers and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
 
 - Type: `boolean`
 - Default value: `false`

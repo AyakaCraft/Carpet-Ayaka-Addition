@@ -80,7 +80,7 @@ carpet:
         "0": 仅在加载了GCA且fakePlayerResident为true时生效
     forceTickPlantsReintroduce:
       name: 0t强制更新植物状态
-      desc: 重新引入1.15.2及更早版本中仙人掌、竹子、甘蔗在计划刻中（错误地）触发随机刻的特性
+      desc: 重新引入1.15.2及更早版本中仙人掌、竹子、紫颂花、甘蔗在计划刻中（错误地）触发随机刻的特性
     foxNoPickupItem:
       name: 禁用狐狸叼起物品
       desc: 阻止狐狸叼起掉落物，但仍会吸引它
