@@ -41,7 +41,7 @@ public class AddressManager {
     private static final Type COLLECTION_TYPE_OLD = new TypeToken<Collection<AddressOld>>() {
     }.getType();
 
-    private static final Type MAP_TYPE = new TypeToken<Map<String, Address>>() {
+    private static final Type MAP_TYPE = new TypeToken<TreeMap<String, Address>>() {
     }.getType();
 
     private static final HashMap<MinecraftServer, AddressManager> managerMap = new HashMap<>(1);
@@ -89,7 +89,7 @@ public class AddressManager {
 
     private final Path waypointStoragePath;
 
-    private final LinkedHashMap<String, Address> addressMap = new LinkedHashMap<>(3);
+    private final TreeMap<String, Address> addressMap = new TreeMap<>();
 
     private AddressManager(MinecraftServer server) {
         waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);

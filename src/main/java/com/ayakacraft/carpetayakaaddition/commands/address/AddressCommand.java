@@ -48,7 +48,6 @@ import net.minecraft.world.World;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -236,9 +235,13 @@ public final class AddressCommand {
         //#endif
         final AddressManager      manager   = AddressManager.getOrCreate(source.getServer());
         final Collection<Address> addresses = manager.getAddresses();
-        final List<String>        idList    = addresses.stream().filter(w -> Objects.equals(w.getDim(), dim)).map(Address::getId).collect(Collectors.toList());
 
-        sendWaypointList(source, idList);
+        sendWaypointList(
+                source,
+                addresses.stream()
+                        .filter(w -> Objects.equals(w.getDim(), dim))
+                        .map(Address::getId).collect(Collectors.toList())
+        );
 
         return 1;
     }
