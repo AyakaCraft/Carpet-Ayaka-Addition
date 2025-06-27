@@ -24,10 +24,14 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
-public class Address {
+public class Address implements Comparable<Address> {
 
     public static final String DESC_PLACEHOLDER = "#none";
 
@@ -37,23 +41,27 @@ public class Address {
 
     private final double x, y, z;
 
+    @Nullable
     private String desc;
 
-    public Address(String id, String dim, Vec3d pos, String desc) {
+    private long weight = 0L;
+
+    public Address(String id, String dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
         this.y = pos.y;
         this.z = pos.z;
         setDesc(desc);
+        this.weight = weight;
     }
 
-    public Address(String id, RegistryKey<World> dim, Vec3d pos, String desc) {
-        this(id, dim.getValue().toString(), pos, desc);
+    public Address(String id, RegistryKey<World> dim, Vec3d pos, String desc, long weight) {
+        this(id, dim.getValue().toString(), pos, desc, weight);
     }
 
     public Address(AddressOld old) {
-        this(old.getId(), old.getDim(), old.getPos(), old.getDesc());
+        this(old.getId(), old.getDim(), old.getPos(), old.getDesc(), 0L);
     }
 
     public String getDim() {
@@ -97,6 +105,42 @@ public class Address {
 
     public void setDesc(String desc) {
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
+    }
+
+    public long getWeight() {
+        return weight;
+    }
+
+    public void onDetailDisplayed() {
+        weight += 1;
+    }
+
+    public void onTeleportedTo() {
+        weight += 3;
+    }
+
+    @Override
+    public int compareTo(@NotNull Address o) {
+        if (this.equals(o)) {
+            return 0;
+        }
+        if (this.weight == o.weight) {
+            return this.id.compareTo(o.id);
+        }
+        return Long.compare(this.weight, o.weight);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Address)) {
+            return false;
+        }
+        Address other = (Address) o;
+        return Objects.equals(other.id, this.id)
+                && Objects.equals(other.dim, this.dim)
+                && other.getPos().equals(this.getPos())
+                && Objects.equals(other.desc, this.desc)
+                && other.weight == this.weight;
     }
 
     @Override

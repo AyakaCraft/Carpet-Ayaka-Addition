@@ -48,6 +48,7 @@ import net.minecraft.world.World;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -62,7 +63,14 @@ public final class AddressCommand {
     private static int list(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
 
-        sendWaypointList(source, AddressManager.getOrCreate(source.getServer()).getIDs());
+        sendWaypointList(
+                source,
+                AddressManager.getOrCreate(source.getServer())
+                        .getAddresses()
+                        .stream()
+                        .sorted(Comparator.reverseOrder())
+                        .collect(Collectors.toList())
+        );
 
         return 1;
     }
@@ -93,6 +101,7 @@ public final class AddressCommand {
                         Text.literal(address.getDesc())
                 }),
                 false);
+        address.onDetailDisplayed();
         return 1;
     }
 
@@ -129,7 +138,7 @@ public final class AddressCommand {
         final ServerCommandSource source = context.getSource();
 
         try {
-            AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc));
+            AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc, 0));
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
             source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
@@ -178,6 +187,7 @@ public final class AddressCommand {
             return 0;
         }
         ServerPlayerUtils.teleport(self, dim, pos.getX(), pos.getY(), pos.getZ());
+        address.onTeleportedTo();
         return 1;
     }
 
@@ -226,7 +236,7 @@ public final class AddressCommand {
         return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> "\"" + id + "\""), builder);
     }
 
-    private static int listDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+    private static int listInDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source = context.getSource();
         //#if MC>=11600
         final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
@@ -240,7 +250,8 @@ public final class AddressCommand {
                 source,
                 addresses.stream()
                         .filter(w -> Objects.equals(w.getDim(), dim))
-                        .map(Address::getId).collect(Collectors.toList())
+                        .sorted(Comparator.reverseOrder())
+                        .collect(Collectors.toList())
         );
 
         return 1;
@@ -271,8 +282,8 @@ public final class AddressCommand {
         return join(ids, enter(), id -> waypointIdText(id, source));
     }
 
-    private static void sendWaypointList(ServerCommandSource source, Collection<String> ids) {
-        if (ids.isEmpty()) {
+    private static void sendWaypointList(ServerCommandSource source, Collection<Address> addresses) {
+        if (addresses.isEmpty()) {
             sendFeedback(
                     source,
                     tr(source, "command.carpet-ayaka-addition.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
@@ -284,7 +295,7 @@ public final class AddressCommand {
                     joinTexts(new Text[]{
                             tr(source, "command.carpet-ayaka-addition.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
-                            listWaypointIdsText(ids, source)
+                            listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source)
                     }),
                     false
             );
@@ -298,7 +309,7 @@ public final class AddressCommand {
                 .then(literal("reload").executes(AddressCommand::reload))
                 .then(literal("list").executes(AddressCommand::list)
                         .then(argument("dim", DimensionArgumentType.dimension())
-                                .executes(AddressCommand::listDimension)))
+                                .executes(AddressCommand::listInDimension)))
                 .then(literal("detail")
                         .then(argument("id", StringArgumentType.string())
                                 .suggests(AddressCommand::suggestWaypoints)

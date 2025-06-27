@@ -155,7 +155,7 @@ public class AddressManager {
         if (w == null) {
             return null;
         }
-        Address a = new Address(newId, w.getDim(), w.getPos(), w.getDesc());
+        Address a = new Address(newId, w.getDim(), w.getPos(), w.getDesc(), w.getWeight());
         if (put(a) != null) {
             LOGGER.warn("Address named {} already exists", newId);
         }
