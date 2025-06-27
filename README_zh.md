@@ -108,6 +108,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 #### 索引
 
 - [betterOpPlayerNoCheat](#更好的opplayernocheat选项-betteropplayernocheat)
+- [blockDropStackVelocityMultiple](#方块掉落物速度乘数-blockdropstackvelocitymultiple)
 - [commandAddress](#全局路径点命令开关-commandaddress)
 - [commandC](#旁观者模式切换命令开关-commandc)
 - [commandGoHome](#回程命令开关-commandgohome)
@@ -137,6 +138,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `SURVIVAL`, `CHEAT`
+
+#### 方块掉落物速度乘数 (blockDropStackVelocityMultiple)
+
+方块被破坏时生成的掉落物的速度的乘数
+
+- 类型: `double`
+- 默认值: `1d`
+- 参考选项: `0`, `0.5`, `1`, `2`
+- 范围: `[0,)`
+- 分类: `AYAKA`, `EXPERIMENTAL`
 
 #### 全局路径点命令开关 (commandAddress)
 

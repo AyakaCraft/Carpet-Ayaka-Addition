@@ -108,6 +108,7 @@ Logs the change of points-of-interest (experimental)
 #### Index
 
 - [betterOpPlayerNoCheat](#betteropplayernocheat)
+- [blockDropStackVelocityMultiple](#blockdropstackvelocitymultiple)
 - [commandAddress](#commandaddress)
 - [commandC](#commandc)
 - [commandGoHome](#commandgohome)
@@ -137,6 +138,16 @@ Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Ad
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `SURVIVAL`, `CHEAT`
+
+#### blockDropStackVelocityMultiple
+
+Multiple of velocity of item stacks dropped by a broken block
+
+- Type: `double`
+- Default value: `1d`
+- Suggested options: `0`, `0.5`, `1`, `2`
+- Range: `[0,)`
+- Categories: `AYAKA`, `EXPERIMENTAL`
 
 #### commandAddress
 

@@ -50,6 +50,9 @@ carpet:
         "0": 影响的指令列表：/kill，/clear，/effect，/item 和 /difficulty
         "1": 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
         "2": 你也不想失去刷铁机里面的掠夺者，对吧
+    blockDropStackVelocityMultiple:
+      name: 方块掉落物速度乘数
+      desc: 方块被破坏时生成的掉落物的速度的乘数
     commandAddress:
       name: 服务端路径点命令开关
       desc: 启用 /address 和 /ad 命令以操作并传送到服务端路径点

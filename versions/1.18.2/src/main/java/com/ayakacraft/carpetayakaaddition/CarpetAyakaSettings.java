@@ -25,6 +25,7 @@ import com.ayakacraft.carpetayakaaddition.settings.conditions.Condition;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
 import com.ayakacraft.carpetayakaaddition.settings.validators.ItemDiscardAgeValidator;
+import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedDoubleValidator;
 import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedIntegerValidator;
 
 import static carpet.settings.RuleCategory.*;
@@ -49,6 +50,15 @@ public final class CarpetAyakaSettings {
             }
     )
     public static boolean betterOpPlayerNoCheat = false;
+
+    @Rule(
+            category = {AYAKA, EXPERIMENTAL},
+            desc = "Multiple of velocity of item stacks dropped by a broken block",
+            options = {"0", "0.5", "1", "2"},
+            strict = false,
+            validate = UnsignedDoubleValidator.class
+    )
+    public static double blockDropStackVelocityMultiple = 1d;
 
     @Rule(
             category = {AYAKA, COMMAND, CHEAT},

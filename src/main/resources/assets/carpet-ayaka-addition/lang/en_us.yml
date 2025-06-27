@@ -45,6 +45,8 @@ carpet:
         "0": "Influenced commands: /kill, /clear, /effect, /item and /difficulty"
         "1": Only active when Carpet Tis Addition is loaded and opPlayerNoCheat is set to true
         "2": You don't want to lose your pillagers, do you?
+    blockDropStackVelocityMultiple:
+      desc: Multiple of velocity of item stacks dropped by a broken block
     commandAddress:
       desc: Enables /address and /ad to manipulate and teleport to server-side addresses
     commandC:
