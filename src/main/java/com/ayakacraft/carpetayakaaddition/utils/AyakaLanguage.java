@@ -64,7 +64,7 @@ public abstract class AyakaLanguage {
             }
 
             loaded = true;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             CarpetAyakaAddition.LOGGER.error("Failed to load language list", e);
             if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
                 throw new RuntimeException(e);
@@ -85,6 +85,8 @@ public abstract class AyakaLanguage {
         return get(
                 //#if MC>=11900
                 carpet.CarpetSettings.language
+                //#elseif MC>=11500
+                //$$ "none".equalsIgnoreCase(carpet.CarpetSettings.language) ? DEFAULT_LANG : carpet.CarpetSettings.language
                 //#else
                 //$$ DEFAULT_LANG
                 //#endif
@@ -113,6 +115,8 @@ public abstract class AyakaLanguage {
     public abstract Map<String, String> translations();
 
     public abstract String translate(String key);
+
+    public abstract String translateWithoutFallback(String key);
 
     private static class AyakaLanguageImpl extends AyakaLanguage {
 
@@ -147,6 +151,11 @@ public abstract class AyakaLanguage {
             return translations.getOrDefault(key, getDefaultLanguage().translate(key));
         }
 
+        @Override
+        public String translateWithoutFallback(String key) {
+            return translations.get(key);
+        }
+
     }
 
     private static class AyakaLanguageEmpty extends AyakaLanguage {
@@ -163,6 +172,11 @@ public abstract class AyakaLanguage {
         @Override
         public String translate(String key) {
             return getDefaultLanguage().translate(key);
+        }
+
+        @Override
+        public String translateWithoutFallback(String key) {
+            return null;
         }
 
     }

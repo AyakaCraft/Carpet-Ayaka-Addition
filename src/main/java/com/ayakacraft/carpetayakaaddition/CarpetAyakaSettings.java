@@ -20,8 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition;
 
-import carpet.api.settings.Rule;
-import com.ayakacraft.carpetayakaaddition.settings.conditions.Condition;
+import com.ayakacraft.carpetayakaaddition.settings.Rule;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
 import com.ayakacraft.carpetayakaaddition.settings.validators.ItemDiscardAgeValidator;
@@ -31,7 +30,6 @@ import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedIntegerVal
 import static carpet.api.settings.RuleCategory.*;
 
 //Do not remove the lines below
-//TODO update in 1.18.2
 //TODO update translation
 public final class CarpetAyakaSettings {
 
@@ -102,9 +100,9 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE}
+            categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE},
+            conditions = ForceTickPlantsReintroduceCondition.class
     )
-    @Condition(ForceTickPlantsReintroduceCondition.class)
     public static boolean forceTickPlantsReintroduce = false;
 
     @Rule(
@@ -129,9 +127,9 @@ public final class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     @Rule(
-            categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE}
+            categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE},
+            conditions = LegacyHoneyBlockSlidingCondition.class
     )
-    @Condition(LegacyHoneyBlockSlidingCondition.class)
     public static boolean legacyHoneyBlockSliding = false;
 
     @Rule(

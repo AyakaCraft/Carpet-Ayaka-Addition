@@ -21,11 +21,11 @@
 package com.ayakacraft.carpetayakaaddition;
 
 import carpet.CarpetExtension;
-import carpet.CarpetServer;
 import carpet.logging.HUDController;
 import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.commands.address.AddressManager;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.settings.AyakaRules;
 import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
@@ -54,7 +54,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     @Override
     public void onGameStarted() {
-        CarpetServer.settingsManager.parseSettingsClass(CarpetAyakaSettings.class);
+        AyakaRules.registerRules();
 
         //#if MC>=11600
         HUDController.register(minecraftServer -> AyakaLoggerRegistry.updateHUD()); // We use mixin to deal with 1.14 and 1.15
@@ -114,7 +114,19 @@ public final class CarpetAyakaServer implements CarpetExtension {
     //#if MC>=11500
     @Override
     public Map<String, String> canHasTranslations(String lang) {
+        //#if MC>=11900
         return AyakaLanguage.get(lang).translations();
+        //#else
+        //$$ Map<String, String> original = AyakaLanguage.get(lang).translations();
+        //$$ Map<String, String> transformed = new java.util.HashMap<>();
+        //$$
+        //$$ original.entrySet()
+        //$$         .stream()
+        //$$         .filter(it -> it.getKey().startsWith("carpet."))
+        //$$         .forEach(it -> transformed.put(it.getKey().substring("carpet.".length()), it.getValue()));
+        //$$
+        //$$ return transformed;
+        //#endif
     }
     //#endif
 

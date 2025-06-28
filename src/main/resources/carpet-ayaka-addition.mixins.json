@@ -7,7 +7,7 @@
     "carpet.HUDControllerMixin",
     "carpet.LoggerRegistryMixin",
     "carpet.MinecraftServerMixin",
-    "carpet.SettingsManagerMixin",
+    "carpet.SettingsManagerAccessor",
     "logging.loadedchunks.ServerChunkManagerMixin",
     "logging.loadedchunks.ThreadedAnvilChunkStorageInvoker",
     "logging.movingblocks.PistonBlockEntityMixin",

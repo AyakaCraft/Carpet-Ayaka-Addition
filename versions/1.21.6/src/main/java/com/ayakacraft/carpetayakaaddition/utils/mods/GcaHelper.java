@@ -101,10 +101,10 @@ public final class GcaHelper {
                             NbtWriteView valueOutput = NbtWriteView.create(reporter, player.getRegistryManager());
                             player.writeData(valueOutput);
                             return !valueOutput.getNbt().contains("gca.NoResident");
-                        } catch (Throwable e) {
+                        } catch (Exception e) {
                             try {
                                 reporter.close();
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                                 e.addSuppressed(t);
                             }
                             throw e;
