@@ -33,7 +33,14 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public class EntityPlayerMPFakeMixin {
 
-    @WrapOperation(method = "createFake", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;"))
+    @WrapOperation(
+            method = "createFake",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;",
+                    remap = true
+            )
+    )
     private static GameProfile createFake(UserCache instance, String name, Operation<GameProfile> original) {
         if (CarpetAyakaSettings.fakePlayerForceOffline
                 //#if MC>=11600

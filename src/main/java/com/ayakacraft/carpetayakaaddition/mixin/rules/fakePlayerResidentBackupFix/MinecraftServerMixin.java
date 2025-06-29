@@ -36,7 +36,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
-    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J"))
+    @Inject(
+            //#if MC>=11700
+            method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J")
+            //#elseif MC>=11600
+            //$$ method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J")
+            //#else
+            //$$ method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J")
+            //#endif
+    )
     private void saveFakePlayersOnStartup(CallbackInfo ci) {
         GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
     }
