@@ -91,7 +91,7 @@ public class AyakaRule implements carpet.api.settings.Rule {
             Object ruleAnnotation = ctr1.newInstance(false, null, null, null, categories(), options(), strict(), appSource(), validators());
 
             Class<?>       parsedRuleClass = Class.forName("carpet.settings.ParsedRule");
-            Constructor<?> ctr2            = parsedRuleClass.getDeclaredConstructors()[0];
+            Constructor<?> ctr2            = parsedRuleClass.getDeclaredConstructor(Field.class, ruleAnnotationClass, SettingsManager.class);
             ctr2.setAccessible(true);
             carpetRule = (CarpetRule<?>) ctr2.newInstance(field, ruleAnnotation, settingsManager);
         } catch (Exception e) {

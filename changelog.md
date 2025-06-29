@@ -8,4 +8,5 @@
 ## Bugfix
 
 - (1.16.5 1.17.1) Wrong language for dedicated server
-- movingBlocks logger do not log multiple 0-tick movements in a single block position
+- `movingBlocks` logger do not log multiple 0-tick movements in a single block position
+- Missing fake player storage when the server just turns on

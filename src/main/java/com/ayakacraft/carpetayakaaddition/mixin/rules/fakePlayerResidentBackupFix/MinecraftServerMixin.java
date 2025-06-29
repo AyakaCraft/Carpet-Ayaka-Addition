@@ -29,11 +29,17 @@ import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Restriction(require = @Condition(ModUtils.GCA_ID))
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
+
+    @Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J"))
+    private void saveFakePlayersOnStartup(CallbackInfo ci) {
+        GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
+    }
 
     @Inject(method = "save", at = @At("RETURN"))
     private void save(CallbackInfoReturnable<Boolean> cir) {

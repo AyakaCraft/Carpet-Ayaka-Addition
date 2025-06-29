@@ -23,10 +23,10 @@ package com.ayakacraft.carpetayakaaddition.settings;
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
 import carpet.settings.Validator;
+import com.ayakacraft.carpetayakaaddition.mixin.carpet.ParsedRuleAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
@@ -118,10 +118,7 @@ public class AyakaRule implements carpet.settings.Rule {
     public ParsedRule<?> constructCarpetRule() {
         ParsedRule<?> parsedRule;
         try {
-            Class<?>       parsedRuleClass = Class.forName("carpet.settings.ParsedRule");
-            Constructor<?> ctr2            = parsedRuleClass.getDeclaredConstructors()[0];
-            ctr2.setAccessible(true);
-            parsedRule = (ParsedRule<?>) ctr2.newInstance(field, this
+            parsedRule = ParsedRuleAccessor.invokeConstructor(field, this
                     //#if MC>=11600
                     , settingsManager
                     //#endif

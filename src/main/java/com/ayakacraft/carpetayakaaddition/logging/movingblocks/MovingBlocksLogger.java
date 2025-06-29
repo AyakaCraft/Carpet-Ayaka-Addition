@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.block.Block;
@@ -35,8 +34,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.HashSet;
 
 public class MovingBlocksLogger extends AbstractAyakaLogger {
 
