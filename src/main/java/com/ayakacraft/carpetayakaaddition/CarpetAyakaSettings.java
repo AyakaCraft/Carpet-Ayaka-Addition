@@ -21,11 +21,9 @@
 package com.ayakacraft.carpetayakaaddition;
 
 import com.ayakacraft.carpetayakaaddition.settings.Rule;
+import com.ayakacraft.carpetayakaaddition.settings.Validators;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
-import com.ayakacraft.carpetayakaaddition.settings.validators.ItemDiscardAgeValidator;
-import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedDoubleValidator;
-import com.ayakacraft.carpetayakaaddition.settings.validators.UnsignedIntegerValidator;
 
 import static carpet.api.settings.RuleCategory.*;
 
@@ -50,7 +48,7 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, EXPERIMENTAL},
             options = {"0", "0.5", "1", "2"},
             strict = false,
-            validators = UnsignedDoubleValidator.class
+            validators = Validators.UnsignedDoubleValidator.class
     )
     public static double blockDropStackVelocityMultiple = 1d;
 
@@ -112,7 +110,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL},
-            validators = ItemDiscardAgeValidator.class,
+            validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
     )
@@ -120,7 +118,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, COMMAND},
-            validators = UnsignedIntegerValidator.class,
+            validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "5", "10", "30"},
             strict = false
     )
@@ -134,7 +132,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL},
-            validators = UnsignedIntegerValidator.class,
+            validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "8", "10", "20", "50", "100"},
             strict = false
     )

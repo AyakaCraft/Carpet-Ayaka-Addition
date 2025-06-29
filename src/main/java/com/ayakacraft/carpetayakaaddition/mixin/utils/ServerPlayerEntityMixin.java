@@ -45,13 +45,13 @@ public class ServerPlayerEntityMixin implements WithClientLanguage {
     private void catchClientLanguage(SyncedClientOptions clientOptions, CallbackInfo ci) {
         clientLanguage = clientOptions.language();
     }
-    //#elseif MC<11600
-    //$$ private void catchClientLanguage(ClientSettingsC2SPacket clientOptions, CallbackInfo ci) {
-    //$$     clientLanguage = clientOptions.getLanguage();
-    //$$ }
     //#else
     //$$ private void catchClientLanguage(ClientSettingsC2SPacket clientOptions, CallbackInfo ci) {
+    //$$     //#if MC>=11600
     //$$     clientLanguage = ((ClientSettingsC2SPacketAccessor) clientOptions).getLanguage();
+    //$$     //#else
+    //$$     //$$ clientLanguage = clientOptions.getLanguage();
+    //$$     //#endif
     //$$ }
     //#endif
 

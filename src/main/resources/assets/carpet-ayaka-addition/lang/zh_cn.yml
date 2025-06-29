@@ -1,5 +1,5 @@
-command:
-  carpet-ayaka-addition:
+carpet-ayaka-addition:
+  command:
     address:
       list:
         empty: 无路径点
@@ -37,11 +37,33 @@ command:
         none: 没有任务被取消
         single: 取消了一个任务
         multiple: 取消了%d个任务
+  logger:
+    loadedChunks: 加载区块
+    movingBlocks:
+      common: "{} 向 {} 移动至 %s"
+      extend: "{} 面向 {} 伸展至 %s"
+      pull_back: "{} 面向 {} 收回至 %s"
+      direction:
+        west: 西
+        east: 东
+        north: 北
+        south: 南
+        up: 上
+        down: 下
+    poi:
+      added: 子区块 %s 位置 %s 处的POI被添加，类型为 %s
+      removed: 子区块 %s 位置 %s 处的POI被移除
+      ticket_reserved: 子区块 %s 位置 %s 处的POI被认领，类型为 %s (%d/%d)
+      ticket_released: 子区块 %s 位置 %s 处的POI被释放，类型为 %s (%d/%d)
+
 carpet:
   category:
     reintroduce: 移植
     cheat: 作弊
     BOT: 假人
+  validator.invalid_desc:
+    unsigned: 不能为负数
+    unsigned_with_bound: 不能为负数或大于 %d
   rule:
     betterOpPlayerNoCheat:
       name: 更好的opPlayerNoCheat选项
@@ -106,22 +128,3 @@ carpet:
       desc: 重写服务器最大玩家数量
       extra:
         "0": 设置为0以使用原版值
-carpet-ayaka-addition:
-  logger:
-    loadedChunks: 加载区块
-    movingBlocks:
-      common: "{} 向 {} 移动至 %s"
-      extend: "{} 面向 {} 伸展至 %s"
-      pull_back: "{} 面向 {} 收回至 %s"
-      direction:
-        west: 西
-        east: 东
-        north: 北
-        south: 南
-        up: 上
-        down: 下
-    poi:
-      added: 子区块 %s 位置 %s 处的POI被添加，类型为 %s
-      removed: 子区块 %s 位置 %s 处的POI被移除
-      ticket_reserved: 子区块 %s 位置 %s 处的POI被认领，类型为 %s (%d/%d)
-      ticket_released: 子区块 %s 位置 %s 处的POI被释放，类型为 %s (%d/%d)

@@ -80,24 +80,24 @@ public final class AddressCommand {
         final String        id      = StringArgumentType.getString(context, "id");
         final Address       address = AddressManager.getOrCreate(source.getServer()).get(id);
         if (address == null) {
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.not_exist", id));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.not_exist", id));
             return 0;
         }
         sendFeedback(source,
                 joinTexts(new Text[]{
-                        tr(source, "command.carpet-ayaka-addition.address.detail.0", address.getId())
+                        tr(source, "carpet-ayaka-addition.command.address.detail.0", address.getId())
                                 .formatted(Formatting.YELLOW, Formatting.BOLD),
                         enter(),
-                        tr(source, "command.carpet-ayaka-addition.address.detail.1").formatted(Formatting.GREEN),
+                        tr(source, "carpet-ayaka-addition.command.address.detail.1").formatted(Formatting.GREEN),
                         Text.literal(address.getId()),
                         enter(),
-                        tr(source, "command.carpet-ayaka-addition.address.detail.2").formatted(Formatting.GREEN),
+                        tr(source, "carpet-ayaka-addition.command.address.detail.2").formatted(Formatting.GREEN),
                         Text.literal(address.getDim()),
                         enter(),
-                        tr(source, "command.carpet-ayaka-addition.address.detail.3").formatted(Formatting.GREEN),
+                        tr(source, "carpet-ayaka-addition.command.address.detail.3").formatted(Formatting.GREEN),
                         format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
                         enter(),
-                        tr(source, "command.carpet-ayaka-addition.address.detail.4").formatted(Formatting.GREEN),
+                        tr(source, "carpet-ayaka-addition.command.address.detail.4").formatted(Formatting.GREEN),
                         Text.literal(address.getDesc())
                 }),
                 false);
@@ -111,10 +111,10 @@ public final class AddressCommand {
             AddressManager.getOrCreate(source.getServer()).load();
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to load addresses", e);
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.reload.failure"));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.reload.failure"));
             return 0;
         }
-        sendFeedback(source, tr(source, "command.carpet-ayaka-addition.address.reload.success"), false);
+        sendFeedback(source, tr(source, "carpet-ayaka-addition.command.address.reload.success"), false);
         return 1;
     }
 
@@ -141,10 +141,10 @@ public final class AddressCommand {
             AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc, 0));
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.save.failure"));
             return 0;
         }
-        sendFeedback(source, tr(source, "command.carpet-ayaka-addition.address.set.success", id), false);
+        sendFeedback(source, tr(source, "carpet-ayaka-addition.command.address.set.success", id), false);
         return 1;
     }
 
@@ -154,15 +154,15 @@ public final class AddressCommand {
 
         try {
             if (AddressManager.getOrCreate(source.getServer()).remove(id) == null) {
-                source.sendError(tr(source, "command.carpet-ayaka-addition.address.not_exist", id));
+                source.sendError(tr(source, "carpet-ayaka-addition.command.address.not_exist", id));
                 return 0;
             }
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failed"));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.save.failed"));
             return 0;
         }
-        sendFeedback(source, tr(source, "command.carpet-ayaka-addition.address.remove.success", id), false);
+        sendFeedback(source, tr(source, "carpet-ayaka-addition.command.address.remove.success", id), false);
         return 1;
     }
 
@@ -172,18 +172,18 @@ public final class AddressCommand {
         final Address             address = AddressManager.getOrCreate(source.getServer()).get(id);
         final ServerPlayerEntity  self    = source.getPlayerOrThrow();
         if (address == null) {
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.not_exist", id));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.not_exist", id));
             return 0;
         }
 
         final ServerWorld dim = source.getServer().getWorld(address.getDimension());
         final Vec3d       pos = address.getPos();
         if (dim == null) {
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.tp.dimension_unrecognized", address.getDim()));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.tp.dimension_unrecognized", address.getDim()));
             return 0;
         }
         if (!dim.getWorldBorder().contains(new BlockPos(MathHelper.floor(pos.getX()), MathHelper.floor(pos.getY()), MathHelper.floor(pos.getZ())))) {
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.tp.out_of_world_border", id));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.tp.out_of_world_border", id));
             return 0;
         }
         ServerPlayerUtils.teleport(self, dim, pos.getX(), pos.getY(), pos.getZ());
@@ -198,15 +198,15 @@ public final class AddressCommand {
         final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
         try {
             if (manager.rename(oldId, newId) == null) {
-                source.sendError(tr(source, "command.carpet-ayaka-addition.address.not_exist", oldId));
+                source.sendError(tr(source, "carpet-ayaka-addition.command.address.not_exist", oldId));
                 return 0;
             }
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.save.failure"));
             return 0;
         }
-        sendFeedback(source, tr(source, "command.carpet-ayaka-addition.address.rename.success", oldId, newId), false);
+        sendFeedback(source, tr(source, "carpet-ayaka-addition.command.address.rename.success", oldId, newId), false);
         return 1;
     }
 
@@ -217,7 +217,7 @@ public final class AddressCommand {
         final String              desc    = StringArgumentType.getString(context, "desc");
         final Address             w       = manager.get(id);
         if (w == null) {
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.not_exist", id));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.not_exist", id));
             return 0;
         }
         w.setDesc(desc);
@@ -225,10 +225,10 @@ public final class AddressCommand {
             manager.save();
         } catch (IOException e) {
             CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
-            source.sendError(tr(source, "command.carpet-ayaka-addition.address.save.failure"));
+            source.sendError(tr(source, "carpet-ayaka-addition.command.address.save.failure"));
             return 0;
         }
-        sendFeedback(source, tr(source, "command.carpet-ayaka-addition.address.desc.success", id, desc), false);
+        sendFeedback(source, tr(source, "carpet-ayaka-addition.command.address.desc.success", id, desc), false);
         return 1;
     }
 
@@ -261,19 +261,19 @@ public final class AddressCommand {
         return format(
                 "[{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
-                tr(source, "command.carpet-ayaka-addition.address.list.detail")
+                tr(source, "carpet-ayaka-addition.command.address.list.detail")
                         .styled(style ->
                                 style
                                         .withColor(Formatting.GOLD)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
-                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.detail.hover")))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "carpet-ayaka-addition.command.address.list.detail.hover")))
                         ),
-                tr(source, "command.carpet-ayaka-addition.address.list.tp")
+                tr(source, "carpet-ayaka-addition.command.address.list.tp")
                         .styled(style ->
                                 style
                                         .withColor(Formatting.RED)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
-                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "command.carpet-ayaka-addition.address.list.tp.hover")))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, tr(source, "carpet-ayaka-addition.command.address.list.tp.hover")))
                         )
         );
     }
@@ -286,14 +286,14 @@ public final class AddressCommand {
         if (addresses.isEmpty()) {
             sendFeedback(
                     source,
-                    tr(source, "command.carpet-ayaka-addition.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
+                    tr(source, "carpet-ayaka-addition.command.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
                     false
             );
         } else {
             sendFeedback(
                     source,
                     joinTexts(new Text[]{
-                            tr(source, "command.carpet-ayaka-addition.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
+                            tr(source, "carpet-ayaka-addition.command.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
                             enter(),
                             listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source)
                     }),

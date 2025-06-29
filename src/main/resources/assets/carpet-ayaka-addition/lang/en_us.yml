@@ -1,5 +1,5 @@
-command:
-  carpet-ayaka-addition:
+carpet-ayaka-addition:
+  command:
     address:
       list:
         empty: No address available
@@ -37,7 +37,29 @@ command:
         none: No task was cancelled
         single: Cancelled one task
         multiple: Cancelled %d tasks
+  logger:
+    loadedChunks: Loaded Chunks
+    movingBlocks:
+      common: "{} moved {} to %s"
+      extend: "{} facing {} extended to %s"
+      pull_back: "{} facing {} pulled back to %s"
+      direction:
+        west: west
+        east: east
+        north: north
+        south: south
+        up: up
+        down: down
+    poi:
+      added: POI added in sub-chunk %s at %s with type %s
+      removed: POI removed in sub-chunk %s at %s
+      ticket_reserved: POI reserved in sub-chunk %s at %s with type %s (%d/%d)
+      ticket_released: POI released in sub-chunk %s at %s with type %s (%d/%d)
+
 carpet:
+  validator.invalid_desc:
+    unsigned: Must not be negative
+    unsigned_with_bound: Must not be negative or larger than %d
   rule:
     betterOpPlayerNoCheat:
       desc: More commands for opPlayerNoCheat
@@ -86,22 +108,3 @@ carpet:
       desc: Overwrites the max player count in a server
       extra:
         "0": Set to 0 to use vanilla value
-carpet-ayaka-addition:
-  logger:
-    loadedChunks: Loaded Chunks
-    movingBlocks:
-      common: "{} moved {} to %s"
-      extend: "{} facing {} extended to %s"
-      pull_back: "{} facing {} pulled back to %s"
-      direction:
-        west: west
-        east: east
-        north: north
-        south: south
-        up: up
-        down: down
-    poi:
-      added: POI added in sub-chunk %s at %s with type %s
-      removed: POI removed in sub-chunk %s at %s
-      ticket_reserved: POI reserved in sub-chunk %s at %s with type %s (%d/%d)
-      ticket_released: POI released in sub-chunk %s at %s with type %s (%d/%d)

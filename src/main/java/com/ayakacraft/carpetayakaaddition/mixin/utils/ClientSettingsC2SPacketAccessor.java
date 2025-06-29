@@ -26,7 +26,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "[1.16, 1.18)"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16 <1.18"))
 @Mixin(DummyClass.class)
 public interface ClientSettingsC2SPacketAccessor {
 

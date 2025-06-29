@@ -58,14 +58,14 @@ public final class KillItemCommand {
                 EntityType.ITEM,
                 itemEntity -> true)));
         if (targets.isEmpty()) {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.none"), false);
+            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.none"), false);
             return 0;
         }
         targets.forEach(EntityUtils::kill);
         if (targets.size() == 1) {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.single"), false);
+            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.single"), false);
         } else {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.multiple", targets.size()), false);
+            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.multiple", targets.size()), false);
         }
         return targets.size();
     }
@@ -74,11 +74,11 @@ public final class KillItemCommand {
         final int                 i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
         final ServerCommandSource source = context.getSource();
         if (i == 0) {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.none"), false);
+            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.none"), false);
         } else if (i == 1) {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.single"), false);
+            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.single"), false);
         } else {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.cancel.multiple", i), false);
+            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.multiple", i), false);
         }
         return i;
     }
@@ -108,7 +108,7 @@ public final class KillItemCommand {
 
         @Override
         public void start() {
-            TextUtils.broadcastToPlayers(mcServer, TextUtils.tr(source, "command.carpet-ayaka-addition.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD), false);
+            TextUtils.broadcastToPlayers(mcServer, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD), false);
         }
 
         @Override
