@@ -38,7 +38,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
 
-public class MovingBlocksLogger extends AbstractAyakaLogger implements InitializedPerTick {
+public class MovingBlocksLogger extends AbstractAyakaLogger {
 
     private static final String[] OPTIONS = {"full", "brief"};
 
@@ -56,8 +56,6 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
         }
         INSTANCE = i;
     }
-
-    private final HashSet<BlockPos> loggedPos = new HashSet<>();
 
     private MovingBlocksLogger() throws NoSuchFieldException {
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
@@ -91,17 +89,12 @@ public class MovingBlocksLogger extends AbstractAyakaLogger implements Initializ
     }
 
     @Override
-    public void init() {
-        loggedPos.clear();
-    }
-
-    @Override
     public boolean isEnabled() {
         return AyakaLoggerRegistry.__movingBlocks;
     }
 
     public void tryLog(PistonBlockEntity pistonBlockEntity) {
-        if (isEnabled() && loggedPos.add(pistonBlockEntity.getPos())) {
+        if (isEnabled()) {
             log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player, playerOption));
         }
     }

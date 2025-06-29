@@ -7,4 +7,5 @@
 
 ## Bugfix
 
-- Wrong language in 1.16 and 1.17
+- (1.16.5 1.17.1) Wrong language for dedicated server
+- movingBlocks logger do not log multiple 0-tick movements in a single block position
