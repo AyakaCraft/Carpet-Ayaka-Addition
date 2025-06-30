@@ -47,9 +47,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -60,6 +58,38 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public final class AddressCommand {
 
+    private static int root(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source = context.getSource();
+
+        List<Address> addresses = AddressManager.getOrCreate(source.getServer())
+                .getAddresses()
+                .stream()
+                .sorted(Comparator.reverseOrder())
+                .limit(5)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        if (addresses.isEmpty()) {
+            sendFeedback(
+                    source,
+                    tr(source, "carpet-ayaka-addition.command.address.list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+        } else {
+            sendFeedback(
+                    source,
+                    tr(source, "carpet-ayaka-addition.command.address.root.header").formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+            sendFeedback(
+                    source,
+                    listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source),
+                    false
+            );
+        }
+
+        return 1;
+    }
+
     private static int list(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
 
@@ -68,8 +98,8 @@ public final class AddressCommand {
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
-                        .sorted(Comparator.reverseOrder())
-                        .collect(Collectors.toList())
+                        .sorted(Comparator.naturalOrder())
+                        .collect(Collectors.toCollection(LinkedList::new))
         );
 
         return 1;
@@ -250,8 +280,8 @@ public final class AddressCommand {
                 source,
                 addresses.stream()
                         .filter(w -> Objects.equals(w.getDim(), dim))
-                        .sorted(Comparator.reverseOrder())
-                        .collect(Collectors.toList())
+                        .sorted(Comparator.naturalOrder())
+                        .collect(Collectors.toCollection(LinkedList::new))
         );
 
         return 1;
@@ -292,11 +322,12 @@ public final class AddressCommand {
         } else {
             sendFeedback(
                     source,
-                    joinTexts(new Text[]{
-                            tr(source, "carpet-ayaka-addition.command.address.list").formatted(Formatting.YELLOW, Formatting.BOLD),
-                            enter(),
-                            listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source)
-                    }),
+                    tr(source, "carpet-ayaka-addition.command.address.list.header").formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+            sendFeedback(
+                    source,
+                    listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source),
                     false
             );
         }
@@ -306,6 +337,7 @@ public final class AddressCommand {
         //noinspection Convert2MethodRef
         return builder
                 .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandAddress, false))
+                .executes(AddressCommand::root)
                 .then(literal("reload").executes(AddressCommand::reload))
                 .then(literal("list").executes(AddressCommand::list)
                         .then(argument("dim", DimensionArgumentType.dimension())

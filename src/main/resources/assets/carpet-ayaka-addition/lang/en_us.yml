@@ -1,9 +1,10 @@
 carpet-ayaka-addition:
   command:
     address:
+      root.header: "Suggested addresses:"
       list:
         empty: No address available
-        .: "The addresses are as below:"
+        header: "The addresses are as below:"
         detail:
           .: Detail
           hover: Click to show detailed info

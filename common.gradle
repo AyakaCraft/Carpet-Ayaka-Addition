@@ -299,7 +299,7 @@ publisher {
     setCurseID("1220026")
     setModrinthID("hGOHBiok")
 
-    setVersionType("release")
+    setVersionType(project.mod_version_type)
     setChangelog(rootProject.file("changelog.md"))
 
     setProjectVersion(fullProjectVersion)

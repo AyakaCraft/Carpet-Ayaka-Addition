@@ -44,6 +44,8 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
 
 - /address | /ad
     - *Server-side waypoints*
+    - .
+        - *Suggest five most-used addresses*
     - reload
         - *Reloads the waypoints*
     - list

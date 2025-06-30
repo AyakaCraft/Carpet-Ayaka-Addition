@@ -1,9 +1,10 @@
 carpet-ayaka-addition:
   command:
     address:
+      root.header: "推荐的路径点:"
       list:
         empty: 无路径点
-        .: "路径点如下: "
+        header: "路径点如下: "
         detail:
           .: 详细信息
           hover: 点击以显示详细信息
@@ -12,7 +13,7 @@ carpet-ayaka-addition:
           hover: 点击以传送到路径点
       not_exist: 路径点 [%s] 不存在
       detail:
-        "0": "路径点 [%s] 的详情:"
+        "0": "路径点 [%s] 详细信息:"
         "1": "标识: "
         "2": "维度: "
         "3": "位置: "
