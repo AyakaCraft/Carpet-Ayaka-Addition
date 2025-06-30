@@ -27,6 +27,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
@@ -59,7 +60,7 @@ public abstract class AyakaLanguage {
             String[]     languages = GSON.fromJson(data, STRING_ARRAY_TYPE);
 
             for (String lang : languages) {
-                lang = lang.toLowerCase();
+                lang = lang.toLowerCase(Locale.ROOT);
                 languageMap.put(lang, new AyakaLanguageImpl(lang));
             }
 
@@ -74,7 +75,7 @@ public abstract class AyakaLanguage {
     }
 
     public static AyakaLanguage get(String lang) {
-        return languageMap.computeIfAbsent(lang.toLowerCase(), AyakaLanguageEmpty::new);
+        return languageMap.computeIfAbsent(lang.toLowerCase(Locale.ROOT), AyakaLanguageEmpty::new);
     }
 
     public static AyakaLanguage getDefaultLanguage() {
@@ -105,7 +106,7 @@ public abstract class AyakaLanguage {
     private final String code;
 
     public AyakaLanguage(String lang) {
-        this.code = lang;
+        this.code = lang.toLowerCase(Locale.ROOT);
     }
 
     public String code() {
@@ -127,13 +128,13 @@ public abstract class AyakaLanguage {
 
             Map<String, String> tr = Collections.emptyMap();
             try {
-                final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", code));
+                final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", code()));
                 Map<String, String> map  = GSON.fromJson(data, MAP_TYPE);
                 if (map != null) {
                     tr = map;
                 }
             } catch (Exception e) {
-                CarpetAyakaAddition.LOGGER.error("Failed to load language {}", code, e);
+                CarpetAyakaAddition.LOGGER.error("Failed to load language {}", code(), e);
             }
             this.translations = Collections.unmodifiableMap(tr);
         }

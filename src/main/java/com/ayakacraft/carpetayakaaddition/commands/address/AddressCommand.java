@@ -366,7 +366,7 @@ public final class AddressCommand {
                                         .executes(AddressCommand::rename))))
                 .then(literal("desc")
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                .then(argument("desc", StringArgumentType.string())
+                                .then(argument("desc", StringArgumentType.greedyString())
                                         .executes(AddressCommand::desc))));
     }
 
