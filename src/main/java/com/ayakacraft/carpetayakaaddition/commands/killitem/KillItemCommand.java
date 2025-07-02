@@ -46,7 +46,7 @@ public final class KillItemCommand {
         if (CarpetAyakaSettings.killItemAwaitSeconds == 0) {
             return killItem0(context.getSource());
         } else {
-            CarpetAyakaServer.INSTANCE.addTickTask(new KillItemTickTask(CarpetAyakaServer.INSTANCE, CarpetAyakaSettings.killItemAwaitSeconds, context.getSource()));
+            CarpetAyakaServer.INSTANCE.addTickTask(it -> new KillItemTickTask(it, CarpetAyakaSettings.killItemAwaitSeconds, context.getSource()));
             return 1;
         }
     }
@@ -58,14 +58,20 @@ public final class KillItemCommand {
                 EntityType.ITEM,
                 itemEntity -> true)));
         if (targets.isEmpty()) {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.none"), false);
+            TextUtils.broadcastTranslatable(server, false, "carpet-ayaka-addition.command.killitem.none");
             return 0;
         }
         targets.forEach(EntityUtils::kill);
         if (targets.size() == 1) {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.single"), false);
+            TextUtils.broadcastTranslatable(
+                    server, false,
+                    "carpet-ayaka-addition.command.killitem.single", targets.get(0).getDisplayName()
+            );
         } else {
-            TextUtils.broadcastToPlayers(server, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.multiple", targets.size()), false);
+            TextUtils.broadcastTranslatable(
+                    server, false,
+                    "carpet-ayaka-addition.command.killitem.multiple", targets.size()
+            );
         }
         return targets.size();
     }
@@ -108,7 +114,12 @@ public final class KillItemCommand {
 
         @Override
         public void start() {
-            TextUtils.broadcastToPlayers(mcServer, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD), false);
+            TextUtils.broadcast(
+                    mcServer,
+                    TextUtils.tr("carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD),
+                    p -> TextUtils.tr(p, "carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD),
+                    false
+            );
         }
 
         @Override

@@ -31,9 +31,9 @@ carpet-ayaka-addition:
         out_of_world_border: Address [%s] out of world border
     killitem:
       none: No item cleared
-      single: Cleared one item
+      single: Cleared {}
       multiple: Cleared %d items
-      task.start: "Warning: clearing the items in %d seconds"
+      task.start: "Warning: clearing items in %d seconds"
       cancel:
         none: No task was cancelled
         single: Cancelled one task

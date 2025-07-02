@@ -67,7 +67,7 @@ public final class ServerPlayerUtils {
         } else {
             lang = ClientUtils.getLanguageCode();
         }
-        return AyakaLanguage.getOrServer(lang);
+        return AyakaLanguage.get(lang);
     }
 
     public static boolean changeGameMode(ServerPlayerEntity player, GameMode gameMode) {

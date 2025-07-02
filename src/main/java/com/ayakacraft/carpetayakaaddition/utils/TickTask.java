@@ -35,7 +35,7 @@ public abstract class TickTask {
 
     public TickTask(CarpetAyakaServer modServer) {
         this.modServer = modServer;
-        this.mcServer = modServer != null ? modServer.mcServer : null;
+        this.mcServer = modServer.mcServer;
     }
 
     /**

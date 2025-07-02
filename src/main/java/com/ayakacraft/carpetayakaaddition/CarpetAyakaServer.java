@@ -36,6 +36,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class CarpetAyakaServer implements CarpetExtension {
@@ -130,8 +131,8 @@ public final class CarpetAyakaServer implements CarpetExtension {
     }
     //#endif
 
-    public void addTickTask(TickTask tickTask) {
-        scheduledTickTasks.add(tickTask);
+    public void addTickTask(Function<CarpetAyakaServer, TickTask> function) {
+        scheduledTickTasks.add(function.apply(this));
     }
 
     public int cancelTickTasksMatching(Predicate<? super TickTask> filter) {
@@ -154,7 +155,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         AddressManager.getOrCreate(mcServer);
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
             if (it instanceof InitializedPerTick) {
-                CarpetAyakaServer.this.addTickTask(((InitializedPerTick) it).getInitTask(CarpetAyakaServer.this));
+                CarpetAyakaServer.this.addTickTask(modServer -> ((InitializedPerTick) it).getInitTask(modServer));
             }
         });
     }

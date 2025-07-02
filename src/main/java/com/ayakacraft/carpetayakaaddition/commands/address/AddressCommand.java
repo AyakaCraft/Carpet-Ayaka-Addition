@@ -351,7 +351,7 @@ public final class AddressCommand {
                                 .then(argument("dim", DimensionArgumentType.dimension())
                                         .then(argument("pos", Vec3ArgumentType.vec3())
                                                 .executes(AddressCommand::set)
-                                                .then(argument("desc", StringArgumentType.string())
+                                                .then(argument("desc", StringArgumentType.greedyString())
                                                         .executes(AddressCommand::set))))))
                 .then(literal("remove")
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)

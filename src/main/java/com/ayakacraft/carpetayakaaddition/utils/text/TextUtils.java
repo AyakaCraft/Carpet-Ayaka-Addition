@@ -24,7 +24,6 @@ import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
@@ -132,13 +131,36 @@ public final class TextUtils {
         return joinTexts(Arrays.asList(elements));
     }
 
-    public static void broadcastToPlayers(MinecraftServer server, Text text, boolean overlay) {
-        final PlayerManager playerManager = server.getPlayerManager();
+    public static void sendMessageToServer(MinecraftServer server, Text text) {
         //#if MC>=11900
-        playerManager.broadcast(text, overlay);
+        server.sendMessage(text);
+        //#elseif MC>=11600
+        //$$ server.sendSystemMessage(text, null);
         //#else
-        //$$ playerManager.getPlayerList().forEach(player -> player.sendMessage(text, overlay));
+        //$$ server.sendMessage(text);
         //#endif
+    }
+
+    public static void broadcast(MinecraftServer server, Text textForServer, Function<ServerPlayerEntity, Text> textFunction, boolean overlay) {
+        //#if MC>=11900
+        server.getPlayerManager().broadcast(textForServer, textFunction, overlay);
+        //#elseif MC>=11600
+        //$$ sendMessageToServer(server, textForServer);
+        //$$ server.getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(textFunction.apply(player), overlay));
+        //#endif
+    }
+
+    public static void broadcast(MinecraftServer server, Text text, boolean overlay) {
+        broadcast(server, text, p -> text, overlay);
+    }
+
+    public static void broadcastTranslatable(MinecraftServer server, boolean overlay, String key, Object... args) {
+        broadcast(
+                server,
+                tr(key, args),
+                p -> tr(p, key, args),
+                overlay
+        );
     }
 
 }
