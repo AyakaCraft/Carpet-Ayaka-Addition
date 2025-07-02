@@ -98,11 +98,8 @@ tasks.register("sendDiscord") {
     doLast {
         Map<String, String> env = System.getenv()
         String msg =
-                """# Announcement
-New version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}releases/tag${env.TAG})
-## What's new:
-${file("changelog.md").text}
-"""
+                "# Announcement\nNew version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}releases/tag/${env.TAG})\n## What's new:\n${file("changelog.md").text}\n"
+        msg = msg.replace("\n", "\\n")
         println("Sending message to " + env.DISCORD_WEBHOOK + "...")
 
         HttpURLConnection connection = (HttpURLConnection) new URI(env.DISCORD_WEBHOOK).toURL().openConnection()
