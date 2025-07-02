@@ -346,16 +346,16 @@ publishing {
 
     // select the repositories you want to publish to
     repositories {
-        maven {
-            name = "AyakaCraft"
-            url = "https://mc.ayakacraft.com:7000/releases"
-            credentials(PasswordCredentials) {
-                username = "Publisher"
-                password = System.getenv("AYAKA_MAVEN_TOKEN")
-            }
-            authentication {
-                basic(BasicAuthentication)
-            }
-        }
+        // maven {
+        //     name = "AyakaCraft"
+        //     url = "https://mc.ayakacraft.com:7000/releases"
+        //     credentials(PasswordCredentials) {
+        //         username = "Publisher"
+        //         password = System.getenv("AYAKA_MAVEN_TOKEN")
+        //     }
+        //     authentication {
+        //         basic(BasicAuthentication)
+        //     }
+        // }
     }
 }
