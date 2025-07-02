@@ -25,7 +25,7 @@ import carpet.logging.HUDController;
 import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.commands.address.AddressManager;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.settings.AyakaRules;
+import com.ayakacraft.carpetayakaaddition.settings.AyakaRuleRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
@@ -54,7 +54,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     @Override
     public void onGameStarted() {
-        AyakaRules.registerRules();
+        AyakaRuleRegistry.registerRules();
 
         //#if MC>=11600
         HUDController.register(minecraftServer -> AyakaLoggerRegistry.updateHUD()); // We use mixin to deal with 1.14 and 1.15

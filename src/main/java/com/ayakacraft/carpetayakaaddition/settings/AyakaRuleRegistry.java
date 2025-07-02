@@ -30,7 +30,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-public final class AyakaRules {
+public final class AyakaRuleRegistry {
 
     private static Map<String, CarpetRule<?>> getRulesMap() {
         return ((SettingsManagerAccessor) CarpetServer.settingsManager).getRules$Ayaka();

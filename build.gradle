@@ -97,7 +97,12 @@ tasks.register("sendDiscord") {
     mustRunAfter(tasks.buildAndGather, tasks.publishAll)
     doLast {
         Map<String, String> env = System.getenv()
-        String msg = "New version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}/releases/tag/${env.TAG})"
+        String msg =
+                """# Announcement
+New version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}releases/tag${env.TAG})
+## What's new:
+${file("changelog.md").text}
+"""
         println("Sending message to " + env.DISCORD_WEBHOOK + "...")
 
         HttpURLConnection connection = (HttpURLConnection) new URI(env.DISCORD_WEBHOOK).toURL().openConnection()

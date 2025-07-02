@@ -1,3 +1,3 @@
-## General
+### General
 
-- Added `/address` and `ad` root command
+- Support for Minecraft 1.21.7

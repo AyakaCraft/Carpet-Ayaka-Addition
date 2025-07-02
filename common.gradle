@@ -296,8 +296,12 @@ publisher {
 
     //setDebug(true)
 
-    setCurseID("1220026")
-    setModrinthID("hGOHBiok")
+    if (properties.get("curseforge_id") != null) {
+        setCurseID(properties.curseforge_id)
+    }
+    if (properties.get("modrinth_id") != null) {
+        setModrinthID(properties.modrinth_id)
+    }
 
     setVersionType(project.mod_version_type)
     setChangelog(rootProject.file("changelog.md"))

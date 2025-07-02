@@ -63,11 +63,12 @@ public class AyakaRule implements carpet.settings.Rule {
 
     @Override
     public String[] extra() {
+        AyakaLanguage serverLang = AyakaLanguage.getServerLanguage();
         String       header = RULE_TRANSLATION_HEADER + name + ".extra.";
         String       x;
         List<String> extras = new LinkedList<>();
         int          i      = 0;
-        while ((x = AyakaLanguage.getServerLanguage().translateWithoutFallback(header + i)) != null) {
+        while ((x = serverLang.translateWithoutFallback(header + i)) != null) {
             extras.add(x);
             i++;
         }

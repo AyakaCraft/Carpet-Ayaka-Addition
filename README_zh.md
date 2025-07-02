@@ -309,7 +309,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 | 1.20.1           | ✔️ 长期支持               |
 | 1.20.6           | ✔️ 长期支持               |
 | 1.21.1, 1.21.4-5 | 🕒 Minecraft 1.22 发布时 |
-| 1.21.6           | 🕒 待定                 |
+| 1.21.6-7         | 🕒 待定                 |
 
 ### 已结束支持的版本
 
