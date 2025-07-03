@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.movingblocks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
-import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -44,6 +44,8 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
     public static final String NAME = "movingBlocks";
 
     public static final MovingBlocksLogger INSTANCE;
+
+    public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
 
     static {
         MovingBlocksLogger i = null;
@@ -67,19 +69,19 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
 
         BlockState  state     = entity.getPushedBlock();
         Block       block     = state.getBlock();
-        MutableText direction = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.direction." + entity.getMovementDirection().getName());
+        MutableText direction = TR.tr(player, "direction." + entity.getMovementDirection().getName());
 
         MutableText txt;
         if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
             if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.PISTON.getName(), direction, StringUtils.toString(pos));
+                txt = TR.tr(player, "extend", Blocks.PISTON.getName(), direction, StringUtils.toString(pos));
             } else {
-                txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.toString(pos));
+                txt = TR.tr(player, "extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.toString(pos));
             }
         } else if (entity.isSource() && !entity.isExtending()) {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.pull_back", state.getBlock().getName(), direction, StringUtils.toString(pos));
+            txt = TR.tr(player, "pull_back", state.getBlock().getName(), direction, StringUtils.toString(pos));
         } else {
-            txt = TextUtils.tr(player, "carpet-ayaka-addition.logger.movingBlocks.common", state.getBlock().getName(), direction, StringUtils.toString(pos));
+            txt = TR.tr(player, "common", state.getBlock().getName(), direction, StringUtils.toString(pos));
         }
 
         return new MutableText[]{txt};

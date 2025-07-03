@@ -24,7 +24,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
-import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.PointOfInterestTypeTags;
 import net.minecraft.registry.tag.TagKey;
@@ -51,6 +51,8 @@ public class POILogger extends AbstractAyakaLogger {
 
     public static final POILogger INSTANCE;
 
+    public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
+
     static {
         POILogger i = null;
         try {
@@ -70,9 +72,9 @@ public class POILogger extends AbstractAyakaLogger {
 
     private MutableText[] doAddedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            return new MutableText[]{TextUtils.tr(
+            return new MutableText[]{TR.tr(
                     player,
-                    "carpet-ayaka-addition.logger.poi.added",
+                    "added",
                     StringUtils.toString(ChunkSectionPos.from(pos)),
                     StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type)
@@ -83,9 +85,9 @@ public class POILogger extends AbstractAyakaLogger {
     }
 
     private MutableText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
-        return new MutableText[]{TextUtils.tr(
+        return new MutableText[]{TR.tr(
                 player,
-                "carpet-ayaka-addition.logger.poi.removed",
+                "removed",
                 StringUtils.toString(ChunkSectionPos.from(pos)),
                 StringUtils.toString(pos)
         )};
@@ -93,9 +95,9 @@ public class POILogger extends AbstractAyakaLogger {
 
     private MutableText[] doTickedReservedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            return new MutableText[]{TextUtils.tr(
+            return new MutableText[]{TR.tr(
                     player,
-                    "carpet-ayaka-addition.logger.poi.ticket_reserved",
+                    "ticket_reserved",
                     StringUtils.toString(ChunkSectionPos.from(pos)),
                     StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type),
@@ -109,9 +111,9 @@ public class POILogger extends AbstractAyakaLogger {
     private MutableText[] doTickedReleasedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
         if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
             ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TextUtils.tr(
+            return new MutableText[]{TR.tr(
                     player,
-                    "carpet-ayaka-addition.logger.poi.ticket_released",
+                    "ticket_released",
                     StringUtils.toString(sectionPos),
                     StringUtils.toString(pos),
                     RegistryUtils.getIdAsString(type),

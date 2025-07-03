@@ -22,7 +22,7 @@ package com.ayakacraft.carpetayakaaddition.settings;
 
 import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Validator;
-import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import net.minecraft.server.command.ServerCommandSource;
 import org.jetbrains.annotations.Nullable;
 

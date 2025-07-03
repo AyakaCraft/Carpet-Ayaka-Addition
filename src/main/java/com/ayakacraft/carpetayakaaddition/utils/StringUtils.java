@@ -28,4 +28,8 @@ public final class StringUtils {
         return "[" + pos.getX() + " " + pos.getY() + " " + pos.getZ() + "]";
     }
 
+    public static boolean isNullOrEmpty(String str) {
+        return str == null || str.isEmpty();
+    }
+
 }

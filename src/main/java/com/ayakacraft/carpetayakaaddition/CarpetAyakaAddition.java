@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition;
 
 import carpet.CarpetServer;
-import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.api.ModInitializer;

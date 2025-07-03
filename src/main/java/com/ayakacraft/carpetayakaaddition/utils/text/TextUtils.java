@@ -20,11 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition.utils.text;
 
-import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
-import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -51,26 +49,6 @@ public final class TextUtils {
         //#else
         //$$ return new net.minecraft.text.TranslatableText(key, args);
         //#endif
-    }
-
-    public static MutableText tr(AyakaLanguage lang, String key, Object... args) {
-        return format(lang.translate(key), args);
-    }
-
-    public static MutableText tr(String key, Object... args) {
-        return tr(AyakaLanguage.getServerLanguage(), key, args);
-    }
-
-    public static MutableText tr(ServerPlayerEntity player, String key, Object... args) {
-        return tr(ServerPlayerUtils.getLanguage(player), key, args);
-    }
-
-    public static MutableText tr(ServerCommandSource source, String key, Object... args) {
-        if (source.isExecutedByPlayer()) {
-            return tr((ServerPlayerEntity) source.getEntity(), key, args);
-        } else {
-            return tr(key, args);
-        }
     }
 
     public static MutableText format(String str, Object... args) {
@@ -142,23 +120,21 @@ public final class TextUtils {
     }
 
     public static void broadcast(MinecraftServer server, Text textForServer, Function<ServerPlayerEntity, Text> textFunction, boolean overlay) {
-        //#if MC>=11900
-        server.getPlayerManager().broadcast(textForServer, textFunction, overlay);
-        //#elseif MC>=11600
-        //$$ sendMessageToServer(server, textForServer);
-        //$$ server.getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(textFunction.apply(player), overlay));
-        //#endif
+        sendMessageToServer(server, textForServer);
+        server.getPlayerManager().getPlayerList().forEach(player -> {
+            Text t = textFunction.apply(player);
+            if (t == null) {
+                return;
+            }
+            player.sendMessage(t, overlay);
+        });
     }
 
-    public static void broadcast(MinecraftServer server, Text text, boolean overlay) {
-        broadcast(server, text, p -> text, overlay);
-    }
-
-    public static void broadcastTranslatable(MinecraftServer server, boolean overlay, String key, Object... args) {
+    public static void broadcastTranslatable(MinecraftServer server, boolean overlay, Translator tr, Object... args) {
         broadcast(
                 server,
-                tr(key, args),
-                p -> tr(p, key, args),
+                tr.tr(null, args),
+                p -> tr.tr(p, null, args),
                 overlay
         );
     }

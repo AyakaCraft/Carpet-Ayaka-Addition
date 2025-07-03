@@ -31,7 +31,7 @@ carpet-ayaka-addition:
         out_of_world_border: 路径点 [%s] 在世界边界以外
     killitem:
       none: 没有可清除的掉落物
-      single: 清除了{}
+      single: "清除了{}"
       multiple: 清除了%d个掉落物
       task.start: 警告：掉落物将在%d秒后清除
       cancel:
@@ -42,8 +42,8 @@ carpet-ayaka-addition:
     loadedChunks: 加载区块
     movingBlocks:
       common: "{} 向 {} 移动至 %s"
-      extend: "{} 面向 {} 伸展至 %s"
-      pull_back: "{} 面向 {} 收回至 %s"
+      extend: "{} 向 {} 伸展至 %s"
+      pull_back: "{} 向 {} 收回至 %s"
       direction:
         west: 西
         east: 东

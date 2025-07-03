@@ -21,11 +21,13 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 import java.util.concurrent.CompletableFuture;
@@ -81,6 +83,13 @@ public final class CommandUtils {
         //#else
         //$$ source.sendFeedback(txt, broadcastToOps);
         //#endif
+    }
+
+    public static AyakaLanguage getLanguage(ServerCommandSource source) {
+        if (source.isExecutedByPlayer()) {
+            return ServerPlayerUtils.getLanguage((ServerPlayerEntity) source.getEntity());
+        }
+        return AyakaLanguage.getServerLanguage();
     }
 
 }

@@ -20,9 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
+import com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
@@ -57,6 +57,7 @@ public class ServerPlayerEntityMixin implements WithClientLanguage {
 
 
     @Override
+    @Unique
     public String getClientLanguage$Ayaka() {
         return clientLanguage;
     }

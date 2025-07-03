@@ -22,10 +22,12 @@ package com.ayakacraft.carpetayakaaddition.commands.killitem;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.EntityUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.entity.Entity;
@@ -41,6 +43,10 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 
 public final class KillItemCommand {
+
+    public static final String NAME = "killitem";
+
+    public static final Translator TR = AyakaCommandRegistry.COMMAND_TR.resolve(NAME);
 
     private static int killItem(CommandContext<ServerCommandSource> context) {
         if (CarpetAyakaSettings.killItemAwaitSeconds == 0) {
@@ -58,19 +64,19 @@ public final class KillItemCommand {
                 EntityType.ITEM,
                 itemEntity -> true)));
         if (targets.isEmpty()) {
-            TextUtils.broadcastTranslatable(server, false, "carpet-ayaka-addition.command.killitem.none");
+            TextUtils.broadcastTranslatable(server, false, TR.resolve("none"));
             return 0;
         }
         targets.forEach(EntityUtils::kill);
         if (targets.size() == 1) {
             TextUtils.broadcastTranslatable(
                     server, false,
-                    "carpet-ayaka-addition.command.killitem.single", targets.get(0).getDisplayName()
+                    TR.resolve("single"), targets.get(0).getDisplayName()
             );
         } else {
             TextUtils.broadcastTranslatable(
                     server, false,
-                    "carpet-ayaka-addition.command.killitem.multiple", targets.size()
+                    TR.resolve("multiple"), targets.size()
             );
         }
         return targets.size();
@@ -80,18 +86,18 @@ public final class KillItemCommand {
         final int                 i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
         final ServerCommandSource source = context.getSource();
         if (i == 0) {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.none"), false);
+            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.none"), false);
         } else if (i == 1) {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.single"), false);
+            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.single"), false);
         } else {
-            CommandUtils.sendFeedback(source, TextUtils.tr(source, "carpet-ayaka-addition.command.killitem.cancel.multiple", i), false);
+            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.multiple", i), false);
         }
         return i;
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-                literal("killitem")
+                literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
                         .executes(KillItemCommand::killItem)
                         .then(literal("cancel").executes(KillItemCommand::cancel)));
@@ -116,8 +122,8 @@ public final class KillItemCommand {
         public void start() {
             TextUtils.broadcast(
                     mcServer,
-                    TextUtils.tr("carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD),
-                    p -> TextUtils.tr(p, "carpet-ayaka-addition.command.killitem.task.start", awaitSeconds).formatted(Formatting.GOLD),
+                    TR.tr("task.start", awaitSeconds).formatted(Formatting.GOLD),
+                    p -> TR.tr(p, "task.start", awaitSeconds).formatted(Formatting.GOLD),
                     false
             );
         }

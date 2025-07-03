@@ -33,9 +33,11 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public final class CCommand {
 
+    public static final String NAME = "c";
+
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-                literal("c")
+                literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, true))
                         .executes(ctx -> {
                             final ServerCommandSource         source = ctx.getSource();

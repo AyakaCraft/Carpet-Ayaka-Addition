@@ -18,9 +18,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.utils.translation;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
 import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -92,15 +93,6 @@ public abstract class AyakaLanguage {
                 //$$ DEFAULT_LANG
                 //#endif
         );
-    }
-
-    public static AyakaLanguage getOrServer(String lang) {
-        lang = lang.toLowerCase();
-        if (languageMap.containsKey(lang)) {
-            return get(lang);
-        } else {
-            return getServerLanguage();
-        }
     }
 
     private final String code;

@@ -32,9 +32,11 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public final class TptCommand {
 
+    public static final String NAME = "tpt";
+
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-                literal("tpt")
+                literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, true))
                         .then(
                                 argument("target", EntityArgumentType.player())

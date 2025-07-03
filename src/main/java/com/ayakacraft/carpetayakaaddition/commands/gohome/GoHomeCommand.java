@@ -35,9 +35,11 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public final class GoHomeCommand {
 
+    public static final String NAME = "gohome";
+
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
-                literal("gohome")
+                literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, true))
                         .executes(context -> {
                             final ServerCommandSource         source = context.getSource();

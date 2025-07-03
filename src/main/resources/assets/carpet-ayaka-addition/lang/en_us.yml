@@ -31,7 +31,7 @@ carpet-ayaka-addition:
         out_of_world_border: Address [%s] out of world border
     killitem:
       none: No item cleared
-      single: Cleared {}
+      single: "Cleared {}"
       multiple: Cleared %d items
       task.start: "Warning: clearing items in %d seconds"
       cancel:
@@ -42,8 +42,8 @@ carpet-ayaka-addition:
     loadedChunks: Loaded Chunks
     movingBlocks:
       common: "{} moved {} to %s"
-      extend: "{} facing {} extended to %s"
-      pull_back: "{} facing {} pulled back to %s"
+      extend: "{} extended {} to %s"
+      pull_back: "{} pulled back {} to %s"
       direction:
         west: west
         east: east

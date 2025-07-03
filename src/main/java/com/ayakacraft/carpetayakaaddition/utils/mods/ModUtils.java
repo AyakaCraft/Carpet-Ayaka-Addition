@@ -35,6 +35,8 @@ public final class ModUtils {
 
     public static final String MC_ID = "minecraft";
 
+    public static final String CPT_ID = "carpet";
+
     @Deprecated
     public static boolean isModLoaded(String modId) {
         return LOADER.isModLoaded(modId);

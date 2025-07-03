@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils.text;
+package com.ayakacraft.carpetayakaaddition.utils.translation;
 
 public interface WithClientLanguage {
 

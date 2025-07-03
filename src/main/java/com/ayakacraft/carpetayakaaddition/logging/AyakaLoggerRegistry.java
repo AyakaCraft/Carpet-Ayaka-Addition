@@ -25,11 +25,14 @@ import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public final class AyakaLoggerRegistry {
+
+    public static final Translator LOGGER_TR = Translator.AYAKA.resolve("logger");
 
     public static final Set<Logger> ayakaLoggers = new HashSet<>();
 

@@ -24,7 +24,8 @@ import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
 import carpet.settings.Validator;
 import com.ayakacraft.carpetayakaaddition.mixin.carpet.ParsedRuleAccessor;
-import com.ayakacraft.carpetayakaaddition.utils.AyakaLanguage;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
+import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -34,7 +35,7 @@ import java.util.List;
 @SuppressWarnings("ClassExplicitlyAnnotation")
 public class AyakaRule implements carpet.settings.Rule {
 
-    private static final String RULE_TRANSLATION_HEADER = "carpet.rule.";
+    public static final Translator RULE_TR = Translator.CARPET.resolve("rule");
 
     private final Field field;
 
@@ -44,11 +45,14 @@ public class AyakaRule implements carpet.settings.Rule {
 
     private final SettingsManager settingsManager;
 
+    private final Translator tr;
+
     public AyakaRule(Field field, SettingsManager settingsManager) {
         this.field = field;
         this.name = field.getName();
         this.rule = field.getAnnotation(Rule.class);
         this.settingsManager = settingsManager;
+        this.tr = RULE_TR.resolve(this.name);
     }
 
     @Override
@@ -58,17 +62,16 @@ public class AyakaRule implements carpet.settings.Rule {
 
     @Override
     public String desc() {
-        return AyakaLanguage.getServerLanguage().translate(RULE_TRANSLATION_HEADER + name + ".desc");
+        return tr.translate(AyakaLanguage.getServerLanguage(), "desc");
     }
 
     @Override
     public String[] extra() {
         AyakaLanguage serverLang = AyakaLanguage.getServerLanguage();
-        String       header = RULE_TRANSLATION_HEADER + name + ".extra.";
         String       x;
         List<String> extras = new LinkedList<>();
         int          i      = 0;
-        while ((x = serverLang.translateWithoutFallback(header + i)) != null) {
+        while ((x = tr.translateWithoutFallback(serverLang, "extra." + i)) != null) {
             extras.add(x);
             i++;
         }

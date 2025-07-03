@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameMode;
@@ -45,7 +46,7 @@ public final class ServerPlayerUtils {
         //#if MC>=12006
         return player.getClientOptions().language();
         //#else
-        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.text.WithClientLanguage) player).getClientLanguage$Ayaka();
+        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage) player).getClientLanguage$Ayaka();
         //#endif
     }
 
