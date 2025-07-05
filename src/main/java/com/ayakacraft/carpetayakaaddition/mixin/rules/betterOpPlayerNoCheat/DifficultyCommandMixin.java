@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.mods.TISHelper;
+import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.command.DifficultyCommand;

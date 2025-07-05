@@ -109,6 +109,7 @@ Logs the change of points-of-interest (experimental)
 
 #### Index
 
+- [betterMobCap](#bettermobcap)
 - [betterOpPlayerNoCheat](#betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#blockdropstackvelocitymultiple)
 - [commandAddress](#commandaddress)
@@ -125,6 +126,15 @@ Logs the change of points-of-interest (experimental)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
+
+#### betterMobCap
+
+Makes mob cap effect pillager patrol and phantom spawning
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### betterOpPlayerNoCheat
 
@@ -149,7 +159,7 @@ Multiple of velocity of item stacks dropped by a broken block
 - Default value: `1d`
 - Suggested options: `0`, `0.5`, `1`, `2`
 - Range: `[0,)`
-- Categories: `AYAKA`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FRATURE`, `EXPERIMENTAL`
 
 #### commandAddress
 
@@ -257,7 +267,7 @@ Max value `72000` (an hour)
 - Default value: `0`
 - Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - Range: `[0,72000]`
-- Categories: `AYAKA`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FRATURE`, `EXPERIMENTAL`
 
 #### killItemAwaitSeconds
 

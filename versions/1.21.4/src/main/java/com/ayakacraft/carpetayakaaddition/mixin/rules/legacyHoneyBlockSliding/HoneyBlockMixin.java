@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;

@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.settings;
 import carpet.CarpetServer;
 import carpet.api.settings.CarpetRule;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.mixin.carpet.SettingsManagerAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.settings.SettingsManagerAccessor;
 import com.ayakacraft.carpetayakaaddition.settings.conditions.AyakaCondition;
 
 import java.lang.reflect.Constructor;

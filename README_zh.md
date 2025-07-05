@@ -109,7 +109,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 索引
 
-- [betterOpPlayerNoCheat](#更好的opplayernocheat选项-betteropplayernocheat)
+- [betterMobCap](#更好的刷怪上限-bettermobcap)
+- [betterOpPlayerNoCheat](#更好的op玩家不准作弊-betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#方块掉落物速度乘数-blockdropstackvelocitymultiple)
 - [commandAddress](#全局路径点命令开关-commandaddress)
 - [commandC](#旁观者模式切换命令开关-commandc)
@@ -126,7 +127,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 
-#### 更好的opPlayerNoCheat选项 (betterOpPlayerNoCheat)
+#### 更好的刷怪上限 (betterMobCap)
+
+使灾厄巡逻队和幻翼的生成受刷怪上限影响
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+
+#### 更好的op玩家不准作弊 (betterOpPlayerNoCheat)
 
 为 opPlayerNoCheat 添加更多影响的指令
 
@@ -149,7 +159,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `1d`
 - 参考选项: `0`, `0.5`, `1`, `2`
 - 范围: `[0,)`
-- 分类: `AYAKA`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `FRATURE`, `EXPERIMENTAL`
 
 #### 全局路径点命令开关 (commandAddress)
 
@@ -267,7 +277,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `5`
 - 参考选项: `0`, `5`, `10`, `30`
 - 范围: `[0,)`
-- 分类: `AYAKA`, `COMMAND`
+- 分类: `AYAKA`, `FRATURE`, `COMMAND`
 
 #### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.4+)
 

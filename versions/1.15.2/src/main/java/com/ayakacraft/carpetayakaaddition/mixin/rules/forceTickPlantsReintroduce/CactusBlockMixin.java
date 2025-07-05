@@ -20,8 +20,8 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
