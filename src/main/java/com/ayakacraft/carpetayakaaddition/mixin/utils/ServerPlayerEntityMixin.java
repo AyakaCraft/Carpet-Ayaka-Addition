@@ -20,7 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.utils;
 
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;

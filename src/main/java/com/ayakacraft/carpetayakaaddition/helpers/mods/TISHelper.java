@@ -18,18 +18,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
+package com.ayakacraft.carpetayakaaddition.helpers.mods;
 
-import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
+import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
+import net.minecraft.server.command.ServerCommandSource;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
-@Mixin(DummyClass.class)
-public class HoneyBlockMixin {
+public final class TISHelper {
 
-    // Implementation in 1.21.4
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean canCheat(ServerCommandSource source) {
+        return OpPlayerNoCheatHelper.canCheat(source);
+    }
 
 }

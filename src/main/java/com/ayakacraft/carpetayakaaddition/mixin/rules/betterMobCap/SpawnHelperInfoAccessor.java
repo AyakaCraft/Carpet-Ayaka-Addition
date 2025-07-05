@@ -18,40 +18,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CactusBlock;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.entity.SpawnGroup;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.SpawnHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
-@Mixin(CactusBlock.class)
-public abstract class CactusBlockMixin {
+@Mixin(SpawnHelper.Info.class)
+public interface SpawnHelperInfoAccessor {
 
-    @Inject(method = "scheduledTick", at = @At("RETURN"))
-    private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canPlaceAt(world, pos)) {
-            randomTick(state, world, pos, random);
-        }
-    }
+    @Invoker("isBelowCap")
+    boolean checkBelowCap(
+            SpawnGroup group
+            //#if MC>=12104
+            //#elseif MC>=11800
+            , ChunkPos chunkPos
+            //#endif
+    );
 
-    @Shadow
-    //#if MC>=12006
-    protected
-    //#else
-    //$$ public
+    //#if MC>=12104
+    //$$ @Invoker("canSpawn")
+    //$$ boolean checkCanSpawn(SpawnGroup group, ChunkPos chunkPos);
     //#endif
-    abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
 
 }

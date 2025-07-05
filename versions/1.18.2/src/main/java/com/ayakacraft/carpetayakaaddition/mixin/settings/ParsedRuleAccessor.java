@@ -18,18 +18,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.settings;
 
-import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import carpet.settings.ParsedRule;
+import carpet.settings.Rule;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Invoker;
+
+import java.lang.reflect.Field;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.19"))
-@Mixin(DummyClass.class)
+@Mixin(ParsedRule.class)
 public interface ParsedRuleAccessor {
 
-    // Implementation in 1.18.2
+    @Invoker("<init>")
+    static ParsedRule<?> invokeConstructor(
+            Field field, Rule rule
+            //#if MC>=11600
+            , carpet.settings.SettingsManager settingsManager
+            //#endif
+    ) {
+        throw new AssertionError();
+    }
 
 }

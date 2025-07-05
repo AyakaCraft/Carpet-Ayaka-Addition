@@ -66,8 +66,11 @@ carpet:
     unsigned: 不能为负数
     unsigned_with_bound: 不能为负数或大于 %d
   rule:
+    betterMobCap:
+      name: 更好的刷怪上限
+      desc: 使灾厄巡逻队和幻翼的生成受刷怪上限影响
     betterOpPlayerNoCheat:
-      name: 更好的opPlayerNoCheat选项
+      name: 更好的op玩家不准作弊
       desc: 为 opPlayerNoCheat 添加更多影响的指令
       extra:
         "0": 影响的指令列表：/kill，/clear，/effect，/item 和 /difficulty

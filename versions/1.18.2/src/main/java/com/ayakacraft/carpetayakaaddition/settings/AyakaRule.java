@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.settings;
 import carpet.settings.ParsedRule;
 import carpet.settings.SettingsManager;
 import carpet.settings.Validator;
-import com.ayakacraft.carpetayakaaddition.mixin.carpet.ParsedRuleAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.settings.ParsedRuleAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 

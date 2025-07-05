@@ -25,6 +25,7 @@ import carpet.logging.LoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
 import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
+import com.ayakacraft.carpetayakaaddition.mixin.logging.LoggerRegistryMixin;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 
 import java.util.HashSet;
@@ -62,7 +63,7 @@ public final class AyakaLoggerRegistry {
     //#if MC>=11500
 
     /**
-     * @see com.ayakacraft.carpetayakaaddition.mixin.carpet.LoggerRegistryMixin
+     * @see LoggerRegistryMixin
      */
     public static void registerToCarpet() {
         ayakaLoggers.forEach(it -> LoggerRegistry.registerLogger(it.getLogName(), it));

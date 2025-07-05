@@ -22,9 +22,9 @@ package com.ayakacraft.carpetayakaaddition.utils.translation;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;

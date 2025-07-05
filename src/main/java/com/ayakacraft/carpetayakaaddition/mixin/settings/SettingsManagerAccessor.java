@@ -18,16 +18,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils.mods;
+package com.ayakacraft.carpetayakaaddition.mixin.settings;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
-import net.minecraft.server.command.ServerCommandSource;
+import carpet.api.settings.CarpetRule;
+import carpet.api.settings.SettingsManager;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
 
-public final class TISHelper {
+import java.util.Map;
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean canCheat(ServerCommandSource source) {
-        return OpPlayerNoCheatHelper.canCheat(source);
-    }
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.19"))
+@Mixin(value = SettingsManager.class, remap = false)
+public interface SettingsManagerAccessor {
+
+    @Accessor("rules")
+    Map<String, CarpetRule<?>> getRules$Ayaka();
 
 }

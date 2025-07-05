@@ -18,23 +18,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.carpet;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 
-import carpet.api.settings.CarpetRule;
-import carpet.api.settings.SettingsManager;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
 
-import java.util.Map;
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
+@Mixin(DummyClass.class)
+public interface SpawnHelperInfoAccessor {
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.19"))
-@Mixin(value = SettingsManager.class, remap = false)
-public interface SettingsManagerAccessor {
-
-    @Accessor("rules")
-    Map<String, CarpetRule<?>> getRules$Ayaka();
+    // Implementation in main project
 
 }

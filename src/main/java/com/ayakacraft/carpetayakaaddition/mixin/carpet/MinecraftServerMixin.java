@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.mixin.carpet;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
-import com.ayakacraft.carpetayakaaddition.utils.mods.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;

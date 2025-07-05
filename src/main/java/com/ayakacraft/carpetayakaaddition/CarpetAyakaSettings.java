@@ -40,12 +40,17 @@ public final class CarpetAyakaSettings {
     public static final String BOT = "BOT";
 
     @Rule(
+            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean betterMobCap = false;
+
+    @Rule(
             categories = {AYAKA, SURVIVAL, CHEAT}
     )
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL},
+            categories = {AYAKA, FEATURE, EXPERIMENTAL},
             options = {"0", "0.5", "1", "2"},
             strict = false,
             validators = Validators.UnsignedDoubleValidator.class
@@ -109,7 +114,7 @@ public final class CarpetAyakaSettings {
     public static boolean foxNoPickupItem = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL},
+            categories = {AYAKA, FEATURE, EXPERIMENTAL},
             validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
