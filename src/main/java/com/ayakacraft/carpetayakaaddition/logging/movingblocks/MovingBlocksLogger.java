@@ -64,7 +64,7 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
         BlockPos pos = entity.getPos();
 
         if (OPTIONS[1].equals(option)) {
-            return new MutableText[]{Text.literal(StringUtils.toString(pos))};
+            return new MutableText[]{Text.literal(StringUtils.posString(pos))};
         }
 
         BlockState  state     = entity.getPushedBlock();
@@ -74,14 +74,14 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
         MutableText txt;
         if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
             if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
-                txt = TR.tr(player, "extend", Blocks.PISTON.getName(), direction, StringUtils.toString(pos));
+                txt = TR.tr(player, "extend", Blocks.PISTON.getName(), direction, StringUtils.posString(pos));
             } else {
-                txt = TR.tr(player, "extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.toString(pos));
+                txt = TR.tr(player, "extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.posString(pos));
             }
         } else if (entity.isSource() && !entity.isExtending()) {
-            txt = TR.tr(player, "pull_back", state.getBlock().getName(), direction, StringUtils.toString(pos));
+            txt = TR.tr(player, "pull_back", state.getBlock().getName(), direction, StringUtils.posString(pos));
         } else {
-            txt = TR.tr(player, "common", state.getBlock().getName(), direction, StringUtils.toString(pos));
+            txt = TR.tr(player, "common", state.getBlock().getName(), direction, StringUtils.posString(pos));
         }
 
         return new MutableText[]{txt};

@@ -24,7 +24,7 @@ import net.minecraft.util.math.Vec3i;
 
 public final class StringUtils {
 
-    public static String toString(Vec3i pos) {
+    public static String posString(Vec3i pos) {
         return "[" + pos.getX() + " " + pos.getY() + " " + pos.getZ() + "]";
     }
 

@@ -75,8 +75,8 @@ public class POILogger extends AbstractAyakaLogger {
             return new MutableText[]{TR.tr(
                     player,
                     "added",
-                    StringUtils.toString(ChunkSectionPos.from(pos)),
-                    StringUtils.toString(pos),
+                    StringUtils.posString(ChunkSectionPos.from(pos)),
+                    StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type)
             )};
         } else {
@@ -88,8 +88,8 @@ public class POILogger extends AbstractAyakaLogger {
         return new MutableText[]{TR.tr(
                 player,
                 "removed",
-                StringUtils.toString(ChunkSectionPos.from(pos)),
-                StringUtils.toString(pos)
+                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(pos)
         )};
     }
 
@@ -98,8 +98,8 @@ public class POILogger extends AbstractAyakaLogger {
             return new MutableText[]{TR.tr(
                     player,
                     "ticket_reserved",
-                    StringUtils.toString(ChunkSectionPos.from(pos)),
-                    StringUtils.toString(pos),
+                    StringUtils.posString(ChunkSectionPos.from(pos)),
+                    StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type),
                     freeTickets, type.value().ticketCount()
             )};
@@ -114,8 +114,8 @@ public class POILogger extends AbstractAyakaLogger {
             return new MutableText[]{TR.tr(
                     player,
                     "ticket_released",
-                    StringUtils.toString(sectionPos),
-                    StringUtils.toString(pos),
+                    StringUtils.posString(sectionPos),
+                    StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type),
                     freeTickets, type.value().ticketCount()
             )};

@@ -22,18 +22,22 @@ package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
+import net.minecraft.util.math.ChunkPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(ThreadedAnvilChunkStorage.class)
-public interface ThreadedAnvilChunkStorageInvoker {
+public interface ThreadedAnvilChunkStorageAccessor {
 
     @Invoker("entryIterator")
     Iterable<ChunkHolder> getEntryIterator();
 
-    //#if MC<11800
+    //#if MC>=11800
+    @Invoker("shouldTick")
+    boolean whetherShouldTick(ChunkPos pos);
+    //#else
     //$$ @Invoker("isTooFarFromPlayersToSpawnMobs")
-    //$$ boolean whetherTooFarFromPlayersToSpawnMobs(net.minecraft.util.math.ChunkPos chunkPos);
+    //$$ boolean whetherTooFarFromPlayersToSpawnMobs(ChunkPos chunkPos);
     //#endif
 
 }

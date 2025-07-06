@@ -55,8 +55,8 @@ public class POILogger extends AbstractAyakaLogger {
         return new BaseText[]{TR.tr(
                 player,
                 "added",
-                StringUtils.toString(ChunkSectionPos.from(pos)),
-                StringUtils.toString(pos),
+                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(pos),
                 type.toString()
         )};
     }
@@ -65,8 +65,8 @@ public class POILogger extends AbstractAyakaLogger {
         return new BaseText[]{TR.tr(
                 player,
                 "removed",
-                StringUtils.toString(ChunkSectionPos.from(pos)),
-                StringUtils.toString(pos)
+                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(pos)
         )};
     }
 
@@ -74,8 +74,8 @@ public class POILogger extends AbstractAyakaLogger {
         return new BaseText[]{TR.tr(
                 player,
                 "ticket_reserved",
-                StringUtils.toString(ChunkSectionPos.from(pos)),
-                StringUtils.toString(pos),
+                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(pos),
                 type.toString(),
                 freeTickets, type.getTicketCount()
         )};
@@ -84,8 +84,8 @@ public class POILogger extends AbstractAyakaLogger {
     private BaseText[] doTickedReleasedLogging(BlockPos pos, PointOfInterestType type, int freeTickets, ServerPlayerEntity player) {
         return new BaseText[]{TR.tr(player,
                 "ticket_released",
-                StringUtils.toString(ChunkSectionPos.from(pos)),
-                StringUtils.toString(pos),
+                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(pos),
                 type.toString(),
                 freeTickets, type.getTicketCount()
         )};

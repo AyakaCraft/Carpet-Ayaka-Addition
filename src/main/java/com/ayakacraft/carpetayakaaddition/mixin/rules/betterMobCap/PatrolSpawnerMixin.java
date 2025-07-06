@@ -41,7 +41,7 @@ public class PatrolSpawnerMixin {
             )
     )
     private boolean applyMobCaps(PlayerEntity instance, Operation<Boolean> original) {
-        if (BetterMobCapHelper.checkBelowCaps((ServerPlayerEntity) instance, EntityType.PILLAGER)) {
+        if (BetterMobCapHelper.shouldSpawn((ServerPlayerEntity) instance, EntityType.PILLAGER)) {
             return original.call(instance);
         }
         return true;

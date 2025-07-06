@@ -22,7 +22,6 @@ package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
-import net.minecraft.server.world.ChunkTicketManager;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
@@ -40,10 +39,6 @@ public abstract class ServerChunkManagerMixin {
 
     @Shadow
     @Final
-    private ChunkTicketManager ticketManager;
-
-    @Shadow
-    @Final
     //#if MC<11700
     //$$ private
     //#elseif MC>=12104
@@ -58,18 +53,18 @@ public abstract class ServerChunkManagerMixin {
     @Inject(method = "tickChunks()V", at = @At("RETURN"))
     private void onTickChunks(CallbackInfo ci) {
         if (AyakaLoggerRegistry.__loadedChunks) {
-            ThreadedAnvilChunkStorageInvoker tacsi = (ThreadedAnvilChunkStorageInvoker) this.threadedAnvilChunkStorage;
+            ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) this.threadedAnvilChunkStorage;
 
             int   count  = this.threadedAnvilChunkStorage.getLoadedChunkCount();
             int[] countP = {0};
 
             tacsi.getEntryIterator().forEach(chunkHolder -> {
                 WorldChunk worldChunk = chunkHolder.getWorldChunk();
-                if (worldChunk != null &&
+                if (worldChunk != null
                         //#if MC>=11800
-                        this.ticketManager.shouldTickBlocks(worldChunk.getPos().toLong())
+                        && tacsi.whetherShouldTick(worldChunk.getPos())
                     //#else
-                    //$$ tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
+                    //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
                     //#endif
                 ) {
                     countP[0]++;

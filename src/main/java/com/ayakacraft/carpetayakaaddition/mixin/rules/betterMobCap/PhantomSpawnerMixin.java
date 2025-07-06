@@ -36,11 +36,29 @@ public class PhantomSpawnerMixin {
             method = "spawn",
             at = @At(
                     value = "INVOKE",
+                    //#if MC>=12000
                     target = "Lnet/minecraft/server/network/ServerPlayerEntity;isSpectator()Z"
+                    //#else
+                    //$$ target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z"
+                    //#endif
             )
     )
-    private boolean applyMobCaps(ServerPlayerEntity instance, Operation<Boolean> original) {
-        if (BetterMobCapHelper.checkBelowCaps(instance, EntityType.PHANTOM)) {
+    private boolean applyMobCaps(
+            //#if MC>=12000
+            ServerPlayerEntity instance,
+            //#else
+            //$$ net.minecraft.entity.player.PlayerEntity instance,
+            //#endif
+            Operation<Boolean> original
+    ) {
+        if (BetterMobCapHelper.shouldSpawn(
+                //#if MC>=12000
+                instance,
+                //#else
+                //$$ (ServerPlayerEntity) instance,
+                //#endif
+                EntityType.PHANTOM)
+        ) {
             return original.call(instance);
         }
         return true;

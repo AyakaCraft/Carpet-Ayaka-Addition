@@ -20,39 +20,28 @@
 
 package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
+import carpet.utils.SpawnReporter;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap.SpawnHelperInfoAccessor;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.server.world.ServerWorld;
 
-//Do not remove the lines below
-//TODO update in 1.15.2
 public final class BetterMobCapHelper {
+
+    private static final int CHUNKS_ELIGIBLE_FOR_SPAWNING = (int) Math.pow(17, 2);
 
     public static boolean shouldSpawn(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }
-        SpawnHelper.Info info = instance.getServerWorld().getChunkManager().getSpawnInfo();
-        if (info == null) {
-            return true;
-        }
-        SpawnHelperInfoAccessor accessor   = (SpawnHelperInfoAccessor) info;
-        SpawnGroup              spawnGroup = entityType.getSpawnGroup();
-        return accessor.checkBelowCap(spawnGroup
-                //#if MC>=12104
-                //#elseif MC>=11800
-                , new ChunkPos(instance.getBlockPos())
-                //#endif
-        )
-                //#if MC>=12104
-                //$$ && accessor.checkCanSpawn(spawnGroup, new ChunkPos(instance.getBlockPos()))
-                //#endif
-                ;
+        EntityCategory c          = entityType.getCategory();
+        ServerWorld    world      = instance.getServerWorld();
+        int            chunkCount = SpawnReporter.chunkCounts.getOrDefault(world.getDimension().getType(), 0);
+        int            cur        = world.getMobCountsByCategory().getOrDefault(c, -1);
+        int            max        = chunkCount * c.getSpawnCap() / CHUNKS_ELIGIBLE_FOR_SPAWNING;
+        return cur < max;
     }
 
 }
