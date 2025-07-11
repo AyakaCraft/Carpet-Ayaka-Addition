@@ -62,6 +62,8 @@ carpet:
     unsigned: Must not be negative
     unsigned_with_bound: Must not be negative or larger than %d
   rule:
+    bedrockNoBlastResistance:
+      desc: Makes bedrocks unable to block explosions, though themselves won't be destroyed
     betterMobCap:
       desc: Makes mob cap effect pillager patrol and phantom spawning
     betterOpPlayerNoCheat:

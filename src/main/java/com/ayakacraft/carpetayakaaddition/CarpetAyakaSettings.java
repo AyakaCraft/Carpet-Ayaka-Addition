@@ -40,6 +40,11 @@ public final class CarpetAyakaSettings {
     public static final String BOT = "BOT";
 
     @Rule(
+            categories = {AYAKA, FEATURE}
+    )
+    public static boolean bedrockNoBlastResistance = false;
+
+    @Rule(
             categories = {AYAKA, FEATURE, EXPERIMENTAL}
     )
     public static boolean betterMobCap = false;

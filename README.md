@@ -109,6 +109,7 @@ Logs the change of points-of-interest (experimental)
 
 #### Index
 
+- [bedrockNoBlastResistance](#bedrocknoblastresistance)
 - [betterMobCap](#bettermobcap)
 - [betterOpPlayerNoCheat](#betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#blockdropstackvelocitymultiple)
@@ -126,6 +127,15 @@ Logs the change of points-of-interest (experimental)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
+
+#### bedrockNoBlastResistance
+
+Makes bedrocks unable to block explosions, though themselves won't be destroyed
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`
 
 #### betterMobCap
 

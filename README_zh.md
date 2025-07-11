@@ -109,6 +109,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 索引
 
+- [bedrockNoBlastResistance](#基岩无爆炸抗性-bedrocknoblastresistance)
 - [betterMobCap](#更好的刷怪上限-bettermobcap)
 - [betterOpPlayerNoCheat](#更好的op玩家不准作弊-betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#方块掉落物速度乘数-blockdropstackvelocitymultiple)
@@ -126,6 +127,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
+
+#### 基岩无爆炸抗性 (bedrockNoBlastResistance)
+
+使得基岩无法阻挡爆炸，尽管其自身不会被破坏
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`
 
 #### 更好的刷怪上限 (betterMobCap)
 

@@ -1,8 +1,4 @@
 ### General
 
-- ***Added*** carpet rule `betterMobCap` to limit phantom and pillager patrol spawning
-- Updated translations
+- ***Added*** carpet rule `bedrockNoBlastResistance`
 
-### Bugfix
-
-- Unmatched behaviour of `loadedChunks` logger in different Minecraft versions

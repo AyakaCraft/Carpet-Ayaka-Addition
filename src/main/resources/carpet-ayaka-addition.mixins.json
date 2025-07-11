@@ -12,6 +12,7 @@
     "logging.movingblocks.PistonBlockEntityMixin",
     "logging.poi.PointOfInterestMixin",
     "logging.poi.PointOfInterestSetMixin",
+    "rules.bedrockNoBlastResistance.ExplosionMixin",
     "rules.betterMobCap.PatrolSpawnerMixin",
     "rules.betterMobCap.PhantomSpawnerMixin",
     "rules.betterMobCap.SpawnHelperInfoAccessor",
