@@ -55,7 +55,7 @@ public final class CarpetAyakaSettings {
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE, EXPERIMENTAL},
+            categories = {AYAKA, FEATURE},
             options = {"0", "0.5", "1", "2"},
             strict = false,
             validators = Validators.UnsignedDoubleValidator.class
@@ -108,7 +108,7 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL, REINTRODUCE, FEATURE},
+            categories = {AYAKA, REINTRODUCE, FEATURE},
             conditions = ForceTickPlantsReintroduceCondition.class
     )
     public static boolean forceTickPlantsReintroduce = false;
@@ -119,7 +119,12 @@ public final class CarpetAyakaSettings {
     public static boolean foxNoPickupItem = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE, EXPERIMENTAL},
+            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean frostWalkerNoFreezing = false;
+
+    @Rule(
+            categories = {AYAKA, FEATURE},
             validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
@@ -141,7 +146,7 @@ public final class CarpetAyakaSettings {
     public static boolean legacyHoneyBlockSliding = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL},
+            categories = {AYAKA},
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "8", "10", "20", "50", "100"},
             strict = false

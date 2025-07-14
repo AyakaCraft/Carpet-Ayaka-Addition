@@ -30,6 +30,8 @@
     "rules.forceTickPlantsReintroduce.ChorusFlowerBlockMixin",
     "rules.forceTickPlantsReintroduce.SugarCaneBlockMixin",
     "rules.foxNoPickupItem.FoxEntityMixin",
+    "rules.frostWalkerNoFreezing.FrostWalkerEnchantmentMixin",
+    "rules.frostWalkerNoFreezing.ReplaceDiskEnchantmentEffectMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",

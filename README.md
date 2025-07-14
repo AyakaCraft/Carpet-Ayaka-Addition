@@ -123,6 +123,7 @@ Logs the change of points-of-interest (experimental)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
+- [frostWalkerNoFreezing](#frostwalkernofreezing)
 - [itemDiscardAge](#itemdiscardage)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
@@ -169,7 +170,7 @@ Multiple of velocity of item stacks dropped by a broken block
 - Default value: `1d`
 - Suggested options: `0`, `0.5`, `1`, `2`
 - Range: `[0,)`
-- Categories: `AYAKA`, `FRATURE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FRATURE`
 
 #### commandAddress
 
@@ -254,16 +255,25 @@ Reintroduces the feature of cactuses, bamboos, chorus flowers and sugarcane bein
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+- Categories: `AYAKA`, `FEATURE`, `REINTRODUCE`
 
 #### foxNoPickupItem
 
-Stops foxes from picking up dropped items
+Stops foxes from picking up dropped items, though they will still be attracted
 
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`
+
+#### frostWalkerNoFreezing
+
+Prevents frost walker shoes from freezing water
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### itemDiscardAge
 
@@ -277,7 +287,7 @@ Max value `72000` (an hour)
 - Default value: `0`
 - Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - Range: `[0,72000]`
-- Categories: `AYAKA`, `FRATURE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FRATURE`
 
 #### killItemAwaitSeconds
 
@@ -310,7 +320,7 @@ Set to 0 to use vanilla value
 - Default value: `0`
 - Suggested options: `0`, `8`, `10`, `20`, `50`, `100`
 - Range: `[0,)`
-- Categories: `AYAKA`, `EXPERIMENTAL`
+- Categories: `AYAKA`
 
 ## EOL
 

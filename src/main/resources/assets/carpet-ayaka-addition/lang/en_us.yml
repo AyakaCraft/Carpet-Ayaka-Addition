@@ -97,7 +97,9 @@ carpet:
     forceTickPlantsReintroduce:
       desc: Reintroduces the feature of cactuses, bamboos, chorus flowers and sugarcane being (wrongly) random-ticked on scheduled ticks in Minecraft 1.15.2 and lower
     foxNoPickupItem:
-      desc: Prevents foxes from picking up dropped items
+      desc: Prevents foxes from picking up dropped items, though they will still be attracted
+    frostWalkerNoFreezing:
+      desc: Prevents frost walker shoes from freezing water
     itemDiscardAge:
       desc: Modifies the ticks before an item entity is discarded
       extra:

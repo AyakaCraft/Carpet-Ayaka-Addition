@@ -115,7 +115,10 @@ carpet:
       desc: 重新引入1.15.2及更早版本中仙人掌、竹子、紫颂花、甘蔗在计划刻中（错误地）触发随机刻的特性
     foxNoPickupItem:
       name: 禁用狐狸叼起物品
-      desc: 阻止狐狸叼起掉落物，但仍会吸引它
+      desc: 阻止狐狸叼起掉落物，尽管它仍会被吸引
+    frostWalkerNoFreezing:
+      name: 冰霜行者无冰冻
+      desc: 阻止附魔冰霜行者的靴子冻住水源
     itemDiscardAge:
       name: 掉落物消失刻
       desc: 修改掉落物自然消失前的游戏刻数
