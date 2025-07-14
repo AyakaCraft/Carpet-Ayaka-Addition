@@ -39,7 +39,7 @@ public class Address implements Comparable<Address> {
 
     private String desc;
 
-    private long weight = Long.MIN_VALUE;
+    private long weight = 0L;
 
     public Address(String id, String dim, Vec3d pos, String desc, long weight) {
         this.id = id;
@@ -56,7 +56,7 @@ public class Address implements Comparable<Address> {
     }
 
     public Address(AddressOld old) {
-        this(old.getId(), old.getDim(), old.getPos(), old.getDesc(), Long.MIN_VALUE);
+        this(old.id, old.dim, old.pos, old.desc, 0L);
     }
 
     public String getDim() {

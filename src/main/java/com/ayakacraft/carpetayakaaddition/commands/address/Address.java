@@ -61,7 +61,7 @@ public class Address implements Comparable<Address> {
     }
 
     public Address(AddressOld old) {
-        this(old.getId(), old.getDim(), old.getPos(), old.getDesc(), 0L);
+        this(old.id, old.dim, old.pos, old.desc, 0L);
     }
 
     public String getDim() {

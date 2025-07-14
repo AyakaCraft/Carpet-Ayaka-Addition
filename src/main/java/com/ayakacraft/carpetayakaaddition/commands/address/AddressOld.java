@@ -24,46 +24,12 @@ import net.minecraft.util.math.Vec3d;
 
 public class AddressOld {
 
-    public static final String DESC_PLACEHOLDER = Address.DESC_PLACEHOLDER;
+    public String id;
 
-    private final String id;
+    public String dim;
 
-    private final String dim;
+    public Vec3d pos;
 
-    private final Vec3d pos;
-
-    private String desc;
-
-    public AddressOld(String id, String dim, Vec3d pos, String desc) {
-        this.id = id;
-        this.dim = dim;
-        this.pos = pos;
-        setDesc(desc);
-    }
-
-    public String getDim() {
-        return dim;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Vec3d getPos() {
-        return pos;
-    }
-
-    public String getDesc() {
-        return (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("address[id=%s, dim=%s, pos=%s, desc=%s]", id, dim, pos, desc);
-    }
+    public String desc;
 
 }
