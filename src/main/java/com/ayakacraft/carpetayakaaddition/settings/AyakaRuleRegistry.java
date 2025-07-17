@@ -24,10 +24,10 @@ import carpet.CarpetServer;
 import carpet.api.settings.CarpetRule;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.mixin.settings.SettingsManagerAccessor;
-import com.ayakacraft.carpetayakaaddition.settings.conditions.AyakaCondition;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.Map;
 
 public final class AyakaRuleRegistry {
@@ -36,10 +36,15 @@ public final class AyakaRuleRegistry {
         return ((SettingsManagerAccessor) CarpetServer.settingsManager).getRules$Ayaka();
     }
 
+    private static boolean isSatisfied(ModCondition modCondition) {
+        return
+                ModUtils.isModLoadedWithVersion(modCondition.value(), modCondition.versionPredicates())
+                        == (modCondition.type() == ModCondition.Type.REQUIREMENT);
+    }
+
     public static void registerRules() {
         Field[] fields = CarpetAyakaSettings.class.getDeclaredFields();
 
-        rule:
         for (Field field : fields) {
             field.setAccessible(true);
 
@@ -48,17 +53,9 @@ public final class AyakaRuleRegistry {
                 continue;
             }
 
-            Class<? extends AyakaCondition>[] conditions = annotation.conditions();
-            for (Class<? extends AyakaCondition> condition : conditions) {
-                try {
-                    Constructor<? extends AyakaCondition> constr = condition.getDeclaredConstructor();
-                    constr.setAccessible(true);
-                    if (!(constr.newInstance()).shouldRegister()) {
-                        continue rule;
-                    }
-                } catch (ReflectiveOperationException e) {
-                    throw new IllegalArgumentException(e);
-                }
+            ModCondition[] modConditions = annotation.modConditions();
+            if (modConditions.length > 0 && Arrays.stream(annotation.modConditions()).noneMatch(AyakaRuleRegistry::isSatisfied)) {
+                continue;
             }
 
             AyakaRule ayakaRule = new AyakaRule(field, CarpetServer.settingsManager);

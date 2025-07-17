@@ -35,6 +35,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
+//Do not remove the lines below
+//TODO update in 1.21.4 and 1.15.2
 @Mixin(Explosion.class)
 public class ExplosionMixin {
 

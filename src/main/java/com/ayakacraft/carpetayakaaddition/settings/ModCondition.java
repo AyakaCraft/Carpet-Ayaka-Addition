@@ -18,13 +18,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.settings.conditions;
+package com.ayakacraft.carpetayakaaddition.settings;
 
-public final class ForceTickPlantsReintroduceCondition extends MinecraftVersionCondition {
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 
-    @Override
-    public boolean shouldRegister(int current) {
-        return current > 11502;
+public @interface ModCondition {
+
+    String value() default ModUtils.MC_ID;
+
+    String[] versionPredicates() default {};
+
+    Type type() default Type.REQUIREMENT;
+
+    enum Type {
+        REQUIREMENT,
+        CONFLICTION
     }
 
 }

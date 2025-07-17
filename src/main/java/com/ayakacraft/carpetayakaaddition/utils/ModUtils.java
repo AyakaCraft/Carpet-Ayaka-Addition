@@ -22,7 +22,10 @@ package com.ayakacraft.carpetayakaaddition.utils;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.VersionParsingException;
+import net.fabricmc.loader.api.metadata.version.VersionPredicate;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public final class ModUtils {
@@ -39,11 +42,27 @@ public final class ModUtils {
 
     @Deprecated
     public static boolean isModLoaded(String modId) {
-        return LOADER.isModLoaded(modId);
+        return isModLoadedWithVersion(modId);
     }
 
     public static Optional<ModContainer> getModContainer(String modId) {
         return LOADER.getModContainer(modId);
+    }
+
+    public static boolean isModLoadedWithVersion(String modId, String... versionPredicates) {
+        Optional<ModContainer> mod = getModContainer(modId);
+        return mod
+                .filter(modContainer ->
+                        versionPredicates == null
+                                || versionPredicates.length == 0
+                                || Arrays.stream(versionPredicates).anyMatch(v -> {
+                            try {
+                                return VersionPredicate.parse(v).test(modContainer.getMetadata().getVersion());
+                            } catch (VersionParsingException e) {
+                                return false;
+                            }
+                        }))
+                .isPresent();
     }
 
 }

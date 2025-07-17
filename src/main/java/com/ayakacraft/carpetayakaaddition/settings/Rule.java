@@ -21,7 +21,6 @@
 package com.ayakacraft.carpetayakaaddition.settings;
 
 import carpet.api.settings.Validator;
-import com.ayakacraft.carpetayakaaddition.settings.conditions.AyakaCondition;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -42,6 +41,6 @@ public @interface Rule {
 
     Class<? extends Validator>[] validators() default {};
 
-    Class<? extends AyakaCondition>[] conditions() default {};
+    ModCondition[] modConditions() default {};
 
 }

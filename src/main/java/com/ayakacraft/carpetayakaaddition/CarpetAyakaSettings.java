@@ -22,8 +22,7 @@ package com.ayakacraft.carpetayakaaddition;
 
 import com.ayakacraft.carpetayakaaddition.settings.Rule;
 import com.ayakacraft.carpetayakaaddition.settings.Validators;
-import com.ayakacraft.carpetayakaaddition.settings.conditions.ForceTickPlantsReintroduceCondition;
-import com.ayakacraft.carpetayakaaddition.settings.conditions.LegacyHoneyBlockSlidingCondition;
+import com.ayakacraft.carpetayakaaddition.settings.ModCondition;
 
 import static carpet.api.settings.RuleCategory.*;
 
@@ -109,7 +108,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, FEATURE},
-            conditions = ForceTickPlantsReintroduceCondition.class
+            modConditions = @ModCondition(versionPredicates = ">1.15.2")
     )
     public static boolean forceTickPlantsReintroduce = false;
 
@@ -141,7 +140,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE},
-            conditions = LegacyHoneyBlockSlidingCondition.class
+            modConditions = @ModCondition(versionPredicates = ">1.21.1")
     )
     public static boolean legacyHoneyBlockSliding = false;
 
