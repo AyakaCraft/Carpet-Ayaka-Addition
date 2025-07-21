@@ -50,8 +50,10 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
         - *Reloads the waypoints*
     - list
         - *Lists the waypoints*
-        - \<dim>
+      - dim \<dim>
             - *Lists the waypoints in specific dimension*
+      - radius \<radius>
+          - *Lists the waypoints in a certain radius of **chunks***
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *Adds a new waypoint or modify an existing one*
     - remove \<id>
@@ -65,7 +67,7 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
     - desc \<id> \<desc>
         - *Sets the description of the waypoint*
 - /c
-    - *Switches your gamemode between spectator and survival*
+    - *Switches your gamemode between `spectator` and `survival`*
 - /gohome
     - *Teleport you right back to your spawn point*
 - /killitem

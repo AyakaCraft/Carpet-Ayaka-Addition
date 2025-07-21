@@ -22,6 +22,8 @@ package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -109,6 +111,10 @@ public class Address implements Comparable<Address> {
 
     public long getWeight() {
         return weight;
+    }
+
+    public ChunkPos getChunkPos() {
+        return new ChunkPos(new BlockPos((int) x, (int) y, (int) z));
     }
 
     public void onDetailDisplayed() {

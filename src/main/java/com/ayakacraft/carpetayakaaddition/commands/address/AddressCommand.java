@@ -24,10 +24,12 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.MathUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
@@ -45,6 +47,7 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -106,7 +109,7 @@ public final class AddressCommand {
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
-                        .sorted(Comparator.naturalOrder())
+                        .sorted()
                         .collect(Collectors.toCollection(LinkedList::new))
         );
 
@@ -280,14 +283,40 @@ public final class AddressCommand {
         //#else
         //$$ final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").toString();
         //#endif
-        final AddressManager      manager   = AddressManager.getOrCreate(source.getServer());
-        final Collection<Address> addresses = manager.getAddresses();
 
         sendWaypointList(
                 source,
-                addresses.stream()
+                AddressManager.getOrCreate(source.getServer())
+                        .getAddresses()
+                        .stream()
                         .filter(w -> Objects.equals(w.getDim(), dim))
-                        .sorted(Comparator.naturalOrder())
+                        .sorted()
+                        .collect(Collectors.toCollection(LinkedList::new))
+        );
+
+        return 1;
+    }
+
+    private static int listRadiusChunk(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source             = context.getSource();
+        final ChunkPos            chunkPos           = MathUtils.getChunkPos(source.getPosition());
+        final int                 squaredRadiusChunk = MathUtils.square(IntegerArgumentType.getInteger(context, "radius"));
+
+        sendWaypointList(
+                source,
+                AddressManager.getOrCreate(source.getServer())
+                        .getAddresses()
+                        .stream()
+                        .filter(w ->
+                                Objects.equals(w.getDimension(),
+                                        //#if MC>=11600
+                                        source.getWorld().getRegistryKey()
+                                        //#else
+                                        //$$ source.getWorld().getDimension().getType()
+                                        //#endif
+                                )
+                                        && MathUtils.getSquaredDistance(chunkPos, w.getChunkPos()) <= squaredRadiusChunk)
+                        .sorted()
                         .collect(Collectors.toCollection(LinkedList::new))
         );
 
@@ -346,8 +375,10 @@ public final class AddressCommand {
                 .executes(AddressCommand::root)
                 .then(literal("reload").executes(AddressCommand::reload))
                 .then(literal("list").executes(AddressCommand::list)
-                        .then(argument("dim", DimensionArgumentType.dimension())
+                        .then(literal("dim").then(argument("dim", DimensionArgumentType.dimension())
                                 .executes(AddressCommand::listInDimension)))
+                        .then(literal("radius").then(argument("radius", IntegerArgumentType.integer(0))
+                                .executes(AddressCommand::listRadiusChunk))))
                 .then(literal("detail")
                         .then(argument("id", StringArgumentType.string())
                                 .suggests(AddressCommand::suggestWaypoints)

@@ -50,8 +50,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *重新加载路径点*
     - list
         - *列出所有路径点*
-        - \<dim>
+      - dim \<dim>
             - *列出指定维度中的路径点*
+      - radius \<radius>
+          - *列出制定**区块**半径内的路径点*
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *添加一个新的路径点或者修改已有的路径点*
     - remove \<id>
@@ -65,7 +67,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - desc \<id> \<desc>
         - *设置或修改路径点的描述*
 - /c
-    - *将你的游戏模式切换回生存模式/到旁观者模式*
+    - *将你的游戏模式在 生存模式 和 旁观者模式 之间切换*
 - /gohome
     - *将你传送回出生点/重生点*
 - /killitem
