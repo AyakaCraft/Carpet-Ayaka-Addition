@@ -99,10 +99,32 @@ tasks.register("sendDiscord") {
     mustRunAfter(tasks.buildAndGather, tasks.publishAll)
     doLast {
         Map<String, String> env = System.getenv()
-        String msg =
-                "# Announcement\nNew version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}/releases/tag/${env.TAG})\n## What's new:\n${file("changelog.md").text}\n"
-        msg = msg.replace("\n", "\\n")
-        println("Sending message to ${env.DISCORD_WEBHOOK}...")
+        StringBuilder msgBuilder = new StringBuilder(
+                "# Announcement\nNew version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}releases/tag/${env.TAG})\n## What's new:\n${file("changelog.md").text}\n"
+        )
+        Map<String, Object> properties = rootProject.getProperties()
+        boolean bl1 = false, bl2 = false
+        if (properties.containsKey("modrinth_id")) {
+            bl1 = true
+        }
+        if (properties.containsKey("curseforge_id")) {
+            bl2 = true
+        }
+        if (bl1 || bl2) {
+            msgBuilder.append("\nTry out on ")
+        }
+        if (bl1) {
+            msgBuilder.append("[Modrinth](https://www.modrinth.com/mod/${properties.get("modrinth_id")})")
+            if (bl2) {
+                msgBuilder.append(" and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/${properties.get("curseforge_id")})")
+            }
+        } else if (bl2) {
+            msgBuilder.append("[CurseForge](https://www.curseforge.com/minecraft/mc-mods/${properties.get("curseforge_id")})")
+        }
+        String msg = msgBuilder.toString().replace("\n", "\\n")
+        println("Sending json content to " + env.DISCORD_WEBHOOK + "...")
+        String content = "{\"content\" : \"${msg}\"}"
+        println(content)
 
         HttpURLConnection connection = (HttpURLConnection) new URI(env.DISCORD_WEBHOOK).toURL().openConnection()
         connection.setRequestMethod("POST")
@@ -110,7 +132,7 @@ tasks.register("sendDiscord") {
         connection.setDoInput(true)
         connection.setDoOutput(true)
         OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())
-        writer.write("{\"content\" : \"${msg}\"}")
+        writer.write(content)
         writer.flush()
         writer.close()
         connection.connect()
