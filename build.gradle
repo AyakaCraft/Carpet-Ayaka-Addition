@@ -116,10 +116,10 @@ tasks.register("sendDiscord") {
         if (bl1) {
             msgBuilder.append("[Modrinth](https://www.modrinth.com/mod/${properties.get("modrinth_id")})")
             if (bl2) {
-                msgBuilder.append(" and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/${properties.get("curseforge_id")})")
+                msgBuilder.append(" and [CurseForge](https://cflookup.com/${properties.get("curseforge_id")})")
             }
         } else if (bl2) {
-            msgBuilder.append("[CurseForge](https://www.curseforge.com/minecraft/mc-mods/${properties.get("curseforge_id")})")
+            msgBuilder.append("[CurseForge](https://cflookup.com/${properties.get("curseforge_id")})")
         }
         String msg = msgBuilder.toString().replace("\n", "\\n")
         println("Sending json content to " + env.DISCORD_WEBHOOK + "...")
