@@ -35,6 +35,7 @@
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",
+    "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",
     "settings.SettingsManagerAccessor",
     "utils.ClientSettingsC2SPacketAccessor",

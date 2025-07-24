@@ -138,3 +138,8 @@ carpet:
       desc: 重写服务器最大玩家数量
       extra:
         "0": 设置为0以使用原版值
+    tickFluids:
+      name: 流体更新
+      desc: 流体是否更新
+      extra:
+        "0": 影响流体计划刻和随机刻

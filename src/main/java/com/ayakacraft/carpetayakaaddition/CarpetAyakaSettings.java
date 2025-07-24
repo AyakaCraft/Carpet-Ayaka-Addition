@@ -20,9 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition;
 
+import com.ayakacraft.carpetayakaaddition.settings.ModCondition;
 import com.ayakacraft.carpetayakaaddition.settings.Rule;
 import com.ayakacraft.carpetayakaaddition.settings.Validators;
-import com.ayakacraft.carpetayakaaddition.settings.ModCondition;
 
 import static carpet.api.settings.RuleCategory.*;
 
@@ -123,7 +123,7 @@ public final class CarpetAyakaSettings {
     public static boolean frostWalkerNoFreezing = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE},
+            categories = {AYAKA, FEATURE, CREATIVE},
             validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
@@ -151,5 +151,10 @@ public final class CarpetAyakaSettings {
             strict = false
     )
     public static int maxPlayersOverwrite = 0;
+
+    @Rule(
+            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
+    )
+    public static boolean tickFluids = true;
 
 }

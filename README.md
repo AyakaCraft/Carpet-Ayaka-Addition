@@ -130,6 +130,7 @@ Logs the change of points-of-interest (experimental)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
+- [tickFluids](#tickfluids)
 
 #### bedrockNoBlastResistance
 
@@ -289,7 +290,7 @@ Max value `72000` (an hour)
 - Default value: `0`
 - Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - Range: `[0,72000]`
-- Categories: `AYAKA`, `FRATURE`
+- Categories: `AYAKA`, `FRATURE`, `CREATIVE`
 
 #### killItemAwaitSeconds
 
@@ -323,6 +324,17 @@ Set to 0 to use vanilla value
 - Suggested options: `0`, `8`, `10`, `20`, `50`, `100`
 - Range: `[0,)`
 - Categories: `AYAKA`
+
+#### tickFluids
+
+Whether fluids are ticked
+
+Influences both scheduled tick and random tick
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
 
 ## EOL
 

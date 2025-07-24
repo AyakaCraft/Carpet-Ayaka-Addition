@@ -130,6 +130,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
+- [tickFluids](#流体更新-tickfluids)
 
 #### 基岩无爆炸抗性 (bedrockNoBlastResistance)
 
@@ -289,7 +290,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `0`
 - 参考选项: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - 范围: `[0,72000]`
-- 分类: `AYAKA`, `FEATURE`
+- 分类: `AYAKA`, `FEATURE`, `CREATIVE`
 
 #### 清除掉落物执行延迟 (killItemAwaitSeconds)
 
@@ -323,6 +324,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `0`, `8`, `10`, `20`, `50`, `100`
 - 范围: `[0,)`
 - 分类: `AYAKA`
+
+#### 流体更新 (tickFluids)
+
+流体是否更新
+
+影响流体计划刻和随机刻
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
 
 ## 生命周期计划
 
