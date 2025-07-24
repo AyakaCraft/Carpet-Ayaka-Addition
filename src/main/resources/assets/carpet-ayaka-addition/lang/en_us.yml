@@ -11,6 +11,9 @@ carpet-ayaka-addition:
         tp:
           .: Teleport
           hover: Click to teleport
+        xaero:
+          .: Xaero
+          hover: Click to share as Xaero waypoint
       not_exist: Address [%s] does not exist
       detail:
         "0": "Detail of address [%s]:"

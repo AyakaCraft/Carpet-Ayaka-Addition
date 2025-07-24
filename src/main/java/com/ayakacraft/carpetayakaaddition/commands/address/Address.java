@@ -22,54 +22,26 @@ package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
-public class Address implements Comparable<Address> {
-
-    public static final String DESC_PLACEHOLDER = "#none";
-
-    private final String id;
-
-    private final String dim;
-
-    private final double x, y, z;
-
-    @Nullable
-    private String desc;
-
-    private long weight = 0L;
+public class Address extends AbstractAddress<RegistryKey<World>> {
 
     public Address(String id, String dim, Vec3d pos, String desc, long weight) {
-        this.id = id;
-        this.dim = dim;
-        this.x = pos.x;
-        this.y = pos.y;
-        this.z = pos.z;
-        setDesc(desc);
-        this.weight = weight;
+        super(id, dim, pos, desc, weight);
     }
 
     public Address(String id, RegistryKey<World> dim, Vec3d pos, String desc, long weight) {
-        this(id, dim.getValue().toString(), pos, desc, weight);
+        super(id, dim.getValue().toString(), pos, desc, weight);
     }
 
     public Address(AddressOld old) {
-        this(old.id, old.dim, old.pos, old.desc, 0L);
+        super(old);
     }
 
-    public String getDim() {
-        return dim;
-    }
-
+    @Override
     public RegistryKey<World> getDimension() {
         return RegistryKey.of(
                 //#if MC>=11904
@@ -81,77 +53,9 @@ public class Address implements Comparable<Address> {
         );
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Vec3d getPos() {
-        return new Vec3d(x, y, z);
-    }
-
-    public String getDesc() {
-        return (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
-    }
-
-    public long getWeight() {
-        return weight;
-    }
-
-    public ChunkPos getChunkPos() {
-        return new ChunkPos(new BlockPos((int) x, (int) y, (int) z));
-    }
-
-    public void onDetailDisplayed() {
-        weight += 1;
-    }
-
-    public void onTeleportedTo() {
-        weight += 3;
-    }
-
     @Override
-    public int compareTo(@NotNull Address o) {
-        if (this.equals(o)) {
-            return 0;
-        }
-        if (this.weight == o.weight) {
-            return this.id.compareTo(o.id);
-        }
-        return Long.compare(this.weight, o.weight);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Address)) {
-            return false;
-        }
-        Address other = (Address) o;
-        return Objects.equals(other.id, this.id)
-                && Objects.equals(other.dim, this.dim)
-                && other.getPos().equals(this.getPos())
-                && Objects.equals(other.desc, this.desc)
-                && other.weight == this.weight;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("address[id=%s, dim=%s, pos=[%.2f %.2f %.2f], desc=%s]", id, dim, x, y, z, desc);
+    public boolean isInWorld(World world) {
+        return world.getRegistryKey().getValue().toString().equals(dim);
     }
 
 }

@@ -25,24 +25,22 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import java.util.Random;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-//Do not remove the lines below
-//TODO update in 1.15.2
 @Mixin(FluidState.class)
-public class FluidStateMixin {
+public interface FluidStateMixin {
 
     @WrapMethod(method = "onScheduledTick")
-    public void wrapScheduledTick(World world, BlockPos pos, Operation<Void> original) {
+    default void wrapScheduledTick(World world, BlockPos pos, Operation<Void> original) {
         if (CarpetAyakaSettings.tickFluids) {
             original.call(world, pos);
         }
     }
 
     @WrapMethod(method = "onRandomTick")
-    public void wrapRandomTick(World world, BlockPos pos, Random random, Operation<Void> original) {
+    default void wrapRandomTick(World world, BlockPos pos, Random random, Operation<Void> original) {
         if (CarpetAyakaSettings.tickFluids) {
             original.call(world, pos, random);
         }

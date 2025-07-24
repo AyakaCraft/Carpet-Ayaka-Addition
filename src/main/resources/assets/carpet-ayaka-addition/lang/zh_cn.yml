@@ -11,6 +11,9 @@ carpet-ayaka-addition:
         tp:
           .: 传送
           hover: 点击以传送到路径点
+        xaero:
+          .: Xaero
+          hover: 点击以分享为 Xaero 路径点
       not_exist: 路径点 [%s] 不存在
       detail:
         "0": "路径点 [%s] 详细信息:"
@@ -77,7 +80,7 @@ carpet:
       desc: 为 opPlayerNoCheat 添加更多影响的指令
       extra:
         "0": 影响的指令列表：/kill，/clear，/effect，/item 和 /difficulty
-        "1": 仅在加载了Carpet TIS Addition且opPlayerNoCheat为true时生效
+        "1": 仅在加载了 Carpet TIS Addition 且 opPlayerNoCheat 为 true 时生效
         "2": 你也不想失去刷铁机里面的掠夺者，对吧
     blockDropStackVelocityMultiple:
       name: 方块掉落物速度乘数
@@ -109,7 +112,7 @@ carpet:
       name: 备份不保留假人修复
       desc: 修复回档后假人不会重新加入世界的问题
       extra:
-        "0": 仅在加载了GCA且fakePlayerResident为true时生效
+        "0": 仅在加载了 GCA 且 fakePlayerResident 为 true 时生效
     forceTickPlantsReintroduce:
       name: 0t强制更新植物状态
       desc: 重新引入1.15.2及更早版本中仙人掌、竹子、紫颂花、甘蔗在计划刻中（错误地）触发随机刻的特性

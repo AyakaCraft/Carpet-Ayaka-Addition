@@ -66,6 +66,8 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
         - *Renames the waypoint, removes the existing one*
     - desc \<id> \<desc>
         - *Sets the description of the waypoint*
+    - xaero \<id>
+        - *Share as Xaero waypoint*
 - /c
     - *Switches your gamemode between `spectator` and `survival`*
 - /gohome

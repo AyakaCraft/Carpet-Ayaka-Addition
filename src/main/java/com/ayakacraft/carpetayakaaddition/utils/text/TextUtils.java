@@ -119,6 +119,11 @@ public final class TextUtils {
         //#endif
     }
 
+    public static void broadcast(MinecraftServer server, Text txt, boolean overlay) {
+        sendMessageToServer(server, txt);
+        server.getPlayerManager().getPlayerList().forEach(p -> p.sendMessage(txt, overlay));
+    }
+
     public static void broadcast(MinecraftServer server, Text textForServer, Function<ServerPlayerEntity, Text> textFunction, boolean overlay) {
         sendMessageToServer(server, textForServer);
         server.getPlayerManager().getPlayerList().forEach(player -> {

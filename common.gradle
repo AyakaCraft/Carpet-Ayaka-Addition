@@ -99,6 +99,8 @@ dependencies {
                 modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
             }
         }
+
+        modRuntimeOnly("curse.maven:xaeros-minimap-263420:${project.xaeros_minimap_version}")
     }
 
     testImplementation("junit:junit:${project.junit_version}")

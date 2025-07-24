@@ -39,6 +39,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.DimensionArgumentType;
 import net.minecraft.command.argument.Vec3ArgumentType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -53,7 +54,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -278,18 +282,20 @@ public final class AddressCommand {
 
     private static int listInDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source = context.getSource();
-        //#if MC>=11600
-        final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").getRegistryKey().getValue().toString();
-        //#else
-        //$$ final String dim = DimensionArgumentType.getDimensionArgument(context, "dim").toString();
-        //#endif
+        final World dim =
+                //#if MC>=11600
+                DimensionArgumentType.getDimensionArgument(context, "dim")
+                //#else
+                //$$ source.getMinecraftServer().getWorld(DimensionArgumentType.getDimensionArgument(context, "dim"))
+                //#endif
+                ;
 
         sendWaypointList(
                 source,
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
-                        .filter(w -> Objects.equals(w.getDim(), dim))
+                        .filter(w -> w.isInWorld(dim))
                         .sorted()
                         .collect(Collectors.toCollection(LinkedList::new))
         );
@@ -300,6 +306,7 @@ public final class AddressCommand {
     private static int listRadiusChunk(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source             = context.getSource();
         final ChunkPos            chunkPos           = MathUtils.getChunkPos(source.getPosition());
+        final World world = source.getWorld();
         final int                 squaredRadiusChunk = MathUtils.square(IntegerArgumentType.getInteger(context, "radius"));
 
         sendWaypointList(
@@ -307,15 +314,8 @@ public final class AddressCommand {
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
-                        .filter(w ->
-                                Objects.equals(w.getDimension(),
-                                        //#if MC>=11600
-                                        source.getWorld().getRegistryKey()
-                                        //#else
-                                        //$$ source.getWorld().getDimension().getType()
-                                        //#endif
-                                )
-                                        && MathUtils.getSquaredDistance(chunkPos, w.getChunkPos()) <= squaredRadiusChunk)
+                        .filter(w -> w.isInWorld(world)
+                                && MathUtils.getSquaredDistance(chunkPos, w.getChunkPos()) <= squaredRadiusChunk)
                         .sorted()
                         .collect(Collectors.toCollection(LinkedList::new))
         );
@@ -323,23 +323,41 @@ public final class AddressCommand {
         return 1;
     }
 
+    private static int xaero(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source  = context.getSource();
+        final MinecraftServer     server  = source.getServer();
+        final String              id      = StringArgumentType.getString(context, "id");
+        final Address             address = AddressManager.getOrCreate(server).get(id);
+        if (address == null) {
+            source.sendError(TR.tr(source, "not_exist", id));
+            return 0;
+        }
+        TextUtils.broadcast(server, Text.literal(address.getXaeroWaypointString()), false);
+
+        return 0;
+    }
+
     private static Text waypointIdText(String id, ServerCommandSource source) {
         return TextUtils.format(
-                "[{}] [{}] [{}]",
+                "[{}] [{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
                 TR.tr(source, "list.detail")
                         .styled(style ->
-                                style
-                                        .withColor(Formatting.GOLD)
+                                style.withColor(Formatting.GOLD)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
                                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.detail.hover")))
                         ),
                 TR.tr(source, "list.tp")
                         .styled(style ->
-                                style
-                                        .withColor(Formatting.RED)
+                                style.withColor(Formatting.RED)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
                                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.tp.hover")))
+                        ),
+                TR.tr(source, "list.xaero")
+                        .styled(style ->
+                                style.withColor(Formatting.AQUA)
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad xaero \"%s\"", id)))
+                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.xaero.hover")))
                         )
         );
     }
@@ -404,7 +422,10 @@ public final class AddressCommand {
                 .then(literal("desc")
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
                                 .then(argument("desc", StringArgumentType.greedyString())
-                                        .executes(AddressCommand::desc))));
+                                        .executes(AddressCommand::desc))))
+                .then(literal("xaero")
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::xaero)));
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {

@@ -66,6 +66,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *重命名路径点并覆盖已有的*
     - desc \<id> \<desc>
         - *设置或修改路径点的描述*
+    - xaero \<id>
+        - *分享为 Xaero 路径点*
 - /c
     - *将你的游戏模式在 生存模式 和 旁观者模式 之间切换*
 - /gohome
