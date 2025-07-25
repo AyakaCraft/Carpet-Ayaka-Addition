@@ -39,7 +39,7 @@ public final class CarpetAyakaSettings {
     public static final String BOT = "BOT";
 
     @Rule(
-            categories = {AYAKA, FEATURE}
+            categories = {AYAKA, CREATIVE, TNT}
     )
     public static boolean bedrockNoBlastResistance = false;
 
@@ -54,7 +54,7 @@ public final class CarpetAyakaSettings {
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE},
+            categories = {AYAKA, CREATIVE},
             options = {"0", "0.5", "1", "2"},
             strict = false,
             validators = Validators.UnsignedDoubleValidator.class
@@ -80,7 +80,7 @@ public final class CarpetAyakaSettings {
     public static String commandGoHome = "false";
 
     @Rule(
-            categories = {AYAKA, COMMAND},
+            categories = {AYAKA, COMMAND, CREATIVE},
             options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
     public static String commandKillItem = "false";
@@ -107,7 +107,7 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
-            categories = {AYAKA, REINTRODUCE, FEATURE},
+            categories = {AYAKA, FEATURE, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">1.15.2")
     )
     public static boolean forceTickPlantsReintroduce = false;
@@ -123,7 +123,7 @@ public final class CarpetAyakaSettings {
     public static boolean frostWalkerNoFreezing = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE, CREATIVE},
+            categories = {AYAKA, CREATIVE},
             validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
             strict = false
@@ -131,7 +131,7 @@ public final class CarpetAyakaSettings {
     public static int itemDiscardAge = 0;
 
     @Rule(
-            categories = {AYAKA, COMMAND},
+            categories = {AYAKA, COMMAND, CREATIVE},
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "5", "10", "30"},
             strict = false

@@ -141,7 +141,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`
+- 分类: `AYAKA`, `CREATIVE`, `TNT`
 
 #### 更好的刷怪上限 (betterMobCap)
 
@@ -175,7 +175,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `1d`
 - 参考选项: `0`, `0.5`, `1`, `2`
 - 范围: `[0,)`
-- 分类: `AYAKA`, `FRATURE`
+- 分类: `AYAKA`, `CREATIVE`
 
 #### 全局路径点命令开关 (commandAddress)
 
@@ -211,7 +211,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `String`
 - 默认值: `false`
 - 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
-- 分类: `AYAKA`, `COMMAND`
+- 分类: `AYAKA`, `COMMAND`, `CREATIVE`
 
 #### 传送到玩家命令开关 (commandTpt)
 
@@ -292,7 +292,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `0`
 - 参考选项: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - 范围: `[0,72000]`
-- 分类: `AYAKA`, `FEATURE`, `CREATIVE`
+- 分类: `AYAKA`, `CREATIVE`
 
 #### 清除掉落物执行延迟 (killItemAwaitSeconds)
 
@@ -302,7 +302,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `5`
 - 参考选项: `0`, `5`, `10`, `30`
 - 范围: `[0,)`
-- 分类: `AYAKA`, `COMMAND`
+- 分类: `AYAKA`, `COMMAND`, `CREATIVE`
 
 #### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.4+)
 

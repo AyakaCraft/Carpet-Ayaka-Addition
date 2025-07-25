@@ -100,7 +100,7 @@ tasks.register("sendDiscord") {
     doLast {
         Map<String, String> env = System.getenv()
         StringBuilder msgBuilder = new StringBuilder(
-                "# Announcement\nNew version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}releases/tag/${env.TAG})\n## What's new:\n${file("changelog.md").text}\n"
+                "# Announcement\nNew version of project [${env.REPO}](${env.REPO_URL}) has been released, check it on [Github Release](${env.REPO_URL}/releases/tag/${env.TAG})\n## What's new:\n${file("changelog.md").text}\n"
         )
         Map<String, Object> properties = rootProject.getProperties()
         boolean bl1 = properties.containsKey("modrinth_id"), bl2 = properties.containsKey("curseforge_id")

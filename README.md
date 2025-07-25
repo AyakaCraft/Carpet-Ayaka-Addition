@@ -141,7 +141,7 @@ Makes bedrocks unable to block explosions, though themselves won't be destroyed
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`
+- Categories: `AYAKA`, `CREATIVE`, `TNT`
 
 #### betterMobCap
 
@@ -175,7 +175,7 @@ Multiple of velocity of item stacks dropped by a broken block
 - Default value: `1d`
 - Suggested options: `0`, `0.5`, `1`, `2`
 - Range: `[0,)`
-- Categories: `AYAKA`, `FRATURE`
+- Categories: `AYAKA`, `CREATIVE`
 
 #### commandAddress
 
@@ -211,7 +211,7 @@ Enables `/killitem` to clear dropped items with one shot
 - Type: `String`
 - Default value: `false`
 - Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
-- Categories: `AYAKA`, `COMMAND`
+- Categories: `AYAKA`, `COMMAND`, `CREATIVE`
 
 #### commandTpt
 
@@ -292,7 +292,7 @@ Max value `72000` (an hour)
 - Default value: `0`
 - Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - Range: `[0,72000]`
-- Categories: `AYAKA`, `FRATURE`, `CREATIVE`
+- Categories: `AYAKA`, `CREATIVE`
 
 #### killItemAwaitSeconds
 
@@ -302,7 +302,7 @@ Seconds to wait before clearing the items
 - Default value: `5`
 - Suggested options: `0`, `5`, `10`, `30`
 - Range: `[0,)`
-- Categories: `AYAKA`, `COMMAND`
+- Categories: `AYAKA`, `COMMAND`, `CREATIVE`
 
 #### legacyHoneyBlockSliding (1.21.4+)
 
