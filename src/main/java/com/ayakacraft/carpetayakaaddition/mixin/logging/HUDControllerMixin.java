@@ -38,13 +38,7 @@ import java.util.List;
 @Mixin(value = HUDController.class, remap = false)
 public class HUDControllerMixin {
 
-    @Inject(
-            method = "update_hud",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/Map;keySet()Ljava/util/Set;"
-            )
-    )
+    @Inject(method = "update_hud", at = @At(value = "INVOKE", target = "Ljava/util/Map;keySet()Ljava/util/Set;"))
     private static void updateAyakaHUDLoggers(
             MinecraftServer server
             //#if MC>=11600

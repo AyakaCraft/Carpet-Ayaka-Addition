@@ -55,15 +55,6 @@ public final class TextUtils {
         return TextFormatter.format(str, args);
     }
 
-    public static MutableText li(Object obj) {
-        if (obj instanceof Text) {
-            MutableText txt = empty();
-            txt.append((Text) obj);
-            return txt;
-        }
-        return Text.literal(String.valueOf(obj));
-    }
-
     public static MutableText enter() {
         return Text.literal(System.lineSeparator());
     }

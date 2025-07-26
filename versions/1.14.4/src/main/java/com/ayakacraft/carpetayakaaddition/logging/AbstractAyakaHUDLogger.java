@@ -20,11 +20,11 @@
 
 package com.ayakacraft.carpetayakaaddition.logging;
 
-import carpet.logging.Logger;
+import carpet.logging.HUDLogger;
 
 import java.lang.reflect.Field;
 
-public abstract class AbstractAyakaHUDLogger extends Logger implements AyakaExtensionHUDLogger {
+public abstract class AbstractAyakaHUDLogger extends HUDLogger implements AyakaExtensionHUDLogger {
 
     private final Field acceleratorField;
 

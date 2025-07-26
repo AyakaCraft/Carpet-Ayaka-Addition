@@ -74,10 +74,10 @@ public abstract class ServerChunkManagerMixin {
             Identifier id = world.getRegistryKey().getValue();
 
             LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
-            LoadedChunksLogger.INSTANCE.loadedChunksCountAllP += countP[0];
+            LoadedChunksLogger.INSTANCE.loadedChunksCountAllSpawnable += countP[0];
 
-            LoadedChunksLogger.INSTANCE.loadedChunksCount.put(id, count);
-            LoadedChunksLogger.INSTANCE.loadedChunksCountP.put(id, countP[0]);
+            LoadedChunksLogger.INSTANCE.loadedChunksCounts.put(id, count);
+            LoadedChunksLogger.INSTANCE.loadedChunksCountsSpawnable.put(id, countP[0]);
 
         }
     }

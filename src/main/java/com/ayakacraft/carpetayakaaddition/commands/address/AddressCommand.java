@@ -277,7 +277,7 @@ public final class AddressCommand {
     }
 
     private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> "\"" + id + "\""), builder);
+        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> "'" + id + "'"), builder);
     }
 
     private static int listInDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -344,19 +344,19 @@ public final class AddressCommand {
                 TR.tr(source, "list.detail")
                         .styled(style ->
                                 style.withColor(Formatting.GOLD)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail \"%s\"", id)))
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail '%s'", id)))
                                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.detail.hover")))
                         ),
                 TR.tr(source, "list.tp")
                         .styled(style ->
                                 style.withColor(Formatting.RED)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp \"%s\"", id)))
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp '%s'", id)))
                                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.tp.hover")))
                         ),
                 TR.tr(source, "list.xaero")
                         .styled(style ->
                                 style.withColor(Formatting.AQUA)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad xaero \"%s\"", id)))
+                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad xaero '%s'", id)))
                                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.xaero.hover")))
                         )
         );

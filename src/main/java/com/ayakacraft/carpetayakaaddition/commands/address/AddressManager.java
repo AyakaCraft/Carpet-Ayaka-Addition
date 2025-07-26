@@ -41,10 +41,10 @@ public class AddressManager {
     private static final Type COLLECTION_TYPE_OLD = new TypeToken<Collection<AddressOld>>() {
     }.getType();
 
-    private static final Type MAP_TYPE = new TypeToken<TreeMap<String, Address>>() {
+    private static final Type MAP_TYPE = new TypeToken<Map<String, Address>>() {
     }.getType();
 
-    private static final HashMap<MinecraftServer, AddressManager> managerMap = new HashMap<>(1);
+    private static final Map<MinecraftServer, AddressManager> managerMap = new HashMap<>(1);
 
     @Deprecated
     public static final String WAYPOINT_FILE_NAME_OLD = "ayaka_waypoints.json";
@@ -53,13 +53,13 @@ public class AddressManager {
 
     @Deprecated
     private static Collection<AddressOld> loadFromPathOld(Path storagePath) throws IOException {
-        String                 str       = FileUtils.readString(storagePath);
+        String str = FileUtils.readFile(storagePath);
         Collection<AddressOld> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE_OLD);
         return addresses == null ? Collections.emptyList() : addresses;
     }
 
     private static Map<String, Address> loadFromPath(Path storagePath) throws IOException {
-        String               str       = FileUtils.readString(storagePath);
+        String str = FileUtils.readFile(storagePath);
         Map<String, Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, MAP_TYPE);
         return addresses == null ? Collections.emptyMap() : addresses;
     }
@@ -89,7 +89,7 @@ public class AddressManager {
 
     private final Path waypointStoragePath;
 
-    private final TreeMap<String, Address> addressMap = new TreeMap<>();
+    private final Map<String, Address> addressMap = new HashMap<>();
 
     private AddressManager(MinecraftServer server) {
         waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);

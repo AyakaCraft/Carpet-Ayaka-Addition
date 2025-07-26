@@ -20,27 +20,21 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import org.apache.commons.io.IOUtils;
+import com.google.common.io.Files;
+import com.google.common.io.Resources;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 
 public final class FileUtils {
 
     public static String readResource(String path) throws IOException {
-        InputStream inputStream = FileUtils.class.getClassLoader().getResourceAsStream(path);
-        if (inputStream == null) {
-            throw new IOException("Null input stream from path " + path);
-        }
-        return IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+        return Resources.toString(Resources.getResource(path), StandardCharsets.UTF_8);
     }
 
-    public static String readString(Path path) throws IOException {
-        return StandardCharsets.UTF_8.decode(ByteBuffer.wrap(Files.readAllBytes(path))).toString();
+    public static String readFile(Path path) throws IOException {
+        return Files.asCharSource(path.toFile(), StandardCharsets.UTF_8).read();
     }
 
 }
