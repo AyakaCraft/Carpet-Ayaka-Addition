@@ -34,6 +34,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.stream.StreamSupport;
+
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin {
 
@@ -55,29 +57,28 @@ public abstract class ServerChunkManagerMixin {
         if (AyakaLoggerRegistry.__loadedChunks) {
             ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) this.threadedAnvilChunkStorage;
 
-            int   count  = this.threadedAnvilChunkStorage.getLoadedChunkCount();
-            int[] countP = {0};
-
-            tacsi.getEntryIterator().forEach(chunkHolder -> {
-                WorldChunk worldChunk = chunkHolder.getWorldChunk();
-                if (worldChunk != null
-                        //#if MC>=11800
-                        && tacsi.whetherShouldTick(worldChunk.getPos())
-                    //#else
-                    //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
-                    //#endif
-                ) {
-                    countP[0]++;
-                }
-            });
+            int count = this.threadedAnvilChunkStorage.getLoadedChunkCount();
+            int countSpawnable = (int) StreamSupport
+                    .stream(tacsi.getEntryIterator().spliterator(), false)
+                    .filter(chunkHolder -> {
+                        WorldChunk worldChunk = chunkHolder.getWorldChunk();
+                        return worldChunk != null
+                                //#if MC>=11800
+                                && tacsi.whetherShouldTick(worldChunk.getPos())
+                                //#else
+                                //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
+                                //#endif
+                                ;
+                    })
+                    .count();
 
             Identifier id = world.getRegistryKey().getValue();
 
             LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
-            LoadedChunksLogger.INSTANCE.loadedChunksCountAllSpawnable += countP[0];
+            LoadedChunksLogger.INSTANCE.loadedChunksCountAllSpawnable += countSpawnable;
 
             LoadedChunksLogger.INSTANCE.loadedChunksCounts.put(id, count);
-            LoadedChunksLogger.INSTANCE.loadedChunksCountsSpawnable.put(id, countP[0]);
+            LoadedChunksLogger.INSTANCE.loadedChunksCountsSpawnable.put(id, countSpawnable);
 
         }
     }
