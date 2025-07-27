@@ -29,6 +29,7 @@ import com.ayakacraft.carpetayakaaddition.settings.AyakaRuleRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
+import com.google.common.collect.Queues;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
@@ -43,9 +44,9 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     public static final CarpetAyakaServer INSTANCE = new CarpetAyakaServer();
 
-    private final LinkedBlockingQueue<TickTask> tickTasks = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<TickTask> tickTasks = Queues.newLinkedBlockingQueue();
 
-    private final LinkedBlockingQueue<TickTask> scheduledTickTasks = new LinkedBlockingQueue<>();
+    private final LinkedBlockingQueue<TickTask> scheduledTickTasks = Queues.newLinkedBlockingQueue();
 
     public MinecraftServer mcServer;
 

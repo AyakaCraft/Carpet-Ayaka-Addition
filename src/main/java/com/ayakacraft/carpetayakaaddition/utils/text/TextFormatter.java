@@ -20,11 +20,10 @@
 
 package com.ayakacraft.carpetayakaaddition.utils.text;
 
+import com.google.common.collect.Lists;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public final class TextFormatter {
@@ -39,13 +38,29 @@ public final class TextFormatter {
         }
     }
 
+    private static List<String> splitString(String format, int argCount) {
+        List<String> split       = Lists.newLinkedList();
+        int          lenMinusOne = format.length() - 1;
+        int          j           = 0;
+        for (int i = 0; i < lenMinusOne; i++) {
+            if ("{}".equals(format.substring(i, i + 2)) && argCount > 0) {
+                split.add(format.substring(j, i));
+                j = i + 2;
+                i++;
+                argCount--;
+            }
+        }
+        split.add(format.substring(j));
+        return split;
+    }
+
     public static MutableText format(String format, Object... args) {
         if (args == null || args.length == 0) {
             return Text.literal(format);
         }
 
-        List<Text>   textArgs = new LinkedList<>();
-        List<Object> objArgs  = new LinkedList<>();
+        List<Text>   textArgs = Lists.newLinkedList();
+        List<Object> objArgs  = Lists.newLinkedList();
         divide(args, textArgs, objArgs);
 
         return format(String.format(format, objArgs.toArray()), textArgs);
@@ -56,21 +71,9 @@ public final class TextFormatter {
             return Text.literal(format);
         }
 
-        int            lenMinusOne = format.length() - 1;
-        int            j           = 0;
-        Iterator<Text> it          = args.iterator();
-        List<String>   split       = new LinkedList<>();
-        for (int i = 0; i < lenMinusOne; i++) {
-            if ("{}".equals(format.substring(i, i + 2)) && it.hasNext()) {
-                split.add(format.substring(j, i));
-                j = i + 2;
-                i++;
-            }
-        }
-        split.add(format.substring(j));
-
-        int         sizeMinusOne = split.size() - 1;
-        MutableText txt          = TextUtils.empty();
+        List<String> split        = splitString(format, args.size());
+        int          sizeMinusOne = split.size() - 1;
+        MutableText  txt          = TextUtils.empty();
         for (int i = 0; i < sizeMinusOne; i++) {
             txt.append(split.get(i)).append(args.get(i));
         }

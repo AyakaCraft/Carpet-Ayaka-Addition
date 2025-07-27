@@ -5,6 +5,7 @@
   "compatibilityLevel": "${COMPATIBILITY_LEVEL}",
   "mixins": [
     "carpet.MinecraftServerMixin",
+    "commands.gohome.LivingEntityAccessor",
     "logging.HUDControllerMixin",
     "logging.LoggerRegistryMixin",
     "logging.loadedchunks.ServerChunkManagerMixin",

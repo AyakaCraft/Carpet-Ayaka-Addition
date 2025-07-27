@@ -25,6 +25,9 @@ import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Streams;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +37,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
@@ -106,7 +108,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         }
 
         if (OPTIONS[0].equals(playerOption)) {
-            List<Text> txtList = new LinkedList<>();
+            List<Text> txtList = Lists.newLinkedList();
             txtList.add(header);
             txtList.add(TextUtils.format(FORMAT, loadedChunksCountAllSpawnable, loadedChunksCountAll).formatted(Formatting.GRAY));
             loadedChunksCounts.keySet().stream().map(this::getCountText).forEach(txtList::add);

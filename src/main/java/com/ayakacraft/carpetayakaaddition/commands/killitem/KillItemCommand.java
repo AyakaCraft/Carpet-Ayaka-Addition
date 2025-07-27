@@ -28,6 +28,7 @@ import com.ayakacraft.carpetayakaaddition.utils.EntityUtils;
 import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.entity.Entity;
@@ -36,7 +37,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.util.Formatting;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static net.minecraft.server.command.CommandManager.literal;
@@ -58,7 +58,7 @@ public final class KillItemCommand {
     }
 
     private static int killItem0(ServerCommandSource source) {
-        final List<Entity>    targets = new LinkedList<>();
+        final List<Entity>    targets = Lists.newLinkedList();
         final MinecraftServer server  = source.getServer();
         server.getWorlds().forEach(world -> targets.addAll(world.getEntitiesByType(
                 EntityType.ITEM,

@@ -27,17 +27,17 @@ import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogge
 import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
 import com.ayakacraft.carpetayakaaddition.mixin.logging.LoggerRegistryMixin;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import com.google.common.collect.Sets;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public final class AyakaLoggerRegistry {
 
     public static final Translator LOGGER_TR = Translator.AYAKA.resolve("logger");
 
-    public static final Set<Logger> ayakaLoggers = new HashSet<>();
+    public static final Set<Logger> ayakaLoggers = Sets.newHashSet();
 
-    public static final Set<AbstractAyakaHUDLogger> ayakaHUDLoggers = new HashSet<>();
+    public static final Set<AbstractAyakaHUDLogger> ayakaHUDLoggers = Sets.newHashSet();
 
     public static boolean __loadedChunks = false;
 
@@ -61,7 +61,6 @@ public final class AyakaLoggerRegistry {
     }
 
     //#if MC>=11500
-
     /**
      * @see LoggerRegistryMixin
      */

@@ -25,6 +25,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import com.google.common.collect.Maps;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.PointOfInterestTypeTags;
 import net.minecraft.registry.tag.TagKey;
@@ -34,7 +35,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.world.poi.PointOfInterestType;
 
-import java.util.HashMap;
 import java.util.Map;
 
 //Do not remove the lines below
@@ -45,7 +45,7 @@ public class POILogger extends AbstractAyakaLogger {
 
     private static final short DEFAULT_INDEX = 0;
 
-    private static final Map<String, TagKey<PointOfInterestType>> POI_TAGS = new HashMap<>(3);
+    private static final Map<String, TagKey<PointOfInterestType>> POI_TAGS = Maps.newHashMap();
 
     public static final String NAME = "poi";
 

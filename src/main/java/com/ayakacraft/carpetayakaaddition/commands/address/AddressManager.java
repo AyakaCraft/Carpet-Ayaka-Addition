@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
+import com.google.common.collect.Maps;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
@@ -31,7 +32,10 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
@@ -44,7 +48,7 @@ public class AddressManager {
     private static final Type MAP_TYPE = new TypeToken<Map<String, Address>>() {
     }.getType();
 
-    private static final Map<MinecraftServer, AddressManager> managerMap = new HashMap<>(1);
+    private static final Map<MinecraftServer, AddressManager> managerMap = Maps.newHashMap();
 
     @Deprecated
     public static final String WAYPOINT_FILE_NAME_OLD = "ayaka_waypoints.json";
@@ -53,14 +57,12 @@ public class AddressManager {
 
     @Deprecated
     private static Collection<AddressOld> loadFromPathOld(Path storagePath) throws IOException {
-        String str = FileUtils.readFile(storagePath);
-        Collection<AddressOld> addresses = CarpetAyakaAddition.GSON.fromJson(str, COLLECTION_TYPE_OLD);
+        Collection<AddressOld> addresses = CarpetAyakaAddition.GSON.fromJson(FileUtils.readFile(storagePath), COLLECTION_TYPE_OLD);
         return addresses == null ? Collections.emptyList() : addresses;
     }
 
     private static Map<String, Address> loadFromPath(Path storagePath) throws IOException {
-        String str = FileUtils.readFile(storagePath);
-        Map<String, Address> addresses = CarpetAyakaAddition.GSON.fromJson(str, MAP_TYPE);
+        Map<String, Address> addresses = CarpetAyakaAddition.GSON.fromJson(FileUtils.readFile(storagePath), MAP_TYPE);
         return addresses == null ? Collections.emptyMap() : addresses;
     }
 
@@ -89,7 +91,7 @@ public class AddressManager {
 
     private final Path waypointStoragePath;
 
-    private final Map<String, Address> addressMap = new HashMap<>();
+    private final Map<String, Address> addressMap = Maps.newHashMap();
 
     private AddressManager(MinecraftServer server) {
         waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);

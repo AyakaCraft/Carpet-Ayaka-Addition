@@ -43,9 +43,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 ### 命令
 
 - /address | /ad
-    - *服务端的路径点*
-    - .
-        - *推荐五个最常用的路径点*
+    - *推荐五个最常用的路径点*
     - reload
         - *重新加载路径点*
     - list

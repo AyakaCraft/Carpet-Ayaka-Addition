@@ -43,15 +43,13 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
 ### Commands
 
 - /address | /ad
-    - *Server-side waypoints*
-    - .
-        - *Suggest five most-used addresses*
+    - *Suggests five most-used server-side waypoints*
     - reload
         - *Reloads the waypoints*
     - list
         - *Lists the waypoints*
       - dim \<dim>
-            - *Lists the waypoints in specific dimension*
+          - *Lists the waypoints in a specific dimension*
       - radius \<radius>
           - *Lists the waypoints in a certain radius of **chunks***
     - set \<id> \<dim> \<pos> \<desc (optional)>

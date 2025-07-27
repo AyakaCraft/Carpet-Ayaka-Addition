@@ -22,12 +22,12 @@ package com.ayakacraft.carpetayakaaddition.utils.translation;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
+import com.google.common.collect.Maps;
 import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public abstract class AyakaLanguage {
     private static final Type STRING_ARRAY_TYPE = new TypeToken<String[]>() {
     }.getType();
 
-    private static final Map<String, AyakaLanguage> languageMap = new HashMap<>(2);
+    private static final Map<String, AyakaLanguage> languageMap = Maps.newHashMap();
 
     private static final String ASSETS = "assets/carpet-ayaka-addition/";
 
