@@ -67,20 +67,16 @@ public class AddressManager {
     }
 
     public static AddressManager getOrCreate(MinecraftServer server) {
-        if (managerMap.containsKey(server)) {
-            return managerMap.get(server);
-        }
-        AddressManager instance = new AddressManager(server);
-        managerMap.put(server, instance);
-        return instance;
+        return managerMap.computeIfAbsent(server, AddressManager::new);
     }
 
     public static void removeWaypointManager(MinecraftServer server) {
-        if (!managerMap.containsKey(server)) {
+        AddressManager manager = managerMap.remove(server);
+        if (manager == null) {
             return;
         }
         try {
-            managerMap.remove(server).save();
+            manager.save();
         } catch (IOException e) {
             LOGGER.error("Failed to save addresses", e);
         }

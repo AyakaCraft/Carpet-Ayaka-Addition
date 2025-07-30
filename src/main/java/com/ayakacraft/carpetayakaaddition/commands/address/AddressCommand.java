@@ -306,7 +306,7 @@ public final class AddressCommand {
     private static int listRadiusChunk(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source             = context.getSource();
         final ChunkPos            chunkPos           = MathUtils.getChunkPos(source.getPosition());
-        final World world = source.getWorld();
+        final World               world              = source.getWorld();
         final int                 squaredRadiusChunk = MathUtils.square(IntegerArgumentType.getInteger(context, "radius"));
 
         sendWaypointList(

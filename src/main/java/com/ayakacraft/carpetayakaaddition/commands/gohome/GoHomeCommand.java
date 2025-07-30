@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.commands.gohome;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.helpers.commands.GoHomeCommandHelper;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
+import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;
 
@@ -37,8 +37,7 @@ public final class GoHomeCommand {
                 literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, true))
                         .executes(context -> {
-                            ServerCommandSource source = context.getSource();
-                            GoHomeCommandHelper.sendHome(source.getServer(), source.getPlayerOrThrow());
+                            ServerPlayerUtils.sendHome(context.getSource().getPlayerOrThrow());
                             return 1;
                         })
         );

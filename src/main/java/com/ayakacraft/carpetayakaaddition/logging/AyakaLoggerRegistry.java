@@ -61,6 +61,7 @@ public final class AyakaLoggerRegistry {
     }
 
     //#if MC>=11500
+
     /**
      * @see LoggerRegistryMixin
      */

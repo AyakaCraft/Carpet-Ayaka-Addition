@@ -48,10 +48,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *重新加载路径点*
     - list
         - *列出所有路径点*
-      - dim \<dim>
-            - *列出指定维度中的路径点*
-      - radius \<radius>
-          - *列出制定**区块**半径内的路径点*
+        - dim \<dim>
+          - *列出指定维度中的路径点*
+        - radius \<radius>
+            - *列出制定**区块**半径内的路径点*
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *添加一个新的路径点或者修改已有的路径点*
     - remove \<id>
@@ -272,6 +272,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 #### 冰霜行者无冰冻 (frostWalkerNoFreezing)
 
 阻止附魔冰霜行者的靴子冻住水源
+
+在 1.21+ 中可能导致意料外的行为
 
 - 类型: `boolean`
 - 默认值: `false`

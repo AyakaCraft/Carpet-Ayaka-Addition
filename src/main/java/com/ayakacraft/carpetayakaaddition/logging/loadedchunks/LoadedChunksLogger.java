@@ -25,9 +25,7 @@ import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Streams;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.PlayerEntity;
@@ -101,7 +99,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
         ServerPlayerEntity sPlayer = (ServerPlayerEntity) player;
         Text               header  = TR.tr(sPlayer, null).formatted(Formatting.GRAY);
-        Text value;
+        Text               value;
 
         if (OPTIONS[1].equals(playerOption)) {
             playerOption = sPlayer.getServerWorld().getRegistryKey().getValue().toString();

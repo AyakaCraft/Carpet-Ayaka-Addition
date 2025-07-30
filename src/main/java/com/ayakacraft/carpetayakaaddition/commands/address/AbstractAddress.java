@@ -127,10 +127,8 @@ public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T
         if (this.equals(o)) {
             return 0;
         }
-        if (this.weight == o.weight) {
-            return this.id.compareTo(o.id);
-        }
-        return Long.compare(this.weight, o.weight);
+        int i = Long.compare(this.weight, o.weight);
+        return i == 0 ? this.id.compareTo(o.id) : i;
     }
 
     @Override

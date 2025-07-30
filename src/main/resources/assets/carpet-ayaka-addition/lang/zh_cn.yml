@@ -122,6 +122,8 @@ carpet:
     frostWalkerNoFreezing:
       name: 冰霜行者无冰冻
       desc: 阻止附魔冰霜行者的靴子冻住水源
+      extra:
+        "0": 在 1.21+ 中可能导致意料外的行为
     itemDiscardAge:
       name: 掉落物消失刻
       desc: 修改掉落物自然消失前的游戏刻数

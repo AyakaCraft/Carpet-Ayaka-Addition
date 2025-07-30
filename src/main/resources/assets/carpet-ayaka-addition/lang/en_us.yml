@@ -103,6 +103,8 @@ carpet:
       desc: Prevents foxes from picking up dropped items, though they will still be attracted
     frostWalkerNoFreezing:
       desc: Prevents frost walker shoes from freezing water
+      extra:
+        "0": Might cause unexpected behaviour in 1.21+
     itemDiscardAge:
       desc: Modifies the ticks before an item entity is discarded
       extra:

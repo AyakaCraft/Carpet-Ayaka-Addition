@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.mixin.commands.gohome.LivingEntityAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -29,13 +30,13 @@ import net.minecraft.world.GameMode;
 public final class ServerPlayerUtils {
 
     private static float wrapDegrees(float degrees) {
-        float f = degrees % 360.0F;
-        if (f >= 180.0F) {
-            return (f - 360.0F);
+        float f = degrees % 360F;
+        if (f >= 180F) {
+            return (f - 360F);
         }
 
-        if (f < -180.0F) {
-            return (f + 360.0F);
+        if (f < -180F) {
+            return (f + 360F);
         }
 
         return f;
@@ -117,6 +118,21 @@ public final class ServerPlayerUtils {
 
     public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
         teleport(player, target.getServerWorld(), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
+    }
+
+    public static void sendHome(ServerPlayerEntity player) {
+        ServerPlayerEntity newPlayer = player.getServerWorld().getServer().getPlayerManager().respawnPlayer(player,
+                //#if MC>=11600
+                //#else
+                //$$ net.minecraft.world.dimension.DimensionType.OVERWORLD,
+                //#endif
+                true
+                //#if MC>=12100
+                //$$ , net.minecraft.entity.Entity.RemovalReason.CHANGED_DIMENSION
+                //#endif
+        );
+        newPlayer.networkHandler.player = newPlayer;
+        ((LivingEntityAccessor) newPlayer).getActiveStatusEffects$Ayaka().putAll(((LivingEntityAccessor) player).getActiveStatusEffects$Ayaka());
     }
 
 }

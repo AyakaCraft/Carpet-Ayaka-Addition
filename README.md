@@ -48,10 +48,10 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
         - *Reloads the waypoints*
     - list
         - *Lists the waypoints*
-      - dim \<dim>
-          - *Lists the waypoints in a specific dimension*
-      - radius \<radius>
-          - *Lists the waypoints in a certain radius of **chunks***
+        - dim \<dim>
+            - *Lists the waypoints in a specific dimension*
+        - radius \<radius>
+            - *Lists the waypoints in a certain radius of **chunks***
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *Adds a new waypoint or modify an existing one*
     - remove \<id>
@@ -272,6 +272,8 @@ Stops foxes from picking up dropped items, though they will still be attracted
 #### frostWalkerNoFreezing
 
 Prevents frost walker shoes from freezing water
+
+Might cause unexpected behaviour in 1.21+
 
 - Type: `boolean`
 - Default value: `false`
