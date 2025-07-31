@@ -56,35 +56,39 @@ public class Translator {
     }
 
     public String translate(AyakaLanguage lang, String key) {
+        String k;
         if (StringUtils.isNullOrEmpty(baseKey)) {
             if (StringUtils.isNullOrEmpty(key)) {
-                return lang.translate("");
+                k = "";
             } else {
-                return lang.translate(key);
+                k = key;
             }
         } else {
             if (StringUtils.isNullOrEmpty(key)) {
-                return lang.translate(baseKey);
+                k = baseKey;
             } else {
-                return lang.translate(baseKey + "." + key);
+                k = baseKey + "." + key;
             }
         }
+        return lang.translate(k);
     }
 
     public String translateWithoutFallback(AyakaLanguage lang, String key) {
+        String k;
         if (StringUtils.isNullOrEmpty(baseKey)) {
             if (StringUtils.isNullOrEmpty(key)) {
-                return lang.translateWithoutFallback("");
+                k = "";
             } else {
-                return lang.translateWithoutFallback(key);
+                k = key;
             }
         } else {
             if (StringUtils.isNullOrEmpty(key)) {
-                return lang.translateWithoutFallback(baseKey);
+                k = baseKey;
             } else {
-                return lang.translateWithoutFallback(baseKey + "." + key);
+                k = baseKey + "." + key;
             }
         }
+        return lang.translateWithoutFallback(k);
     }
 
     public MutableText tr(String key, Object... args) {

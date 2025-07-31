@@ -86,11 +86,24 @@ public final class KillItemCommand {
         final int                 i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
         final ServerCommandSource source = context.getSource();
         if (i == 0) {
-            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.none"), false);
+            TextUtils.broadcastTranslatable(
+                    source.getServer(),
+                    false,
+                    TR.resolve("cancel.none")
+            );
         } else if (i == 1) {
-            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.single"), false);
+            TextUtils.broadcastTranslatable(
+                    source.getServer(),
+                    false,
+                    TR.resolve("cancel.single")
+            );
         } else {
-            CommandUtils.sendFeedback(source, TR.tr(source, "cancel.multiple", i), false);
+            TextUtils.broadcastTranslatable(
+                    source.getServer(),
+                    false,
+                    TR.resolve("cancel.multiple"),
+                    i
+            );
         }
         return i;
     }

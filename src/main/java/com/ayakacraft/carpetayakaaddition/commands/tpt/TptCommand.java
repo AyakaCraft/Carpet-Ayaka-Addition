@@ -40,7 +40,7 @@ public final class TptCommand {
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, true))
                         .then(
                                 argument("target", EntityArgumentType.player())
-                                        .suggests(CommandUtils::playerSuggestionProvider)
+                                        .suggests(CommandUtils::suggestPlayerNames)
                                         .executes(context -> {
                                             ServerPlayerUtils.teleport(context.getSource().getPlayerOrThrow(), EntityArgumentType.getPlayer(context, "target"));
                                             return 1;

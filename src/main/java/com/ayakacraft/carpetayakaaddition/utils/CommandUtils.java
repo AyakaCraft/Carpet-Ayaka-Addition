@@ -73,7 +73,7 @@ public final class CommandUtils {
         //#endif
     }
 
-    public static CompletableFuture<Suggestions> playerSuggestionProvider(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
+    public static CompletableFuture<Suggestions> suggestPlayerNames(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
         return CommandSource.suggestMatching(context.getSource().getPlayerNames(), builder);
     }
 

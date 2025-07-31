@@ -49,7 +49,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
     - list
         - *列出所有路径点*
         - dim \<dim>
-          - *列出指定维度中的路径点*
+            - *列出指定维度中的路径点*
         - radius \<radius>
             - *列出制定**区块**半径内的路径点*
     - set \<id> \<dim> \<pos> \<desc (optional)>

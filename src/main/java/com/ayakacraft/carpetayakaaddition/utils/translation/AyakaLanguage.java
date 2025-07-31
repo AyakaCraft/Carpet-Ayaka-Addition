@@ -38,9 +38,6 @@ public abstract class AyakaLanguage {
     private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
 
-    private static final Type STRING_ARRAY_TYPE = new TypeToken<String[]>() {
-    }.getType();
-
     private static final Map<String, AyakaLanguage> languageMap = Maps.newHashMap();
 
     private static final String ASSETS = "assets/carpet-ayaka-addition/";
@@ -57,10 +54,8 @@ public abstract class AyakaLanguage {
         }
 
         try {
-            final String data      = FileUtils.readResource(LANG_META);
-            String[]     languages = GSON.fromJson(data, STRING_ARRAY_TYPE);
 
-            for (String lang : languages) {
+            for (String lang : GSON.fromJson(FileUtils.readResource(LANG_META), String[].class)) {
                 lang = lang.toLowerCase(Locale.ROOT);
                 languageMap.put(lang, new AyakaLanguageImpl(lang));
             }
@@ -97,7 +92,7 @@ public abstract class AyakaLanguage {
 
     private final String code;
 
-    public AyakaLanguage(String lang) {
+    protected AyakaLanguage(String lang) {
         this.code = lang.toLowerCase(Locale.ROOT);
     }
 
@@ -107,9 +102,20 @@ public abstract class AyakaLanguage {
 
     public abstract Map<String, String> translations();
 
-    public abstract String translate(String key);
+    public String translate(String key) {
+        String s = translateWithoutFallback(key);
+        if (s != null) {
+            return s;
+        }
+        if (DEFAULT_LANG.equals(code)) {
+            return key;
+        }
+        return getDefaultLanguage().translate(key);
+    }
 
-    public abstract String translateWithoutFallback(String key);
+    public String translateWithoutFallback(String key) {
+        return translations().get(key);
+    }
 
     private static class AyakaLanguageImpl extends AyakaLanguage {
 
@@ -120,33 +126,20 @@ public abstract class AyakaLanguage {
 
             Map<String, String> tr = Collections.emptyMap();
             try {
-                final String        data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", code()));
+                String              data = FileUtils.readResource(String.format("assets/carpet-ayaka-addition/lang/%s.json", code()));
                 Map<String, String> map  = GSON.fromJson(data, MAP_TYPE);
                 if (map != null) {
-                    tr = map;
+                    tr = Collections.unmodifiableMap(map);
                 }
             } catch (Exception e) {
                 CarpetAyakaAddition.LOGGER.error("Failed to load language {}", code(), e);
             }
-            this.translations = Collections.unmodifiableMap(tr);
+            this.translations = tr;
         }
 
         @Override
         public Map<String, String> translations() {
             return translations;
-        }
-
-        @Override
-        public String translate(String key) {
-            if (DEFAULT_LANG.equals(code())) {
-                return translations.getOrDefault(key, key);
-            }
-            return translations.getOrDefault(key, getDefaultLanguage().translate(key));
-        }
-
-        @Override
-        public String translateWithoutFallback(String key) {
-            return translations.get(key);
         }
 
     }
@@ -160,16 +153,6 @@ public abstract class AyakaLanguage {
         @Override
         public Map<String, String> translations() {
             return Collections.emptyMap();
-        }
-
-        @Override
-        public String translate(String key) {
-            return getDefaultLanguage().translate(key);
-        }
-
-        @Override
-        public String translateWithoutFallback(String key) {
-            return null;
         }
 
     }
