@@ -5,15 +5,9 @@ carpet-ayaka-addition:
       list:
         empty: 无路径点
         header: "路径点如下: "
-        detail:
-          .: 详细信息
-          hover: 点击以显示详细信息
-        tp:
-          .: 传送
-          hover: 点击以传送到路径点
-        xaero:
-          .: Xaero
-          hover: 点击以分享为 Xaero 路径点
+        detail: 详细信息
+        tp: 传送
+        xaero: Xaero
       not_exist: 路径点 [%s] 不存在
       detail:
         "0": "路径点 [%s] 详细信息:"

@@ -43,8 +43,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -341,24 +339,9 @@ public final class AddressCommand {
         return TextUtils.format(
                 "[{}] [{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
-                TR.tr(source, "list.detail")
-                        .styled(style ->
-                                style.withColor(Formatting.GOLD)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad detail '%s'", id)))
-                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.detail.hover")))
-                        ),
-                TR.tr(source, "list.tp")
-                        .styled(style ->
-                                style.withColor(Formatting.RED)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad tp '%s'", id)))
-                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.tp.hover")))
-                        ),
-                TR.tr(source, "list.xaero")
-                        .styled(style ->
-                                style.withColor(Formatting.AQUA)
-                                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, String.format("/ad xaero '%s'", id)))
-                                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TR.tr(source, "list.xaero.hover")))
-                        )
+                TR.tr(source, "list.detail").styled(style -> TextUtils.runCommand(style, String.format("/ad detail '%s'", id))),
+                TR.tr(source, "list.tp").styled(style -> TextUtils.runCommand(style, String.format("/ad tp '%s'", id))),
+                TR.tr(source, "list.xaero").styled(style -> TextUtils.runCommand(style, String.format("/ad xaero '%s'", id)))
         );
     }
 
