@@ -339,9 +339,9 @@ public final class AddressCommand {
         return TextUtils.format(
                 "[{}] [{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
-                TR.tr(source, "list.detail").styled(style -> TextUtils.runCommand(style, String.format("/ad detail '%s'", id))),
-                TR.tr(source, "list.tp").styled(style -> TextUtils.runCommand(style, String.format("/ad tp '%s'", id))),
-                TR.tr(source, "list.xaero").styled(style -> TextUtils.runCommand(style, String.format("/ad xaero '%s'", id)))
+                TR.tr(source, "list.detail").styled(style -> TextUtils.runCommand(style.withColor(Formatting.GOLD), String.format("/ad detail '%s'", id))),
+                TR.tr(source, "list.tp").styled(style -> TextUtils.runCommand(style.withColor(Formatting.RED), String.format("/ad tp '%s'", id))),
+                TR.tr(source, "list.xaero").styled(style -> TextUtils.runCommand(style.withColor(Formatting.AQUA), String.format("/ad xaero '%s'", id)))
         );
     }
 

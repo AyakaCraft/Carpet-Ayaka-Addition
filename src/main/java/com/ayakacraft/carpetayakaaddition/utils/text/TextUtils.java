@@ -25,7 +25,6 @@ import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
-import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -136,7 +135,7 @@ public final class TextUtils {
     }
 
     public static Style runCommand(Style style, String command) {
-        return style.withColor(Formatting.GOLD)
+        return style
                 .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(command)));
     }
