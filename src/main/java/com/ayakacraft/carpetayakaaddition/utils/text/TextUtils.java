@@ -136,12 +136,12 @@ public final class TextUtils {
         );
     }
 
-    public static Text withCommand(MutableText text, String command) {
-        return text.styled(style ->
+    public static MutableText withCommand(MutableText text, String command) {
+        text.styled(style ->
                 style
                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(command)))
-        );
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(command))));
+        return text;
     }
 
 }
