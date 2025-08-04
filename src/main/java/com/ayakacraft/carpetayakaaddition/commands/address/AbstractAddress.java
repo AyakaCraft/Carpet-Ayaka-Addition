@@ -135,9 +135,9 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     }
 
     public void reduceWeight() {
-        if (weight > 1000) {
-            weight = 1000;
-        } else if (weight > 150) {
+        if (weight > 2000) {
+            weight -= 7;
+        } else if (weight > 500) {
             weight -= 3;
         } else if (weight > 0) {
             weight -= 1;

@@ -52,5 +52,4 @@ public abstract class ServerChunkManagerMixin {
         LoadedChunksLogger.INSTANCE.tryLog(this.threadedAnvilChunkStorage, this.world);
     }
 
-
 }
