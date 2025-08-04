@@ -35,6 +35,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.List;
@@ -116,18 +117,15 @@ public final class KillItemCommand {
                         .then(literal("cancel").executes(KillItemCommand::cancel)));
     }
 
-    private static final class KillItemTickTask extends TickTask {
+    private static class KillItemTickTask extends TickTask.CountDownTask {
 
         private final int awaitSeconds;
 
         private final ServerCommandSource source;
 
-        private int ticks;
-
         public KillItemTickTask(CarpetAyakaServer modServer, int awaitSeconds, ServerCommandSource source) {
-            super(modServer);
+            super(modServer, awaitSeconds * 20);
             this.awaitSeconds = awaitSeconds;
-            this.ticks = awaitSeconds * 20;
             this.source = source;
         }
 
@@ -135,18 +133,23 @@ public final class KillItemCommand {
         public void start() {
             TextUtils.broadcast(
                     mcServer,
-                    TR.tr("task.start", awaitSeconds).formatted(Formatting.GOLD),
-                    p -> TR.tr(p, "task.start", awaitSeconds).formatted(Formatting.GOLD),
+                    TextUtils.joinTexts(new Text[]{
+                            TR.tr("task.start.0", awaitSeconds).formatted(Formatting.GOLD),
+                            TextUtils.space(),
+                            TextUtils.withCommand(TR.tr("task.start.1"), "/killitem cancel")
+                    }),
+                    p -> TextUtils.joinTexts(new Text[]{
+                            TR.tr(p, "task.start.0", awaitSeconds).formatted(Formatting.GOLD),
+                            TextUtils.space(),
+                            TextUtils.withCommand(TR.tr(p, "task.start.1"), "/killitem cancel")
+                    }),
                     false
             );
         }
 
         @Override
-        public void tick() {
-            if ((--ticks) <= 0) {
-                killItem0(source);
-                finish();
-            }
+        public void run() {
+            killItem0(source);
         }
 
     }

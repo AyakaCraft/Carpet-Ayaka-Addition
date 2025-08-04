@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T>> {
+public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D>> {
 
     public static final String DESC_PLACEHOLDER = "#none";
 
@@ -45,9 +45,9 @@ public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T
     @Nullable
     protected String desc;
 
-    protected long weight = 0L;
+    protected int weight = 0;
 
-    public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
+    public AbstractAddress(String id, String dim, Vec3d pos, String desc, int weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
@@ -57,15 +57,27 @@ public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T
         this.weight = weight;
     }
 
-    public AbstractAddress(AddressOld old) {
-        this(old.id, old.dim, old.pos, old.desc, 0L);
+    public AbstractAddress(String id, D dim, Vec3d pos, String desc, int weight) {
+        this.id = id;
+        this.dim = transDim(dim);
+        this.x = pos.x;
+        this.y = pos.y;
+        this.z = pos.z;
+        setDesc(desc);
+        this.weight = weight;
     }
+
+    public AbstractAddress(AddressOld old) {
+        this(old.id, old.dim, old.pos, old.desc, 0);
+    }
+
+    protected abstract String transDim(D d);
 
     public String getDim() {
         return dim;
     }
 
-    public abstract T getDimension();
+    public abstract D getDimension();
 
     public double getX() {
         return x;
@@ -95,7 +107,7 @@ public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
-    public long getWeight() {
+    public int getWeight() {
         return weight;
     }
 
@@ -122,12 +134,22 @@ public abstract class AbstractAddress<T> implements Comparable<AbstractAddress<T
         weight += 3;
     }
 
+    public void reduceWeight() {
+        if (weight > 1000) {
+            weight = 1000;
+        } else if (weight > 150) {
+            weight -= 3;
+        } else if (weight > 0) {
+            weight -= 1;
+        }
+    }
+
     @Override
-    public int compareTo(@NotNull AbstractAddress<T> o) {
+    public int compareTo(@NotNull AbstractAddress<D> o) {
         if (this.equals(o)) {
             return 0;
         }
-        int i = Long.compare(this.weight, o.weight);
+        int i = this.weight - o.weight;
         return i == 0 ? this.id.compareTo(o.id) : i;
     }
 

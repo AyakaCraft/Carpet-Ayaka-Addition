@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
+import com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks.ThreadedAnvilChunkStorageAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
@@ -30,13 +31,17 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.StreamSupport;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
@@ -69,6 +74,10 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         INSTANCE = i;
     }
 
+    private static String getCountString(int count) {
+        return count == 0 ? "-" : Integer.toString(count);
+    }
+
     public final Object2IntMap<Identifier> loadedChunksCounts = new Object2IntOpenHashMap<>(3);
 
     public final Object2IntMap<Identifier> loadedChunksCountsSpawnable = new Object2IntOpenHashMap<>(3);
@@ -79,6 +88,23 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private LoadedChunksLogger() throws NoSuchFieldException {
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
+    }
+
+    private Text getCountText(Identifier id) {
+        MutableText t1 = Text.literal(getCountString(loadedChunksCountsSpawnable.getInt(id)));
+        MutableText t2 = Text.literal(getCountString(loadedChunksCounts.getInt(id)));
+        if (OVW_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_GREEN);
+            t2.formatted(Formatting.DARK_GREEN);
+        } else if (NETHER_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_RED);
+            t2.formatted(Formatting.DARK_RED);
+        } else if (END_ID.equals(id)) {
+            t1.formatted(Formatting.DARK_AQUA);
+            t2.formatted(Formatting.DARK_AQUA);
+        }
+
+        return TextUtils.format("{}{}{}", t1, SEPARATOR, t2);
     }
 
     @Override
@@ -118,25 +144,34 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         return (MutableText) value;
     }
 
-    public Text getCountText(Identifier id) {
-        MutableText t1 = Text.literal(getCountString(loadedChunksCountsSpawnable.getInt(id)));
-        MutableText t2 = Text.literal(getCountString(loadedChunksCounts.getInt(id)));
-        if (OVW_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_GREEN);
-            t2.formatted(Formatting.DARK_GREEN);
-        } else if (NETHER_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_RED);
-            t2.formatted(Formatting.DARK_RED);
-        } else if (END_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_AQUA);
-            t2.formatted(Formatting.DARK_AQUA);
+    public void tryLog(ThreadedAnvilChunkStorage threadedAnvilChunkStorage, ServerWorld world) {
+        if (isEnabled()) {
+            ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) threadedAnvilChunkStorage;
+
+            int count = threadedAnvilChunkStorage.getLoadedChunkCount();
+            int countSpawnable = (int) StreamSupport
+                    .stream(tacsi.getEntryIterator().spliterator(), false)
+                    .filter(chunkHolder -> {
+                        WorldChunk worldChunk = chunkHolder.getWorldChunk();
+                        return worldChunk != null
+                                //#if MC>=11800
+                                && tacsi.whetherShouldTick(worldChunk.getPos())
+                                //#else
+                                //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
+                                //#endif
+                                ;
+                    })
+                    .count();
+
+            Identifier id = world.getRegistryKey().getValue();
+
+            loadedChunksCountAll += count;
+            loadedChunksCountAllSpawnable += countSpawnable;
+
+            loadedChunksCounts.put(id, count);
+            loadedChunksCountsSpawnable.put(id, countSpawnable);
+
         }
-
-        return TextUtils.format("{}{}{}", t1, SEPARATOR, t2);
-    }
-
-    public String getCountString(int count) {
-        return count == 0 ? "-" : Integer.toString(count);
     }
 
 }

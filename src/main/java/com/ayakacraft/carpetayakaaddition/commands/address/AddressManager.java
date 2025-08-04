@@ -21,7 +21,9 @@
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
+import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -49,6 +51,8 @@ public class AddressManager {
     }.getType();
 
     private static final Map<MinecraftServer, AddressManager> managerMap = Maps.newHashMap();
+
+    private static final int REDUCE_WEIGHT_FREQUENCY = 72000;
 
     @Deprecated
     public static final String WAYPOINT_FILE_NAME_OLD = "ayaka_waypoints.json";
@@ -89,7 +93,11 @@ public class AddressManager {
 
     private final Map<String, Address> addressMap = Maps.newHashMap();
 
+    public final MinecraftServer mcServer;
+
     private AddressManager(MinecraftServer server) {
+        this.mcServer = server;
+
         waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);
         waypointStoragePathOld = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME_OLD);
         try {
@@ -97,6 +105,8 @@ public class AddressManager {
         } catch (IOException e) {
             LOGGER.error("Failed to load addresses", e);
         }
+
+        CarpetAyakaServer.INSTANCE.addTickTask(it -> new ReduceWeightTask(it, this));
     }
 
     private void put(AddressOld addressOld) {
@@ -174,6 +184,25 @@ public class AddressManager {
         LOGGER.debug("Set address {}", address);
         save();
         return w;
+    }
+
+    private static class ReduceWeightTask extends TickTask.FrequentTask {
+
+        private final AddressManager manager;
+
+        public ReduceWeightTask(CarpetAyakaServer modServer, AddressManager manager) {
+            super(modServer, REDUCE_WEIGHT_FREQUENCY);
+            if (manager.mcServer != modServer.mcServer) {
+                throw new IllegalArgumentException("Mismatched Minecraft server");
+            }
+            this.manager = manager;
+        }
+
+        @Override
+        public void run() {
+            this.manager.addressMap.values().forEach(AbstractAddress::reduceWeight);
+        }
+
     }
 
 }

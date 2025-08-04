@@ -30,7 +30,9 @@ carpet-ayaka-addition:
       none: 没有可清除的掉落物
       single: "清除了{}"
       multiple: 清除了%d个掉落物
-      task.start: 警告：掉落物将在%d秒后清除
+      task.start:
+        "0": 警告：掉落物将在%d秒后清除
+        "1": "[取消]"
       cancel:
         none: 没有任务被取消
         single: 取消了一个任务

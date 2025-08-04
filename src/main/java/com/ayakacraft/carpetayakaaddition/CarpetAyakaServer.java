@@ -156,7 +156,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         AddressManager.getOrCreate(mcServer);
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> {
             if (it instanceof InitializedPerTick) {
-                CarpetAyakaServer.this.addTickTask(modServer -> ((InitializedPerTick) it).getInitTask(modServer));
+                CarpetAyakaServer.this.addTickTask(s -> InitializedPerTick.createTickTask(s, ((InitializedPerTick) it)));
             }
         });
     }

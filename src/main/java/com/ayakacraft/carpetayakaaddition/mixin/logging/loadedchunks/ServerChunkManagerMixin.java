@@ -20,21 +20,16 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
-import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.chunk.WorldChunk;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.stream.StreamSupport;
 
 @Mixin(ServerChunkManager.class)
 public abstract class ServerChunkManagerMixin {
@@ -54,33 +49,8 @@ public abstract class ServerChunkManagerMixin {
 
     @Inject(method = "tickChunks()V", at = @At("RETURN"))
     private void onTickChunks(CallbackInfo ci) {
-        if (AyakaLoggerRegistry.__loadedChunks) {
-            ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) this.threadedAnvilChunkStorage;
-
-            int count = this.threadedAnvilChunkStorage.getLoadedChunkCount();
-            int countSpawnable = (int) StreamSupport
-                    .stream(tacsi.getEntryIterator().spliterator(), false)
-                    .filter(chunkHolder -> {
-                        WorldChunk worldChunk = chunkHolder.getWorldChunk();
-                        return worldChunk != null
-                                //#if MC>=11800
-                                && tacsi.whetherShouldTick(worldChunk.getPos())
-                                //#else
-                                //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
-                                //#endif
-                                ;
-                    })
-                    .count();
-
-            Identifier id = world.getRegistryKey().getValue();
-
-            LoadedChunksLogger.INSTANCE.loadedChunksCountAll += count;
-            LoadedChunksLogger.INSTANCE.loadedChunksCountAllSpawnable += countSpawnable;
-
-            LoadedChunksLogger.INSTANCE.loadedChunksCounts.put(id, count);
-            LoadedChunksLogger.INSTANCE.loadedChunksCountsSpawnable.put(id, countSpawnable);
-
-        }
+        LoadedChunksLogger.INSTANCE.tryLog(this.threadedAnvilChunkStorage, this.world);
     }
+
 
 }

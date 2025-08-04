@@ -58,4 +58,71 @@ public abstract class TickTask {
         return this.finished || this.cancelled;
     }
 
+    public static abstract class CountDownTask extends TickTask implements Runnable {
+
+        private final int endTick;
+
+        public CountDownTask(CarpetAyakaServer modServer, int ticksToCount) {
+            super(modServer);
+            this.endTick = mcServer.getTicks() + ticksToCount;
+        }
+
+        @Override
+        public void tick() {
+            if (mcServer.getTicks() >= endTick) {
+                this.run();
+                this.finish();
+            }
+        }
+
+    }
+
+    public static abstract class FrequentTask extends TickTask implements Runnable {
+
+        private final int frequency;
+
+        public FrequentTask(CarpetAyakaServer modServer, int frequency) {
+            super(modServer);
+            this.frequency = frequency;
+        }
+
+        @Override
+        public void tick() {
+            if (mcServer.getTicks() % frequency == 0) {
+                this.run();
+            }
+        }
+
+    }
+
+    public static class RunPerTickTask extends TickTask {
+
+        private static final Runnable EMPTY_TASK = () -> {
+        };
+
+        private final Runnable task;
+
+        private final boolean runOnCancel;
+
+        public RunPerTickTask(CarpetAyakaServer modServer, Runnable task, boolean runOnCancel) {
+            super(modServer);
+            this.task = task == null ? EMPTY_TASK : task;
+            this.runOnCancel = runOnCancel;
+        }
+
+        @Override
+        public void cancel() {
+            if (runOnCancel) {
+                task.run();
+            }
+            super.cancel();
+        }
+
+        @Override
+        public void tick() {
+            task.run();
+        }
+
+    }
+
 }
