@@ -120,7 +120,7 @@ public final class CarpetAyakaServer implements CarpetExtension {
         return AyakaLanguage.get(lang).translations();
         //#else
         //$$ Map<String, String> original = AyakaLanguage.get(lang).translations();
-        //$$ Map<String, String> transformed = new java.util.HashMap<>();
+        //$$ Map<String, String> transformed = com.google.common.collect.Maps.newHashMap();
         //$$
         //$$ original.entrySet()
         //$$         .stream()
