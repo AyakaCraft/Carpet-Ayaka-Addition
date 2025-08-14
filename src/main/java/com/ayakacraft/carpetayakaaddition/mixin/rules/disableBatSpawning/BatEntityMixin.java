@@ -21,6 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.disableBatSpawning;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.passive.BatEntity;
@@ -28,18 +30,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BatEntity.class)
 public class BatEntityMixin {
 
-    @Inject(method = "canSpawn", at = @At("RETURN"), cancellable = true)
-    private static void disableBatSpawning(EntityType<BatEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, CallbackInfoReturnable<Boolean> cir) {
-        if (CarpetAyakaSettings.disableBatSpawning && (spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION) && cir.getReturnValue()) {
-            cir.setReturnValue(false);
-        }
+    @WrapMethod(method = "canSpawn")
+    private static boolean disableBatSpawning(EntityType<BatEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random, Operation<Boolean> original) {
+        return !(CarpetAyakaSettings.disableBatSpawning && (spawnReason == SpawnReason.NATURAL || spawnReason == SpawnReason.CHUNK_GENERATION)) && original.call(type, world, spawnReason, pos, random);
     }
 
 }

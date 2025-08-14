@@ -26,6 +26,8 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaExtensionLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,15 +45,16 @@ public abstract class LoggerRegistryMixin {
         AyakaLoggerRegistry.ayakaLoggers.forEach(it -> registerLogger(it.getLogName(), it));
     }
 
-    @Inject(method = "setAccess", at = @At("HEAD"), cancellable = true)
-    private static void onSetAccess(Logger logger, CallbackInfo ci) {
+    @WrapMethod(method = "setAccess")
+    private static void onSetAccess(Logger logger, Operation<Void> original) {
         if (logger instanceof AyakaExtensionLogger) {
             try {
                 ((AyakaExtensionLogger) logger).getField().setBoolean(null, logger.hasOnlineSubscribers());
             } catch (IllegalAccessException e) {
                 CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
             }
-            ci.cancel();
+        } else {
+            original.call(logger);
         }
     }
 

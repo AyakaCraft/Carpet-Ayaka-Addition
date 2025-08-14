@@ -124,8 +124,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
-- [frostWalkerNoFreezing](#冰霜行者无冰冻-frostwalkernofreezing)
 - [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
+- [frostWalkerNoFreezing](#冰霜行者无冰冻-frostwalkernofreezing)
+- [giveLimit](#give命令限制-givelimit)
 - [itemDiscardAge](#掉落物消失刻-itemdiscardage)
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
@@ -280,6 +281,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
+#### give命令限制 (giveLimit)
+
+give 命令的限制乘数
+
+实际限制值 = 值 * 最大堆叠数
+
+- 类型: `int`
+- 默认值: `5`
+- 参考选项: `0`, `1`, `10`, `100`, `1000`
+- 范围: `[0,)`
+- 分类: `AYAKA`, `COMMAND`, `CREATIVE`
+
 #### 掉落物消失刻 (itemDiscardAge)
 
 修改掉落物自然消失前的游戏刻数
@@ -313,7 +326,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
+- 分类: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### 最大玩家数量重写 (maxPlayersOverwrite)
 

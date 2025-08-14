@@ -45,8 +45,8 @@ public class ClearCommandMixin {
                     remap = false
             )
     )
-    private static Predicate<ServerCommandSource> checkIfAllowCheating_clearCommand(Predicate<ServerCommandSource> original) {
-        return source -> original.test(source) && !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source));
+    private static Predicate<ServerCommandSource> checkIfAllowCheating(Predicate<ServerCommandSource> original) {
+        return original.and(s -> !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(s)));
     }
 
 }

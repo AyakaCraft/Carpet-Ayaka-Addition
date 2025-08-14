@@ -18,21 +18,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.foxNoPickupItem;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.giveLimit;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.server.command.GiveCommand;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-@Mixin(FoxEntity.class)
-public class FoxEntityMixin {
+@Mixin(GiveCommand.class)
+public class GiveCommandMixin {
 
-    @WrapMethod(method = "canPickupItem")
-    private boolean onPickupItem(ItemStack stack, Operation<Boolean> original) {
-        return !CarpetAyakaSettings.foxNoPickupItem && original.call(stack);
+    @ModifyConstant(method = "execute", constant = @Constant(intValue = 100))
+    private static int modifyMaxCount(int value) {
+        return CarpetAyakaSettings.giveLimit == 0 ? value : CarpetAyakaSettings.giveLimit;
     }
 
 }

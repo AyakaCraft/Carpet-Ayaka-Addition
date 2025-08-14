@@ -126,6 +126,7 @@ Logs the change of points-of-interest (experimental)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
 - [frostWalkerNoFreezing](#frostwalkernofreezing)
+- [giveLimit](#givelimit)
 - [itemDiscardAge](#itemdiscardage)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
@@ -280,6 +281,18 @@ Might cause unexpected behaviour in 1.21+
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
+#### giveLimit
+
+Limit factor for give command
+
+limit = value * max_count_per_stack
+
+- Type: `int`
+- Default value: `5`
+- Suggested options: `0`, `1`, `10`, `100`, `1000`
+- Range: `[0,)`
+- Categories: `AYAKA`, `COMMAND`, `CREATIVE`
+
 #### itemDiscardAge
 
 Modifies the ticks before an item entity is discarded
@@ -313,7 +326,7 @@ See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572) and [MC-2755
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
+- Categories: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 #### maxPlayersOverwrite
 

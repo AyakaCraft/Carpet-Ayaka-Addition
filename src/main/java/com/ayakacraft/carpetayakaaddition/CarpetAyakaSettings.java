@@ -123,6 +123,14 @@ public final class CarpetAyakaSettings {
     public static boolean frostWalkerNoFreezing = false;
 
     @Rule(
+            categories = {AYAKA, COMMAND, CREATIVE},
+            validators = Validators.UnsignedIntegerValidator.class,
+            options = {"0", "1", "10", "100", "1000"},
+            strict = false
+    )
+    public static int giveLimit = 100;
+
+    @Rule(
             categories = {AYAKA, CREATIVE},
             validators = Validators.ItemDiscardAgeValidator.class,
             options = {"0", "3000", "3600", "6000", "12000", "72000"},
@@ -139,7 +147,7 @@ public final class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     @Rule(
-            categories = {AYAKA, FEATURE, BUGFIX, EXPERIMENTAL, REINTRODUCE},
+            categories = {AYAKA, BUGFIX, EXPERIMENTAL, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">1.21.1")
     )
     public static boolean legacyHoneyBlockSliding = false;

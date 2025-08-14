@@ -46,7 +46,9 @@ public class MinecraftServerMixin {
             //#endif
     )
     private void saveFakePlayersOnStartup(CallbackInfo ci) {
-        GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
+        if (CarpetAyakaSettings.fakePlayerResidentBackupFix) {
+            GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);
+        }
     }
 
     @Inject(method = "save", at = @At("RETURN"))

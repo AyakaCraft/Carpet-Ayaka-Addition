@@ -23,14 +23,13 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.command.ItemCommand;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 //Do not remove the lines below
 //TODO update in 1.21.6
@@ -38,18 +37,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ItemCommand.class)
 public class ItemCommandMixin {
 
-    @Inject(
+    @WrapMethod(
             //#if MC>=11700
-            method = "method_32710",
+            method = "method_32710"
             //#else
-            //$$ method = "method_13545",
+            //$$ method = "method_13545"
             //#endif
-            remap = false, at = @At("RETURN"), cancellable = true
     )
-    private static void checkIfAllowCheating_itemCommand(ServerCommandSource source, CallbackInfoReturnable<Boolean> cir) {
-        if (cir.getReturnValue() && CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source)) { // DO NOT change the order of the conditions
-            cir.setReturnValue(false);
-        }
+    private static boolean checkIfAllowCheating(ServerCommandSource source, Operation<Boolean> original) {
+        return !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source)) && original.call(source);
     }
 
 }

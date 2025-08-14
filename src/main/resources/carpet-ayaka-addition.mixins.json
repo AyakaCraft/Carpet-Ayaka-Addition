@@ -33,6 +33,7 @@
     "rules.foxNoPickupItem.FoxEntityMixin",
     "rules.frostWalkerNoFreezing.FrostWalkerEnchantmentMixin",
     "rules.frostWalkerNoFreezing.ReplaceDiskEnchantmentEffectMixin",
+    "rules.giveLimit.GiveCommandMixin",
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerManagerMixin",

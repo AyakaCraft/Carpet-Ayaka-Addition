@@ -101,6 +101,10 @@ carpet:
       desc: Prevents frost walker shoes from freezing water
       extra:
         "0": Might cause unexpected behaviour in 1.21+
+    giveLimit:
+      desc: Limit factor for give command
+      extra:
+        "0": limit = value * max_count_per_stack
     itemDiscardAge:
       desc: Modifies the ticks before an item entity is discarded
       extra:
