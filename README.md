@@ -126,7 +126,7 @@ Logs the change of points-of-interest (experimental)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
 - [frostWalkerNoFreezing](#frostwalkernofreezing)
-- [giveLimit](#givelimit)
+- [giveLimit](#givelimit-117)
 - [itemDiscardAge](#itemdiscardage)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
@@ -281,7 +281,7 @@ Might cause unexpected behaviour in 1.21+
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
-#### giveLimit
+#### giveLimit (1.17+)
 
 Limit factor for give command
 

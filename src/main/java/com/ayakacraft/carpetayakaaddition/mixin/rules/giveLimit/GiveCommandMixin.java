@@ -21,11 +21,15 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.giveLimit;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.command.GiveCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.17"))
 @Mixin(GiveCommand.class)
 public class GiveCommandMixin {
 

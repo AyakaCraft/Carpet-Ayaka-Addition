@@ -137,6 +137,8 @@ public class AddressManager {
             }
         }
 
+        addressMap.values().forEach(AbstractAddress::validateWeight);
+
         save();
 
     }

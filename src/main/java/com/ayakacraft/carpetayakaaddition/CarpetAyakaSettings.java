@@ -108,7 +108,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},
-            modConditions = @ModCondition(versionPredicates = ">1.15.2")
+            modConditions = @ModCondition(versionPredicates = ">=1.16")
     )
     public static boolean forceTickPlantsReintroduce = false;
 
@@ -126,7 +126,8 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, COMMAND, CREATIVE},
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "1", "10", "100", "1000"},
-            strict = false
+            strict = false,
+            modConditions = @ModCondition(versionPredicates = ">=1.17")
     )
     public static int giveLimit = 100;
 

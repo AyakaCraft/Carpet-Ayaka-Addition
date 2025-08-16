@@ -45,9 +45,9 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     @Nullable
     protected String desc;
 
-    protected int weight = 0;
+    protected long weight = 0;
 
-    public AbstractAddress(String id, String dim, Vec3d pos, String desc, int weight) {
+    public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
@@ -57,7 +57,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.weight = weight;
     }
 
-    public AbstractAddress(String id, D dim, Vec3d pos, String desc, int weight) {
+    public AbstractAddress(String id, D dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = transDim(dim);
         this.x = pos.x;
@@ -68,7 +68,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     }
 
     public AbstractAddress(AddressOld old) {
-        this(old.id, old.dim, old.pos, old.desc, 0);
+        this(old.id, old.dim, old.pos, old.desc, 0L);
     }
 
     protected abstract String transDim(D d);
@@ -107,7 +107,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
-    public int getWeight() {
+    public long getWeight() {
         return weight;
     }
 
@@ -127,20 +127,31 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     public abstract boolean isInWorld(World world);
 
     public void onDetailDisplayed() {
+        validateWeight();
         weight += 1;
     }
 
     public void onTeleportedTo() {
+        validateWeight();
         weight += 3;
     }
 
     public void reduceWeight() {
-        if (weight > 2000) {
-            weight -= 7;
-        } else if (weight > 500) {
-            weight -= 3;
-        } else if (weight > 0) {
-            weight -= 1;
+        validateWeight();
+        if (weight > 2000L) {
+            weight -= 7L;
+        } else if (weight > 500L) {
+            weight -= 3L;
+        } else if (weight > 0L) {
+            weight -= 1L;
+        }
+    }
+
+    public void validateWeight() {
+        if (weight < 0L) {
+            weight = 0L;
+        } else if (weight > Integer.MAX_VALUE) {
+            weight = Integer.MAX_VALUE;
         }
     }
 
@@ -149,8 +160,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         if (this.equals(o)) {
             return 0;
         }
-        int i = this.weight - o.weight;
-        return i == 0 ? this.id.compareTo(o.id) : i;
+        return this.weight == o.weight ? this.id.compareTo(o.id) : Long.compare(this.weight, o.weight);
     }
 
     @Override

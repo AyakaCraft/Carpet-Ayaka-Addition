@@ -126,7 +126,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
 - [frostWalkerNoFreezing](#冰霜行者无冰冻-frostwalkernofreezing)
-- [giveLimit](#give命令限制-givelimit)
+- [giveLimit](#give命令限制-givelimit-117)
 - [itemDiscardAge](#掉落物消失刻-itemdiscardage)
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
@@ -281,7 +281,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
-#### give命令限制 (giveLimit)
+#### give命令限制 (giveLimit) (1.17+)
 
 give 命令的限制乘数
 
