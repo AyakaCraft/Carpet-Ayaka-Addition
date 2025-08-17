@@ -50,6 +50,9 @@ public class AddressManager {
     private static final Type MAP_TYPE = new TypeToken<Map<String, Address>>() {
     }.getType();
 
+    private static final Type MAP_TYPE_LARGE = new TypeToken<Map<String, AddressLarge>>() {
+    }.getType();
+
     private static final Map<MinecraftServer, AddressManager> managerMap = Maps.newHashMap();
 
     private static final int REDUCE_WEIGHT_FREQUENCY = 72000;
@@ -66,8 +69,8 @@ public class AddressManager {
     }
 
     private static Map<String, Address> loadFromPath(Path storagePath) throws IOException {
-        Map<String, Address> addresses = CarpetAyakaAddition.GSON.fromJson(FileUtils.readFile(storagePath), MAP_TYPE);
-        return addresses == null ? Collections.emptyMap() : addresses;
+        Map<String, AddressLarge> addresses = CarpetAyakaAddition.GSON.fromJson(FileUtils.readFile(storagePath), MAP_TYPE_LARGE);
+        return addresses == null ? Collections.emptyMap() : Maps.transformValues(addresses, AbstractAddress::fromLarge);
     }
 
     public static AddressManager getOrCreate(MinecraftServer server) {
@@ -110,7 +113,7 @@ public class AddressManager {
     }
 
     private void put(AddressOld addressOld) {
-        put(new Address(addressOld));
+        put(AbstractAddress.fromOld(addressOld));
     }
 
     private Address put(Address address) {
@@ -136,8 +139,6 @@ public class AddressManager {
                 loadFromPathOld(waypointStoragePath).forEach(this::put);
             }
         }
-
-        addressMap.values().forEach(AbstractAddress::validateWeight);
 
         save();
 

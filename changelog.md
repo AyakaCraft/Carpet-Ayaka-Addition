@@ -1,6 +1,6 @@
 ### General
 
-- ***Added*** carpet rule `giveLimit`
+- ***Added*** carpet rule `giveLimit` for 1.17+
 
 ### Bugfix
 

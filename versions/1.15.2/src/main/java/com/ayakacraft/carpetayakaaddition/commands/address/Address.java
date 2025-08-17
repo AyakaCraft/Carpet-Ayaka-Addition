@@ -27,16 +27,12 @@ import net.minecraft.world.dimension.DimensionType;
 
 public class Address extends AbstractAddress<DimensionType> {
 
-    public Address(String id, String dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, String dim, Vec3d pos, String desc, int weight) {
         super(id, dim, pos, desc, weight);
     }
 
-    public Address(String id, DimensionType dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, DimensionType dim, Vec3d pos, String desc, int weight) {
         super(id, dim, pos, desc, weight);
-    }
-
-    public Address(AddressOld old) {
-        super(old);
     }
 
     @Override

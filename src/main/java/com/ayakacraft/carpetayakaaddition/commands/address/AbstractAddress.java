@@ -36,6 +36,17 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
 
     public static final String XAERO_WAYPOINT_FORMAT = "xaero-waypoint:%s:%s:%d:%d:%d:0:false:0:Internal-%s-waypoints";
 
+    public static Address fromOld(AddressOld old) {
+        return new Address(old.id, old.dim, old.pos, old.desc, 0);
+    }
+
+    public static Address fromLarge(AddressLarge large) {
+        if (large == null) {
+            return null;
+        }
+        return new Address(large.id, large.dim, new Vec3d(large.x, large.y, large.z), large.desc, MathUtils.castUnsigned(large.weight));
+    }
+
     protected final String id;
 
     protected final String dim;
@@ -45,9 +56,9 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     @Nullable
     protected String desc;
 
-    protected long weight = 0;
+    protected int weight = 0;
 
-    public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
+    public AbstractAddress(String id, String dim, Vec3d pos, String desc, int weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
@@ -57,7 +68,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.weight = weight;
     }
 
-    public AbstractAddress(String id, D dim, Vec3d pos, String desc, long weight) {
+    public AbstractAddress(String id, D dim, Vec3d pos, String desc, int weight) {
         this.id = id;
         this.dim = transDim(dim);
         this.x = pos.x;
@@ -65,10 +76,6 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.z = pos.z;
         setDesc(desc);
         this.weight = weight;
-    }
-
-    public AbstractAddress(AddressOld old) {
-        this(old.id, old.dim, old.pos, old.desc, 0L);
     }
 
     protected abstract String transDim(D d);
@@ -107,7 +114,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
-    public long getWeight() {
+    public int getWeight() {
         return weight;
     }
 
@@ -127,31 +134,20 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     public abstract boolean isInWorld(World world);
 
     public void onDetailDisplayed() {
-        validateWeight();
         weight += 1;
     }
 
     public void onTeleportedTo() {
-        validateWeight();
         weight += 3;
     }
 
     public void reduceWeight() {
-        validateWeight();
-        if (weight > 2000L) {
-            weight -= 7L;
-        } else if (weight > 500L) {
-            weight -= 3L;
-        } else if (weight > 0L) {
-            weight -= 1L;
-        }
-    }
-
-    public void validateWeight() {
-        if (weight < 0L) {
-            weight = 0L;
-        } else if (weight > Integer.MAX_VALUE) {
-            weight = Integer.MAX_VALUE;
+        if (weight > 2000) {
+            weight -= 7;
+        } else if (weight > 500) {
+            weight -= 3;
+        } else if (weight > 0) {
+            weight -= 1;
         }
     }
 

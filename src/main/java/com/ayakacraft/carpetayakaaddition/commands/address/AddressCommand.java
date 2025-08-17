@@ -275,7 +275,7 @@ public final class AddressCommand {
     }
 
     private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> "'" + id + "'"), builder);
+        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> '"' + id + '"'), builder);
     }
 
     private static int listInDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
@@ -339,9 +339,9 @@ public final class AddressCommand {
         return TextUtils.format(
                 "[{}] [{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
-                TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail '%s'", id)).formatted(Formatting.GOLD),
-                TextUtils.withCommand(TR.tr(source, "list.tp"), String.format("/ad tp '%s'", id)).formatted(Formatting.RED),
-                TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero '%s'", id)).formatted(Formatting.AQUA)
+                TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail \"%s\"", id)).formatted(Formatting.GOLD),
+                TextUtils.withCommand(TR.tr(source, "list.tp"), String.format("/ad tp \"%s\"", id)).formatted(Formatting.RED),
+                TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA)
         );
     }
 

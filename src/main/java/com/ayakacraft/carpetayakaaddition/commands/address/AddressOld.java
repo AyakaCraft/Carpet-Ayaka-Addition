@@ -24,12 +24,8 @@ import net.minecraft.util.math.Vec3d;
 
 public class AddressOld {
 
-    public String id;
-
-    public String dim;
+    public String id, dim, desc;
 
     public Vec3d pos;
-
-    public String desc;
 
 }

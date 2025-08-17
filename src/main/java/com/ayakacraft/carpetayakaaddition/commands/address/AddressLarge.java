@@ -18,30 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
+public class AddressLarge {
 
-public final class MathUtils {
+    public String id, dim, desc;
 
-    public static ChunkPos getChunkPos(Vec3d pos) {
-        return new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
-    }
+    public double x, y, z;
 
-    public static int getSquaredDistance(ChunkPos pos1, ChunkPos pos2) {
-        return square(pos1.x - pos2.x) + square(pos1.z - pos2.z);
-    }
-
-    public static int square(int i) {
-        return i * i;
-    }
-
-    public static int castUnsigned(long l) {
-        if (l < 0L) {
-            return 0;
-        }
-        return (int) (l & (long) Integer.MAX_VALUE);
-    }
+    public long weight;
 
 }
