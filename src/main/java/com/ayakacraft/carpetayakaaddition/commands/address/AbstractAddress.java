@@ -40,13 +40,6 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         return new Address(old.id, old.dim, old.pos, old.desc, 0);
     }
 
-    public static Address fromLarge(AddressLarge large) {
-        if (large == null) {
-            return null;
-        }
-        return new Address(large.id, large.dim, new Vec3d(large.x, large.y, large.z), large.desc, MathUtils.castUnsigned(large.weight));
-    }
-
     protected final String id;
 
     protected final String dim;
@@ -56,9 +49,9 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     @Nullable
     protected String desc;
 
-    protected int weight = 0;
+    protected long weight = 0;
 
-    public AbstractAddress(String id, String dim, Vec3d pos, String desc, int weight) {
+    public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
@@ -68,7 +61,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.weight = weight;
     }
 
-    public AbstractAddress(String id, D dim, Vec3d pos, String desc, int weight) {
+    public AbstractAddress(String id, D dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = transDim(dim);
         this.x = pos.x;
@@ -114,7 +107,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
-    public int getWeight() {
+    public long getWeight() {
         return weight;
     }
 
@@ -142,12 +135,10 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     }
 
     public void reduceWeight() {
-        if (weight > 2000) {
-            weight -= 7;
-        } else if (weight > 500) {
-            weight -= 3;
-        } else if (weight > 0) {
-            weight -= 1;
+        if (weight > 1) {
+            weight = weight * 15 >> 4;
+        } else {
+            weight = 0;
         }
     }
 

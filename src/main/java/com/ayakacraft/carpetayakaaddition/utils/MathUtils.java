@@ -37,11 +37,4 @@ public final class MathUtils {
         return i * i;
     }
 
-    public static int castUnsigned(long l) {
-        if (l < 0L) {
-            return 0;
-        }
-        return (int) (l & (long) Integer.MAX_VALUE);
-    }
-
 }
