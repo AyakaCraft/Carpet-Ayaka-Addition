@@ -121,6 +121,7 @@ Logs the change of points-of-interest (experimental)
 - [commandKillItem](#commandkillitem)
 - [commandTpt](#commandtpt)
 - [disableBatSpawning](#disablebatspawning)
+- [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
@@ -174,7 +175,7 @@ Multiple of velocity of item stacks dropped by a broken block
 - Default value: `1d`
 - Suggested options: `0`, `0.5`, `1`, `2`
 - Range: `[0,)`
-- Categories: `AYAKA`, `CREATIVE`
+- Categories: `AYAKA`
 
 #### commandAddress
 
@@ -229,6 +230,18 @@ Disables natual spawning of bats
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`
+
+#### dragonEggFallDelay
+
+Delay ticks before dragon egg falls
+
+Set to 2 to match sand and other falling blocks, 0 or 5 to use vanilla option
+
+- Type: `int`
+- Default value: `5`
+- Suggested options: `0`, `2`, `5`
+- Range: `[0,)`
+- Categories: `AYAKA`
 
 #### fakePlayerForceOffline
 

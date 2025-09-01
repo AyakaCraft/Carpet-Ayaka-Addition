@@ -121,6 +121,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [commandKillItem](#清除掉落物命令开关-commandkillitem)
 - [commandTpt](#传送到玩家命令开关-commandtpt)
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
+- [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
@@ -174,7 +175,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `1d`
 - 参考选项: `0`, `0.5`, `1`, `2`
 - 范围: `[0,)`
-- 分类: `AYAKA`, `CREATIVE`
+- 分类: `AYAKA`
 
 #### 全局路径点命令开关 (commandAddress)
 
@@ -229,6 +230,18 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
+
+#### 龙蛋下落延迟 (dragonEggFallDelay)
+
+龙蛋下落前延迟的游戏刻数
+
+设置为2以匹配沙子等其他重力方块，设置为0或5以使用原版值
+
+- 类型: `int`
+- 默认值: `5`
+- 参考选项: `0`, `2`, `5`
+- 范围: `[0,)`
+- 分类: `AYAKA`
 
 #### 假人强制离线 (fakePlayerForceOffline)
 

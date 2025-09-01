@@ -54,7 +54,7 @@ public final class CarpetAyakaSettings {
     public static boolean betterOpPlayerNoCheat = false;
 
     @Rule(
-            categories = {AYAKA, CREATIVE},
+            categories = AYAKA,
             options = {"0", "0.5", "1", "2"},
             strict = false,
             validators = Validators.UnsignedDoubleValidator.class
@@ -90,6 +90,14 @@ public final class CarpetAyakaSettings {
             options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
     public static String commandTpt = "false";
+
+    @Rule(
+            categories = AYAKA,
+            options = {"0", "2", "5"},
+            strict = false,
+            validators = Validators.UnsignedIntegerValidator.class
+    )
+    public static int dragonEggFallDelay = 5;
 
     @Rule(
             categories = {AYAKA, FEATURE}

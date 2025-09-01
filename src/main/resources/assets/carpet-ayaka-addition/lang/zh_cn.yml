@@ -99,6 +99,12 @@ carpet:
     disableBatSpawning:
       name: 禁用蝙蝠生成
       desc: 禁用蝙蝠的自然生成
+    dragonEggFallDelay:
+      name: 龙蛋下落延迟
+      desc: 龙蛋下落前延迟的游戏刻数
+      extra:
+        "0": 设置为2以匹配沙子等其他重力方块
+        "1": 设置为0或5以使用原版值
     fakePlayerForceOffline:
       name: 假人强制离线
       desc: 强制假人以离线模式生成

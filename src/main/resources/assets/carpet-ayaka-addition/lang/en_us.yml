@@ -85,6 +85,11 @@ carpet:
       desc: Enables /tpt to teleport to another player in your server
     disableBatSpawning:
       desc: Disables natural spawning of bats
+    dragonEggFallDelay:
+      desc: Delay ticks before dragon egg falls
+      extra:
+        "0": Set to 2 to match sand and other falling blocks
+        "1": Set to 0 or 5 to use vanilla option
     fakePlayerForceOffline:
       desc: Forces fake players to spawn in offline mode
       extra:

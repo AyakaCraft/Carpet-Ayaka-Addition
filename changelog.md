@@ -1,6 +1,7 @@
 ### General
 
 - ***Added*** carpet rule `giveLimit` for 1.17+
+- ***Added*** carpet rule `dragonEggFallDelay`
 
 ### Bugfix
 
