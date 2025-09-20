@@ -347,6 +347,8 @@ Overwrites the max player count in a server
 
 Set to 0 to use vanilla value
 
+Disabled for dedicated servers in 1.21.9+
+
 - Type: `int`
 - Default value: `0`
 - Suggested options: `0`, `8`, `10`, `20`, `50`, `100`

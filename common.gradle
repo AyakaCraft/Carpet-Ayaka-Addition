@@ -29,11 +29,8 @@ repositories {
         url = "https://maven.fallenbreath.me/releases"  // Fallen orz
     }
     maven {
-        url = 'https://maven.fallenbreath.me/jitpack'
-    }
-    maven {
-        name = "Jitpack"
-        url = "https://jitpack.io"
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
     }
     maven {
         name = "CurseMaven"
@@ -43,14 +40,26 @@ repositories {
         }
     }
     maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
-    }
-    maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
+    maven {
+        name = "Jitpack"
+        url = "https://jitpack.io"
+    }
+    maven {
+        url = "https://maven.fallenbreath.me/jitpack"
+    }
 
+}
+
+idea {
+    module {
+        if (!releasing) {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
 }
 
 // https://github.com/FabricMC/fabric-loader/issues/783
@@ -161,7 +170,7 @@ shadowJar {
 }
 
 tasks.withType(ShadowJar).configureEach {
-    enableRelocation = true
+    enableAutoRelocation = true
     relocationPrefix = "carpetayakaaddition.libs"
 }
 

@@ -41,7 +41,6 @@ import net.minecraft.world.chunk.WorldChunk;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.StreamSupport;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
@@ -149,8 +148,8 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) threadedAnvilChunkStorage;
 
             int count = threadedAnvilChunkStorage.getLoadedChunkCount();
-            int countSpawnable = (int) StreamSupport
-                    .stream(tacsi.getEntryIterator().spliterator(), false)
+            int countSpawnable = (int) tacsi.getChunkHolders().values()
+                    .stream()
                     .filter(chunkHolder -> {
                         WorldChunk worldChunk = chunkHolder.getWorldChunk();
                         return worldChunk != null

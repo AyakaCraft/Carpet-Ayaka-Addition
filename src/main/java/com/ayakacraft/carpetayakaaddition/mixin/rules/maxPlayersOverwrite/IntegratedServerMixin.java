@@ -20,39 +20,16 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.PlayerManager;
-import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.server.integrated.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.9"))
-@Mixin(PlayerManager.class)
-public class PlayerManagerMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
+@Mixin(IntegratedServer.class)
+public class IntegratedServerMixin {
 
-    @Shadow
-    @Final
-    protected int maxPlayers;
-
-    @Redirect(
-            method = {"checkCanJoin", "getMaxPlayerCount"},
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/server/PlayerManager;maxPlayers:I",
-                    opcode = Opcodes.GETFIELD
-            )
-    )
-    private int onGetMaxPlayers(PlayerManager instance) {
-        if (CarpetAyakaSettings.maxPlayersOverwrite == 0) {
-            return this.maxPlayers;
-        }
-        return CarpetAyakaSettings.maxPlayersOverwrite;
-    }
+    // Implementation in 1.21.9
 
 }

@@ -33,7 +33,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class PointOfInterestSetMixin {
 
     @Inject(
-            //#if MC>=11900
+            //#if MC>=12109
+            //$$ method = "add(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/registry/entry/RegistryEntry;)Lnet/minecraft/world/poi/PointOfInterest;",
+            //#elseif MC>=11900
             method = "add(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/registry/entry/RegistryEntry;)V",
             //#else
             //$$ method = "add(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/poi/PointOfInterestType;)V",
@@ -47,7 +49,12 @@ public class PointOfInterestSetMixin {
             //#else
             //$$ PointOfInterestType type,
             //#endif
-            CallbackInfo ci) {
+            //#if MC>=12109
+            //$$ org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<net.minecraft.world.poi.PointOfInterest> cir
+            //#else
+            CallbackInfo ci
+            //#endif
+    ) {
         POILogger.INSTANCE.onAdded(pos, type);
     }
 

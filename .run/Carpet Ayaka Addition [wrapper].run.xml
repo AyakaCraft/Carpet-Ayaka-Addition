@@ -11,7 +11,7 @@
             <option name="taskNames">
                 <list>
                     <option value="wrapper"/>
-                    <option value="--gradle-version=9.0.0"/>
+                    <option value="--gradle-version=9.1.0"/>
                     <option value="--distribution-type=all"/>
                 </list>
             </option>

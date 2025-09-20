@@ -45,7 +45,8 @@
     "utils.ServerPlayerEntityMixin"
   ],
   "client": [
-    "carpet.IntegratedServerMixin"
+    "carpet.IntegratedServerMixin",
+    "rules.maxPlayersOverwrite.IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
