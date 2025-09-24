@@ -291,6 +291,8 @@ license {
 tasks.classes.dependsOn(tasks.licenseFormatMain)
 tasks.testClasses.dependsOn(tasks.licenseFormatTest)
 
+String[] minecraftVersions = String.valueOf(properties.game_versions).split("\n")
+
 // https://github.com/firstdarkdev/modpublisher
 publisher {
 
@@ -313,7 +315,7 @@ publisher {
     setChangelog(rootProject.file("changelog.md"))
 
     setProjectVersion(fullProjectVersion)
-    setGameVersions([project.minecraft_dependency])
+    setGameVersions(minecraftVersions)
     setLoaders("fabric")
     setCurseEnvironment("server")
 

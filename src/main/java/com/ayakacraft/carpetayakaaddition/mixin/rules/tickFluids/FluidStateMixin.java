@@ -21,30 +21,28 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.tickFluids;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
 @Mixin(FluidState.class)
 public class FluidStateMixin {
 
-    @WrapMethod(method = "onScheduledTick")
-    public void wrapScheduledTick(World world, BlockPos pos, Operation<Void> original) {
-        if (CarpetAyakaSettings.tickFluids) {
-            original.call(world, pos);
+    @Inject(method = "onScheduledTick", at = @At("HEAD"), cancellable = true)
+    private void wrapScheduledTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
         }
     }
 
-    @WrapMethod(method = "onRandomTick")
-    public void wrapRandomTick(World world, BlockPos pos, Random random, Operation<Void> original) {
-        if (CarpetAyakaSettings.tickFluids) {
-            original.call(world, pos, random);
+    @Inject(method = "onRandomTick", at = @At("HEAD"), cancellable = true)
+    private void wrapRandomTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
         }
     }
 
