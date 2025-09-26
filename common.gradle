@@ -83,12 +83,18 @@ dependencies {
     // mods
     modImplementation("carpet:fabric-carpet:${project.carpet_core_version}")
 
-    modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}")
+    modImplementation("carpettisaddition:carpet-tis-addition:${project.tis_version}") {
+        exclude(group: "carpet", module: "fabric-carpet")
+    }
 
     if (mcVersion >= 12000) {
-        modImplementation("maven.modrinth:gca:${project.gugle_version}")
+        modImplementation("maven.modrinth:gca:${project.gugle_version}") {
+            exclude(group: "carpet", module: "fabric-carpet")
+        }
     } else {
-        modCompileOnly("maven.modrinth:gca:${project.gugle_version}")
+        modCompileOnly("maven.modrinth:gca:${project.gugle_version}") {
+            exclude(group: "carpet", module: "fabric-carpet")
+        }
     }
 
     if (!releasing) {
@@ -113,6 +119,10 @@ dependencies {
     }
 
     testImplementation("junit:junit:${project.junit_version}")
+
+
+    compileOnly("org.jetbrains:annotations:26.0.2-1")
+    annotationProcessor("org.jetbrains:annotations:26.0.2-1")
 
 }
 

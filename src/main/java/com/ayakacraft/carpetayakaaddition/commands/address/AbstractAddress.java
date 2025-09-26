@@ -25,6 +25,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +37,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
 
     public static final String XAERO_WAYPOINT_FORMAT = "xaero-waypoint:%s:%s:%d:%d:%d:0:false:0:Internal-%s-waypoints";
 
+    @Contract(pure = true)
     public static Address fromOld(AddressOld old) {
         return new Address(old.id, old.dim, old.pos, old.desc, 0);
     }
@@ -71,50 +73,63 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.weight = weight;
     }
 
+    @Contract(pure = true)
     protected abstract String transDim(D d);
 
+    @Contract(pure = true)
     public String getDim() {
         return dim;
     }
 
+    @Contract(pure = true)
     public abstract D getDimension();
 
+    @Contract(pure = true)
     public double getX() {
         return x;
     }
 
+    @Contract(pure = true)
     public double getY() {
         return y;
     }
 
+    @Contract(pure = true)
     public double getZ() {
         return z;
     }
 
+    @Contract(pure = true)
     public String getId() {
         return id;
     }
 
+    @Contract(pure = true)
     public Vec3d getPos() {
         return new Vec3d(x, y, z);
     }
 
+    @Contract(pure = true)
     public String getDesc() {
         return (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
+    @Contract(pure = true)
     public void setDesc(String desc) {
         this.desc = (desc == null || desc.isEmpty()) ? DESC_PLACEHOLDER : desc;
     }
 
+    @Contract(pure = true)
     public long getWeight() {
         return weight;
     }
 
+    @Contract(pure = true)
     public ChunkPos getChunkPos() {
         return MathUtils.getChunkPos(getPos());
     }
 
+    @Contract(pure = true)
     public String getXaeroWaypointString() {
         return String.format(
                 XAERO_WAYPOINT_FORMAT,
@@ -124,16 +139,20 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         );
     }
 
+    @Contract(pure = true)
     public abstract boolean isInWorld(World world);
 
+    @Contract(mutates = "this")
     public void onDetailDisplayed() {
         weight += 1;
     }
 
+    @Contract(mutates = "this")
     public void onTeleportedTo() {
         weight += 3;
     }
 
+    @Contract(mutates = "this")
     public void reduceWeight() {
         if (weight > 1) {
             weight = weight * 15 >> 4;
@@ -142,6 +161,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         }
     }
 
+    @Contract(pure = true)
     @Override
     public int compareTo(@NotNull AbstractAddress<D> o) {
         if (this.equals(o)) {
@@ -150,6 +170,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         return this.weight == o.weight ? this.id.compareTo(o.id) : Long.compare(this.weight, o.weight);
     }
 
+    @Contract(pure = true)
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Address)) {
@@ -163,6 +184,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
                 && other.weight == this.weight;
     }
 
+    @Contract(pure = true)
     @Override
     public String toString() {
         return String.format("address[id=%s, dim=%s, pos=[%.2f %.2f %.2f], desc=%s]", id, dim, x, y, z, desc);

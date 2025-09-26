@@ -28,12 +28,14 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.SpawnHelper;
+import org.jetbrains.annotations.Contract;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
 public final class BetterMobCapHelper {
 
-    public static boolean shouldSpawn(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
+    @Contract(pure = true)
+    public static boolean shouldLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }

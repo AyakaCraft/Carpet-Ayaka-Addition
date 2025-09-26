@@ -23,11 +23,13 @@ package com.ayakacraft.carpetayakaaddition.utils.text;
 import com.google.common.collect.Lists;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Contract;
 
 import java.util.List;
 
 public final class TextFormatter {
 
+    @Contract(mutates = "param2, param3")
     private static void divide(Object[] args, List<Text> textArgs, List<Object> objArgs) {
         for (Object o : args) {
             if (o instanceof Text) {
@@ -38,6 +40,7 @@ public final class TextFormatter {
         }
     }
 
+    @Contract(pure = true)
     private static List<String> splitString(String format, int argCount) {
         List<String> split       = Lists.newLinkedList();
         int          lenMinusOne = format.length() - 1;
@@ -54,6 +57,7 @@ public final class TextFormatter {
         return split;
     }
 
+    @Contract(pure = true)
     public static MutableText format(String format, Object... args) {
         if (args == null || args.length == 0) {
             return Text.literal(format);
@@ -66,6 +70,7 @@ public final class TextFormatter {
         return format(String.format(format, objArgs.toArray()), textArgs);
     }
 
+    @Contract(pure = true)
     public static MutableText format(String format, List<Text> args) {
         if (args == null || args.isEmpty()) {
             return Text.literal(format);

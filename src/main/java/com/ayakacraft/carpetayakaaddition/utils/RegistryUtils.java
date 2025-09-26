@@ -21,9 +21,12 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 
+import org.jetbrains.annotations.Contract;
+
 public final class RegistryUtils {
 
     //#if MC>=11900
+    @Contract(pure = true)
     public static String getIdAsString(net.minecraft.registry.entry.RegistryEntry<?> entry) {
         //#if MC>=12006
         return entry.getIdAsString();

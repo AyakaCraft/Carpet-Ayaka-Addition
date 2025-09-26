@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition.settings;
 import carpet.api.settings.CarpetRule;
 import carpet.api.settings.SettingsManager;
 import carpet.api.settings.Validator;
+import org.jetbrains.annotations.Contract;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -45,43 +46,51 @@ public class AyakaRule implements carpet.api.settings.Rule {
         this.settingsManager = settingsManager;
     }
 
+    @Contract(pure = true)
     @Override
     public String[] categories() {
         return rule.categories();
     }
 
+    @Contract(pure = true)
     @Override
     public String[] options() {
         return rule.options();
     }
 
+    @Contract(pure = true)
     @Override
     public boolean strict() {
         return rule.strict();
     }
 
+    @Contract(pure = true)
     @Override
     public String appSource() {
         return rule.appSource();
     }
 
+    @Contract(pure = true)
     @SuppressWarnings("rawtypes")
     @Override
     public Class<? extends Validator>[] validators() {
         return rule.validators();
     }
 
+    @Contract(pure = true)
     @SuppressWarnings("unchecked")
     @Override
     public Class<? extends Condition>[] conditions() {
         return new Class[0];
     }
 
+    @Contract(pure = true)
     @Override
     public Class<? extends Annotation> annotationType() {
         return carpet.api.settings.Rule.class;
     }
 
+    @Contract(pure = true)
     public CarpetRule<?> constructCarpetRule() {
         CarpetRule<?> carpetRule;
         try {

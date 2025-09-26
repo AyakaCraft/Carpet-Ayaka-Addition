@@ -24,6 +24,7 @@ import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -31,6 +32,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(ClientSettingsC2SPacket.class)
 public interface ClientSettingsC2SPacketAccessor {
 
+    @Contract(pure = true)
     @Accessor("language")
     String getLanguage();
 

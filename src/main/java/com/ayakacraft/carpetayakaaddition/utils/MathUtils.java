@@ -22,19 +22,29 @@ package com.ayakacraft.carpetayakaaddition.utils;
 
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Contract;
 
 public final class MathUtils {
 
+    @Contract(pure = true)
     public static ChunkPos getChunkPos(Vec3d pos) {
         return new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
     }
 
+    @Contract(pure = true)
     public static int getSquaredDistance(ChunkPos pos1, ChunkPos pos2) {
         return square(pos1.x - pos2.x) + square(pos1.z - pos2.z);
     }
 
+    @Contract(pure = true)
     public static int square(int i) {
         return i * i;
+    }
+
+    @Contract(pure = true)
+    public static float wrapDegrees(float degrees) {
+        float f = degrees % 360F;
+        return f >= 180F ? (f - 360F) : f < -180F ? (f + 360F) : f;
     }
 
 }

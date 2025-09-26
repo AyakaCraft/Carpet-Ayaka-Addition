@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition.mixin.commands.gohome;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -31,6 +32,7 @@ import java.util.Map;
 @Mixin(LivingEntity.class)
 public interface LivingEntityAccessor {
 
+    @Contract(pure = true)
     @Accessor("activeStatusEffects")
     Map<
             //#if MC>=12006

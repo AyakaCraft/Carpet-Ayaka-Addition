@@ -24,6 +24,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
@@ -37,11 +38,13 @@ public class Address extends AbstractAddress<RegistryKey<World>> {
         super(id, dim, pos, desc, weight);
     }
 
+    @Contract(pure = true)
     @Override
     protected String transDim(RegistryKey<World> worldRegistryKey) {
         return worldRegistryKey.getValue().toString();
     }
 
+    @Contract(pure = true)
     @Override
     public RegistryKey<World> getDimension() {
         return RegistryKey.of(
@@ -54,6 +57,7 @@ public class Address extends AbstractAddress<RegistryKey<World>> {
         );
     }
 
+    @Contract(pure = true)
     @Override
     public boolean isInWorld(World world) {
         return world.getRegistryKey().getValue().toString().equals(dim);

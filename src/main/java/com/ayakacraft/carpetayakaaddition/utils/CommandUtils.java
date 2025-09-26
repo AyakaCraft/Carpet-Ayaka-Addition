@@ -29,6 +29,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -43,6 +44,7 @@ public final class CommandUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static boolean checkPermission(ServerCommandSource source, Object commandLevel, boolean requiresPlayer) {
         if (requiresPlayer && !source.isExecutedByPlayer()) {
             return false;
@@ -73,6 +75,7 @@ public final class CommandUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static CompletableFuture<Suggestions> suggestPlayerNames(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
         return CommandSource.suggestMatching(context.getSource().getPlayerNames(), builder);
     }
@@ -85,6 +88,7 @@ public final class CommandUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static AyakaLanguage getLanguage(ServerCommandSource source) {
         if (source.isExecutedByPlayer()) {
             return ServerPlayerUtils.getLanguage((ServerPlayerEntity) source.getEntity());

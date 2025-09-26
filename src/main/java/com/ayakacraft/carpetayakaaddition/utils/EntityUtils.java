@@ -20,9 +20,20 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.Vec3d;
 
 public final class EntityUtils {
+
+    @PreprocessPattern
+    private static Vec3d getPos(Entity player) {
+        //#if MC>=12109
+        //$$ return player.getEntityPos();
+        //#else
+        return player.getPos();
+        //#endif
+    }
 
     public static void kill(Entity entity) {
         //#if MC>=12109

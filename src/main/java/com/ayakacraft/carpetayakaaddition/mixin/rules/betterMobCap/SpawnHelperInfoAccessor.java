@@ -26,6 +26,7 @@ import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.SpawnHelper;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
@@ -33,6 +34,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(SpawnHelper.Info.class)
 public interface SpawnHelperInfoAccessor {
 
+    @Contract(pure = true)
     @Invoker("isBelowCap")
     boolean checkBelowCap(
             SpawnGroup group
@@ -43,6 +45,7 @@ public interface SpawnHelperInfoAccessor {
     );
 
     //#if MC>=12104
+    //$$ @Contract(pure = true)
     //$$ @Invoker("canSpawn")
     //$$ boolean checkCanSpawn(SpawnGroup group, ChunkPos chunkPos);
     //#endif

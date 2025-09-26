@@ -25,6 +25,7 @@ import carpet.api.settings.SettingsManager;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -34,6 +35,7 @@ import java.util.Map;
 @Mixin(value = SettingsManager.class, remap = false)
 public interface SettingsManagerAccessor {
 
+    @Contract(pure = true)
     @Accessor("rules")
     Map<String, CarpetRule<?>> getRules$Ayaka();
 

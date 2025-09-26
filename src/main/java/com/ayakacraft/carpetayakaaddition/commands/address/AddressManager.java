@@ -28,6 +28,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import net.minecraft.server.MinecraftServer;
+import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -109,15 +110,18 @@ public class AddressManager {
         CarpetAyakaServer.INSTANCE.addTickTask(it -> new ReduceWeightTask(it, this));
     }
 
+    @Contract(mutates = "this")
     private void put(AddressOld addressOld) {
         put(AbstractAddress.fromOld(addressOld));
     }
 
+    @Contract(mutates = "this")
     private Address put(Address address) {
         LOGGER.debug("Put address {}", address);
         return addressMap.put(address.getId(), address);
     }
 
+    @Contract(mutates = "this, io")
     public void load() throws IOException {
         addressMap.clear();
 
@@ -141,23 +145,28 @@ public class AddressManager {
 
     }
 
+    @Contract(mutates = "io")
     public void save() throws IOException {
         LOGGER.debug("Saving addresses to {}", waypointStoragePath);
         Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap, MAP_TYPE).getBytes(StandardCharsets.UTF_8));
     }
 
+    @Contract(pure = true)
     public Address get(String id) {
         return addressMap.get(id);
     }
 
+    @Contract(pure = true)
     public Set<String> getIDs() {
         return addressMap.keySet();
     }
 
+    @Contract(pure = true)
     public Collection<Address> getAddresses() {
         return addressMap.values();
     }
 
+    @Contract(mutates = "this, io")
     public Address rename(String oldId, String newId) throws IOException {
         Address w = addressMap.remove(oldId);
         if (w == null) {
@@ -172,6 +181,7 @@ public class AddressManager {
         return w;
     }
 
+    @Contract(mutates = "this, io")
     public Address remove(String id) throws IOException {
         Address w = addressMap.remove(id);
         LOGGER.debug("Removed address {}", w);
@@ -179,6 +189,7 @@ public class AddressManager {
         return w;
     }
 
+    @Contract(mutates = "this, io")
     public Address set(Address address) throws IOException {
         Address w = put(address);
         LOGGER.debug("Set address {}", address);

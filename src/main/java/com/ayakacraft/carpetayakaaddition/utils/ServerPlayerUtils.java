@@ -26,21 +26,9 @@ import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.GameMode;
+import org.jetbrains.annotations.Contract;
 
 public final class ServerPlayerUtils {
-
-    private static float wrapDegrees(float degrees) {
-        float f = degrees % 360F;
-        if (f >= 180F) {
-            return (f - 360F);
-        }
-
-        if (f < -180F) {
-            return (f + 360F);
-        }
-
-        return f;
-    }
 
     @PreprocessPattern
     private static String getClientLanguageServerSide(ServerPlayerEntity player) {
@@ -62,6 +50,7 @@ public final class ServerPlayerUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static AyakaLanguage getLanguage(ServerPlayerEntity player) {
         String lang;
         if (player.getServerWorld().getServer().isDedicated()) {
@@ -84,20 +73,22 @@ public final class ServerPlayerUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static float getYaw(ServerPlayerEntity player) {
-        //#if MC>=11700
-        return wrapDegrees(player.getYaw());
-        //#else
-        //$$ return wrapDegrees(player.getYaw(1f));
-        //#endif
+        return MathUtils.wrapDegrees(player.getYaw(
+                //#if MC<11700
+                //$$ 1f
+                //#endif
+        ));
     }
 
+    @Contract(pure = true)
     public static float getPitch(ServerPlayerEntity player) {
-        //#if MC>=11700
-        return wrapDegrees(player.getPitch());
-        //#else
-        //$$ return wrapDegrees(player.getPitch(1f));
-        //#endif
+        return MathUtils.wrapDegrees(player.getPitch(
+                //#if MC<11700
+                //$$ 1f
+                //#endif
+        ));
     }
 
     public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z, float yaw, float pitch) {

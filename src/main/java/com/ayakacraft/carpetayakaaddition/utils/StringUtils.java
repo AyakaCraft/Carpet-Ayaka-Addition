@@ -21,13 +21,16 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import net.minecraft.util.math.Vec3i;
+import org.jetbrains.annotations.Contract;
 
 public final class StringUtils {
 
+    @Contract(pure = true)
     public static String posString(Vec3i pos) {
         return "[" + pos.getX() + " " + pos.getY() + " " + pos.getZ() + "]";
     }
 
+    @Contract(value = "null -> true", pure = true)
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }

@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition.utils;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.LanguageManager;
+import org.jetbrains.annotations.Contract;
 
 public final class ClientUtils {
 
@@ -35,6 +36,7 @@ public final class ClientUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static String getLanguageCode() {
         return MinecraftClient.getInstance().getLanguageManager().getLanguage();
     }

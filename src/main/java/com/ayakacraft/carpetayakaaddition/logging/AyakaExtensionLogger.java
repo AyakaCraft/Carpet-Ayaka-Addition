@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.Logger;
+import org.jetbrains.annotations.Contract;
 
 import java.lang.reflect.Field;
 
@@ -29,6 +30,7 @@ public interface AyakaExtensionLogger {
     /**
      * Quick access to the field
      */
+    @Contract(pure = true)
     default boolean isEnabled() {
         try {
             getField().setAccessible(true);
@@ -46,6 +48,7 @@ public interface AyakaExtensionLogger {
      * @see Logger#getField()
      */
     //#endif
+    @Contract(pure = true)
     Field getField();
 
 }

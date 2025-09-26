@@ -24,6 +24,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -40,15 +41,18 @@ public final class ModUtils {
 
     public static final String CPT_ID = "carpet";
 
+    @Contract(pure = true)
     @Deprecated
     public static boolean isModLoaded(String modId) {
         return isModLoadedWithVersion(modId);
     }
 
+    @Contract(pure = true)
     public static Optional<ModContainer> getModContainer(String modId) {
         return LOADER.getModContainer(modId);
     }
 
+    @Contract(pure = true)
     public static boolean isModLoadedWithVersion(String modId, String... versionPredicates) {
         Optional<ModContainer> mod = getModContainer(modId);
         return mod

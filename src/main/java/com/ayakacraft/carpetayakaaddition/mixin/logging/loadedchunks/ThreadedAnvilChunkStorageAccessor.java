@@ -24,6 +24,7 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.util.math.ChunkPos;
+import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -31,9 +32,11 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ThreadedAnvilChunkStorage.class)
 public interface ThreadedAnvilChunkStorageAccessor {
 
+    @Contract(pure = true)
     @Accessor("chunkHolders")
     Long2ObjectLinkedOpenHashMap<ChunkHolder> getChunkHolders();
 
+    @Contract(pure = true)
     //#if MC>=11800
     @Invoker("shouldTick")
     boolean whetherShouldTick(ChunkPos pos);

@@ -28,6 +28,7 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -53,22 +54,27 @@ public final class TextUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static MutableText format(String str, Object... args) {
         return TextFormatter.format(str, args);
     }
 
+    @Contract(pure = true)
     public static MutableText enter() {
         return Text.literal(System.lineSeparator());
     }
 
+    @Contract(pure = true)
     public static MutableText space() {
         return Text.literal(" ");
     }
 
+    @Contract(pure = true)
     public static MutableText empty() {
         return Text.literal("");
     }
 
+    @Contract(pure = true)
     public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
         //#if MC>=11700
         return net.minecraft.text.Texts.join(elements, separator, transformer);
@@ -94,10 +100,12 @@ public final class TextUtils {
         //#endif
     }
 
+    @Contract(pure = true)
     public static Text joinTexts(Collection<Text> elements) {
         return join(elements, empty(), Function.identity());
     }
 
+    @Contract(pure = true)
     public static Text joinTexts(Text[] elements) {
         return joinTexts(Arrays.asList(elements));
     }
@@ -136,6 +144,7 @@ public final class TextUtils {
         );
     }
 
+    @Contract(mutates = "param1")
     public static MutableText withCommand(MutableText text, String command) {
         text.styled(style ->
                 style
