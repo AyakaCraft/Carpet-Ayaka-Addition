@@ -28,6 +28,7 @@ import com.ayakacraft.carpetayakaaddition.utils.MathUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -43,6 +44,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -50,13 +52,15 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static com.ayakacraft.carpetayakaaddition.utils.CommandUtils.sendFeedback;
@@ -74,20 +78,18 @@ public final class AddressCommand {
     private static int root(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
 
-        List<Address> addresses = AddressManager.getOrCreate(source.getServer())
-                .getAddresses()
-                .stream()
-                .sorted(Comparator.reverseOrder())
-                .limit(5)
-                .collect(Collectors.toCollection(LinkedList::new));
-
+        Collection<Address> addresses = AddressManager.getOrCreate(source.getServer()).getAddresses();
+        List<Address> pinned   = Lists.newLinkedList();
+        List<Address> unpinned = Lists.newLinkedList();
         if (addresses.isEmpty()) {
-            sendFeedback(
-                    source,
-                    TR.tr(source, "list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
-                    false
-            );
-        } else {
+            sendEmpty(source);
+        }
+
+        divide(addresses, pinned, unpinned);
+
+        if (!unpinned.isEmpty()) {
+            unpinned.sort(Comparator.naturalOrder());
+            unpinned = unpinned.subList(Math.max(unpinned.size() - 5, 0), unpinned.size());
             sendFeedback(
                     source,
                     TR.tr(source, "root.header").formatted(Formatting.YELLOW, Formatting.BOLD),
@@ -95,10 +97,12 @@ public final class AddressCommand {
             );
             sendFeedback(
                     source,
-                    listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source),
+                    listWaypointIdsText(unpinned, source),
                     false
             );
         }
+
+        sendPinned(source, pinned);
 
         return 1;
     }
@@ -106,14 +110,7 @@ public final class AddressCommand {
     private static int list(CommandContext<ServerCommandSource> context) {
         final ServerCommandSource source = context.getSource();
 
-        sendWaypointList(
-                source,
-                AddressManager.getOrCreate(source.getServer())
-                        .getAddresses()
-                        .stream()
-                        .sorted()
-                        .collect(Collectors.toCollection(LinkedList::new))
-        );
+        sendAddressList(source, AddressManager.getOrCreate(source.getServer()).getAddresses());
 
         return 1;
     }
@@ -122,8 +119,7 @@ public final class AddressCommand {
         ServerCommandSource source  = context.getSource();
         final String        id      = StringArgumentType.getString(context, "id");
         final Address       address = AddressManager.getOrCreate(source.getServer()).get(id);
-        if (address == null) {
-            source.sendError(TR.tr(source, "not_exist", id));
+        if (checkNull(id, address, source)) {
             return 0;
         }
         sendFeedback(source,
@@ -195,8 +191,7 @@ public final class AddressCommand {
         final ServerCommandSource source = context.getSource();
 
         try {
-            if (AddressManager.getOrCreate(source.getServer()).remove(id) == null) {
-                source.sendError(TR.tr(source, "not_exist", id));
+            if (checkNull(id, AddressManager.getOrCreate(source.getServer()).remove(id), source)) {
                 return 0;
             }
         } catch (IOException e) {
@@ -213,8 +208,7 @@ public final class AddressCommand {
         final String              id      = StringArgumentType.getString(context, "id");
         final Address             address = AddressManager.getOrCreate(source.getServer()).get(id);
         final ServerPlayerEntity  self    = source.getPlayerOrThrow();
-        if (address == null) {
-            source.sendError(TR.tr(source, "not_exist", id));
+        if (checkNull(id, address, source)) {
             return 0;
         }
 
@@ -239,8 +233,7 @@ public final class AddressCommand {
         final String              newId   = StringArgumentType.getString(context, "id");
         final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
         try {
-            if (manager.rename(oldId, newId) == null) {
-                source.sendError(TR.tr(source, "not_exist", oldId));
+            if (checkNull(oldId, manager.rename(oldId, newId), source)) {
                 return 0;
             }
         } catch (IOException e) {
@@ -258,11 +251,45 @@ public final class AddressCommand {
         final String              id      = StringArgumentType.getString(context, "id");
         final String              desc    = StringArgumentType.getString(context, "desc");
         final Address             w       = manager.get(id);
-        if (w == null) {
-            source.sendError(TR.tr(source, "not_exist", id));
+        if (checkNull(id, w, source)) {
             return 0;
         }
         w.setDesc(desc);
+        return trySave(manager, source, TR.trS(source, "desc.success", id, desc));
+    }
+
+    private static int pin(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source  = context.getSource();
+        final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
+        final String              id      = StringArgumentType.getString(context, "id");
+        final Address             w       = manager.get(id);
+        if (checkNull(id, w, source)) {
+            return 0;
+        }
+        if (w.isPinned()) {
+            return 1;
+        }
+        w.pin();
+        return trySave(manager, source, TR.trS(source, "pin.success", id));
+
+    }
+
+    private static int unpin(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source  = context.getSource();
+        final AddressManager      manager = AddressManager.getOrCreate(source.getServer());
+        final String              id      = StringArgumentType.getString(context, "id");
+        final Address             w       = manager.get(id);
+        if (checkNull(id, w, source)) {
+            return 0;
+        }
+        if (!w.isPinned()) {
+            return 1;
+        }
+        w.unpin();
+        return trySave(manager, source, TR.trS(source, "unpin.success", id));
+    }
+
+    private static int trySave(AddressManager manager, ServerCommandSource source, Supplier<MutableText> success) {
         try {
             manager.save();
         } catch (IOException e) {
@@ -270,8 +297,27 @@ public final class AddressCommand {
             source.sendError(TR.tr(source, "save.failure"));
             return 0;
         }
-        sendFeedback(source, TR.tr(source, "desc.success", id, desc), false);
+        sendFeedback(source, success.get(), false);
         return 1;
+    }
+
+    private static boolean checkNull(String id, @Nullable Address w, ServerCommandSource source) {
+        if (w == null) {
+            source.sendError(TR.tr(source, "not_exist", id));
+            return true;
+        }
+        return false;
+    }
+
+    @Contract(mutates = "param2, param3")
+    private static void divide(Collection<Address> addresses, List<Address> pinned, List<Address> unpinned) {
+        for (Address w : addresses) {
+            if (w.isPinned()) {
+                pinned.add(w);
+            } else {
+                unpinned.add(w);
+            }
+        }
     }
 
     private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
@@ -288,14 +334,13 @@ public final class AddressCommand {
                 //#endif
                 ;
 
-        sendWaypointList(
+        sendAddressList(
                 source,
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
                         .filter(w -> w.isInWorld(dim))
-                        .sorted()
-                        .collect(Collectors.toCollection(LinkedList::new))
+                        .collect(Collectors.toCollection(Lists::newLinkedList))
         );
 
         return 1;
@@ -307,16 +352,31 @@ public final class AddressCommand {
         final World               world              = source.getWorld();
         final int                 squaredRadiusChunk = MathUtils.square(IntegerArgumentType.getInteger(context, "radius"));
 
-        sendWaypointList(
+        sendAddressList(
                 source,
                 AddressManager.getOrCreate(source.getServer())
                         .getAddresses()
                         .stream()
                         .filter(w -> w.isInWorld(world)
                                 && MathUtils.getSquaredDistance(chunkPos, w.getChunkPos()) <= squaredRadiusChunk)
-                        .sorted()
-                        .collect(Collectors.toCollection(LinkedList::new))
+                        .collect(Collectors.toCollection(Lists::newLinkedList))
         );
+
+        return 1;
+    }
+
+    private static int listPinned(CommandContext<ServerCommandSource> context) {
+        final ServerCommandSource source = context.getSource();
+
+        List<Address> pinned = AddressManager.getOrCreate(source.getServer()).getAddresses()
+                .stream()
+                .filter(Address::isPinned)
+                .collect(Collectors.toCollection(Lists::newLinkedList));
+        if (pinned.isEmpty()) {
+            sendEmpty(source);
+        } else {
+            sendPinned(source, pinned);
+        }
 
         return 1;
     }
@@ -326,8 +386,7 @@ public final class AddressCommand {
         final MinecraftServer     server  = source.getServer();
         final String              id      = StringArgumentType.getString(context, "id");
         final Address             address = AddressManager.getOrCreate(server).get(id);
-        if (address == null) {
-            source.sendError(TR.tr(source, "not_exist", id));
+        if (checkNull(id, address, source)) {
             return 0;
         }
         TextUtils.broadcast(server, Text.literal(address.getXaeroWaypointString()), false);
@@ -335,28 +394,48 @@ public final class AddressCommand {
         return 0;
     }
 
-    private static Text waypointIdText(String id, ServerCommandSource source) {
+    private static Text waypointIdText(String id, boolean pinned, ServerCommandSource source) {
+        Text t = pinned
+                ? TextUtils.withCommand(TR.tr(source, "list.unpin"), String.format("/ad unpin \"%s\"", id)).formatted(Formatting.LIGHT_PURPLE)
+                : TextUtils.withCommand(TR.tr(source, "list.pin"), String.format("/ad pin \"%s\"", id)).formatted(Formatting.DARK_PURPLE);
         return TextUtils.format(
-                "[{}] [{}] [{}] [{}]",
+                "[{}] [{}] [{}] [{}] [{}]",
                 Text.literal(id).formatted(Formatting.GREEN),
                 TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail \"%s\"", id)).formatted(Formatting.GOLD),
                 TextUtils.withCommand(TR.tr(source, "list.tp"), String.format("/ad tp \"%s\"", id)).formatted(Formatting.RED),
-                TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA)
+                TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA),
+                t
         );
     }
 
-    private static Text listWaypointIdsText(Collection<String> ids, ServerCommandSource source) {
-        return TextUtils.join(ids, TextUtils.enter(), id -> waypointIdText(id, source));
+    private static Text listWaypointIdsText(Collection<Address> addresses, ServerCommandSource source) {
+        return TextUtils.join(addresses, TextUtils.enter(), address -> waypointIdText(address.getId(), address.isPinned(), source));
     }
 
-    private static void sendWaypointList(ServerCommandSource source, Collection<Address> addresses) {
+    private static void sendAddressList(ServerCommandSource source, Collection<Address> addresses) {
+        List<Address> pinned   = Lists.newLinkedList();
+        List<Address> unpinned = Lists.newLinkedList();
         if (addresses.isEmpty()) {
-            sendFeedback(
-                    source,
-                    TR.tr(source, "list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
-                    false
-            );
-        } else {
+            sendEmpty(source);
+            return;
+        }
+
+        divide(addresses, pinned, unpinned);
+        sendUnpinned(source, unpinned);
+        sendPinned(source, pinned);
+    }
+
+    private static void sendEmpty(ServerCommandSource source) {
+        sendFeedback(
+                source,
+                TR.tr(source, "list.empty").formatted(Formatting.YELLOW, Formatting.BOLD),
+                false
+        );
+    }
+
+    private static void sendUnpinned(ServerCommandSource source, List<Address> unpinned) {
+        if (!unpinned.isEmpty()) {
+            unpinned.sort(Comparator.naturalOrder());
             sendFeedback(
                     source,
                     TR.tr(source, "list.header").formatted(Formatting.YELLOW, Formatting.BOLD),
@@ -364,7 +443,23 @@ public final class AddressCommand {
             );
             sendFeedback(
                     source,
-                    listWaypointIdsText(addresses.stream().map(Address::getId).collect(Collectors.toList()), source),
+                    listWaypointIdsText(unpinned, source),
+                    false
+            );
+        }
+    }
+
+    private static void sendPinned(ServerCommandSource source, List<Address> pinned) {
+        if (!pinned.isEmpty()) {
+            pinned.sort(Comparator.naturalOrder());
+            sendFeedback(
+                    source,
+                    TR.tr(source, "list.header.pinned").formatted(Formatting.YELLOW, Formatting.BOLD),
+                    false
+            );
+            sendFeedback(
+                    source,
+                    listWaypointIdsText(pinned, source),
                     false
             );
         }
@@ -379,7 +474,8 @@ public final class AddressCommand {
                         .then(literal("dim").then(argument("dim", DimensionArgumentType.dimension())
                                 .executes(AddressCommand::listInDimension)))
                         .then(literal("radius").then(argument("radius", IntegerArgumentType.integer(0))
-                                .executes(AddressCommand::listRadiusChunk))))
+                                .executes(AddressCommand::listRadiusChunk)))
+                        .then(literal("pinned").executes(AddressCommand::listPinned)))
                 .then(literal("detail")
                         .then(argument("id", StringArgumentType.string())
                                 .suggests(AddressCommand::suggestWaypoints)
@@ -408,7 +504,13 @@ public final class AddressCommand {
                                         .executes(AddressCommand::desc))))
                 .then(literal("xaero")
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
-                                .executes(AddressCommand::xaero)));
+                                .executes(AddressCommand::xaero)))
+                .then(literal("pin")
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::pin)))
+                .then(literal("unpin")
+                        .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
+                                .executes(AddressCommand::unpin)));
     }
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {

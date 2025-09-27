@@ -52,6 +52,8 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
             - *Lists the waypoints in a specific dimension*
         - radius \<radius>
             - *Lists the waypoints in a certain radius of **chunks***
+        - pinned
+            - *Lists the pinned waypoints*
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *Adds a new waypoint or modify an existing one*
     - remove \<id>
@@ -66,6 +68,10 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
         - *Sets the description of the waypoint*
     - xaero \<id>
         - *Share as Xaero waypoint*
+    - pin \<id>
+        - *Pins the waypoint, making it always suggested*
+    - unpin \<id>
+        - *Unpins the waypoint*
 - /c
     - *Switches your gamemode between `spectator` and `survival`*
 - /gohome

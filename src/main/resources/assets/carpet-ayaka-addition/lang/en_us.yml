@@ -5,9 +5,12 @@ carpet-ayaka-addition:
       list:
         empty: No address available
         header: "The addresses are as below:"
+        header.pinned: "Pinned addresses are as below:"
         detail: Detail
         tp: Teleport
         xaero: Xaero
+        pin: Pin
+        unpin: Unpin
       not_exist: Address [%s] does not exist
       detail:
         "0": "Detail of address [%s]:"
@@ -26,6 +29,8 @@ carpet-ayaka-addition:
       tp:
         dimension_unrecognized: Unrecognized dimension "%s"
         out_of_world_border: Address [%s] out of world border
+      pin.success: Pinned address [%s]
+      unpin.success: Unpinned address [%s]
     killitem:
       none: No item cleared
       single: "Cleared {}"

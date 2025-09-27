@@ -30,6 +30,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.MutableText;
 
+import java.util.function.Supplier;
+
 public class Translator {
 
     public static final Translator ROOT = new Translator();
@@ -105,6 +107,10 @@ public class Translator {
 
     public MutableText tr(ServerCommandSource source, String key, Object... args) {
         return tr(CommandUtils.getLanguage(source), key, args);
+    }
+
+    public Supplier<MutableText> trS(ServerCommandSource source, String key, Object... args) {
+        return () -> tr(source, key, args);
     }
 
 }

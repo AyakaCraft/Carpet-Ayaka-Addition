@@ -53,6 +53,8 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
 
     protected long weight = 0;
 
+    protected boolean pinned = false;
+
     public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
         this.id = id;
         this.dim = dim;
@@ -162,12 +164,27 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     }
 
     @Contract(pure = true)
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    @Contract(mutates = "this")
+    public void pin() {
+        this.pinned = true;
+    }
+
+    @Contract(mutates = "this")
+    public void unpin() {
+        this.pinned = false;
+    }
+
+    @Contract(pure = true)
     @Override
     public int compareTo(@NotNull AbstractAddress<D> o) {
         if (this.equals(o)) {
             return 0;
         }
-        return this.weight == o.weight ? this.id.compareTo(o.id) : Long.compare(this.weight, o.weight);
+        return this.weight == o.weight ? this.id.compareTo(o.id) : this.weight > o.weight ? 1 : -1;
     }
 
     @Contract(pure = true)
@@ -175,6 +192,9 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     public boolean equals(Object o) {
         if (!(o instanceof Address)) {
             return false;
+        }
+        if (this == o) {
+            return true;
         }
         Address other = (Address) o;
         return Objects.equals(other.id, this.id)

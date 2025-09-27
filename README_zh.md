@@ -52,6 +52,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
             - *列出指定维度中的路径点*
         - radius \<radius>
             - *列出制定**区块**半径内的路径点*
+        - pinned
+            - *列出置顶的路径点*
     - set \<id> \<dim> \<pos> \<desc (optional)>
         - *添加一个新的路径点或者修改已有的路径点*
     - remove \<id>
@@ -66,6 +68,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *设置或修改路径点的描述*
     - xaero \<id>
         - *分享为 Xaero 路径点*
+    - pin \<id>
+        - *将路径点置顶*
+    - unpin \<id>
+        - *取消置顶路径点*
 - /c
     - *将你的游戏模式在 生存模式 和 旁观者模式 之间切换*
 - /gohome

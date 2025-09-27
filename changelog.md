@@ -2,6 +2,7 @@
 
 - ***Added*** carpet rule `giveLimit` for 1.17+
 - ***Added*** carpet rule `dragonEggFallDelay`
+- ***Added*** command `/ad pin`, `/ad unpin` and `/ad list pinned`
 - Support for Minecraft 1.21.9
 
 ### Bugfix

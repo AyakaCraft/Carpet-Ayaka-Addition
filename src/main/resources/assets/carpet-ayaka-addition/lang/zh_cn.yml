@@ -4,10 +4,13 @@ carpet-ayaka-addition:
       root.header: "推荐的路径点:"
       list:
         empty: 无路径点
-        header: "路径点如下: "
+        header: "路径点如下:"
+        header.pinned: "置顶的路径点如下:"
         detail: 详细信息
         tp: 传送
         xaero: Xaero
+        pin: 置顶
+        unpin: 取消置顶
       not_exist: 路径点 [%s] 不存在
       detail:
         "0": "路径点 [%s] 详细信息:"
@@ -26,6 +29,8 @@ carpet-ayaka-addition:
       tp:
         dimension_unrecognized: 未识别的维度 "%s"
         out_of_world_border: 路径点 [%s] 在世界边界以外
+      pin.success: 置顶了路径点 [%s]
+      unpin.success: 取消置顶了路径点 [%s]
     killitem:
       none: 没有可清除的掉落物
       single: "清除了{}"
