@@ -87,7 +87,9 @@ dependencies {
         exclude(group: "carpet", module: "fabric-carpet")
     }
 
-    if (mcVersion >= 12000) {
+    if (mcVersion >= 12000
+        && mcVersion != 12103 // GCA crashes for 1.21.3
+    ) {
         modImplementation("maven.modrinth:gca:${project.gugle_version}") {
             exclude(group: "carpet", module: "fabric-carpet")
         }
@@ -98,7 +100,7 @@ dependencies {
     }
 
     if (!releasing) {
-        // For translation loading
+        // For runtime mods
         modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
         if (mcVersion >= 11500) {

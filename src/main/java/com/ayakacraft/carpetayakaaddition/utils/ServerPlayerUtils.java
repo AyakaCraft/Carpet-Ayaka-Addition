@@ -97,7 +97,7 @@ public final class ServerPlayerUtils {
                 java.util.Collections.emptySet(),
                 //#endif
                 yaw, pitch
-                //#if MC>=12104
+                //#if MC>=12102
                 //$$ , true
                 //#endif
         );

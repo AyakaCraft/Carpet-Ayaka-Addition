@@ -46,12 +46,12 @@ public final class BetterMobCapHelper {
         SpawnHelperInfoAccessor accessor   = (SpawnHelperInfoAccessor) info;
         SpawnGroup              spawnGroup = entityType.getSpawnGroup();
         return accessor.checkBelowCap(spawnGroup
-                //#if MC>=12104
+                //#if MC>=12102
                 //#elseif MC>=11800
                 , new ChunkPos(instance.getBlockPos())
                 //#endif
         )
-                //#if MC>=12104
+                //#if MC>=12102
                 //$$ && accessor.checkCanSpawn(spawnGroup, new ChunkPos(instance.getBlockPos()))
                 //#endif
                 ;

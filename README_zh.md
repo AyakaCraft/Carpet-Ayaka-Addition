@@ -136,7 +136,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [giveLimit](#give命令限制-givelimit-117)
 - [itemDiscardAge](#掉落物消失刻-itemdiscardage)
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
-- [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1214)
+- [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [tickFluids](#流体更新-tickfluids)
 
@@ -336,7 +336,7 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`, `COMMAND`, `CREATIVE`
 
-#### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.4+)
+#### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.2+)
 
 将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
 
@@ -378,18 +378,18 @@ give 命令的限制乘数
 
 目前，以下 Minecraft 版本正在积极地获得新功能和错误修复的支持
 
-| Minecraft 版本     | **支持至**                 |
-|------------------|-------------------------|
-| 1.14.4           | ✔️ 长期支持                 |
-| 1.15.2           | ✔️ 长期支持                 |
-| 1.16.5           | ✔️ 长期支持                 |
-| 1.17.1           | ✔️ 长期支持                 |
-| 1.18.2           | ✔️ 长期支持                 |
-| 1.19.4           | ✔️ 长期支持                 |
-| 1.20.1           | ✔️ 长期支持                 |
-| 1.20.6           | ✔️ 长期支持                 |
-| 1.21.1, 1.21.4-8 | 🕒 Minecraft 1.23 快照发布时 |
-| 1.21.9           | 🕒 待定                   |
+| Minecraft 版本 | **支持至**                 |
+|--------------|-------------------------|
+| 1.14.4       | ✔️ 长期支持                 |
+| 1.15.2       | ✔️ 长期支持                 |
+| 1.16.5       | ✔️ 长期支持                 |
+| 1.17.1       | ✔️ 长期支持                 |
+| 1.18.2       | ✔️ 长期支持                 |
+| 1.19.4       | ✔️ 长期支持                 |
+| 1.20.1       | ✔️ 长期支持                 |
+| 1.20.6       | ✔️ 长期支持                 |
+| 1.21-1.21.8  | 🕒 Minecraft 1.23 快照发布时 |
+| 1.21.9       | 🕒 待定                   |
 
 ### 已结束支持的版本
 

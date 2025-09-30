@@ -36,6 +36,7 @@ preprocess {
     var mc12001 = createNode("1.20.1", 1_20_01, "")
     var mc12006 = createNode("1.20.6", 1_20_06, "")
     var mc12101 = createNode("1.21.1", 1_21_01, "")
+    var mc12103 = createNode("1.21.3", 1_21_03, "")
     var mc12104 = createNode("1.21.4", 1_21_04, "")
     var mc12105 = createNode("1.21.5", 1_21_05, "")
     var mc12108 = createNode("1.21.8", 1_21_08, "")
@@ -50,7 +51,8 @@ preprocess {
     mc11502.link(mc11404, file("versions/mapping_11502_11404.txt"))
 
     mc12006.link(mc12101, file("versions/mapping_12006_12101.txt"))
-    mc12101.link(mc12104, file("versions/mapping_12101_12104.txt"))
+    mc12101.link(mc12103, file("versions/mapping_12101_12103.txt"))
+    mc12103.link(mc12104, file("versions/mapping_12103_12104.txt"))
     mc12104.link(mc12105, file("versions/mapping_12104_12105.txt"))
     mc12105.link(mc12108, file("versions/mapping_12105_12108.txt"))
     mc12108.link(mc12109, file("versions/mapping_12108_12109.txt"))

@@ -136,7 +136,7 @@ Logs the change of points-of-interest (experimental)
 - [giveLimit](#givelimit-117)
 - [itemDiscardAge](#itemdiscardage)
 - [killItemAwaitSeconds](#killitemawaitseconds)
-- [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1214)
+- [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [tickFluids](#tickfluids)
 
@@ -336,7 +336,7 @@ Seconds to wait before clearing the items
 - Range: `[0,)`
 - Categories: `AYAKA`, `COMMAND`, `CREATIVE`
 
-#### legacyHoneyBlockSliding (1.21.4+)
+#### legacyHoneyBlockSliding (1.21.2+)
 
 Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below
 
@@ -382,13 +382,13 @@ Currently, the following Minecraft versions are actively supported with new feat
 |-------------------|---------------------------------------------|
 | 1.14.4            | ✔️ Long Term Support                        |
 | 1.15.2            | ✔️ Long Term Support                        |
-| 1.16.5            | ✔️ Long Term Support                        |
+| 1.16.4-5          | ✔️ Long Term Support                        |
 | 1.17.1            | ✔️ Long Term Support                        |
 | 1.18.2            | ✔️ Long Term Support                        |
 | 1.19.4            | ✔️ Long Term Support                        |
-| 1.20.1            | ✔️ Long Term Support                        |
-| 1.20.6            | ✔️ Long Term Support                        |
-| 1.21.1, 1.21.4-8  | 🕒 When Minecraft 1.23 snapshot is released |
+| 1.20-1.20.1       | ✔️ Long Term Support                        |
+| 1.20.5-6          | ✔️ Long Term Support                        |
+| 1.21-1.21.8       | 🕒 When Minecraft 1.23 snapshot is released |
 | 1.21.9            | 🕒 To be determined                         |
 
 ### End-of-life versions

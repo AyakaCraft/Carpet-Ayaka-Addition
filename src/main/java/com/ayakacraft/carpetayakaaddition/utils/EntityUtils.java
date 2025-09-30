@@ -40,7 +40,7 @@ public final class EntityUtils {
         //$$ if (!entity.getEntityWorld().isClient()) {
         //$$     entity.kill((net.minecraft.server.world.ServerWorld) entity.getEntityWorld());
         //$$ }
-        //#elseif MC>=12104
+        //#elseif MC>=12102
         //$$ if (!entity.getWorld().isClient()) {
         //$$     entity.kill((net.minecraft.server.world.ServerWorld) entity.getWorld());
         //$$ }

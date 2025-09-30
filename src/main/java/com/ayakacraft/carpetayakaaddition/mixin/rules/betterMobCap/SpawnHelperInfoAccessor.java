@@ -38,13 +38,13 @@ public interface SpawnHelperInfoAccessor {
     @Invoker("isBelowCap")
     boolean checkBelowCap(
             SpawnGroup group
-            //#if MC>=12104
+            //#if MC>=12102
             //#elseif MC>=11800
             , ChunkPos chunkPos
             //#endif
     );
 
-    //#if MC>=12104
+    //#if MC>=12102
     //$$ @Contract(pure = true)
     //$$ @Invoker("canSpawn")
     //$$ boolean checkCanSpawn(SpawnGroup group, ChunkPos chunkPos);
