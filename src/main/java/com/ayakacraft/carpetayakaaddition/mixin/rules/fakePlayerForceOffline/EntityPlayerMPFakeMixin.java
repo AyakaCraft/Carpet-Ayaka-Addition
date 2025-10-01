@@ -37,6 +37,23 @@ import java.util.Optional;
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public class EntityPlayerMPFakeMixin {
 
+    //#if MC>=12109
+    //$$ @WrapOperation(
+    //$$         method = "createFake",
+    //$$         at = @At(
+    //$$                 value = "INVOKE",
+    //$$                 target = "Lnet/minecraft/server/ServerConfigHandler;getPlayerUuidByName(Lnet/minecraft/server/MinecraftServer;Ljava/lang/String;)Ljava/util/UUID;",
+    //$$                 remap = true
+    //$$         )
+    //$$ )
+    //$$ private static java.util.UUID createFake(net.minecraft.server.MinecraftServer minecraftServer, String s, Operation<java.util.UUID> original) {
+    //$$     if (CarpetAyakaSettings.fakePlayerForceOffline && CarpetSettings.allowSpawningOfflinePlayers) {
+    //$$         return net.minecraft.util.Uuids.getOfflinePlayerUuid(s);
+    //$$     } else {
+    //$$         return original.call(minecraftServer, s);
+    //$$     }
+    //$$ }
+    //#else
     @WrapOperation(
             method = "createFake",
             at = @At(
@@ -58,5 +75,6 @@ public class EntityPlayerMPFakeMixin {
             return original.call(instance, name);
         }
     }
+    //#endif
 
 }
