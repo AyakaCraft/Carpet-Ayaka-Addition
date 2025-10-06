@@ -79,8 +79,8 @@ public final class AddressCommand {
         final ServerCommandSource source = context.getSource();
 
         Collection<Address> addresses = AddressManager.getOrCreate(source.getServer()).getAddresses();
-        List<Address> pinned   = Lists.newLinkedList();
-        List<Address> unpinned = Lists.newLinkedList();
+        List<Address>       pinned    = Lists.newLinkedList();
+        List<Address>       unpinned  = Lists.newLinkedList();
         if (addresses.isEmpty()) {
             sendEmpty(source);
         }

@@ -58,13 +58,13 @@ preprocess {
     mc12108.link(mc12110, file("versions/mapping_12108_12110.txt"))
 }
 
-tasks.register("buildAndGather") {thisTask ->
+tasks.register("buildAndGather") { thisTask ->
     Closure<Directory> buildLibs = { Project p -> p.layout.buildDirectory.dir("libs").getOrNull() }
     def root = buildLibs(rootProject)
     subprojects { subProject ->
         dependsOn(subProject.tasks.build)
     }
-    doLast {doLastTask ->
+    doLast { doLastTask ->
         println("Gathering builds")
 
         delete(fileTree(root) { include("*") })
