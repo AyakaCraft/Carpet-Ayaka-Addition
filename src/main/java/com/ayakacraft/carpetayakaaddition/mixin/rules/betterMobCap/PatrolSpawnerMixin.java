@@ -41,7 +41,7 @@ public class PatrolSpawnerMixin {
             )
     )
     private boolean applyMobCaps(PlayerEntity instance, Operation<Boolean> original) {
-        if (BetterMobCapHelper.shouldLimitSpawning((ServerPlayerEntity) instance, EntityType.PILLAGER)) {
+        if (BetterMobCapHelper.shouldNotLimitSpawning((ServerPlayerEntity) instance, EntityType.PILLAGER)) {
             return original.call(instance);
         }
         return true;

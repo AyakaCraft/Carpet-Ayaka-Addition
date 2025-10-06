@@ -32,7 +32,7 @@ public final class BetterMobCapHelper {
 
     private static final int CHUNKS_ELIGIBLE_FOR_SPAWNING = 289;
 
-    public static boolean shouldLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
+    public static boolean shouldNotLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }

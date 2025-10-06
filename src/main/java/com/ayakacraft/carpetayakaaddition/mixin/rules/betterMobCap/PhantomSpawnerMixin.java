@@ -51,7 +51,7 @@ public class PhantomSpawnerMixin {
             //#endif
             Operation<Boolean> original
     ) {
-        if (BetterMobCapHelper.shouldLimitSpawning(
+        if (BetterMobCapHelper.shouldNotLimitSpawning(
                 //#if MC>=12000
                 instance,
                 //#else

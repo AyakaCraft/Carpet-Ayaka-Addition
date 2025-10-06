@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Contract;
 public final class BetterMobCapHelper {
 
     @Contract(pure = true)
-    public static boolean shouldLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
+    public static boolean shouldNotLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }

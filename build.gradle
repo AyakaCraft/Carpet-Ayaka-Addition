@@ -6,7 +6,7 @@ plugins {
     id("com.replaymod.preprocess") version("d452ef7612")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version("9.2.1") apply(false)
+    id("com.gradleup.shadow") version("9.2.2") apply(false)
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version("0.16.1") apply(false)
@@ -40,7 +40,7 @@ preprocess {
     var mc12104 = createNode("1.21.4", 1_21_04, "")
     var mc12105 = createNode("1.21.5", 1_21_05, "")
     var mc12108 = createNode("1.21.8", 1_21_08, "")
-    var mc12109 = createNode("1.21.9", 1_21_09, "")
+    var mc12110 = createNode("1.21.10", 1_21_10, "")
 
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
@@ -55,27 +55,27 @@ preprocess {
     mc12103.link(mc12104, file("versions/mapping_12103_12104.txt"))
     mc12104.link(mc12105, file("versions/mapping_12104_12105.txt"))
     mc12105.link(mc12108, file("versions/mapping_12105_12108.txt"))
-    mc12108.link(mc12109, file("versions/mapping_12108_12109.txt"))
+    mc12108.link(mc12110, file("versions/mapping_12108_12110.txt"))
 }
 
-tasks.register("buildAndGather") {
-    subprojects {
-        dependsOn(it.tasks.build)
+tasks.register("buildAndGather") {thisTask ->
+    Closure<Directory> buildLibs = { Project p -> p.layout.buildDirectory.dir("libs").getOrNull() }
+    def root = buildLibs(rootProject)
+    subprojects { subProject ->
+        dependsOn(subProject.tasks.build)
     }
-    doLast {
+    doLast {doLastTask ->
         println("Gathering builds")
 
-        Closure buildLibs = { p -> p.buildDir.toPath().resolve("libs") }
-        delete(fileTree(buildLibs(rootProject)) { include("*") })
-        subprojects {
-            print("Copying files for ${it.name}...    ")
-            Project p = it
+        delete(fileTree(root) { include("*") })
+        subprojects { subProject ->
+            print("Copying files for ${subProject.name}...    ")
             copy {
-                from(buildLibs(p)) {
+                from(buildLibs(subProject)) {
                     include("*.jar")
                     exclude("*-dev.jar", "*-sources.jar", "*-shadow.jar")
                 }
-                into(buildLibs(rootProject))
+                into(root)
                 duplicatesStrategy = DuplicatesStrategy.INCLUDE
             }
             println("Succeeded")
