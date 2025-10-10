@@ -289,41 +289,6 @@ public final class AddressCommand {
         return trySave(manager, source, TR.trS(source, "unpin.success", id));
     }
 
-    private static int trySave(AddressManager manager, ServerCommandSource source, Supplier<MutableText> success) {
-        try {
-            manager.save();
-        } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
-            source.sendError(TR.tr(source, "save.failure"));
-            return 0;
-        }
-        sendFeedback(source, success.get(), false);
-        return 1;
-    }
-
-    private static boolean checkNull(String id, @Nullable Address w, ServerCommandSource source) {
-        if (w == null) {
-            source.sendError(TR.tr(source, "not_exist", id));
-            return true;
-        }
-        return false;
-    }
-
-    @Contract(mutates = "param2, param3")
-    private static void divide(Collection<Address> addresses, List<Address> pinned, List<Address> unpinned) {
-        for (Address w : addresses) {
-            if (w.isPinned()) {
-                pinned.add(w);
-            } else {
-                unpinned.add(w);
-            }
-        }
-    }
-
-    private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> '"' + id + '"'), builder);
-    }
-
     private static int listInDimension(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
         final ServerCommandSource source = context.getSource();
         final World dim =
@@ -391,21 +356,70 @@ public final class AddressCommand {
         }
         TextUtils.broadcast(server, Text.literal(address.getXaeroWaypointString()), false);
 
-        return 0;
+        return 1;
+    }
+
+    private static int trySave(AddressManager manager, ServerCommandSource source, Supplier<MutableText> success) {
+        try {
+            manager.save();
+        } catch (IOException e) {
+            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
+            source.sendError(TR.tr(source, "save.failure"));
+            return 0;
+        }
+        sendFeedback(source, success.get(), false);
+        return 1;
+    }
+
+    private static boolean checkNull(String id, @Nullable Address w, ServerCommandSource source) {
+        if (w == null) {
+            source.sendError(TR.tr(source, "not_exist", id));
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean canTp(ServerCommandSource source) {
+        return CommandUtils.checkPermission(source, CarpetAyakaSettings.commandAddressTp, true);
+    }
+
+    @Contract(mutates = "param2, param3")
+    private static void divide(Collection<Address> addresses, List<Address> pinned, List<Address> unpinned) {
+        for (Address w : addresses) {
+            if (w.isPinned()) {
+                pinned.add(w);
+            } else {
+                unpinned.add(w);
+            }
+        }
+    }
+
+    private static CompletableFuture<Suggestions> suggestWaypoints(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
+        return CommandSource.suggestMatching(AddressManager.getOrCreate(context.getSource().getServer()).getIDs().stream().map(id -> '"' + id + '"'), builder);
     }
 
     private static Text waypointIdText(String id, boolean pinned, ServerCommandSource source) {
         Text t = pinned
                 ? TextUtils.withCommand(TR.tr(source, "list.unpin"), String.format("/ad unpin \"%s\"", id)).formatted(Formatting.LIGHT_PURPLE)
                 : TextUtils.withCommand(TR.tr(source, "list.pin"), String.format("/ad pin \"%s\"", id)).formatted(Formatting.DARK_PURPLE);
-        return TextUtils.format(
-                "[{}] [{}] [{}] [{}] [{}]",
-                Text.literal(id).formatted(Formatting.GREEN),
-                TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail \"%s\"", id)).formatted(Formatting.GOLD),
-                TextUtils.withCommand(TR.tr(source, "list.tp"), String.format("/ad tp \"%s\"", id)).formatted(Formatting.RED),
-                TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA),
-                t
-        );
+        if (canTp(source)) {
+            return TextUtils.format(
+                    "[{}] [{}] [{}] [{}] [{}]",
+                    Text.literal(id).formatted(Formatting.GREEN),
+                    TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail \"%s\"", id)).formatted(Formatting.GOLD),
+                    TextUtils.withCommand(TR.tr(source, "list.tp"), String.format("/ad tp \"%s\"", id)).formatted(Formatting.RED),
+                    TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA),
+                    t
+            );
+        } else {
+            return TextUtils.format(
+                    "[{}] [{}] [{}] [{}]",
+                    Text.literal(id).formatted(Formatting.GREEN),
+                    TextUtils.withCommand(TR.tr(source, "list.detail"), String.format("/ad detail \"%s\"", id)).formatted(Formatting.GOLD),
+                    TextUtils.withCommand(TR.tr(source, "list.xaero"), String.format("/ad xaero \"%s\"", id)).formatted(Formatting.AQUA),
+                    t
+            );
+        }
     }
 
     private static Text listWaypointIdsText(Collection<Address> addresses, ServerCommandSource source) {
@@ -491,7 +505,7 @@ public final class AddressCommand {
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
                                 .executes(AddressCommand::remove)))
                 .then(literal("tp")
-                        .requires(source -> source.isExecutedByPlayer())
+                        .requires(AddressCommand::canTp)
                         .then(argument("id", StringArgumentType.string()).suggests(AddressCommand::suggestWaypoints)
                                 .executes(AddressCommand::tp)))
                 .then(literal("rename")

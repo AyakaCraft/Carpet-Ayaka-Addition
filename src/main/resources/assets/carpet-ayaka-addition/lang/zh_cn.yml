@@ -88,7 +88,10 @@ carpet:
       desc: 方块被破坏时生成的掉落物的速度的乘数
     commandAddress:
       name: 服务端路径点命令开关
-      desc: 启用 /address 和 /ad 命令以操作并传送到服务端路径点
+      desc: 启用 /address 和 /ad 命令以操作服务端路径点
+    commandAddressTp:
+      name: 服务端路径点命令开关
+      desc: 启用 /address tp 和 /ad tp 命令以传送到服务端路径点
     commandC:
       name: 旁观者模式切换命令开关
       desc: 启用 /c 命令以在生存模式和旁观者模式中切换

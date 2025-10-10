@@ -79,7 +79,9 @@ carpet:
     blockDropStackVelocityMultiple:
       desc: Multiple of velocity of item stacks dropped by a broken block
     commandAddress:
-      desc: Enables /address and /ad to manipulate and teleport to server-side addresses
+      desc: Enables /address and /ad to manipulate shared addresses
+    commandAddressTp:
+      desc: Enables /address tp and /ad tp to teleport to shared addresses
     commandC:
       desc: Enables /c to switch your gamemode between spectator and survival
     commandGoHome:

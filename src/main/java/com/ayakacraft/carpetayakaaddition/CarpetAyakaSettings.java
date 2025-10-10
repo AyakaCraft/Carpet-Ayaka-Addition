@@ -62,10 +62,16 @@ public final class CarpetAyakaSettings {
     public static double blockDropStackVelocityMultiple = 1d;
 
     @Rule(
-            categories = {AYAKA, COMMAND, CHEAT},
+            categories = {AYAKA, COMMAND},
             options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
     )
     public static String commandAddress = "false";
+
+    @Rule(
+            categories = {AYAKA, COMMAND, CHEAT},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
+    )
+    public static String commandAddressTp = "false";
 
     @Rule(
             categories = {AYAKA, COMMAND, CHEAT},

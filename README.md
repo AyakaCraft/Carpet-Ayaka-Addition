@@ -122,6 +122,7 @@ Logs the change of points-of-interest (experimental)
 - [betterOpPlayerNoCheat](#betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#blockdropstackvelocitymultiple)
 - [commandAddress](#commandaddress)
+- [commandAddressTp](#commandaddresstp)
 - [commandC](#commandc)
 - [commandGoHome](#commandgohome)
 - [commandKillItem](#commandkillitem)
@@ -185,7 +186,16 @@ Multiple of velocity of item stacks dropped by a broken block
 
 #### commandAddress
 
-Enables `/address` and `/ad` to manipulate and teleport to shared waypoints
+Enables `/address` and `/ad` to manipulate shared waypoints
+
+- Type: `String`
+- Default value: `false`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `AYAKA`, `COMMAND`
+
+#### commandAddressTp
+
+Enables `/address tp` and `/ad tp` to teleport to shared waypoints
 
 - Type: `String`
 - Default value: `false`
@@ -388,8 +398,8 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.19.4            | ✔️ Long Term Support                        |
 | 1.20-1.20.1       | ✔️ Long Term Support                        |
 | 1.20.5-6          | ✔️ Long Term Support                        |
-| 1.21-1.21.8       | 🕒 When Minecraft 1.23 snapshot is released |
-| 1.21.9            | 🕒 To be determined                         |
+| 1.21-1.21.9       | 🕒 When Minecraft 1.23 snapshot is released |
+| 1.21.10           | 🕒 To be determined                         |
 
 ### End-of-life versions
 

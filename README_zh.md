@@ -122,6 +122,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [betterOpPlayerNoCheat](#更好的op玩家不准作弊-betteropplayernocheat)
 - [blockDropStackVelocityMultiple](#方块掉落物速度乘数-blockdropstackvelocitymultiple)
 - [commandAddress](#全局路径点命令开关-commandaddress)
+- [commandAddressTp](#全局路径点传送命令开关-commandaddresstp)
 - [commandC](#旁观者模式切换命令开关-commandc)
 - [commandGoHome](#回程命令开关-commandgohome)
 - [commandKillItem](#清除掉落物命令开关-commandkillitem)
@@ -185,7 +186,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 全局路径点命令开关 (commandAddress)
 
-启用 `/address` 和 `/ad` 命令以操作并传送到服务器全局路径点
+启用 `/address` 和 `/ad` 命令以操作服务器全局路径点
+
+- 类型: `String`
+- 默认值: `false`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `AYAKA`, `COMMAND`
+
+#### 全局路径点传送命令开关 (commandAddressTp)
+
+启用 `/address tp` 和 `/ad tp` 命令以传送到服务器全局路径点
 
 - 类型: `String`
 - 默认值: `false`
@@ -388,8 +398,8 @@ give 命令的限制乘数
 | 1.19.4       | ✔️ 长期支持                 |
 | 1.20.1       | ✔️ 长期支持                 |
 | 1.20.6       | ✔️ 长期支持                 |
-| 1.21-1.21.8  | 🕒 Minecraft 1.23 快照发布时 |
-| 1.21.9       | 🕒 待定                   |
+| 1.21-1.21.9  | 🕒 Minecraft 1.23 快照发布时 |
+| 1.21.10      | 🕒 待定                   |
 
 ### 已结束支持的版本
 
