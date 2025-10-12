@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))  // Hopefully this will be fixed by carpet in mc1.21.11
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9 <=1.21.10"))
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public class EntityPlayerMPFakeMixin {
 

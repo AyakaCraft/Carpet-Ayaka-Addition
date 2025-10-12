@@ -7,6 +7,7 @@
 [![MC 版本](https://cf.way2muchnoise.eu/versions/MC%20Versions_carpet-ayaka-addition_all.svg)](https://www.curseforge.com/minecraft/mc-mods/carpet-ayaka-addition)
 [![Build & Publish](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml/badge.svg)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/actions/workflows/release.yml)
 [![Release](https://img.shields.io/github/v/release/AyakaCraft/Carpet-Ayaka-Addition?label=Release&include_prereleases)](https://github.com/AyakaCraft/Carpet-Ayaka-Addition/releases)
+[![Jitpack](https://www.jitpack.io/v/AyakaCraft/Carpet-Ayaka-Addition.svg)](https://www.jitpack.io/#AyakaCraft/Carpet-Ayaka-Addition)
 
 简体中文 ｜ [English](README.md)
 
