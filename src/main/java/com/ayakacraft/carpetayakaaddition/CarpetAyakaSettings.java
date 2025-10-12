@@ -118,6 +118,12 @@ public final class CarpetAyakaSettings {
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}
     )
+    public static boolean fakePlayerInventoryFix = false;
+
+    @Rule(
+            categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
+            modConditions = @ModCondition(versionPredicates = ">=1.21.9")  // Hopefully this will be fixed by carpet in mc1.21.11
+    )
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(

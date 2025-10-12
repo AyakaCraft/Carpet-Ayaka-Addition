@@ -26,6 +26,7 @@
     "rules.disableBatSpawning.BatEntityMixin",
     "rules.dragonEggFallDelay.DragonEggBlockMixin",
     "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
+    "rules.fakePlayerInventoryFix.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.forceTickPlantsReintroduce.BambooBlockMixin",
     "rules.forceTickPlantsReintroduce.CactusBlockMixin",

@@ -130,6 +130,7 @@ Logs the change of points-of-interest (experimental)
 - [disableBatSpawning](#disablebatspawning)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
+- [fakePlayerInventoryFix](#fakeplayerinventoryfix-1219)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
@@ -270,6 +271,17 @@ Forces fake players to spawn in offline mode
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
+#### fakePlayerInventoryFix (1.21.9+)
+
+Fixes fake player losing inventory when rejoining the game
+
+See [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
+
 #### fakePlayerResidentBackupFix
 
 Fixes the bug that fake players are not reconnected after retracements
@@ -398,8 +410,8 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.19.4            | ✔️ Long Term Support                        |
 | 1.20-1.20.1       | ✔️ Long Term Support                        |
 | 1.20.5-6          | ✔️ Long Term Support                        |
-| 1.21-1.21.9       | 🕒 When Minecraft 1.23 snapshot is released |
-| 1.21.10           | 🕒 To be determined                         |
+| 1.21-1.21.8       | 🕒 When Minecraft 1.23 snapshot is released |
+| 1.21.9-10         | 🕒 To be determined                         |
 
 ### End-of-life versions
 
