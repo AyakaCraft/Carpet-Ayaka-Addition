@@ -131,7 +131,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
-- [fakePlayerInventoryFix](#假人背包修复-fakeplayerinventoryfix-1219)
+- [fakePlayerDataFix](#假人数据修复-fakePlayerDataFix-1219)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
@@ -272,9 +272,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
-#### 假人背包修复 (fakePlayerInventoryFix) (1.21.9+)
+#### 假人数据修复 (fakePlayerDataFix) (1.21.9+)
 
-修复假人背包在重新加入服务器时丢失的问题
+修复假人数据在重新加入服务器时丢失的问题
 
 参见 [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
 

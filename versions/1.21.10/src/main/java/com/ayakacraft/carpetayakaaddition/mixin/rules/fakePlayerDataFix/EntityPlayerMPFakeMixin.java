@@ -18,26 +18,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.fakePlayerInventoryFix;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.fakePlayerDataFix;
 
 import carpet.patches.EntityPlayerMPFake;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.helpers.rules.FakePlayerDataFixHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ConnectedClientData;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.util.ErrorReporter;
 import net.minecraft.util.NameToIdCache;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.Optional;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9 <=1.21.10"))
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
@@ -64,10 +61,28 @@ public class EntityPlayerMPFakeMixin {
                     remap = true
             )
     )
-    private static void loadPlayerData(PlayerManager instance, ClientConnection clientConnection, ServerPlayerEntity serverPlayerEntity, ConnectedClientData connectedClientData, Operation<Void> original) {
-        Optional<NbtCompound> o = instance.loadPlayerData(serverPlayerEntity.getPlayerConfigEntry());
-        o.ifPresent(nbtCompound -> serverPlayerEntity.readData(NbtReadView.create(ErrorReporter.EMPTY, serverPlayerEntity.getEntityWorld().getRegistryManager(), nbtCompound)));
-        original.call(instance, clientConnection, serverPlayerEntity, connectedClientData);
+    private static void loadPlayerData(PlayerManager instance, ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, Operation<Void> original) {
+        if (CarpetAyakaSettings.fakePlayerDataFix) {
+            FakePlayerDataFixHelper.loadPlayerDataAndJoin((EntityPlayerMPFake) player, instance, connection, clientData);
+        } else {
+            original.call(instance, connection, player, clientData);
+        }
+    }
+
+    @WrapOperation(
+            method = "createShadow",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/PlayerManager;onPlayerConnect(Lnet/minecraft/network/ClientConnection;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/server/network/ConnectedClientData;)V",
+                    remap = true
+            )
+    )
+    private static void loadShadowData(PlayerManager instance, ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, Operation<Void> original) {
+        if (CarpetAyakaSettings.fakePlayerDataFix) {
+            FakePlayerDataFixHelper.loadPlayerDataAndJoin((EntityPlayerMPFake) player, instance, connection, clientData);
+        } else {
+            original.call(instance, connection, player, clientData);
+        }
     }
 
 }

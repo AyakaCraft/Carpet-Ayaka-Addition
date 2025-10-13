@@ -119,7 +119,7 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
             modConditions = @ModCondition(versionPredicates = ">=1.21.9 <=1.21.10")
     )
-    public static boolean fakePlayerInventoryFix = false;
+    public static boolean fakePlayerDataFix = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}

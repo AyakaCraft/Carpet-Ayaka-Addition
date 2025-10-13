@@ -101,8 +101,8 @@ carpet:
       desc: Forces fake players to spawn in offline mode
       extra:
         "0": (1.16+) Only active when allowSpawningOfflinePlayers is set to true
-    fakePlayerInventoryFix:
-      desc: Fixes fake player losing inventory when rejoining the game
+    fakePlayerDataFix:
+      desc: Fixes fake player losing data when rejoining the game
       extra:
         "0": See carpet-2110 (https://github.com/gnembon/fabric-carpet/issues/2110)
     fakePlayerResidentBackupFix:

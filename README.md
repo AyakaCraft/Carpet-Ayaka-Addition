@@ -131,7 +131,7 @@ Logs the change of points-of-interest (experimental)
 - [disableBatSpawning](#disablebatspawning)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
-- [fakePlayerInventoryFix](#fakeplayerinventoryfix-1219)
+- [fakePlayerDataFix](#fakePlayerDataFix-1219)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
@@ -272,9 +272,9 @@ Forces fake players to spawn in offline mode
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
-#### fakePlayerInventoryFix (1.21.9+)
+#### fakePlayerDataFix (1.21.9+)
 
-Fixes fake player losing inventory when rejoining the game
+Fixes fake player losing data when rejoining the game
 
 See [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
 
