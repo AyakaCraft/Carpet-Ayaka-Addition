@@ -281,7 +281,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
+- 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`, `CARPET_MOD`
 
 #### 备份不保留假人修复 (fakePlayerResidentBackupFix)
 

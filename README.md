@@ -281,7 +281,7 @@ See [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
+- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`, `CARPET_MOD`
 
 #### fakePlayerResidentBackupFix
 

@@ -28,11 +28,25 @@ import net.minecraft.server.network.ConnectedClientData;
 import net.minecraft.storage.NbtReadView;
 import net.minecraft.storage.ReadView;
 import net.minecraft.util.ErrorReporter;
+import org.jetbrains.annotations.Contract;
 
 import java.util.Optional;
 
 public final class FakePlayerDataFixHelper {
 
+    @Contract(pure = true)
+    private static boolean shouldFixStartingPosition(EntityPlayerMPFake player) {
+        if (player.isAShadow) {
+            return false;
+        }
+        try {
+            return !carpettisaddition.helpers.carpet.tweaks.command.fakePlayerRejoin.FakePlayerRejoinHelper.isRejoin.get();
+        } catch (Throwable t) {
+            return true;
+        }
+    }
+
+    @Contract(pure = true)
     public static void loadPlayerDataAndJoin(EntityPlayerMPFake player, PlayerManager playerManager, ClientConnection connection, ConnectedClientData clientData) {
         try (ErrorReporter.Logging logging = new ErrorReporter.Logging(player.getErrorReporterContext(), CarpetAyakaAddition.LOGGER)) {
             Optional<ReadView> readView = playerManager
@@ -40,11 +54,14 @@ public final class FakePlayerDataFixHelper {
                     .map((playerNbt) ->
                             NbtReadView.create(logging, player.getRegistryManager(), playerNbt)
                     );
-            readView.ifPresent(player::readData);
             playerManager.onPlayerConnect(connection, player, clientData);
             readView.ifPresent(playerData -> {
+                player.readData(playerData);
                 player.readEnderPearls(playerData);
                 player.readRootVehicle(playerData);
+                if (shouldFixStartingPosition(player)) {
+                    player.fixStartingPosition.run();
+                }
             });
         }
     }
