@@ -131,7 +131,7 @@ Logs the change of points-of-interest (experimental)
 - [disableBatSpawning](#disablebatspawning)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
-- [fakePlayerDataFix](#fakePlayerDataFix-1219)
+- [fakePlayerDataFix](#fakeplayerdatafix-1219-10)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
@@ -272,7 +272,7 @@ Forces fake players to spawn in offline mode
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
-#### fakePlayerDataFix (1.21.9+)
+#### fakePlayerDataFix (1.21.9-10)
 
 Fixes fake player losing data when rejoining the game
 

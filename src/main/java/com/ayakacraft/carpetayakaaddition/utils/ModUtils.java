@@ -42,9 +42,8 @@ public final class ModUtils {
     public static final String CPT_ID = "carpet";
 
     @Contract(pure = true)
-    @Deprecated
     public static boolean isModLoaded(String modId) {
-        return isModLoadedWithVersion(modId);
+        return getModContainer(modId).isPresent();
     }
 
     @Contract(pure = true)

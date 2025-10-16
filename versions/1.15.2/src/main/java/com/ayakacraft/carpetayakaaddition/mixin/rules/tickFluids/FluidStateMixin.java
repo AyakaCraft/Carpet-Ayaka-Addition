@@ -22,14 +22,10 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.tickFluids;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Random;
 
 @Mixin(FluidState.class)
 public interface FluidStateMixin {
@@ -42,7 +38,7 @@ public interface FluidStateMixin {
     }
 
     @Inject(method = "onRandomTick", at = @At("HEAD"), cancellable = true)
-    default void wrapRandomTick(World world, BlockPos pos, Random random, CallbackInfo ci) {
+    default void wrapRandomTick(CallbackInfo ci) {
         if (!CarpetAyakaSettings.tickFluids) {
             ci.cancel();
         }

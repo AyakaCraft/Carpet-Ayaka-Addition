@@ -51,8 +51,7 @@ public final class GcaHelper {
     static {
         Method spm = null;
         try {
-            Optional<ModContainer> o = ModUtils.getModContainer(ModUtils.GCA_ID);
-            if (o.isPresent()) {
+            if (ModUtils.isModLoaded(ModUtils.GCA_ID)) {
                 ClassLoader classLoader = GcaHelper.class.getClassLoader();
                 Class<?>    clazz;
                 try {
@@ -89,18 +88,18 @@ public final class GcaHelper {
 
         LOGGER.debug("Saving fake players");
 
-        JsonObject fakePlayerList = new JsonObject();
+        JsonObject fakePlayers = new JsonObject();
 
         server.getPlayerManager()
                 .getPlayerList()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
                 .filter(player ->
                         player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
-                .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
+                .forEach(p -> fakePlayers.add(p.getName().getString(), invokeSavePlayer(p)));
 
         Path path = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("fake_player.gca.json");
         try {
-            Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
+            Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayers).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
