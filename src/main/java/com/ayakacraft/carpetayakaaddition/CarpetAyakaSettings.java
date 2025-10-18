@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition;
 import com.ayakacraft.carpetayakaaddition.settings.ModCondition;
 import com.ayakacraft.carpetayakaaddition.settings.Rule;
 import com.ayakacraft.carpetayakaaddition.settings.Validators;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 
 import static carpet.api.settings.RuleCategory.*;
 
@@ -119,7 +120,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT, CARPET_MOD},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.9 <=1.21.10")
+            modConditions = @ModCondition(value = ModUtils.CPT_ID, versionPredicates = ">=1.4.185 <=1.4.187")
     )
     public static boolean fakePlayerDataFix = false;
 

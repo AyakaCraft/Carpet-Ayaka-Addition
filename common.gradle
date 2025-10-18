@@ -21,18 +21,31 @@ repositories {
     maven {
         name = "Fabric"
         url = "https://maven.fabricmc.net/"
+        content {
+            includeGroup "net.fabricmc"
+        }
     }
     maven {
         name = "masa"
         url = "https://masa.dy.fi/maven"
+        content {
+            includeGroup "carpet"
+        }
     }
     maven {
         name = "Fallen"
         url = "https://maven.fallenbreath.me/releases"  // Fallen orz
+        content {
+            includeGroup "me.fallenbreath"
+            includeGroup "carpettisaddition"
+        }
     }
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
     }
     maven {
         name = "CurseMaven"
@@ -44,6 +57,9 @@ repositories {
     maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
+        content {
+            includeGroup "com.terraformersmc"
+        }
     }
     maven {
         name = "Jitpack"
@@ -89,9 +105,7 @@ dependencies {
         exclude(group: "carpet", module: "fabric-carpet")
     }
 
-    if (mcVersion >= 12000
-            && mcVersion < 12109
-    ) {
+    if (mcVersion >= 12000) {
         modImplementation("maven.modrinth:gca:${project.gugle_version}") {
             exclude(group: "carpet", module: "fabric-carpet")
         }
@@ -105,12 +119,10 @@ dependencies {
         // For runtime mods
         modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}")
 
-        if (mcVersion < 12109) {
-            if (mcVersion >= 11500) {
-                modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
-            } else {
-                modRuntimeOnly("maven.modrinth:modmenu:${project.modmenu_version}")
-            }
+        if (mcVersion >= 11500) {
+            modRuntimeOnly("com.terraformersmc:modmenu:${project.modmenu_version}")
+        } else {
+            modRuntimeOnly("maven.modrinth:modmenu:${project.modmenu_version}")
         }
 
         if (mcVersion >= 11600) {

@@ -36,7 +36,7 @@ import net.minecraft.util.NameToIdCache;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9 <=1.21.10"))
+@Restriction(require = @Condition(value = ModUtils.CPT_ID, versionPredicates = ">=1.4.185 <=1.4.187"))
 @Mixin(value = EntityPlayerMPFake.class, remap = false)
 public class EntityPlayerMPFakeMixin {
 
