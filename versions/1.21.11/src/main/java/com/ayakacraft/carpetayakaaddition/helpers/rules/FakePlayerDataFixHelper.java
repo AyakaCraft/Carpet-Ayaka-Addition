@@ -18,17 +18,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.fakePlayerDataFix;
+package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
-import carpet.patches.EntityPlayerMPFake;
-import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import me.fallenbreath.conditionalmixin.api.annotation.Condition;
-import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import org.spongepowered.asm.mixin.Mixin;
-
-@Restriction(require = @Condition(value = ModUtils.CPT_ID, versionPredicates = ">=1.4.185 <=1.4.187"))
-@Mixin(EntityPlayerMPFake.class)
-public class EntityPlayerMPFakeMixin {
+@SuppressWarnings("unused")
+public final class FakePlayerDataFixHelper {
 
     // Implementation in 1.21.10
 
