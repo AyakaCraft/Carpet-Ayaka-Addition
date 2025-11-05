@@ -18,22 +18,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.utils;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.NaturalSpawner;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16 <1.18"))
-@Mixin(ServerboundClientInformationPacket.class)
-public interface ClientSettingsC2SPacketAccessor {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
+@Mixin(NaturalSpawner.SpawnState.class)
+public interface SpawnStateInvoker {
 
     @Contract(pure = true)
-    @Accessor("language")
-    String getLanguage$Ayaka();
+    @Invoker("canSpawnForCategory")
+    boolean checkGlobal$Ayaka(
+            MobCategory group
+            //#if MC>=12102
+            //#elseif MC>=11800
+            , ChunkPos chunkPos
+            //#endif
+    );
+
+    //#if MC>=12102
+    //$$ @Contract(pure = true)
+    //$$ @Invoker("canSpawnForCategoryLocal")
+    //$$ boolean checkLocal$Ayaka(MobCategory group, ChunkPos chunkPos);
+    //#endif
 
 }

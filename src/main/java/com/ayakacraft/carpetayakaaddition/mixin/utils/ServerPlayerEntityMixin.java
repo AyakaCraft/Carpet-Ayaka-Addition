@@ -51,7 +51,7 @@ public class ServerPlayerEntityMixin implements WithClientLanguage {
         //#if MC>=11800
         clientLanguage = clientOptions.language();
         //#elseif MC>=11600
-        //$$ clientLanguage = ((ClientSettingsC2SPacketAccessor) clientOptions).getLanguage$Ayaka();
+        //$$ clientLanguage = ((ServerboundClientInformationPacketAccessor) clientOptions).getLanguage$Ayaka();
         //#else
         //$$ clientLanguage = clientOptions.getLanguage();
         //#endif

@@ -27,7 +27,7 @@ public final class RegistryUtils {
 
     //#if MC>=11900
     @Contract(pure = true)
-    public static String getIdAsString(net.minecraft.core.Holder<?> entry) {
+    public static String getRegisteredName(net.minecraft.core.Holder<?> entry) {
         //#if MC>=12006
         return entry.getRegisteredName();
         //#else

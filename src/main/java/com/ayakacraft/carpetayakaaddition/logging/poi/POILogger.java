@@ -77,7 +77,7 @@ public class POILogger extends AbstractAyakaLogger {
                     "added",
                     StringUtils.posString(SectionPos.of(pos)),
                     StringUtils.posString(pos),
-                    RegistryUtils.getIdAsString(type)
+                    RegistryUtils.getRegisteredName(type)
             )};
         } else {
             return null;
@@ -100,7 +100,7 @@ public class POILogger extends AbstractAyakaLogger {
                     "ticket_reserved",
                     StringUtils.posString(SectionPos.of(pos)),
                     StringUtils.posString(pos),
-                    RegistryUtils.getIdAsString(type),
+                    RegistryUtils.getRegisteredName(type),
                     freeTickets, type.value().maxTickets()
             )};
         } else {
@@ -116,7 +116,7 @@ public class POILogger extends AbstractAyakaLogger {
                     "ticket_released",
                     StringUtils.posString(sectionPos),
                     StringUtils.posString(pos),
-                    RegistryUtils.getIdAsString(type),
+                    RegistryUtils.getRegisteredName(type),
                     freeTickets, type.value().maxTickets()
             )};
         } else {

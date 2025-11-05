@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.1"))
 @Mixin(ReplaceDisk.class)
-public class ReplaceDiskEnchantmentEffectMixin {
+public class ReplaceDiskMixin {
 
     @Shadow
     @Final

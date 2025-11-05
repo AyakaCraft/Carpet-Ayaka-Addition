@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PistonMovingBlockEntity.class)
-public class PistonBlockEntityMixin {
+public class PistonMovingBlockEntityMixin {
 
     //#if MC>=11700
     @Inject(

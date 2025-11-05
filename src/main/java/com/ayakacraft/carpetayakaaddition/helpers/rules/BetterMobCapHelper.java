@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap.SpawnHelperInfoAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap.SpawnStateInvoker;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -43,8 +43,8 @@ public final class BetterMobCapHelper {
         if (info == null) {
             return true;
         }
-        SpawnHelperInfoAccessor accessor   = (SpawnHelperInfoAccessor) info;
-        MobCategory             spawnGroup = entityType.getCategory();
+        SpawnStateInvoker accessor   = (SpawnStateInvoker) info;
+        MobCategory       spawnGroup = entityType.getCategory();
         return accessor.checkGlobal$Ayaka(spawnGroup
                 //#if MC>=12102
                 //#elseif MC>=11800

@@ -21,6 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.utils.mixin;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import com.google.common.collect.Lists;
 import me.fallenbreath.conditionalmixin.api.mixin.RestrictiveMixinConfigPlugin;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class AyakaMixinConfigPlugin extends RestrictiveMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        return List.of();
+        return Lists.newLinkedList();
     }
 
 }

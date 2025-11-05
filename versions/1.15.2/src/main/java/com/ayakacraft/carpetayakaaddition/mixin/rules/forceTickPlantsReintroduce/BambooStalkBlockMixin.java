@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
 @Mixin(DummyClass.class)
-public abstract class BambooBlockMixin {
+public abstract class BambooStalkBlockMixin {
 
     // Implementation in main project
 

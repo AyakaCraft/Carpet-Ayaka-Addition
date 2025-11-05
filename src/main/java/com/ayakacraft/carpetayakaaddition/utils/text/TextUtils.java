@@ -33,11 +33,12 @@ import org.jetbrains.annotations.Contract;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public final class TextUtils {
 
     @PreprocessPattern
-    private static MutableComponent literalText(String str) {
+    private static MutableComponent literal(String str) {
         //#if MC>=11900
         return Component.literal(str);
         //#else
@@ -46,11 +47,29 @@ public final class TextUtils {
     }
 
     @PreprocessPattern
-    private static MutableComponent translatableText(String key, Object... args) {
+    private static MutableComponent translatable(String key, Object... args) {
         //#if MC>=11900
         return Component.translatable(key, args);
         //#else
         //$$ return new net.minecraft.network.chat.TranslatableComponent(key, args);
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static ClickEvent runCommand(String cmd) {
+        //#if MC>=12105
+        //$$ return new ClickEvent.RunCommand(cmd);
+        //#else
+        return new ClickEvent(ClickEvent.Action.RUN_COMMAND, cmd);
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static HoverEvent showText(Component txt) {
+        //#if MC>=12105
+        //$$ return new HoverEvent.ShowText(txt);
+        //#else
+        return new HoverEvent(HoverEvent.Action.SHOW_TEXT, txt);
         //#endif
     }
 
@@ -65,49 +84,32 @@ public final class TextUtils {
     }
 
     @Contract(pure = true)
-    public static MutableComponent space() {
-        return Component.literal(" ");
-    }
-
-    @Contract(pure = true)
     public static MutableComponent empty() {
         return Component.literal("");
     }
 
     @Contract(pure = true)
-    public static <T> Component join(Collection<T> elements, Component separator, Function<T, Component> transformer) {
-        //#if MC>=11700
-        return net.minecraft.network.chat.ComponentUtils.formatList(elements, separator, transformer);
-        //#else
-        //$$ if (elements.isEmpty()) {
-        //$$     return empty();
-        //$$ } else if (elements.size() == 1) {
-        //$$     return transformer.apply(elements.iterator().next()).copy();
-        //$$ } else {
-        //$$     BaseComponent mutableText = empty();
-        //$$     boolean bl = true;
-        //$$
-        //$$     for(T object : elements) {
-        //$$         if (!bl) {
-        //$$             mutableText.append(separator);
-        //$$         }
-        //$$         mutableText.append(transformer.apply(object));
-        //$$         bl = false;
-        //$$     }
-        //$$
-        //$$     return mutableText;
-        //$$ }
-        //#endif
+    public static <T> MutableComponent join(Collection<T> elements, Component separator, Function<T, Component> transformer) {
+        MutableComponent mutableText = empty();
+        boolean bl = false;
+        for(T object : elements) {
+            if (bl) {
+                mutableText.append(separator);
+            }
+            mutableText.append(transformer.apply(object));
+            bl = true;
+        }
+        return mutableText;
     }
 
     @Contract(pure = true)
-    public static Component joinTexts(Collection<Component> elements) {
-        return join(elements, empty(), Function.identity());
-    }
-
-    @Contract(pure = true)
-    public static Component joinTexts(Component[] elements) {
-        return joinTexts(Arrays.asList(elements));
+    public static MutableComponent joinObj(Object... objects) {
+        return join(Arrays.asList(objects), empty(), o -> {
+            if (o instanceof Supplier<?>) {
+                o = ((Supplier<?>) o).get();
+            }
+            return o instanceof Component ? (Component) o : Component.literal(String.valueOf(o));
+        });
     }
 
     public static void sendMessageToServer(MinecraftServer server, Component text) {

@@ -122,22 +122,23 @@ public final class AddressCommand {
         if (checkNull(id, address, source)) {
             return 0;
         }
-        sendFeedback(source,
-                TextUtils.joinTexts(new Component[]{
+        sendFeedback(
+                source,
+                TextUtils.joinObj(
                         TR.tr(source, "detail.0", address.getId()).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD),
-                        TextUtils.enter(),
+                        System.lineSeparator(),
                         TR.tr(source, "detail.1").withStyle(ChatFormatting.GREEN),
-                        Component.literal(address.getId()),
-                        TextUtils.enter(),
+                        address.getId(),
+                        System.lineSeparator(),
                         TR.tr(source, "detail.2").withStyle(ChatFormatting.GREEN),
-                        Component.literal(address.getDim()),
-                        TextUtils.enter(),
+                        address.getDim(),
+                        System.lineSeparator(),
                         TR.tr(source, "detail.3").withStyle(ChatFormatting.GREEN),
-                        Component.literal(String.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ())),
-                        TextUtils.enter(),
+                        String.format("%.2f %.2f %.2f", address.getX(), address.getY(), address.getZ()),
+                        System.lineSeparator(),
                         TR.tr(source, "detail.4").withStyle(ChatFormatting.GREEN),
-                        Component.literal(address.getDesc())
-                }),
+                        address.getDesc()
+                ),
                 false);
         address.onDetailDisplayed();
         return 1;

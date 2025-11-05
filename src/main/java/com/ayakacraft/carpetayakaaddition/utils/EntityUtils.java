@@ -20,19 +20,26 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import com.ayakacraft.carpetayakaaddition.mixin.commands.gohome.LivingEntityAccessor;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.Contract;
+
+import java.util.Map;
 
 public final class EntityUtils {
 
-    @PreprocessPattern
-    private static Vec3 getPos(Entity player) {
-        //#if MC>=12109
-        //$$ return player.position();
-        //#else
-        return player.position();
-        //#endif
+    @Contract(pure = true)
+    public static Map<
+            //#if MC>=12006
+            //$$ net.minecraft.core.Holder<MobEffect>
+            //#else
+            MobEffect
+            //#endif
+            , MobEffectInstance> getActiveEffects(LivingEntity entity) {
+        return ((LivingEntityAccessor) entity).getActiveEffects$Ayaka();
     }
 
     public static void kill(Entity entity) {

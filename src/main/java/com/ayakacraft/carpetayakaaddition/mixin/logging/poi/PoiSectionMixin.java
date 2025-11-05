@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PoiSection.class)
-public class PointOfInterestSetMixin {
+public class PoiSectionMixin {
 
     @Inject(
             //#if MC>=12109

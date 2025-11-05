@@ -40,6 +40,6 @@ public interface LivingEntityAccessor {
             //#else
             MobEffect
             //#endif
-            , MobEffectInstance> getActiveStatusEffects$Ayaka();
+            , MobEffectInstance> getActiveEffects$Ayaka();
 
 }

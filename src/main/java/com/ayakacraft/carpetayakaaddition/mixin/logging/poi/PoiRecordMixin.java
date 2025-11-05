@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PoiRecord.class)
-public class PointOfInterestMixin {
+public class PoiRecordMixin {
 
     @Shadow
     private int freeTickets;

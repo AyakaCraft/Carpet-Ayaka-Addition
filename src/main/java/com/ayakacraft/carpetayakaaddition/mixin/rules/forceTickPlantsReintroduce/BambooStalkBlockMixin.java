@@ -18,41 +18,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.forceTickPlantsReintroduce;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.players.PlayerList;
-import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.BambooStalkBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.9"))
-@Mixin(PlayerList.class)
-public class PlayerManagerMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
+@Mixin(BambooStalkBlock.class)
+public abstract class BambooStalkBlockMixin {
+
+    @Inject(method = "tick", at = @At("RETURN"))
+    private void onScheduledTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canSurvive(world, pos)) {
+            randomTick(state, world, pos, random);
+        }
+    }
 
     @Shadow
-    @Final
-    protected int maxPlayers;
-
-    @Redirect(
-            method = {"canPlayerLogin", "getMaxPlayers"},
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/server/players/PlayerList;maxPlayers:I",
-                    opcode = Opcodes.GETFIELD
-            )
-    )
-    private int onGetMaxPlayers(PlayerList instance) {
-        if (CarpetAyakaSettings.maxPlayersOverwrite == 0) {
-            return this.maxPlayers;
-        }
-        return CarpetAyakaSettings.maxPlayersOverwrite;
-    }
+    //#if MC>=12006
+    protected
+    //#else
+    //$$ public
+    //#endif
+    abstract void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
 
 }

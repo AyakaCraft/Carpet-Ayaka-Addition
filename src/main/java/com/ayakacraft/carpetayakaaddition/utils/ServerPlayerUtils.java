@@ -20,7 +20,6 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.mixin.commands.gohome.LivingEntityAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import net.minecraft.server.level.ServerLevel;
@@ -29,15 +28,6 @@ import net.minecraft.world.level.GameType;
 import org.jetbrains.annotations.Contract;
 
 public final class ServerPlayerUtils {
-
-    @PreprocessPattern
-    private static String getClientLanguageServerSide(ServerPlayer player) {
-        //#if MC>=12006
-        return player.clientInformation().language();
-        //#else
-        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage) player).getClientLanguage$Ayaka();
-        //#endif
-    }
 
     @PreprocessPattern
     private static ServerLevel getServerLevel(ServerPlayer player) {
@@ -49,26 +39,23 @@ public final class ServerPlayerUtils {
     }
 
     @Contract(pure = true)
+    public static String getClientLanguageCode(ServerPlayer player) {
+        //#if MC>=12006
+        return player.clientInformation().language();
+        //#else
+        //$$ return ((com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage) player).getClientLanguage$Ayaka();
+        //#endif
+    }
+
+    @Contract(pure = true)
     public static AyakaLanguage getLanguage(ServerPlayer player) {
         String lang;
         if (player.serverLevel().getServer().isDedicatedServer()) {
-            lang = player.clientInformation().language();
+            lang = getClientLanguageCode(player);
         } else {
             lang = ClientUtils.getLanguageCode();
         }
         return AyakaLanguage.get(lang);
-    }
-
-    public static boolean changeGameMode(ServerPlayer player, GameType gameMode) {
-        //#if MC>=11700
-        return player.setGameMode(gameMode);
-        //#else
-        //$$ if(player.gameMode.getGameModeForPlayer() == gameMode) {
-        //$$     return false;
-        //$$ }
-        //$$ player.setGameMode(gameMode);
-        //$$ return true;
-        //#endif
     }
 
     @Contract(pure = true)
@@ -91,6 +78,18 @@ public final class ServerPlayerUtils {
                 //$$ player.getViewXRot(1f)
                 //#endif
         );
+    }
+
+    public static boolean changeGameMode(ServerPlayer player, GameType gameMode) {
+        //#if MC>=11700
+        return player.setGameMode(gameMode);
+        //#else
+        //$$ if(player.gameMode.getGameModeForPlayer() == gameMode) {
+        //$$     return false;
+        //$$ }
+        //$$ player.setGameMode(gameMode);
+        //$$ return true;
+        //#endif
     }
 
     public static void teleport(ServerPlayer player, ServerLevel dim, double x, double y, double z, float yaw, float pitch) {
@@ -125,7 +124,7 @@ public final class ServerPlayerUtils {
                 //#endif
         );
         newPlayer.connection.player = newPlayer;
-        ((LivingEntityAccessor) newPlayer).getActiveStatusEffects$Ayaka().putAll(((LivingEntityAccessor) player).getActiveStatusEffects$Ayaka());
+        EntityUtils.getActiveEffects(newPlayer).putAll(EntityUtils.getActiveEffects(player));
     }
 
 }

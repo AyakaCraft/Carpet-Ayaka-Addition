@@ -18,31 +18,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.utils;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 
-import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
+import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.spongepowered.asm.mixin.Mixin;
 
-public final class EventUtils {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
+@Mixin(DummyClass.class)
+public interface SpawnStateInvoker {
 
-    @PreprocessPattern
-    private static ClickEvent runCommand(String cmd) {
-        //#if MC>=12105
-        //$$ return new ClickEvent.RunCommand(cmd);
-        //#else
-        return new ClickEvent(ClickEvent.Action.RUN_COMMAND, cmd);
-        //#endif
-    }
-
-    @PreprocessPattern
-    private static HoverEvent showText(Component txt) {
-        //#if MC>=12105
-        //$$ return new HoverEvent.ShowText(txt);
-        //#else
-        return new HoverEvent(HoverEvent.Action.SHOW_TEXT, txt);
-        //#endif
-    }
+    // Implementation in main project
 
 }

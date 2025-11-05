@@ -22,18 +22,7 @@ package com.ayakacraft.carpetayakaaddition.utils.preprocess;
 
 import com.google.gson.GsonBuilder;
 
-import java.util.List;
-
 public final class NonMinecraftPatterns {
-
-    @PreprocessPattern
-    private static <T> List<T> emptyList() {
-        //#if MC>=11700
-        return List.of();
-        //#else
-        //$$ return new java.util.ArrayList<>();
-        //#endif
-    }
 
     @PreprocessPattern
     private static GsonBuilder setLenient(GsonBuilder builder) {

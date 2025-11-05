@@ -18,21 +18,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.foxNoPickupItem;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.disableBatSpawning;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.world.entity.animal.Fox;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ambient.Bat;
+import net.minecraft.world.level.LevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(Fox.class)
-public class FoxEntityMixin {
+@Mixin(Bat.class)
+public class BatMixin {
 
-    @WrapMethod(method = "canHoldItem")
-    private boolean onPickupItem(ItemStack stack, Operation<Boolean> original) {
-        return !CarpetAyakaSettings.foxNoPickupItem && original.call(stack);
+    @WrapMethod(method = "checkBatSpawnRules")
+    private static boolean disableBatSpawning(EntityType<Bat> type, LevelAccessor world, MobSpawnType spawnReason, BlockPos pos, RandomSource random, Operation<Boolean> original) {
+        return !(CarpetAyakaSettings.disableBatSpawning && (spawnReason == MobSpawnType.NATURAL || spawnReason == MobSpawnType.CHUNK_GENERATION)) && original.call(type, world, spawnReason, pos, random);
     }
 
 }

@@ -33,7 +33,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -133,16 +132,16 @@ public final class KillItemCommand {
         public void start() {
             TextUtils.broadcast(
                     mcServer,
-                    TextUtils.joinTexts(new Component[]{
+                    TextUtils.joinObj(
                             TR.tr("task.start.0", awaitSeconds).withStyle(ChatFormatting.GOLD),
-                            TextUtils.space(),
+                            " ",
                             TextUtils.withCommand(TR.tr("task.start.1"), "/killitem cancel")
-                    }),
-                    p -> TextUtils.joinTexts(new Component[]{
+                    ),
+                    p -> TextUtils.joinObj(
                             TR.tr(p, "task.start.0", awaitSeconds).withStyle(ChatFormatting.GOLD),
-                            TextUtils.space(),
+                            " ",
                             TextUtils.withCommand(TR.tr(p, "task.start.1"), "/killitem cancel")
-                    }),
+                    ),
                     false
             );
         }

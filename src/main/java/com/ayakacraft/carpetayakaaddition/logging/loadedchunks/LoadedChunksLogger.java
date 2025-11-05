@@ -48,8 +48,6 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private static final short DEFAULT_INDEX = 1;
 
-    private static final String FORMAT = "%d/%d";
-
     private static final Component SEPARATOR = Component.literal("/").withStyle(ChatFormatting.GRAY);
 
     private static final ResourceLocation OVW_ID = new ResourceLocation("overworld");
@@ -103,7 +101,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             t2.withStyle(ChatFormatting.DARK_AQUA);
         }
 
-        return TextUtils.format("{}{}{}", t1, SEPARATOR, t2);
+        return TextUtils.joinObj(t1, SEPARATOR, t2);
     }
 
     @Override
@@ -124,7 +122,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     public MutableComponent updateSingleLine(String playerOption, Player player) {
         ServerPlayer sPlayer = (ServerPlayer) player;
         Component    header  = TR.tr(sPlayer, null).withStyle(ChatFormatting.GRAY);
-        Component    value;
+        MutableComponent    value;
 
         if (OPTIONS[1].equals(playerOption)) {
             playerOption = sPlayer.serverLevel().dimension().location().toString();
@@ -133,14 +131,14 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         if (OPTIONS[0].equals(playerOption)) {
             List<Component> txtList = Lists.newLinkedList();
             txtList.add(header);
-            txtList.add(TextUtils.format(FORMAT, loadedChunksCountAllSpawnable, loadedChunksCountAll).withStyle(ChatFormatting.GRAY));
+            txtList.add(TextUtils.joinObj(loadedChunksCountAllSpawnable, "/", loadedChunksCountAll).withStyle(ChatFormatting.GRAY));
             loadedChunksCounts.keySet().stream().map(this::getCountText).forEach(txtList::add);
-            value = TextUtils.join(txtList, TextUtils.space(), Function.identity());
+            value = TextUtils.join(txtList, Component.literal(" "), Function.identity());
         } else {
-            value = TextUtils.format("{} {}", header, getCountText(new ResourceLocation(playerOption)));
+            value = TextUtils.joinObj(header, " ", getCountText(new ResourceLocation(playerOption)));
         }
 
-        return (MutableComponent) value;
+        return value;
     }
 
     public void tryLog(ChunkMap chunkMap, ServerLevel world) {

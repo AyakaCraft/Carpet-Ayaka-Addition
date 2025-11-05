@@ -30,6 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DummyClass.class)
 public class HoneyBlockMixin {
 
-    // Implementation in 1.21.4
+    // Implementation in 1.21.3
 
 }
