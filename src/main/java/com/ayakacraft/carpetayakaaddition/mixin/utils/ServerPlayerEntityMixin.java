@@ -25,8 +25,7 @@ import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,26 +33,29 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.20.6"))
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public class ServerPlayerEntityMixin implements WithClientLanguage {
 
     @Unique
     private String clientLanguage = AyakaLanguage.getServerLanguage().code();
 
-    @Inject(method = "setClientOptions", at = @At("RETURN"))
-    //#if MC>=11800
-    private void catchClientLanguage(SyncedClientOptions clientOptions, CallbackInfo ci) {
+    @Inject(method = "updateOptions", at = @At("RETURN"))
+    private void catchClientLanguage(
+            //#if MC>=12006
+            net.minecraft.server.level.ClientInformation clientOptions,
+            //#else
+            //$$ net.minecraft.network.protocol.game.ServerboundClientInformationPacket clientOptions,
+            //#endif
+            CallbackInfo ci
+    ) {
+        //#if MC>=11800
         clientLanguage = clientOptions.language();
+        //#elseif MC>=11600
+        //$$ clientLanguage = ((ClientSettingsC2SPacketAccessor) clientOptions).getLanguage$Ayaka();
+        //#else
+        //$$ clientLanguage = clientOptions.getLanguage();
+        //#endif
     }
-    //#else
-    //$$ private void catchClientLanguage(ClientSettingsC2SPacket clientOptions, CallbackInfo ci) {
-    //$$     //#if MC>=11600
-    //$$     clientLanguage = ((ClientSettingsC2SPacketAccessor) clientOptions).getLanguage();
-    //$$     //#else
-    //$$     //$$ clientLanguage = clientOptions.getLanguage();
-    //$$     //#endif
-    //$$ }
-    //#endif
 
 
     @Override

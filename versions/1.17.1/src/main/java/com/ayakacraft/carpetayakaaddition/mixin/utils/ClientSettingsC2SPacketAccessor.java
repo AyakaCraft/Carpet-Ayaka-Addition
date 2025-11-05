@@ -23,17 +23,17 @@ package com.ayakacraft.carpetayakaaddition.mixin.utils;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.packet.c2s.play.ClientSettingsC2SPacket;
+import net.minecraft.network.protocol.game.ServerboundClientInformationPacket;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16 <1.18"))
-@Mixin(ClientSettingsC2SPacket.class)
+@Mixin(ServerboundClientInformationPacket.class)
 public interface ClientSettingsC2SPacketAccessor {
 
     @Contract(pure = true)
     @Accessor("language")
-    String getLanguage();
+    String getLanguage$Ayaka();
 
 }

@@ -21,28 +21,24 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 
 public final class EntityUtils {
 
     @PreprocessPattern
-    private static Vec3d getPos(Entity player) {
+    private static Vec3 getPos(Entity player) {
         //#if MC>=12109
-        //$$ return player.getEntityPos();
+        //$$ return player.position();
         //#else
-        return player.getPos();
+        return player.position();
         //#endif
     }
 
     public static void kill(Entity entity) {
-        //#if MC>=12109
-        //$$ if (!entity.getEntityWorld().isClient()) {
-        //$$     entity.kill((net.minecraft.server.world.ServerWorld) entity.getEntityWorld());
-        //$$ }
-        //#elseif MC>=12102
-        //$$ if (!entity.getWorld().isClient()) {
-        //$$     entity.kill((net.minecraft.server.world.ServerWorld) entity.getWorld());
+        //#if MC>=12102
+        //$$ if (!entity.level().isClientSide()) {
+        //$$     entity.kill((net.minecraft.server.level.ServerLevel) entity.level());;
         //$$ }
         //#else
         entity.kill();

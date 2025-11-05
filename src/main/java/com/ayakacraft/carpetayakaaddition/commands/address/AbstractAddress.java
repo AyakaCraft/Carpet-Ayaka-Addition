@@ -21,10 +21,10 @@
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import com.ayakacraft.carpetayakaaddition.utils.MathUtils;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -55,7 +55,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
 
     protected boolean pinned = false;
 
-    public AbstractAddress(String id, String dim, Vec3d pos, String desc, long weight) {
+    public AbstractAddress(String id, String dim, Vec3 pos, String desc, long weight) {
         this.id = id;
         this.dim = dim;
         this.x = pos.x;
@@ -65,7 +65,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
         this.weight = weight;
     }
 
-    public AbstractAddress(String id, D dim, Vec3d pos, String desc, long weight) {
+    public AbstractAddress(String id, D dim, Vec3 pos, String desc, long weight) {
         this.id = id;
         this.dim = transDim(dim);
         this.x = pos.x;
@@ -107,8 +107,8 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
     }
 
     @Contract(pure = true)
-    public Vec3d getPos() {
-        return new Vec3d(x, y, z);
+    public Vec3 getPos() {
+        return new Vec3(x, y, z);
     }
 
     @Contract(pure = true)
@@ -137,12 +137,12 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
                 XAERO_WAYPOINT_FORMAT,
                 id, id.charAt(0),
                 (int) x, (int) y, (int) z,
-                new Identifier(dim).getPath().replace('_', '-')
+                new ResourceLocation(dim).getPath().replace('_', '-')
         );
     }
 
     @Contract(pure = true)
-    public abstract boolean isInWorld(World world);
+    public abstract boolean isInWorld(Level world);
 
     @Contract(mutates = "this")
     public void onDetailDisplayed() {

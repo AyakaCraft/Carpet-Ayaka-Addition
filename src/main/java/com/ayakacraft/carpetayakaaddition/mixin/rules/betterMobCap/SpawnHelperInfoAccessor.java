@@ -23,21 +23,21 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.NaturalSpawner;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.16"))
-@Mixin(SpawnHelper.Info.class)
+@Mixin(NaturalSpawner.SpawnState.class)
 public interface SpawnHelperInfoAccessor {
 
     @Contract(pure = true)
-    @Invoker("isBelowCap")
-    boolean checkBelowCap(
-            SpawnGroup group
+    @Invoker("canSpawnForCategory")
+    boolean checkGlobal$Ayaka(
+            MobCategory group
             //#if MC>=12102
             //#elseif MC>=11800
             , ChunkPos chunkPos
@@ -46,8 +46,8 @@ public interface SpawnHelperInfoAccessor {
 
     //#if MC>=12102
     //$$ @Contract(pure = true)
-    //$$ @Invoker("canSpawn")
-    //$$ boolean checkCanSpawn(SpawnGroup group, ChunkPos chunkPos);
+    //$$ @Invoker("canSpawnForCategoryLocal")
+    //$$ boolean checkLocal$Ayaka(MobCategory group, ChunkPos chunkPos);
     //#endif
 
 }

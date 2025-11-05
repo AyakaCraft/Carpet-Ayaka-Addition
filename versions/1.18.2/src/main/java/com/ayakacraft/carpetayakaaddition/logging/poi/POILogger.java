@@ -24,11 +24,11 @@ import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.BaseText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 public class POILogger extends AbstractAyakaLogger {
 
@@ -51,43 +51,43 @@ public class POILogger extends AbstractAyakaLogger {
         super(NAME, null, new String[0], false);
     }
 
-    private BaseText[] doAddedLogging(BlockPos pos, PointOfInterestType type, ServerPlayerEntity player) {
-        return new BaseText[]{TR.tr(
+    private BaseComponent[] doAddedLogging(BlockPos pos, PoiType type, ServerPlayer player) {
+        return new BaseComponent[]{TR.tr(
                 player,
                 "added",
-                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(SectionPos.of(pos)),
                 StringUtils.posString(pos),
                 type.toString()
         )};
     }
 
-    private BaseText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
-        return new BaseText[]{TR.tr(
+    private BaseComponent[] doRemovedLogging(BlockPos pos, ServerPlayer player) {
+        return new BaseComponent[]{TR.tr(
                 player,
                 "removed",
-                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(SectionPos.of(pos)),
                 StringUtils.posString(pos)
         )};
     }
 
-    private BaseText[] doTickedReservedLogging(BlockPos pos, PointOfInterestType type, int freeTickets, ServerPlayerEntity player) {
-        return new BaseText[]{TR.tr(
+    private BaseComponent[] doTickedReservedLogging(BlockPos pos, PoiType type, int freeTickets, ServerPlayer player) {
+        return new BaseComponent[]{TR.tr(
                 player,
                 "ticket_reserved",
-                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(SectionPos.of(pos)),
                 StringUtils.posString(pos),
                 type.toString(),
-                freeTickets, type.getTicketCount()
+                freeTickets, type.getMaxTickets()
         )};
     }
 
-    private BaseText[] doTickedReleasedLogging(BlockPos pos, PointOfInterestType type, int freeTickets, ServerPlayerEntity player) {
-        return new BaseText[]{TR.tr(player,
+    private BaseComponent[] doTickedReleasedLogging(BlockPos pos, PoiType type, int freeTickets, ServerPlayer player) {
+        return new BaseComponent[]{TR.tr(player,
                 "ticket_released",
-                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(SectionPos.of(pos)),
                 StringUtils.posString(pos),
                 type.toString(),
-                freeTickets, type.getTicketCount()
+                freeTickets, type.getMaxTickets()
         )};
     }
 
@@ -96,27 +96,27 @@ public class POILogger extends AbstractAyakaLogger {
         return AyakaLoggerRegistry.__poi;
     }
 
-    public void onAdded(BlockPos pos, PointOfInterestType type) {
+    public void onAdded(BlockPos pos, PoiType type) {
         if (isEnabled()) {
-            log((playerOption, player) -> doAddedLogging(pos, type, (ServerPlayerEntity) player));
+            log((playerOption, player) -> doAddedLogging(pos, type, (ServerPlayer) player));
         }
     }
 
     public void onRemoved(BlockPos pos) {
         if (isEnabled()) {
-            log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayerEntity) player)));
+            log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayer) player)));
         }
     }
 
-    public void onTicketReserved(BlockPos pos, PointOfInterestType type, int freeTickets) {
+    public void onTicketReserved(BlockPos pos, PoiType type, int freeTickets) {
         if (isEnabled()) {
-            log(((playerOption, player) -> doTickedReservedLogging(pos, type, freeTickets, (ServerPlayerEntity) player)));
+            log(((playerOption, player) -> doTickedReservedLogging(pos, type, freeTickets, (ServerPlayer) player)));
         }
     }
 
-    public void onTicketReleased(BlockPos pos, PointOfInterestType type, int freeTickets) {
+    public void onTicketReleased(BlockPos pos, PoiType type, int freeTickets) {
         if (isEnabled()) {
-            log(((playerOption, player) -> doTickedReleasedLogging(pos, type, freeTickets, (ServerPlayerEntity) player)));
+            log(((playerOption, player) -> doTickedReleasedLogging(pos, type, freeTickets, (ServerPlayer) player)));
         }
     }
 

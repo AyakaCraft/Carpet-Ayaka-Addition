@@ -20,34 +20,34 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.phys.Vec3;
 
 public class Address extends AbstractAddress<DimensionType> {
 
-    public Address(String id, String dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, String dim, Vec3 pos, String desc, long weight) {
         super(id, dim, pos, desc, weight);
     }
 
-    public Address(String id, DimensionType dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, DimensionType dim, Vec3 pos, String desc, long weight) {
         super(id, dim, pos, desc, weight);
     }
 
     @Override
     protected String transDim(DimensionType dimensionType) {
-        return String.valueOf(DimensionType.getId(dimensionType));
+        return String.valueOf(DimensionType.getName(dimensionType));
     }
 
     @Override
     public DimensionType getDimension() {
-        return DimensionType.byId(new Identifier(dim));
+        return DimensionType.getByName(new ResourceLocation(dim));
     }
 
     @Override
-    public boolean isInWorld(World world) {
-        return String.valueOf(DimensionType.getId(world.getDimension().getType())).equals(dim);
+    public boolean isInWorld(Level world) {
+        return String.valueOf(DimensionType.getName(world.getDimension().getType())).equals(dim);
     }
 
 }

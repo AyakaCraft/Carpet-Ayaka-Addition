@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.settings;
 import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Validator;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Nullable;
 
 public final class Validators {
@@ -33,7 +33,7 @@ public final class Validators {
         public static final int ITEM_DISCARD_AGE_MAX_VALUE = 72000;
 
         @Override
-        public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
+        public Integer validate(@Nullable CommandSourceStack source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
             return (newValue < 0 || newValue > ITEM_DISCARD_AGE_MAX_VALUE) ? null : newValue;
         }
 
@@ -50,7 +50,7 @@ public final class Validators {
     public static class UnsignedDoubleValidator extends Validator<Double> {
 
         @Override
-        public Double validate(@Nullable ServerCommandSource source, CarpetRule<Double> changingRule, Double newValue, String userInput) {
+        public Double validate(@Nullable CommandSourceStack source, CarpetRule<Double> changingRule, Double newValue, String userInput) {
             return newValue < 0 ? null : newValue;
         }
 
@@ -64,7 +64,7 @@ public final class Validators {
     public static class UnsignedIntegerValidator extends Validator<Integer> {
 
         @Override
-        public Integer validate(@Nullable ServerCommandSource source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
+        public Integer validate(@Nullable CommandSourceStack source, CarpetRule<Integer> changingRule, Integer newValue, String userInput) {
             return newValue < 0 ? null : newValue;
         }
 

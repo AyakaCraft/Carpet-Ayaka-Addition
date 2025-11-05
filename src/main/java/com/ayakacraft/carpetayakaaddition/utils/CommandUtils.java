@@ -25,10 +25,10 @@ import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.minecraft.command.CommandSource;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Contract;
 
 import java.util.concurrent.CompletableFuture;
@@ -36,17 +36,17 @@ import java.util.concurrent.CompletableFuture;
 public final class CommandUtils {
 
     @PreprocessPattern
-    private static boolean isExecutedByPlayer(ServerCommandSource source) {
+    private static boolean isExecutedByPlayer(CommandSourceStack source) {
         //#if MC>=11900
-        return source.isExecutedByPlayer();
+        return source.isPlayer();
         //#else
-        //$$ return (source.getEntity() instanceof net.minecraft.server.network.ServerPlayerEntity);
+        //$$ return (source.getEntity() instanceof net.minecraft.server.level.ServerPlayer);
         //#endif
     }
 
     @Contract(pure = true)
-    public static boolean checkPermission(ServerCommandSource source, Object commandLevel, boolean requiresPlayer) {
-        if (requiresPlayer && !source.isExecutedByPlayer()) {
+    public static boolean checkPermission(CommandSourceStack source, Object commandLevel, boolean requiresPlayer) {
+        if (requiresPlayer && !source.isPlayer()) {
             return false;
         }
 
@@ -63,35 +63,35 @@ public final class CommandUtils {
         //$$ switch (commandLevelString) {
         //$$     case "true": return true;
         //$$     case "false": return false;
-        //$$     case "ops": return source.hasPermissionLevel(source.getMinecraftServer().getOpPermissionLevel());
+        //$$     case "ops": return source.hasPermission(source.getServer().getOperatorUserPermissionLevel());
         //$$     case "0":
         //$$     case "1":
         //$$     case "2":
         //$$     case "3":
         //$$     case "4":
-        //$$         return source.hasPermissionLevel(Integer.parseInt(commandLevelString));
+        //$$         return source.hasPermission(Integer.parseInt(commandLevelString));
         //$$ }
         //$$ return false;
         //#endif
     }
 
     @Contract(pure = true)
-    public static CompletableFuture<Suggestions> suggestPlayerNames(CommandContext<ServerCommandSource> context, SuggestionsBuilder builder) {
-        return CommandSource.suggestMatching(context.getSource().getPlayerNames(), builder);
+    public static CompletableFuture<Suggestions> suggestPlayerNames(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
+        return SharedSuggestionProvider.suggest(context.getSource().getOnlinePlayerNames(), builder);
     }
 
-    public static void sendFeedback(ServerCommandSource source, Text txt, boolean broadcastToOps) {
+    public static void sendFeedback(CommandSourceStack source, Component txt, boolean broadcastToOps) {
         //#if MC>=12000
-        source.sendFeedback(() -> txt, broadcastToOps);
+        source.sendSuccess(() -> txt, broadcastToOps);
         //#else
-        //$$ source.sendFeedback(txt, broadcastToOps);
+        //$$ source.sendSuccess(txt, broadcastToOps);
         //#endif
     }
 
     @Contract(pure = true)
-    public static AyakaLanguage getLanguage(ServerCommandSource source) {
-        if (source.isExecutedByPlayer()) {
-            return ServerPlayerUtils.getLanguage((ServerPlayerEntity) source.getEntity());
+    public static AyakaLanguage getLanguage(CommandSourceStack source) {
+        if (source.isPlayer()) {
+            return ServerPlayerUtils.getLanguage((ServerPlayer) source.getEntity());
         }
         return AyakaLanguage.getServerLanguage();
     }

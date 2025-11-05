@@ -35,7 +35,7 @@ import java.lang.reflect.Field;
 public interface ParsedRuleAccessor {
 
     @Invoker("<init>")
-    static ParsedRule<?> invokeConstructor(
+    static ParsedRule<?> invokeConstructor$Ayaka(
             Field field, Rule rule
             //#if MC>=11600
             , carpet.settings.SettingsManager settingsManager

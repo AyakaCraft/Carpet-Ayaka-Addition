@@ -24,20 +24,20 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public final class GoHomeCommand {
 
     public static final String NAME = "gohome";
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandGoHome, true))
                         .executes(context -> {
-                            ServerPlayerUtils.sendHome(context.getSource().getPlayerOrThrow());
+                            ServerPlayerUtils.sendHome(context.getSource().getPlayerOrException());
                             return 1;
                         })
         );

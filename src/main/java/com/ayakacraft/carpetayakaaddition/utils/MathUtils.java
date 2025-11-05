@@ -20,14 +20,14 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 
 public final class MathUtils {
 
     @Contract(pure = true)
-    public static ChunkPos getChunkPos(Vec3d pos) {
+    public static ChunkPos getChunkPos(Vec3 pos) {
         return new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
     }
 

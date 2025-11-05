@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.utils.text;
 
 import com.google.common.collect.Lists;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.Contract;
 
 import java.util.List;
@@ -30,10 +30,10 @@ import java.util.List;
 public final class TextFormatter {
 
     @Contract(mutates = "param2, param3")
-    private static void divide(Object[] args, List<Text> textArgs, List<Object> objArgs) {
+    private static void divide(Object[] args, List<Component> textArgs, List<Object> objArgs) {
         for (Object o : args) {
-            if (o instanceof Text) {
-                textArgs.add((Text) o);
+            if (o instanceof Component) {
+                textArgs.add((Component) o);
             } else {
                 objArgs.add(o);
             }
@@ -58,27 +58,27 @@ public final class TextFormatter {
     }
 
     @Contract(pure = true)
-    public static MutableText format(String format, Object... args) {
+    public static MutableComponent format(String format, Object... args) {
         if (args == null || args.length == 0) {
-            return Text.literal(format);
+            return Component.literal(format);
         }
 
-        List<Text>   textArgs = Lists.newLinkedList();
-        List<Object> objArgs  = Lists.newLinkedList();
+        List<Component> textArgs = Lists.newLinkedList();
+        List<Object>    objArgs  = Lists.newLinkedList();
         divide(args, textArgs, objArgs);
 
         return format(String.format(format, objArgs.toArray()), textArgs);
     }
 
     @Contract(pure = true)
-    public static MutableText format(String format, List<Text> args) {
+    public static MutableComponent format(String format, List<Component> args) {
         if (args == null || args.isEmpty()) {
-            return Text.literal(format);
+            return Component.literal(format);
         }
 
-        List<String> split        = splitString(format, args.size());
-        int          sizeMinusOne = split.size() - 1;
-        MutableText  txt          = TextUtils.empty();
+        List<String>     split        = splitString(format, args.size());
+        int              sizeMinusOne = split.size() - 1;
+        MutableComponent txt          = TextUtils.empty();
         for (int i = 0; i < sizeMinusOne; i++) {
             txt.append(split.get(i)).append(args.get(i));
         }

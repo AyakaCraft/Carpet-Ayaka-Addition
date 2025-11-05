@@ -27,18 +27,18 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.EffectCommand;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.EffectCommands;
 import org.spongepowered.asm.mixin.Mixin;
 
 //Do not remove the lines below
 //TODO update in 1.21.6
 @Restriction(require = @Condition(ModUtils.TIS_ID))
-@Mixin(EffectCommand.class)
+@Mixin(EffectCommands.class)
 public class EffectCommandMixin {
 
     @WrapMethod(method = "method_13235")
-    private static boolean checkIfAllowCheating(ServerCommandSource source, Operation<Boolean> original) {
+    private static boolean checkIfAllowCheating(CommandSourceStack source, Operation<Boolean> original) {
         return !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source)) && original.call(source);
     }
 

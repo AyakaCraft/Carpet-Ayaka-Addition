@@ -22,12 +22,12 @@ package com.ayakacraft.carpetayakaaddition.utils.text;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Arrays;
@@ -37,54 +37,54 @@ import java.util.function.Function;
 public final class TextUtils {
 
     @PreprocessPattern
-    private static MutableText literalText(String str) {
+    private static MutableComponent literalText(String str) {
         //#if MC>=11900
-        return Text.literal(str);
+        return Component.literal(str);
         //#else
-        //$$ return new net.minecraft.text.LiteralText(str);
+        //$$ return new net.minecraft.network.chat.TextComponent(str);
         //#endif
     }
 
     @PreprocessPattern
-    private static MutableText translatableText(String key, Object... args) {
+    private static MutableComponent translatableText(String key, Object... args) {
         //#if MC>=11900
-        return Text.translatable(key, args);
+        return Component.translatable(key, args);
         //#else
-        //$$ return new net.minecraft.text.TranslatableText(key, args);
+        //$$ return new net.minecraft.network.chat.TranslatableComponent(key, args);
         //#endif
     }
 
     @Contract(pure = true)
-    public static MutableText format(String str, Object... args) {
+    public static MutableComponent format(String str, Object... args) {
         return TextFormatter.format(str, args);
     }
 
     @Contract(pure = true)
-    public static MutableText enter() {
-        return Text.literal(System.lineSeparator());
+    public static MutableComponent enter() {
+        return Component.literal(System.lineSeparator());
     }
 
     @Contract(pure = true)
-    public static MutableText space() {
-        return Text.literal(" ");
+    public static MutableComponent space() {
+        return Component.literal(" ");
     }
 
     @Contract(pure = true)
-    public static MutableText empty() {
-        return Text.literal("");
+    public static MutableComponent empty() {
+        return Component.literal("");
     }
 
     @Contract(pure = true)
-    public static <T> Text join(Collection<T> elements, Text separator, Function<T, Text> transformer) {
+    public static <T> Component join(Collection<T> elements, Component separator, Function<T, Component> transformer) {
         //#if MC>=11700
-        return net.minecraft.text.Texts.join(elements, separator, transformer);
+        return net.minecraft.network.chat.ComponentUtils.formatList(elements, separator, transformer);
         //#else
         //$$ if (elements.isEmpty()) {
         //$$     return empty();
         //$$ } else if (elements.size() == 1) {
-        //$$     return transformer.apply(elements.iterator().next()).shallowCopy();
+        //$$     return transformer.apply(elements.iterator().next()).copy();
         //$$ } else {
-        //$$     BaseText mutableText = empty();
+        //$$     BaseComponent mutableText = empty();
         //$$     boolean bl = true;
         //$$
         //$$     for(T object : elements) {
@@ -101,36 +101,36 @@ public final class TextUtils {
     }
 
     @Contract(pure = true)
-    public static Text joinTexts(Collection<Text> elements) {
+    public static Component joinTexts(Collection<Component> elements) {
         return join(elements, empty(), Function.identity());
     }
 
     @Contract(pure = true)
-    public static Text joinTexts(Text[] elements) {
+    public static Component joinTexts(Component[] elements) {
         return joinTexts(Arrays.asList(elements));
     }
 
-    public static void sendMessageToServer(MinecraftServer server, Text text) {
+    public static void sendMessageToServer(MinecraftServer server, Component text) {
         //#if MC>=11900
-        server.sendMessage(text);
+        server.sendSystemMessage(text);
         //#elseif MC>=11600
-        //$$ server.sendSystemMessage(text, null);
+        //$$ server.sendMessage(text, null);
         //#else
         //$$ server.sendMessage(text);
         //#endif
     }
 
-    public static void broadcast(MinecraftServer server, Text txt, boolean overlay) {
+    public static void broadcast(MinecraftServer server, Component txt, boolean overlay) {
         sendMessageToServer(server, txt);
-        server.getPlayerManager().getPlayerList().forEach(p -> p.sendMessage(txt, overlay));
+        server.getPlayerList().getPlayers().forEach(p -> p.displayClientMessage(txt, overlay));
     }
 
-    public static void broadcast(MinecraftServer server, Text textForServer, Function<ServerPlayerEntity, Text> textFunction, boolean overlay) {
+    public static void broadcast(MinecraftServer server, Component textForServer, Function<ServerPlayer, Component> textFunction, boolean overlay) {
         sendMessageToServer(server, textForServer);
-        server.getPlayerManager().getPlayerList().forEach(player -> {
-            Text t = textFunction.apply(player);
+        server.getPlayerList().getPlayers().forEach(player -> {
+            Component t = textFunction.apply(player);
             if (t != null) {
-                player.sendMessage(t, overlay);
+                player.displayClientMessage(t, overlay);
             }
         });
     }
@@ -145,11 +145,11 @@ public final class TextUtils {
     }
 
     @Contract(mutates = "param1")
-    public static MutableText withCommand(MutableText text, String command) {
-        text.styled(style ->
+    public static MutableComponent withCommand(MutableComponent text, String command) {
+        text.withStyle(style ->
                 style
                         .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal(command))));
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(command))));
         return text;
     }
 

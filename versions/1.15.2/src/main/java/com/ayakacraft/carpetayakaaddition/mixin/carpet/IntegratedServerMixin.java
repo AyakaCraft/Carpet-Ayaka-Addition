@@ -24,7 +24,7 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaServer;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.client.server.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(IntegratedServer.class)
 public class IntegratedServerMixin {
 
-    @Inject(method = "loadWorld", at = @At("RETURN"))
+    @Inject(method = "loadLevel", at = @At("RETURN"))
     private void onLoadWorld(CallbackInfo ci) {
         CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
     }

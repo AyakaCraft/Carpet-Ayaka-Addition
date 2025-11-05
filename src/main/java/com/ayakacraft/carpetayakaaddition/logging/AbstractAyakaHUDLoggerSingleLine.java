@@ -20,8 +20,8 @@
 
 package com.ayakacraft.carpetayakaaddition.logging;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
 
 public abstract class AbstractAyakaHUDLoggerSingleLine extends AbstractAyakaHUDLogger {
 
@@ -30,10 +30,10 @@ public abstract class AbstractAyakaHUDLoggerSingleLine extends AbstractAyakaHUDL
     }
 
     @Override
-    public MutableText[] updateContent(String playerOption, PlayerEntity player) {
-        return new MutableText[]{updateSingleLine(playerOption, player)};
+    public MutableComponent[] updateContent(String playerOption, Player player) {
+        return new MutableComponent[]{updateSingleLine(playerOption, player)};
     }
 
-    public abstract MutableText updateSingleLine(String playerOption, PlayerEntity player);
+    public abstract MutableComponent updateSingleLine(String playerOption, Player player);
 
 }

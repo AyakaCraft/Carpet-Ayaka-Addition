@@ -31,16 +31,16 @@ import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.google.common.collect.Lists;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 
 import java.util.List;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 
 public final class KillItemCommand {
@@ -49,7 +49,7 @@ public final class KillItemCommand {
 
     public static final Translator TR = AyakaCommandRegistry.COMMAND_TR.resolve(NAME);
 
-    private static int killItem(CommandContext<ServerCommandSource> context) {
+    private static int killItem(CommandContext<CommandSourceStack> context) {
         if (CarpetAyakaSettings.killItemAwaitSeconds == 0) {
             return killItem0(context.getSource());
         } else {
@@ -58,10 +58,10 @@ public final class KillItemCommand {
         }
     }
 
-    private static int killItem0(ServerCommandSource source) {
+    private static int killItem0(CommandSourceStack source) {
         final List<Entity>    targets = Lists.newLinkedList();
         final MinecraftServer server  = source.getServer();
-        server.getWorlds().forEach(world -> targets.addAll(world.getEntitiesByType(
+        server.getAllLevels().forEach(world -> targets.addAll(world.getEntities(
                 EntityType.ITEM,
                 itemEntity -> true)));
         if (targets.isEmpty()) {
@@ -83,9 +83,9 @@ public final class KillItemCommand {
         return targets.size();
     }
 
-    private static int cancel(CommandContext<ServerCommandSource> context) {
-        final int                 i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
-        final ServerCommandSource source = context.getSource();
+    private static int cancel(CommandContext<CommandSourceStack> context) {
+        final int                i      = CarpetAyakaServer.INSTANCE.cancelTickTasksMatching(tickTask -> tickTask instanceof KillItemTickTask);
+        final CommandSourceStack source = context.getSource();
         if (i == 0) {
             TextUtils.broadcastTranslatable(
                     source.getServer(),
@@ -109,7 +109,7 @@ public final class KillItemCommand {
         return i;
     }
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandKillItem, false))
@@ -121,9 +121,9 @@ public final class KillItemCommand {
 
         private final int awaitSeconds;
 
-        private final ServerCommandSource source;
+        private final CommandSourceStack source;
 
-        public KillItemTickTask(CarpetAyakaServer modServer, int awaitSeconds, ServerCommandSource source) {
+        public KillItemTickTask(CarpetAyakaServer modServer, int awaitSeconds, CommandSourceStack source) {
             super(modServer, awaitSeconds * 20);
             this.awaitSeconds = awaitSeconds;
             this.source = source;
@@ -133,13 +133,13 @@ public final class KillItemCommand {
         public void start() {
             TextUtils.broadcast(
                     mcServer,
-                    TextUtils.joinTexts(new Text[]{
-                            TR.tr("task.start.0", awaitSeconds).formatted(Formatting.GOLD),
+                    TextUtils.joinTexts(new Component[]{
+                            TR.tr("task.start.0", awaitSeconds).withStyle(ChatFormatting.GOLD),
                             TextUtils.space(),
                             TextUtils.withCommand(TR.tr("task.start.1"), "/killitem cancel")
                     }),
-                    p -> TextUtils.joinTexts(new Text[]{
-                            TR.tr(p, "task.start.0", awaitSeconds).formatted(Formatting.GOLD),
+                    p -> TextUtils.joinTexts(new Component[]{
+                            TR.tr(p, "task.start.0", awaitSeconds).withStyle(ChatFormatting.GOLD),
                             TextUtils.space(),
                             TextUtils.withCommand(TR.tr(p, "task.start.1"), "/killitem cancel")
                     }),

@@ -22,22 +22,22 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
-import com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks.ThreadedAnvilChunkStorageAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks.ChunkMapAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.chunk.WorldChunk;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.chunk.LevelChunk;
 
 import java.util.List;
 import java.util.function.Function;
@@ -50,13 +50,13 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private static final String FORMAT = "%d/%d";
 
-    private static final Text SEPARATOR = Text.literal("/").formatted(Formatting.GRAY);
+    private static final Component SEPARATOR = Component.literal("/").withStyle(ChatFormatting.GRAY);
 
-    private static final Identifier OVW_ID = new Identifier("overworld");
+    private static final ResourceLocation OVW_ID = new ResourceLocation("overworld");
 
-    private static final Identifier NETHER_ID = new Identifier("minecraft:the_nether");
+    private static final ResourceLocation NETHER_ID = new ResourceLocation("minecraft:the_nether");
 
-    private static final Identifier END_ID = new Identifier("minecraft:the_end");
+    private static final ResourceLocation END_ID = new ResourceLocation("minecraft:the_end");
 
     public static final String NAME = "loadedChunks";
 
@@ -77,9 +77,9 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         return count == 0 ? "-" : Integer.toString(count);
     }
 
-    public final Object2IntMap<Identifier> loadedChunksCounts = new Object2IntOpenHashMap<>(3);
+    public final Object2IntMap<ResourceLocation> loadedChunksCounts = new Object2IntOpenHashMap<>(3);
 
-    public final Object2IntMap<Identifier> loadedChunksCountsSpawnable = new Object2IntOpenHashMap<>(3);
+    public final Object2IntMap<ResourceLocation> loadedChunksCountsSpawnable = new Object2IntOpenHashMap<>(3);
 
     public int loadedChunksCountAll = 0;
 
@@ -89,18 +89,18 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
     }
 
-    private Text getCountText(Identifier id) {
-        MutableText t1 = Text.literal(getCountString(loadedChunksCountsSpawnable.getInt(id)));
-        MutableText t2 = Text.literal(getCountString(loadedChunksCounts.getInt(id)));
+    private Component getCountText(ResourceLocation id) {
+        MutableComponent t1 = Component.literal(getCountString(loadedChunksCountsSpawnable.getInt(id)));
+        MutableComponent t2 = Component.literal(getCountString(loadedChunksCounts.getInt(id)));
         if (OVW_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_GREEN);
-            t2.formatted(Formatting.DARK_GREEN);
+            t1.withStyle(ChatFormatting.DARK_GREEN);
+            t2.withStyle(ChatFormatting.DARK_GREEN);
         } else if (NETHER_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_RED);
-            t2.formatted(Formatting.DARK_RED);
+            t1.withStyle(ChatFormatting.DARK_RED);
+            t2.withStyle(ChatFormatting.DARK_RED);
         } else if (END_ID.equals(id)) {
-            t1.formatted(Formatting.DARK_AQUA);
-            t2.formatted(Formatting.DARK_AQUA);
+            t1.withStyle(ChatFormatting.DARK_AQUA);
+            t2.withStyle(ChatFormatting.DARK_AQUA);
         }
 
         return TextUtils.format("{}{}{}", t1, SEPARATOR, t2);
@@ -121,48 +121,48 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     }
 
     @Override
-    public MutableText updateSingleLine(String playerOption, PlayerEntity player) {
-        ServerPlayerEntity sPlayer = (ServerPlayerEntity) player;
-        Text               header  = TR.tr(sPlayer, null).formatted(Formatting.GRAY);
-        Text               value;
+    public MutableComponent updateSingleLine(String playerOption, Player player) {
+        ServerPlayer sPlayer = (ServerPlayer) player;
+        Component    header  = TR.tr(sPlayer, null).withStyle(ChatFormatting.GRAY);
+        Component    value;
 
         if (OPTIONS[1].equals(playerOption)) {
-            playerOption = sPlayer.getServerWorld().getRegistryKey().getValue().toString();
+            playerOption = sPlayer.serverLevel().dimension().location().toString();
         }
 
         if (OPTIONS[0].equals(playerOption)) {
-            List<Text> txtList = Lists.newLinkedList();
+            List<Component> txtList = Lists.newLinkedList();
             txtList.add(header);
-            txtList.add(TextUtils.format(FORMAT, loadedChunksCountAllSpawnable, loadedChunksCountAll).formatted(Formatting.GRAY));
+            txtList.add(TextUtils.format(FORMAT, loadedChunksCountAllSpawnable, loadedChunksCountAll).withStyle(ChatFormatting.GRAY));
             loadedChunksCounts.keySet().stream().map(this::getCountText).forEach(txtList::add);
             value = TextUtils.join(txtList, TextUtils.space(), Function.identity());
         } else {
-            value = TextUtils.format("{} {}", header, getCountText(new Identifier(playerOption)));
+            value = TextUtils.format("{} {}", header, getCountText(new ResourceLocation(playerOption)));
         }
 
-        return (MutableText) value;
+        return (MutableComponent) value;
     }
 
-    public void tryLog(ThreadedAnvilChunkStorage threadedAnvilChunkStorage, ServerWorld world) {
+    public void tryLog(ChunkMap chunkMap, ServerLevel world) {
         if (isEnabled()) {
-            ThreadedAnvilChunkStorageAccessor tacsi = (ThreadedAnvilChunkStorageAccessor) threadedAnvilChunkStorage;
+            ChunkMapAccessor chunkMapAccessor = (ChunkMapAccessor) chunkMap;
 
-            int count = threadedAnvilChunkStorage.getLoadedChunkCount();
-            int countSpawnable = (int) tacsi.getChunkHolders().values()
+            int count = chunkMap.size();
+            int countSpawnable = (int) chunkMapAccessor.getVisibleChunks$Ayaka().values()
                     .stream()
                     .filter(chunkHolder -> {
-                        WorldChunk worldChunk = chunkHolder.getWorldChunk();
+                        LevelChunk worldChunk = chunkHolder.getTickingChunk();
                         return worldChunk != null
                                 //#if MC>=11800
-                                && tacsi.whetherShouldTick(worldChunk.getPos())
+                                && chunkMapAccessor.shouldTick$Ayaka(worldChunk.getPos())
                                 //#else
-                                //$$ && !tacsi.whetherTooFarFromPlayersToSpawnMobs(worldChunk.getPos())
+                                //$$ && !chunkMapAccessor.shouldNotTick$Ayaka(worldChunk.getPos())
                                 //#endif
                                 ;
                     })
                     .count();
 
-            Identifier id = world.getRegistryKey().getValue();
+            ResourceLocation id = world.dimension().location();
 
             loadedChunksCountAll += count;
             loadedChunksCountAllSpawnable += countSpawnable;

@@ -20,7 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.core.Vec3i;
 import org.jetbrains.annotations.Contract;
 
 public final class StringUtils {

@@ -27,11 +27,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.storage.NbtWriteView;
-import net.minecraft.util.ErrorReporter;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.storage.TagValueOutput;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -59,7 +59,7 @@ public final class GcaHelper {
                 } catch (ClassNotFoundException e) {
                     clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
                 }
-                spm = clazz.getDeclaredMethod("save", PlayerEntity.class);
+                spm = clazz.getDeclaredMethod("save", Player.class);
                 spm.setAccessible(true);
             } else {
                 LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
@@ -70,7 +70,7 @@ public final class GcaHelper {
         savePlayerMethod = spm;
     }
 
-    private static JsonElement invokeSavePlayer(ServerPlayerEntity player) {
+    private static JsonElement invokeSavePlayer(ServerPlayer player) {
         try {
             if (savePlayerMethod != null) {
                 return (JsonElement) savePlayerMethod.invoke(null, player);
@@ -90,18 +90,18 @@ public final class GcaHelper {
 
         JsonObject fakePlayerList = new JsonObject();
 
-        server.getPlayerManager()
-                .getPlayerList()    // We don't need to ensure that the players are not logged out as the server is not closed yet
+        server.getPlayerList()
+                .getPlayers()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
                 .filter(player -> {
                     if (!(player instanceof EntityPlayerMPFake)) {
                         return false;
                     }
-                    try (ErrorReporter.Logging reporter = new ErrorReporter.Logging(player.getErrorReporterContext(), LOGGER)) {
+                    try (ProblemReporter.ScopedCollector reporter = new ProblemReporter.ScopedCollector(player.problemPath(), LOGGER)) {
                         try {
-                            NbtWriteView valueOutput = NbtWriteView.create(reporter, player.getRegistryManager());
-                            player.writeData(valueOutput);
-                            return !valueOutput.getNbt().contains("gca.NoResident");
+                            TagValueOutput valueOutput = TagValueOutput.createWithContext(reporter, player.registryAccess());
+                            player.saveWithoutId(valueOutput);
+                            return !valueOutput.buildResult().contains("gca.NoResident");
                         } catch (Exception e) {
                             try {
                                 reporter.close();
@@ -114,7 +114,7 @@ public final class GcaHelper {
                 })
                 .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        Path path = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("fake_player.gca.json");
+        Path path = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve("fake_player.gca.json");
         try {
             Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayerList).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {

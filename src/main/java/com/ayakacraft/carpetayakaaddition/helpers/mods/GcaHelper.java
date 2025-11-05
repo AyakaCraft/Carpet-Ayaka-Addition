@@ -26,11 +26,10 @@ import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
-import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -38,7 +37,6 @@ import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Optional;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
@@ -59,7 +57,7 @@ public final class GcaHelper {
                 } catch (ClassNotFoundException e) {
                     clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
                 }
-                spm = clazz.getDeclaredMethod("save", PlayerEntity.class);
+                spm = clazz.getDeclaredMethod("save", Player.class);
                 spm.setAccessible(true);
             } else {
                 LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
@@ -70,7 +68,7 @@ public final class GcaHelper {
         savePlayerMethod = spm;
     }
 
-    private static JsonElement invokeSavePlayer(ServerPlayerEntity player) {
+    private static JsonElement invokeSavePlayer(ServerPlayer player) {
         try {
             if (savePlayerMethod != null) {
                 return (JsonElement) savePlayerMethod.invoke(null, player);
@@ -90,14 +88,14 @@ public final class GcaHelper {
 
         JsonObject fakePlayers = new JsonObject();
 
-        server.getPlayerManager()
-                .getPlayerList()    // We don't need to ensure that the players are not logged out as the server is not closed yet
+        server.getPlayerList()
+                .getPlayers()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
                 .filter(player ->
-                        player instanceof EntityPlayerMPFake && !player.writeNbt(new NbtCompound()).contains("gca.NoResident"))
+                        player instanceof EntityPlayerMPFake && !player.saveWithoutId(new CompoundTag()).contains("gca.NoResident"))
                 .forEach(p -> fakePlayers.add(p.getName().getString(), invokeSavePlayer(p)));
 
-        Path path = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve("fake_player.gca.json");
+        Path path = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve("fake_player.gca.json");
         try {
             Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayers).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {

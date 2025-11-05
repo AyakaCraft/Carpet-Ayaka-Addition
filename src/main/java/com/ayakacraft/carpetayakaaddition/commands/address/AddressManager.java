@@ -99,8 +99,8 @@ public class AddressManager {
     private AddressManager(MinecraftServer server) {
         this.mcServer = server;
 
-        waypointStoragePath = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME);
-        waypointStoragePathOld = server.getSavePath(net.minecraft.util.WorldSavePath.ROOT).resolve(WAYPOINT_FILE_NAME_OLD);
+        waypointStoragePath = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(WAYPOINT_FILE_NAME);
+        waypointStoragePathOld = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(WAYPOINT_FILE_NAME_OLD);
         try {
             load();
         } catch (IOException e) {

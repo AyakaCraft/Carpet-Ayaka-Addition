@@ -22,12 +22,12 @@ package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
 import carpet.patches.EntityPlayerMPFake;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ConnectedClientData;
-import net.minecraft.storage.NbtReadView;
-import net.minecraft.storage.ReadView;
-import net.minecraft.util.ErrorReporter;
+import net.minecraft.network.Connection;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Optional;
@@ -35,18 +35,18 @@ import java.util.Optional;
 public final class FakePlayerDataFixHelper {
 
     @Contract(pure = true)
-    public static void loadPlayerDataAndJoin(EntityPlayerMPFake player, PlayerManager playerManager, ClientConnection connection, ConnectedClientData clientData) {
-        try (ErrorReporter.Logging logging = new ErrorReporter.Logging(player.getErrorReporterContext(), CarpetAyakaAddition.LOGGER)) {
-            Optional<ReadView> readView = playerManager
-                    .loadPlayerData(player.getPlayerConfigEntry())
+    public static void loadPlayerDataAndJoin(EntityPlayerMPFake player, PlayerList playerManager, Connection connection, CommonListenerCookie clientData) {
+        try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(player.problemPath(), CarpetAyakaAddition.LOGGER)) {
+            Optional<ValueInput> readView = playerManager
+                    .loadPlayerData(player.nameAndId())
                     .map((playerNbt) ->
-                            NbtReadView.create(logging, player.getRegistryManager(), playerNbt)
+                            TagValueInput.create(logging, player.registryAccess(), playerNbt)
                     );
-            playerManager.onPlayerConnect(connection, player, clientData);
+            playerManager.placeNewPlayer(connection, player, clientData);
             readView.ifPresent(playerData -> {
-                player.readData(playerData);
-                player.readEnderPearls(playerData);
-                player.readRootVehicle(playerData);
+                player.load(playerData);
+                player.loadAndSpawnEnderPearls(playerData);
+                player.loadAndSpawnParentVehicle(playerData);
                 player.fixStartingPosition.run();
             });
         }

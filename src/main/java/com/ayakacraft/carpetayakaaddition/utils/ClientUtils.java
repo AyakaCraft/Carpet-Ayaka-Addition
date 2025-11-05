@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.LanguageManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.LanguageManager;
 import org.jetbrains.annotations.Contract;
 
 public final class ClientUtils {
@@ -30,15 +30,15 @@ public final class ClientUtils {
     @PreprocessPattern
     private static String getLanguageCode(LanguageManager manager) {
         //#if MC>=11900
-        return manager.getLanguage();
+        return manager.getSelected();
         //#else
-        //$$ return manager.getLanguage().getCode();
+        //$$ return manager.getSelected().getCode();
         //#endif
     }
 
     @Contract(pure = true)
     public static String getLanguageCode() {
-        return MinecraftClient.getInstance().getLanguageManager().getLanguage();
+        return Minecraft.getInstance().getLanguageManager().getSelected();
     }
 
 }

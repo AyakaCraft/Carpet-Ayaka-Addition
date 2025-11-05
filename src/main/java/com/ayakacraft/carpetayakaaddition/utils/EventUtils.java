@@ -21,9 +21,9 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 
 public final class EventUtils {
 
@@ -37,7 +37,7 @@ public final class EventUtils {
     }
 
     @PreprocessPattern
-    private static HoverEvent showText(Text txt) {
+    private static HoverEvent showText(Component txt) {
         //#if MC>=12105
         //$$ return new HoverEvent.ShowText(txt);
         //#else

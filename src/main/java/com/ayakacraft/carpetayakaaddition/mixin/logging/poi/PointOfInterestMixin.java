@@ -21,9 +21,9 @@
 package com.ayakacraft.carpetayakaaddition.mixin.logging.poi;
 
 import com.ayakacraft.carpetayakaaddition.logging.poi.POILogger;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.poi.PointOfInterest;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PointOfInterest.class)
+@Mixin(PoiRecord.class)
 public class PointOfInterestMixin {
 
     @Shadow
@@ -45,22 +45,22 @@ public class PointOfInterestMixin {
     @Final
     private
     //#if MC>=11900
-    net.minecraft.registry.entry.RegistryEntry<PointOfInterestType> type;
+    net.minecraft.core.Holder<PoiType> poiType;
     //#else
-    //$$ PointOfInterestType type;
+    //$$ PoiType poiType;
     //#endif
 
-    @Inject(method = "reserveTicket", at = @At("RETURN"))
+    @Inject(method = "acquireTicket", at = @At("RETURN"))
     private void onTickedReserved(CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValueZ()) {
-            POILogger.INSTANCE.onTicketReserved(pos, type, freeTickets);
+            POILogger.INSTANCE.onTicketReserved(pos, poiType, freeTickets);
         }
     }
 
     @Inject(method = "releaseTicket", at = @At("RETURN"))
     private void onTickedReleased(CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValueZ()) {
-            POILogger.INSTANCE.onTicketReleased(pos, type, freeTickets);
+            POILogger.INSTANCE.onTicketReleased(pos, poiType, freeTickets);
         }
     }
 

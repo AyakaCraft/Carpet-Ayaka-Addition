@@ -1,1 +1,1 @@
-net.minecraft.text.Text shallowCopy() deepCopy()
+net.minecraft.network.chat.Component copy() deepCopy()

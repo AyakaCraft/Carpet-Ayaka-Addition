@@ -90,7 +90,7 @@ configurations {
 dependencies {
     // loom
     minecraft("com.mojang:minecraft:${project.minecraft_version}")
-    mappings("net.fabricmc:yarn:${project.yarn_mappings}:v2")
+    mappings(loom.layered() { officialMojangMappings() })
 
     // fabric
     modImplementation("net.fabricmc:fabric-loader:${project.loader_version}")
@@ -133,7 +133,8 @@ dependencies {
             }
         }
 
-        modRuntimeOnly("curse.maven:xaeros-minimap-263420:${project.xaeros_minimap_version}")
+        // WHY DO YOU USE REFLECTION?????
+        // modRuntimeOnly("curse.maven:xaeros-minimap-263420:${project.xaeros_minimap_version}")
     }
 
     testImplementation("junit:junit:${project.junit_version}")

@@ -20,47 +20,47 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
-public class Address extends AbstractAddress<RegistryKey<World>> {
+public class Address extends AbstractAddress<ResourceKey<Level>> {
 
-    public Address(String id, String dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, String dim, Vec3 pos, String desc, long weight) {
         super(id, dim, pos, desc, weight);
     }
 
-    public Address(String id, RegistryKey<World> dim, Vec3d pos, String desc, long weight) {
+    public Address(String id, ResourceKey<Level> dim, Vec3 pos, String desc, long weight) {
         super(id, dim, pos, desc, weight);
     }
 
     @Contract(pure = true)
     @Override
-    protected String transDim(RegistryKey<World> worldRegistryKey) {
-        return worldRegistryKey.getValue().toString();
+    protected String transDim(ResourceKey<Level> worldRegistryKey) {
+        return worldRegistryKey.location().toString();
     }
 
     @Contract(pure = true)
     @Override
-    public RegistryKey<World> getDimension() {
-        return RegistryKey.of(
+    public ResourceKey<Level> getDimension() {
+        return ResourceKey.create(
                 //#if MC>=11904
-                net.minecraft.registry.RegistryKeys.WORLD,
+                net.minecraft.core.registries.Registries.DIMENSION,
                 //#else
-                //$$ net.minecraft.util.registry.Registry.WORLD_KEY,
+                //$$ net.minecraft.core.Registry.DIMENSION_REGISTRY,
                 //#endif
-                new Identifier(dim)
+                new ResourceLocation(dim)
         );
     }
 
     @Contract(pure = true)
     @Override
-    public boolean isInWorld(World world) {
-        return world.getRegistryKey().getValue().toString().equals(dim);
+    public boolean isInWorld(Level world) {
+        return world.dimension().location().toString().equals(dim);
     }
 
 }

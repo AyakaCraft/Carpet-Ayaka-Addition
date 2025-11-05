@@ -24,7 +24,7 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.GiveCommand;
+import net.minecraft.server.commands.GiveCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(GiveCommand.class)
 public class GiveCommandMixin {
 
-    @ModifyConstant(method = "execute", constant = @Constant(intValue = 100))
+    @ModifyConstant(method = "giveItem", constant = @Constant(intValue = 100))
     private static int modifyMaxCount(int value) {
         return CarpetAyakaSettings.giveLimit == 0 ? value : CarpetAyakaSettings.giveLimit;
     }

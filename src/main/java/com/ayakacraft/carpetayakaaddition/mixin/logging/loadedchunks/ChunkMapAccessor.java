@@ -21,28 +21,28 @@
 package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
 import it.unimi.dsi.fastutil.longs.Long2ObjectLinkedOpenHashMap;
-import net.minecraft.server.world.ChunkHolder;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.server.level.ChunkHolder;
+import net.minecraft.server.level.ChunkMap;
+import net.minecraft.world.level.ChunkPos;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(ThreadedAnvilChunkStorage.class)
-public interface ThreadedAnvilChunkStorageAccessor {
+@Mixin(ChunkMap.class)
+public interface ChunkMapAccessor {
 
     @Contract(pure = true)
-    @Accessor("chunkHolders")
-    Long2ObjectLinkedOpenHashMap<ChunkHolder> getChunkHolders();
+    @Accessor("visibleChunkMap")
+    Long2ObjectLinkedOpenHashMap<ChunkHolder> getVisibleChunks$Ayaka();
 
     @Contract(pure = true)
     //#if MC>=11800
-    @Invoker("shouldTick")
-    boolean whetherShouldTick(ChunkPos pos);
+    @Invoker("anyPlayerCloseEnoughForSpawning")
+    boolean shouldTick$Ayaka(ChunkPos pos);
     //#else
-    //$$ @Invoker("isTooFarFromPlayersToSpawnMobs")
-    //$$ boolean whetherTooFarFromPlayersToSpawnMobs(ChunkPos chunkPos);
+    //$$ @Invoker("noPlayersCloseForSpawning")
+    //$$ boolean shouldNotTick$Ayaka(ChunkPos chunkPos);
     //#endif
 
 }

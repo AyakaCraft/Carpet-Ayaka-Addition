@@ -26,7 +26,8 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.util.UserCache;
+import net.minecraft.server.players.GameProfileCache;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -37,17 +38,17 @@ public class EntityPlayerMPFakeMixin {
             method = "createFake",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/UserCache;findByName(Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;",
+                    target = "Lnet/minecraft/server/players/GameProfileCache;get(Ljava/lang/String;)Lcom/mojang/authlib/GameProfile;",
                     remap = true
             )
     )
-    private static GameProfile createFake(UserCache instance, String name, Operation<GameProfile> original) {
+    private static GameProfile createFake(GameProfileCache instance, String name, Operation<GameProfile> original) {
         if (CarpetAyakaSettings.fakePlayerForceOffline
                 //#if MC>=11600
                 && CarpetSettings.allowSpawningOfflinePlayers
             //#endif
         ) {
-            return new GameProfile(net.minecraft.entity.player.PlayerEntity.getOfflinePlayerUuid(name), name);
+            return new GameProfile(Player.createPlayerUUID(name), name);
         } else {
             return original.call(instance, name);
         }

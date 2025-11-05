@@ -21,9 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks;
 
 import com.ayakacraft.carpetayakaaddition.logging.loadedchunks.LoadedChunksLogger;
-import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.server.world.ThreadedAnvilChunkStorage;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerChunkManager.class)
+@Mixin(ServerChunkCache.class)
 public abstract class ServerChunkManagerMixin {
 
     @Shadow
@@ -41,15 +40,11 @@ public abstract class ServerChunkManagerMixin {
     //#elseif MC>=12102
     //$$ private
     //#endif
-    ServerWorld world;
-
-    @Shadow
-    @Final
-    public ThreadedAnvilChunkStorage threadedAnvilChunkStorage;
+    ServerLevel level;
 
     @Inject(method = "tickChunks()V", at = @At("RETURN"))
     private void onTickChunks(CallbackInfo ci) {
-        LoadedChunksLogger.INSTANCE.tryLog(this.threadedAnvilChunkStorage, this.world);
+        LoadedChunksLogger.INSTANCE.tryLog(((ServerChunkCache) (Object) (this)).chunkMap, this.level);
     }
 
 }

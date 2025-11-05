@@ -28,11 +28,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ConnectedClientData;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.NameToIdCache;
+import net.minecraft.network.Connection;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,27 +40,14 @@ import org.spongepowered.asm.mixin.injection.At;
 public class EntityPlayerMPFakeMixin {
 
     @WrapOperation(
-            method = "createFake",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/util/NameToIdCache;setOfflineMode(Z)V",
-                    ordinal = 1,
-                    remap = true
-            )
-    )
-    private static void reverseOffline(NameToIdCache instance, boolean b, Operation<Void> original) {
-        original.call(instance, !b);
-    }
-
-    @WrapOperation(
             method = "lambda$createFake$2",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/PlayerManager;onPlayerConnect(Lnet/minecraft/network/ClientConnection;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/server/network/ConnectedClientData;)V",
+                    target = "Lnet/minecraft/server/players/PlayerList;placeNewPlayer(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;)V",
                     remap = true
             )
     )
-    private static void loadPlayerData(PlayerManager instance, ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, Operation<Void> original) {
+    private static void loadPlayerData(PlayerList instance, Connection connection, ServerPlayer player, CommonListenerCookie clientData, Operation<Void> original) {
         if (CarpetAyakaSettings.fakePlayerDataFix) {
             FakePlayerDataFixHelper.loadPlayerDataAndJoin((EntityPlayerMPFake) player, instance, connection, clientData);
         } else {
@@ -73,11 +59,11 @@ public class EntityPlayerMPFakeMixin {
             method = "createShadow",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/PlayerManager;onPlayerConnect(Lnet/minecraft/network/ClientConnection;Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/server/network/ConnectedClientData;)V",
+                    target = "Lnet/minecraft/server/players/PlayerList;placeNewPlayer(Lnet/minecraft/network/Connection;Lnet/minecraft/server/level/ServerPlayer;Lnet/minecraft/server/network/CommonListenerCookie;)V",
                     remap = true
             )
     )
-    private static void loadShadowData(PlayerManager instance, ClientConnection connection, ServerPlayerEntity player, ConnectedClientData clientData, Operation<Void> original) {
+    private static void loadShadowData(PlayerList instance, Connection connection, ServerPlayer player, CommonListenerCookie clientData, Operation<Void> original) {
         if (CarpetAyakaSettings.fakePlayerDataFix) {
             FakePlayerDataFixHelper.loadPlayerDataAndJoin((EntityPlayerMPFake) player, instance, connection, clientData);
         } else {

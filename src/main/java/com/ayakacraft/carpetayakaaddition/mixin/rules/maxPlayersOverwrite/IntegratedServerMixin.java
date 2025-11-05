@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.client.server.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))

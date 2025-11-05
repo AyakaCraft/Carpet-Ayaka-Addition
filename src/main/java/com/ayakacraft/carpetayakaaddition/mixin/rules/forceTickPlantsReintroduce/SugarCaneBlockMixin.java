@@ -24,11 +24,11 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SugarCaneBlock;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.SugarCaneBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,9 +39,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SugarCaneBlock.class)
 public abstract class SugarCaneBlockMixin {
 
-    @Inject(method = "scheduledTick", at = @At("RETURN"))
-    private void onScheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canPlaceAt(world, pos)) {
+    @Inject(method = "tick", at = @At("RETURN"))
+    private void onScheduledTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        if (CarpetAyakaSettings.forceTickPlantsReintroduce && state.canSurvive(world, pos)) {
             randomTick(state, world, pos, random);
         }
     }
@@ -52,6 +52,6 @@ public abstract class SugarCaneBlockMixin {
     //#else
     //$$ public
     //#endif
-    abstract void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
+    abstract void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random);
 
 }

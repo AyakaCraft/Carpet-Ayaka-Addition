@@ -432,7 +432,7 @@ The following Minecraft versions are scheduled to be supported in the later vers
 ## Open-source libs
 
 - Dependencies of Minecraft
-- [Fabric Loader](https://github.com/FabricMC/fabric-loader), [fabric-loom](https://github.com/FabricMC/fabric-loom) and [yarn mappings](https://github.com/FabricMC/yarn)
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader) and [fabric-loom](https://github.com/FabricMC/fabric-loom)
 - [preprocessor](https://github.com/ReplayMod/preprocessor)(or [Fallen's version](https://github.com/Fallen-Breath/preprocessor))
 - [shadow](https://github.com/GradleUp/shadow), [license-gradle](https://github.com/hierynomus/license-gradle-plugin), [modpublisher](https://github.com/firstdarkdev/modpublisher)
 - [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)

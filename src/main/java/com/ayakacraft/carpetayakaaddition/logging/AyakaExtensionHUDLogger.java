@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.logging;
 
 import carpet.logging.Logger;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
 
 public interface AyakaExtensionHUDLogger extends AyakaExtensionLogger {
 
@@ -33,7 +33,7 @@ public interface AyakaExtensionHUDLogger extends AyakaExtensionLogger {
      */
     void log(Logger.lMessage messagePromise);
 
-    MutableText[] updateContent(String playerOption, PlayerEntity player);
+    MutableComponent[] updateContent(String playerOption, Player player);
 
     default void doLogging() {
         if (isEnabled()) {

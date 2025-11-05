@@ -26,18 +26,18 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.enchantment.FrostWalkerEnchantment;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.1"))
 @Mixin(FrostWalkerEnchantment.class)
 public class FrostWalkerEnchantmentMixin {
 
-    @WrapMethod(method = "freezeWater")
-    private static void wrapFreezeWater(LivingEntity entity, World world, BlockPos blockPos, int level, Operation<Void> original) {
+    @WrapMethod(method = "onEntityMoved")
+    private static void wrapFreezeWater(LivingEntity entity, Level world, BlockPos blockPos, int level, Operation<Void> original) {
         if (!CarpetAyakaSettings.frostWalkerNoFreezing) {
             original.call(entity, world, blockPos, level);
         }

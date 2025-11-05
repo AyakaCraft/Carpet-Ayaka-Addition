@@ -22,25 +22,25 @@ package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
 import carpet.utils.SpawnReporter;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCategory;
-import net.minecraft.entity.EntityType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 
 public final class BetterMobCapHelper {
 
     private static final int CHUNKS_ELIGIBLE_FOR_SPAWNING = 289;
 
-    public static boolean shouldNotLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
+    public static boolean shouldNotLimitSpawning(ServerPlayer instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }
-        EntityCategory c          = entityType.getCategory();
-        ServerWorld    world      = instance.getServerWorld();
-        int            chunkCount = SpawnReporter.chunkCounts.getOrDefault(world.getDimension().getType(), 0);
-        int            cur        = world.getMobCountsByCategory().getOrDefault(c, -1);
-        int            max        = chunkCount * c.getSpawnCap() / CHUNKS_ELIGIBLE_FOR_SPAWNING;
+        MobCategory c          = entityType.getCategory();
+        ServerLevel world      = instance.getLevel();
+        int         chunkCount = SpawnReporter.chunkCounts.getOrDefault(world.getDimension().getType(), 0);
+        int         cur        = world.getMobCategoryCounts().getOrDefault(c, -1);
+        int         max        = chunkCount * c.getMaxInstancesPerChunk() / CHUNKS_ELIGIBLE_FOR_SPAWNING;
         return cur < max;
     }
 

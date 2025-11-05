@@ -27,11 +27,11 @@ public final class RegistryUtils {
 
     //#if MC>=11900
     @Contract(pure = true)
-    public static String getIdAsString(net.minecraft.registry.entry.RegistryEntry<?> entry) {
+    public static String getIdAsString(net.minecraft.core.Holder<?> entry) {
         //#if MC>=12006
-        return entry.getIdAsString();
+        return entry.getRegisteredName();
         //#else
-        //$$ return entry.getKey().map((key) -> key.getValue().toString()).orElse("[unregistered]");
+        //$$ return entry.unwrapKey().map((key) -> key.location().toString()).orElse("[unregistered]");
         //#endif
     }
     //#endif

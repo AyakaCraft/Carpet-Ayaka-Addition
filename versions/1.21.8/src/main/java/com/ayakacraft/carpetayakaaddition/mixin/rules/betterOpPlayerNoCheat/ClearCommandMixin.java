@@ -25,8 +25,8 @@ import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.command.ClearCommand;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.commands.ClearInventoryCommands;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import java.util.function.Predicate;
 
 @Restriction(require = @Condition(ModUtils.TIS_ID))
-@Mixin(ClearCommand.class)
+@Mixin(ClearInventoryCommands.class)
 public class ClearCommandMixin {
 
     @ModifyArg(
@@ -45,7 +45,7 @@ public class ClearCommandMixin {
                     remap = false
             )
     )
-    private static Predicate<ServerCommandSource> checkIfAllowCheating(Predicate<ServerCommandSource> original) {
+    private static Predicate<CommandSourceStack> checkIfAllowCheating(Predicate<CommandSourceStack> original) {
         return original.and(s -> !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(s)));
     }
 

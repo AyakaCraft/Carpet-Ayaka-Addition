@@ -20,12 +20,12 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.phys.Vec3;
 
 public class AddressOld {
 
     public String id, dim, desc;
 
-    public Vec3d pos;
+    public Vec3 pos;
 
 }

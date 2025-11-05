@@ -122,7 +122,7 @@ public class AyakaRule implements carpet.settings.Rule {
     public ParsedRule<?> constructCarpetRule() {
         ParsedRule<?> parsedRule;
         try {
-            parsedRule = ParsedRuleAccessor.invokeConstructor(field, this
+            parsedRule = ParsedRuleAccessor.invokeConstructor$Ayaka(field, this
                     //#if MC>=11600
                     , settingsManager
                     //#endif

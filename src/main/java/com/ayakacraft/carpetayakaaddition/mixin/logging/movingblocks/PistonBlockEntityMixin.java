@@ -21,40 +21,40 @@
 package com.ayakacraft.carpetayakaaddition.mixin.logging.movingblocks;
 
 import com.ayakacraft.carpetayakaaddition.logging.movingblocks.MovingBlocksLogger;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.PistonBlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(PistonBlockEntity.class)
+@Mixin(PistonMovingBlockEntity.class)
 public class PistonBlockEntityMixin {
 
     //#if MC>=11700
     @Inject(
             method = "tick",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/piston/PistonMovingBlockEntity;setRemoved()V")
     )
-    private static void onTick(World world, BlockPos pos, BlockState state, PistonBlockEntity blockEntity, CallbackInfo ci) {
+    private static void onTick(Level world, BlockPos pos, BlockState state, PistonMovingBlockEntity blockEntity, CallbackInfo ci) {
         MovingBlocksLogger.INSTANCE.tryLog(blockEntity);
     }
     //#endif
 
     @Unique
-    private final PistonBlockEntity self = (PistonBlockEntity) (Object) this;
+    private final PistonMovingBlockEntity self = (PistonMovingBlockEntity) (Object) this;
 
     @Inject(
             method = {
-                    "finish"
+                    "finalTick"
                     //#if MC<11700
                     //$$ , "tick"
                     //#endif
             },
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/block/entity/PistonBlockEntity;markRemoved()V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/piston/PistonMovingBlockEntity;setRemoved()V")
     )
     private void onFinish(CallbackInfo ci) {
         MovingBlocksLogger.INSTANCE.tryLog(self);

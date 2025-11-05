@@ -27,13 +27,13 @@ import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
 import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
 public final class AyakaCommandRegistry {
 
     public static final Translator COMMAND_TR = Translator.AYAKA.resolve("command");
 
-    public static void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         AddressCommand.register(dispatcher);

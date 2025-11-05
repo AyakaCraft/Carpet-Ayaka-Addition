@@ -23,10 +23,10 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.bedrockNoBlastResistance;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -34,10 +34,10 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ExplosionMixin {
 
     @WrapOperation(
-            method = "collectBlocksAndDamageEntities",
+            method = "explode",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/block/Block;getBlastResistance()F"
+                    target = "Lnet/minecraft/world/level/block/Block;getExplosionResistance()F"
             )
     )
     private float applyBedrockBlastResistance(Block instance, Operation<Float> original) {
@@ -48,10 +48,10 @@ public class ExplosionMixin {
     }
 
     @WrapOperation(
-            method = "affectWorld",
+            method = "finalizeExplosion",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/block/BlockState;isAir()Z"
+                    target = "Lnet/minecraft/world/level/block/state/BlockState;isAir()Z"
             )
     )
     private boolean makeBedrockUnbreakable(BlockState instance, Operation<Boolean> original) {

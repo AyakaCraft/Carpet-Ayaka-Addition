@@ -23,14 +23,14 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.foxNoPickupItem;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.entity.passive.FoxEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Mixin(FoxEntity.class)
+@Mixin(Fox.class)
 public class FoxEntityMixin {
 
-    @WrapMethod(method = "canPickupItem")
+    @WrapMethod(method = "canHoldItem")
     private boolean onPickupItem(ItemStack stack, Operation<Boolean> original) {
         return !CarpetAyakaSettings.foxNoPickupItem && original.call(stack);
     }

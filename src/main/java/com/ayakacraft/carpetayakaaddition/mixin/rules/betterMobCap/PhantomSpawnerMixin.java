@@ -23,9 +23,9 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap;
 import com.ayakacraft.carpetayakaaddition.helpers.rules.BetterMobCapHelper;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.entity.EntityType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.spawner.PhantomSpawner;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.levelgen.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -33,21 +33,21 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PhantomSpawnerMixin {
 
     @WrapOperation(
-            method = "spawn",
+            method = "tick",
             at = @At(
                     value = "INVOKE",
                     //#if MC>=12000
-                    target = "Lnet/minecraft/server/network/ServerPlayerEntity;isSpectator()Z"
+                    target = "Lnet/minecraft/server/level/ServerPlayer;isSpectator()Z"
                     //#else
-                    //$$ target = "Lnet/minecraft/entity/player/PlayerEntity;isSpectator()Z"
+                    //$$ target = "Lnet/minecraft/world/entity/player/Player;isSpectator()Z"
                     //#endif
             )
     )
     private boolean applyMobCaps(
             //#if MC>=12000
-            ServerPlayerEntity instance,
+            ServerPlayer instance,
             //#else
-            //$$ net.minecraft.entity.player.PlayerEntity instance,
+            //$$ net.minecraft.world.entity.player.Player instance,
             //#endif
             Operation<Boolean> original
     ) {
@@ -55,7 +55,7 @@ public class PhantomSpawnerMixin {
                 //#if MC>=12000
                 instance,
                 //#else
-                //$$ (ServerPlayerEntity) instance,
+                //$$ (ServerPlayer) instance,
                 //#endif
                 EntityType.PHANTOM)
         ) {

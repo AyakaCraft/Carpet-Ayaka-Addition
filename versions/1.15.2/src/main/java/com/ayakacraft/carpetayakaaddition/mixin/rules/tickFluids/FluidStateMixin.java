@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.tickFluids;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import net.minecraft.fluid.FluidState;
+import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -30,14 +30,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(FluidState.class)
 public interface FluidStateMixin {
 
-    @Inject(method = "onScheduledTick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     default void wrapScheduledTick(CallbackInfo ci) {
         if (!CarpetAyakaSettings.tickFluids) {
             ci.cancel();
         }
     }
 
-    @Inject(method = "onRandomTick", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     default void wrapRandomTick(CallbackInfo ci) {
         if (!CarpetAyakaSettings.tickFluids) {
             ci.cancel();

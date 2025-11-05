@@ -1,3 +1,3 @@
-net.minecraft.server.command.ItemCommand net.minecraft.server.command.ReplaceItemCommand
 org.slf4j.LoggerFactory org.apache.logging.log4j.LogManager
 org.slf4j.Logger org.apache.logging.log4j.Logger
+net.minecraft.server.commands.ItemCommands net.minecraft.server.commands.ReplaceItemCommand

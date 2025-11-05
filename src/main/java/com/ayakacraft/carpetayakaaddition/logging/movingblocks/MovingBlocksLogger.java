@@ -24,16 +24,16 @@ import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaLogger;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PistonHeadBlock;
-import net.minecraft.block.entity.PistonBlockEntity;
-import net.minecraft.block.enums.PistonType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.piston.PistonHeadBlock;
+import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.PistonType;
 
 public class MovingBlocksLogger extends AbstractAyakaLogger {
 
@@ -60,31 +60,31 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
     }
 
-    private MutableText[] doLogging(PistonBlockEntity entity, ServerPlayerEntity player, String option) {
-        BlockPos pos = entity.getPos();
+    private MutableComponent[] doLogging(PistonMovingBlockEntity entity, ServerPlayer player, String option) {
+        BlockPos pos = entity.getBlockPos();
 
         if (OPTIONS[1].equals(option)) {
-            return new MutableText[]{Text.literal(StringUtils.posString(pos))};
+            return new MutableComponent[]{Component.literal(StringUtils.posString(pos))};
         }
 
-        BlockState  state     = entity.getPushedBlock();
-        Block       block     = state.getBlock();
-        MutableText direction = TR.tr(player, "direction." + entity.getMovementDirection().getName());
+        BlockState       state     = entity.getMovedState();
+        Block            block     = state.getBlock();
+        MutableComponent direction = TR.tr(player, "direction." + entity.getMovementDirection().getName());
 
-        MutableText txt;
+        MutableComponent txt;
         if (block == Blocks.PISTON_HEAD && entity.isExtending()) {
-            if (state.get(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
+            if (state.getValue(PistonHeadBlock.TYPE) == PistonType.DEFAULT) {
                 txt = TR.tr(player, "extend", Blocks.PISTON.getName(), direction, StringUtils.posString(pos));
             } else {
                 txt = TR.tr(player, "extend", Blocks.STICKY_PISTON.getName(), direction, StringUtils.posString(pos));
             }
-        } else if (entity.isSource() && !entity.isExtending()) {
+        } else if (entity.isSourcePiston() && !entity.isExtending()) {
             txt = TR.tr(player, "pull_back", state.getBlock().getName(), direction, StringUtils.posString(pos));
         } else {
             txt = TR.tr(player, "common", state.getBlock().getName(), direction, StringUtils.posString(pos));
         }
 
-        return new MutableText[]{txt};
+        return new MutableComponent[]{txt};
     }
 
     @Override
@@ -92,9 +92,9 @@ public class MovingBlocksLogger extends AbstractAyakaLogger {
         return AyakaLoggerRegistry.__movingBlocks;
     }
 
-    public void tryLog(PistonBlockEntity pistonBlockEntity) {
+    public void tryLog(PistonMovingBlockEntity pistonBlockEntity) {
         if (isEnabled()) {
-            log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayerEntity) player, playerOption));
+            log((playerOption, player) -> doLogging(pistonBlockEntity, (ServerPlayer) player, playerOption));
         }
     }
 

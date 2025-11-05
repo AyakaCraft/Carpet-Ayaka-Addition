@@ -24,25 +24,25 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.arguments.EntityArgument;
 
-import static net.minecraft.server.command.CommandManager.argument;
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
 
 public final class TptCommand {
 
     public static final String NAME = "tpt";
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandTpt, true))
                         .then(
-                                argument("target", EntityArgumentType.player())
+                                argument("target", EntityArgument.player())
                                         .suggests(CommandUtils::suggestPlayerNames)
                                         .executes(context -> {
-                                            ServerPlayerUtils.teleport(context.getSource().getPlayerOrThrow(), EntityArgumentType.getPlayer(context, "target"));
+                                            ServerPlayerUtils.teleport(context.getSource().getPlayerOrException(), EntityArgument.getPlayer(context, "target"));
                                             return 1;
                                         })));
     }

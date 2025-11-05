@@ -24,26 +24,26 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.GameMode;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
 import org.jetbrains.annotations.NotNull;
 
-import static net.minecraft.server.command.CommandManager.literal;
+import static net.minecraft.commands.Commands.literal;
 
 public final class CCommand {
 
     public static final String NAME = "c";
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 literal(NAME)
                         .requires(source -> CommandUtils.checkPermission(source, CarpetAyakaSettings.commandC, true))
                         .executes(ctx -> {
-                            final ServerCommandSource         source = ctx.getSource();
-                            final @NotNull ServerPlayerEntity player = source.getPlayerOrThrow();
-                            if (!ServerPlayerUtils.changeGameMode(player, GameMode.SURVIVAL)) {
-                                ServerPlayerUtils.changeGameMode(player, GameMode.SPECTATOR);
+                            final CommandSourceStack    source = ctx.getSource();
+                            final @NotNull ServerPlayer player = source.getPlayerOrException();
+                            if (!ServerPlayerUtils.changeGameMode(player, GameType.SURVIVAL)) {
+                                ServerPlayerUtils.changeGameMode(player, GameType.SPECTATOR);
                             }
                             return 1;
                         }));

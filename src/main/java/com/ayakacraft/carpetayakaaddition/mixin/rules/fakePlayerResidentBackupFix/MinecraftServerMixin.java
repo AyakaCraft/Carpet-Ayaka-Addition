@@ -37,12 +37,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MinecraftServerMixin {
 
     @Inject(
-            //#if MC>=11700
-            method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeNano()J")
-            //#elseif MC>=11600
-            //$$ method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J")
+            //#if MC>=11600
+            method = "runServer",
             //#else
-            //$$ method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getMeasuringTimeMs()J")
+            //$$ method = "run",
+            //#endif
+            //#if MC>=11700
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getNanos()J")
+            //#else
+            //$$ at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J")
             //#endif
     )
     private void saveFakePlayersOnStartup(CallbackInfo ci) {
@@ -51,7 +54,7 @@ public class MinecraftServerMixin {
         }
     }
 
-    @Inject(method = "save", at = @At("RETURN"))
+    @Inject(method = "saveAllChunks", at = @At("RETURN"))
     private void save(CallbackInfoReturnable<Boolean> cir) {
         if (CarpetAyakaSettings.fakePlayerResidentBackupFix) {
             GcaHelper.storeFakesIfNeeded((MinecraftServer) (Object) this);

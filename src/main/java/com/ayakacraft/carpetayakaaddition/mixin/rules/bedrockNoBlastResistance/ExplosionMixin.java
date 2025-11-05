@@ -23,13 +23,13 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.bedrockNoBlastResistance;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.explosion.Explosion;
-import net.minecraft.world.explosion.ExplosionBehavior;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -41,27 +41,27 @@ import java.util.Optional;
 public class ExplosionMixin {
 
     @WrapOperation(
-            method = "collectBlocksAndDamageEntities",
+            method = "explode",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/explosion/ExplosionBehavior;getBlastResistance(Lnet/minecraft/world/explosion/Explosion;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/fluid/FluidState;)Ljava/util/Optional;"
+                    target = "Lnet/minecraft/world/level/ExplosionDamageCalculator;getBlockExplosionResistance(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Ljava/util/Optional;"
             )
     )
-    private Optional<Float> applyBedrockBlastResistance(ExplosionBehavior instance, Explosion explosion, BlockView world, BlockPos pos, BlockState blockState, FluidState fluidState, Operation<Optional<Float>> original) {
+    private Optional<Float> applyBedrockBlastResistance(ExplosionDamageCalculator instance, Explosion explosion, BlockGetter world, BlockPos pos, BlockState blockState, FluidState fluidState, Operation<Optional<Float>> original) {
         if (CarpetAyakaSettings.bedrockNoBlastResistance && blockState.getBlock() == Blocks.BEDROCK) {
-            return Optional.of(fluidState.isEmpty() ? 0f : fluidState.getBlastResistance());
+            return Optional.of(fluidState.isEmpty() ? 0f : fluidState.getExplosionResistance());
         }
         return original.call(instance, explosion, world, pos, blockState, fluidState);
     }
 
     @WrapOperation(
-            method = "collectBlocksAndDamageEntities",
+            method = "explode",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/explosion/ExplosionBehavior;canDestroyBlock(Lnet/minecraft/world/explosion/Explosion;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;F)Z"
+                    target = "Lnet/minecraft/world/level/ExplosionDamageCalculator;shouldBlockExplode(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;F)Z"
             )
     )
-    private boolean makeBedrockUnbreakable(ExplosionBehavior instance, Explosion explosion, BlockView world, BlockPos pos, BlockState state, float power, Operation<Boolean> original) {
+    private boolean makeBedrockUnbreakable(ExplosionDamageCalculator instance, Explosion explosion, BlockGetter world, BlockPos pos, BlockState state, float power, Operation<Boolean> original) {
         if (CarpetAyakaSettings.bedrockNoBlastResistance && state.getBlock() == Blocks.BEDROCK) {
             return false;
         }

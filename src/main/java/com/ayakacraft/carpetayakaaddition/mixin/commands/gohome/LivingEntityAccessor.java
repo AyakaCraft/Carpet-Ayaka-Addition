@@ -20,9 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.commands.gohome;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -33,13 +33,13 @@ import java.util.Map;
 public interface LivingEntityAccessor {
 
     @Contract(pure = true)
-    @Accessor("activeStatusEffects")
+    @Accessor("activeEffects")
     Map<
             //#if MC>=12006
-            net.minecraft.registry.entry.RegistryEntry<StatusEffect>
+            //$$ net.minecraft.core.Holder<MobEffect>
             //#else
-            //$$ StatusEffect
+            MobEffect
             //#endif
-            , StatusEffectInstance> getActiveStatusEffects$Ayaka();
+            , MobEffectInstance> getActiveStatusEffects$Ayaka();
 
 }

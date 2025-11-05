@@ -24,7 +24,7 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.PlayerManager;
+import net.minecraft.server.players.PlayerList;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.9"))
-@Mixin(PlayerManager.class)
+@Mixin(PlayerList.class)
 public class PlayerManagerMixin {
 
     @Shadow
@@ -41,14 +41,14 @@ public class PlayerManagerMixin {
     protected int maxPlayers;
 
     @Redirect(
-            method = {"checkCanJoin", "getMaxPlayerCount"},
+            method = {"canPlayerLogin", "getMaxPlayers"},
             at = @At(
                     value = "FIELD",
-                    target = "Lnet/minecraft/server/PlayerManager;maxPlayers:I",
+                    target = "Lnet/minecraft/server/players/PlayerList;maxPlayers:I",
                     opcode = Opcodes.GETFIELD
             )
     )
-    private int onGetMaxPlayers(PlayerManager instance) {
+    private int onGetMaxPlayers(PlayerList instance) {
         if (CarpetAyakaSettings.maxPlayersOverwrite == 0) {
             return this.maxPlayers;
         }

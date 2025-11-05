@@ -22,12 +22,12 @@ package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.mixin.rules.betterMobCap.SpawnHelperInfoAccessor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.NaturalSpawner;
 import org.jetbrains.annotations.Contract;
 
 //Do not remove the lines below
@@ -35,24 +35,24 @@ import org.jetbrains.annotations.Contract;
 public final class BetterMobCapHelper {
 
     @Contract(pure = true)
-    public static boolean shouldNotLimitSpawning(ServerPlayerEntity instance, EntityType<? extends Entity> entityType) {
+    public static boolean shouldNotLimitSpawning(ServerPlayer instance, EntityType<? extends Entity> entityType) {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }
-        SpawnHelper.Info info = instance.getServerWorld().getChunkManager().getSpawnInfo();
+        NaturalSpawner.SpawnState info = instance.serverLevel().getChunkSource().getLastSpawnState();
         if (info == null) {
             return true;
         }
         SpawnHelperInfoAccessor accessor   = (SpawnHelperInfoAccessor) info;
-        SpawnGroup              spawnGroup = entityType.getSpawnGroup();
-        return accessor.checkBelowCap(spawnGroup
+        MobCategory             spawnGroup = entityType.getCategory();
+        return accessor.checkGlobal$Ayaka(spawnGroup
                 //#if MC>=12102
                 //#elseif MC>=11800
-                , new ChunkPos(instance.getBlockPos())
+                , new ChunkPos(instance.blockPosition())
                 //#endif
         )
                 //#if MC>=12102
-                //$$ && accessor.checkCanSpawn(spawnGroup, new ChunkPos(instance.getBlockPos()))
+                //$$ && accessor.checkLocal$Ayaka(spawnGroup, new ChunkPos(instance.blockPosition()))
                 //#endif
                 ;
     }

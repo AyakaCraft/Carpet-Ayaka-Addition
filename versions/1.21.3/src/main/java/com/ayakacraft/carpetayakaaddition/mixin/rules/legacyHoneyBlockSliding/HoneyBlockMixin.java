@@ -26,48 +26,48 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.HoneyBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.HoneyBlock;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
 @Mixin(HoneyBlock.class)
 public class HoneyBlockMixin {
 
-    @WrapMethod(method = "isSliding")
+    @WrapMethod(method = "isSlidingDown")
     private boolean wrapIsSliding(BlockPos pos, Entity entity, Operation<Boolean> original) {
         if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
-            if (entity.isOnGround()) {
+            if (entity.onGround()) {
                 return false;
             }
             if (entity.getY() > (double) pos.getY() + 0.9375 - 1.0E-7) {
                 return false;
             }
-            if (entity.getVelocity().y >= -0.08) {
+            if (entity.getDeltaMovement().y >= -0.08) {
                 return false;
             }
             double d = Math.abs((double) pos.getX() + 0.5 - entity.getX());
             double e = Math.abs((double) pos.getZ() + 0.5 - entity.getZ());
-            double f = 0.4375 + (double) (entity.getWidth() / 2.0f);
+            double f = 0.4375 + (double) (entity.getBbWidth() / 2.0f);
             return d + 1.0E-7 > f || e + 1.0E-7 > f;
         }
         return original.call(pos, entity);
     }
 
-    @WrapMethod(method = "updateSlidingVelocity")
+    @WrapMethod(method = "doSlideMovement")
     private void wrapUpdateSlidingVelocity(Entity entity, Operation<Void> original) {
         if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
-            Vec3d vec3d = entity.getVelocity();
-            if (entity.getVelocity().y < -0.13) {
-                double d = -0.05 / entity.getVelocity().y;
-                entity.setVelocity(new Vec3d(vec3d.x * d, -0.05, vec3d.z * d));
+            Vec3 vec3d = entity.getDeltaMovement();
+            if (vec3d.y < -0.13) {
+                double d = -0.05 / vec3d.y;
+                entity.setDeltaMovement(new Vec3(vec3d.x * d, -0.05, vec3d.z * d));
             } else {
-                entity.setVelocity(new Vec3d(vec3d.x, -0.05, vec3d.z));
+                entity.setDeltaMovement(new Vec3(vec3d.x, -0.05, vec3d.z));
             }
-            entity.onLanding();
+            entity.resetFallDistance();
         } else {
             original.call(entity);
         }

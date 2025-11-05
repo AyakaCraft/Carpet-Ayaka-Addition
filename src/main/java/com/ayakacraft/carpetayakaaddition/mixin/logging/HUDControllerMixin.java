@@ -26,7 +26,7 @@ import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +42,7 @@ public class HUDControllerMixin {
     private static void updateAyakaHUDLoggers(
             MinecraftServer server
             //#if MC>=11600
-            , List<ServerPlayerEntity> force
+            , List<ServerPlayer> force
             //#endif
             , CallbackInfo ci
     ) {

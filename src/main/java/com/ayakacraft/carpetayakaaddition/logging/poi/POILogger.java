@@ -26,14 +26,14 @@ import com.ayakacraft.carpetayakaaddition.utils.RegistryUtils;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.google.common.collect.Maps;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.PointOfInterestTypeTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.MutableText;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.SectionPos;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.PoiTypeTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
 
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class POILogger extends AbstractAyakaLogger {
 
     private static final short DEFAULT_INDEX = 0;
 
-    private static final Map<String, TagKey<PointOfInterestType>> POI_TAGS = Maps.newHashMap();
+    private static final Map<String, TagKey<PoiType>> POI_TAGS = Maps.newHashMap();
 
     public static final String NAME = "poi";
 
@@ -61,21 +61,21 @@ public class POILogger extends AbstractAyakaLogger {
         }
         INSTANCE = i;
 
-        POI_TAGS.put("village", PointOfInterestTypeTags.VILLAGE);
-        POI_TAGS.put("bee_home", PointOfInterestTypeTags.BEE_HOME);
-        POI_TAGS.put("acquirable_job_site", PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE);
+        POI_TAGS.put("village", PoiTypeTags.VILLAGE);
+        POI_TAGS.put("bee_home", PoiTypeTags.BEE_HOME);
+        POI_TAGS.put("acquirable_job_site", PoiTypeTags.ACQUIRABLE_JOB_SITE);
     }
 
     private POILogger() throws NoSuchFieldException {
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, true);
     }
 
-    private MutableText[] doAddedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, String option, ServerPlayerEntity player) {
-        if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            return new MutableText[]{TR.tr(
+    private MutableComponent[] doAddedLogging(BlockPos pos, Holder<PoiType> type, String option, ServerPlayer player) {
+        if (OPTIONS[0].equals(option) || type.tags().anyMatch(POI_TAGS.get(option)::equals)) {
+            return new MutableComponent[]{TR.tr(
                     player,
                     "added",
-                    StringUtils.posString(ChunkSectionPos.from(pos)),
+                    StringUtils.posString(SectionPos.of(pos)),
                     StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type)
             )};
@@ -84,40 +84,40 @@ public class POILogger extends AbstractAyakaLogger {
         }
     }
 
-    private MutableText[] doRemovedLogging(BlockPos pos, ServerPlayerEntity player) {
-        return new MutableText[]{TR.tr(
+    private MutableComponent[] doRemovedLogging(BlockPos pos, ServerPlayer player) {
+        return new MutableComponent[]{TR.tr(
                 player,
                 "removed",
-                StringUtils.posString(ChunkSectionPos.from(pos)),
+                StringUtils.posString(SectionPos.of(pos)),
                 StringUtils.posString(pos)
         )};
     }
 
-    private MutableText[] doTickedReservedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
-        if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            return new MutableText[]{TR.tr(
+    private MutableComponent[] doTickedReservedLogging(BlockPos pos, Holder<PoiType> type, int freeTickets, String option, ServerPlayer player) {
+        if (OPTIONS[0].equals(option) || type.tags().anyMatch(POI_TAGS.get(option)::equals)) {
+            return new MutableComponent[]{TR.tr(
                     player,
                     "ticket_reserved",
-                    StringUtils.posString(ChunkSectionPos.from(pos)),
+                    StringUtils.posString(SectionPos.of(pos)),
                     StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type),
-                    freeTickets, type.value().ticketCount()
+                    freeTickets, type.value().maxTickets()
             )};
         } else {
             return null;
         }
     }
 
-    private MutableText[] doTickedReleasedLogging(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets, String option, ServerPlayerEntity player) {
-        if (OPTIONS[0].equals(option) || type.streamTags().anyMatch(POI_TAGS.get(option)::equals)) {
-            ChunkSectionPos sectionPos = ChunkSectionPos.from(pos);
-            return new MutableText[]{TR.tr(
+    private MutableComponent[] doTickedReleasedLogging(BlockPos pos, Holder<PoiType> type, int freeTickets, String option, ServerPlayer player) {
+        if (OPTIONS[0].equals(option) || type.tags().anyMatch(POI_TAGS.get(option)::equals)) {
+            SectionPos sectionPos = SectionPos.of(pos);
+            return new MutableComponent[]{TR.tr(
                     player,
                     "ticket_released",
                     StringUtils.posString(sectionPos),
                     StringUtils.posString(pos),
                     RegistryUtils.getIdAsString(type),
-                    freeTickets, type.value().ticketCount()
+                    freeTickets, type.value().maxTickets()
             )};
         } else {
             return null;
@@ -129,30 +129,30 @@ public class POILogger extends AbstractAyakaLogger {
         return AyakaLoggerRegistry.__poi;
     }
 
-    public void onAdded(BlockPos pos, RegistryEntry<PointOfInterestType> type) {
+    public void onAdded(BlockPos pos, Holder<PoiType> type) {
         if (isEnabled()) {
-            log((playerOption, player) -> doAddedLogging(pos, type, playerOption, (ServerPlayerEntity) player));
+            log((playerOption, player) -> doAddedLogging(pos, type, playerOption, (ServerPlayer) player));
         }
     }
 
     public void onRemoved(BlockPos pos) {
         if (isEnabled()) {
-            log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayerEntity) player)));
+            log(((playerOption, player) -> doRemovedLogging(pos, (ServerPlayer) player)));
         }
     }
 
-    public void onTicketReserved(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets) {
+    public void onTicketReserved(BlockPos pos, Holder<PoiType> type, int freeTickets) {
         if (isEnabled()) {
             log(((playerOption, player) ->
-                    doTickedReservedLogging(pos, type, freeTickets, playerOption, (ServerPlayerEntity) player)
+                    doTickedReservedLogging(pos, type, freeTickets, playerOption, (ServerPlayer) player)
             ));
         }
     }
 
-    public void onTicketReleased(BlockPos pos, RegistryEntry<PointOfInterestType> type, int freeTickets) {
+    public void onTicketReleased(BlockPos pos, Holder<PoiType> type, int freeTickets) {
         if (isEnabled()) {
             log(((playerOption, player) ->
-                    doTickedReleasedLogging(pos, type, freeTickets, playerOption, (ServerPlayerEntity) player)
+                    doTickedReleasedLogging(pos, type, freeTickets, playerOption, (ServerPlayer) player)
             ));
         }
     }

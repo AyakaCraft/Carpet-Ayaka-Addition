@@ -21,8 +21,8 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.blockDropStackVelocityMultiple;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -32,15 +32,15 @@ public class BlockMixin {
 
     @ModifyArg(
             //#if MC>=11700
-            method = "dropStack(Lnet/minecraft/world/World;Ljava/util/function/Supplier;Lnet/minecraft/item/ItemStack;)V",
+            method = "popResource(Lnet/minecraft/world/level/Level;Ljava/util/function/Supplier;Lnet/minecraft/world/item/ItemStack;)V",
             //#else
-            //$$ method = "dropStack",
+            //$$ method = "popResource",
             //#endif
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;spawnEntity(Lnet/minecraft/entity/Entity;)Z"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"),
             index = 0
     )
     private static Entity modifyVelocity(Entity item) {
-        item.setVelocity(item.getVelocity().multiply(CarpetAyakaSettings.blockDropStackVelocityMultiple));
+        item.setDeltaMovement(item.getDeltaMovement().scale(CarpetAyakaSettings.blockDropStackVelocityMultiple));
         return item;
     }
 

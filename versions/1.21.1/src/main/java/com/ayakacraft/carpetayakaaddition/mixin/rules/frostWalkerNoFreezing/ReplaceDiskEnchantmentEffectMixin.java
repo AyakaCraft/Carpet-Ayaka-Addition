@@ -26,21 +26,21 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.block.Blocks;
-import net.minecraft.enchantment.EnchantmentEffectContext;
-import net.minecraft.enchantment.effect.entity.ReplaceDiskEnchantmentEffect;
-import net.minecraft.entity.Entity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.effects.ReplaceDisk;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.1"))
-@Mixin(ReplaceDiskEnchantmentEffect.class)
+@Mixin(ReplaceDisk.class)
 public class ReplaceDiskEnchantmentEffectMixin {
 
     @Shadow
@@ -50,12 +50,12 @@ public class ReplaceDiskEnchantmentEffectMixin {
     @Unique
     private boolean shouldApply() {
         return !(CarpetAyakaSettings.frostWalkerNoFreezing
-                && blockState instanceof SimpleBlockStateProvider
-                && blockState.get(null, null).getBlock() == Blocks.FROSTED_ICE);
+                && blockState instanceof SimpleStateProvider
+                && blockState.getState(null, null).getBlock() == Blocks.FROSTED_ICE);
     }
 
     @WrapMethod(method = "apply")
-    private void wrapApply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos, Operation<Void> original) {
+    private void wrapApply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos, Operation<Void> original) {
         if (shouldApply()) {
             original.call(world, level, context, user, pos);
         }

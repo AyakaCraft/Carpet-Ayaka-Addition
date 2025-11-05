@@ -432,7 +432,7 @@ give 命令的限制乘数
 ## 使用的开源库
 
 - Minecraft使用的库
-- [Fabric Loader](https://github.com/FabricMC/fabric-loader)、[fabric-loom](https://github.com/FabricMC/fabric-loom) 和 [yarn映射](https://github.com/FabricMC/yarn)
+- [Fabric Loader](https://github.com/FabricMC/fabric-loader) 和 [fabric-loom](https://github.com/FabricMC/fabric-loom)
 - [preprocessor](https://github.com/ReplayMod/preprocessor) (或 [Fallen的版本](https://github.com/Fallen-Breath/preprocessor))
 - [shadow](https://github.com/GradleUp/shadow)、[license-gradle](https://github.com/hierynomus/license-gradle-plugin)、[modpublisher](https://github.com/firstdarkdev/modpublisher)
 - [conditional-mixin](https://github.com/Fallen-Breath/conditional-mixin)

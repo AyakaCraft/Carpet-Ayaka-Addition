@@ -30,9 +30,9 @@ public final class ServerUtils {
     @PreprocessPattern
     private static Path worldRootPath(MinecraftServer server) {
         //#if MC>=11600
-        return server.getSavePath(net.minecraft.util.WorldSavePath.ROOT);
+        return server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT);
         //#else
-        //$$ return server.getWorld(net.minecraft.world.dimension.DimensionType.OVERWORLD).getSaveHandler().getWorldDir().toPath();
+        //$$ return server.getLevel(net.minecraft.world.level.dimension.DimensionType.OVERWORLD).getLevelStorage().getFolder().toPath();
         //#endif
     }
 

@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
 
-    @Inject(method = "loadWorld", at = @At("RETURN"))
+    @Inject(method = "loadLevel", at = @At("RETURN"))
     private void onLoadWorld(CallbackInfo ci) {
         CarpetAyakaServer.INSTANCE.onServerLoadedWorlds$Ayaka();
     }

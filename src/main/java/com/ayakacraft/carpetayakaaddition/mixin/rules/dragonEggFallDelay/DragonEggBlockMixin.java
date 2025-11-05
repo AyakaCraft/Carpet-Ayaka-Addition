@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.dragonEggFallDelay;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import net.minecraft.block.DragonEggBlock;
+import net.minecraft.world.level.block.DragonEggBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -31,9 +31,9 @@ public class DragonEggBlockMixin {
 
     @ModifyConstant(
             //#if MC>=11600
-            method = "getFallDelay",
+            method = "getDelayAfterPlace",
             //#else
-            //$$ method = "getTickRate",
+            //$$ method = "getTickDelay",
             //#endif
             constant = @Constant(intValue = 5)
     )

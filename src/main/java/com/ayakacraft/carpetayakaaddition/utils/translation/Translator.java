@@ -26,9 +26,9 @@ import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.ayakacraft.carpetayakaaddition.utils.ServerPlayerUtils;
 import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.MutableText;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.function.Supplier;
 
@@ -93,23 +93,23 @@ public class Translator {
         return lang.translateWithoutFallback(k);
     }
 
-    public MutableText tr(String key, Object... args) {
+    public MutableComponent tr(String key, Object... args) {
         return tr(AyakaLanguage.getServerLanguage(), key, args);
     }
 
-    public MutableText tr(AyakaLanguage lang, String key, Object... args) {
+    public MutableComponent tr(AyakaLanguage lang, String key, Object... args) {
         return TextUtils.format(translate(lang, key), args);
     }
 
-    public MutableText tr(ServerPlayerEntity player, String key, Object... args) {
+    public MutableComponent tr(ServerPlayer player, String key, Object... args) {
         return tr(ServerPlayerUtils.getLanguage(player), key, args);
     }
 
-    public MutableText tr(ServerCommandSource source, String key, Object... args) {
+    public MutableComponent tr(CommandSourceStack source, String key, Object... args) {
         return tr(CommandUtils.getLanguage(source), key, args);
     }
 
-    public Supplier<MutableText> trS(ServerCommandSource source, String key, Object... args) {
+    public Supplier<MutableComponent> trS(CommandSourceStack source, String key, Object... args) {
         return () -> tr(source, key, args);
     }
 

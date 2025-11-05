@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.itemDiscardAge;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import net.minecraft.entity.ItemEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -35,26 +35,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemEntityMixin {
 
     @Shadow
-    private int itemAge;
+    private int age;
 
     @Unique
     private int getDiscardAge() {
         return CarpetAyakaSettings.itemDiscardAge == 0 ? 6000 : CarpetAyakaSettings.itemDiscardAge;
     }
 
-    @Inject(method = "setDespawnImmediately", at = @At("TAIL"))
+    @Inject(method = "makeFakeItem", at = @At("TAIL"))
     private void onSetDespawnImmediately(CallbackInfo ci) {
-        this.itemAge = getDiscardAge() - 1;
+        this.age = getDiscardAge() - 1;
     }
 
-    @ModifyConstant(method = {"tick", "canMerge()Z"}, constant = @Constant(intValue = 6000))
+    @ModifyConstant(method = {"tick", "isMergable"}, constant = @Constant(intValue = 6000))
     private int modifyDiscardAge(int value) {
         return getDiscardAge();
     }
 
-    @Inject(method = "setCovetedItem", at = @At("TAIL"))
+    @Inject(method = "setExtendedLifetime", at = @At("TAIL"))
     private void onSetCovetedItem(CallbackInfo ci) {
-        this.itemAge = -getDiscardAge();
+        this.age = -getDiscardAge();
     }
 
 }

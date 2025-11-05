@@ -23,49 +23,47 @@ package com.ayakacraft.carpetayakaaddition.utils;
 import com.ayakacraft.carpetayakaaddition.mixin.commands.gohome.LivingEntityAccessor;
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.GameMode;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.GameType;
 import org.jetbrains.annotations.Contract;
 
 public final class ServerPlayerUtils {
 
     @PreprocessPattern
-    private static String getClientLanguageServerSide(ServerPlayerEntity player) {
+    private static String getClientLanguageServerSide(ServerPlayer player) {
         //#if MC>=12006
-        return player.getClientOptions().language();
+        return player.clientInformation().language();
         //#else
         //$$ return ((com.ayakacraft.carpetayakaaddition.utils.translation.WithClientLanguage) player).getClientLanguage$Ayaka();
         //#endif
     }
 
     @PreprocessPattern
-    private static ServerWorld getServerWorld(ServerPlayerEntity player) {
+    private static ServerLevel getServerLevel(ServerPlayer player) {
         //#if MC>=12000
-        return player.getServerWorld();
-        //#elseif MC>=11800
-        //$$ return player.getWorld();
+        return player.serverLevel();
         //#else
-        //$$ return player.getServerWorld();
+        //$$ return player.getLevel();
         //#endif
     }
 
     @Contract(pure = true)
-    public static AyakaLanguage getLanguage(ServerPlayerEntity player) {
+    public static AyakaLanguage getLanguage(ServerPlayer player) {
         String lang;
-        if (player.getServerWorld().getServer().isDedicated()) {
-            lang = player.getClientOptions().language();
+        if (player.serverLevel().getServer().isDedicatedServer()) {
+            lang = player.clientInformation().language();
         } else {
             lang = ClientUtils.getLanguageCode();
         }
         return AyakaLanguage.get(lang);
     }
 
-    public static boolean changeGameMode(ServerPlayerEntity player, GameMode gameMode) {
+    public static boolean changeGameMode(ServerPlayer player, GameType gameMode) {
         //#if MC>=11700
-        return player.changeGameMode(gameMode);
+        return player.setGameMode(gameMode);
         //#else
-        //$$ if(player.interactionManager.getGameMode() == gameMode) {
+        //$$ if(player.gameMode.getGameModeForPlayer() == gameMode) {
         //$$     return false;
         //$$ }
         //$$ player.setGameMode(gameMode);
@@ -74,25 +72,29 @@ public final class ServerPlayerUtils {
     }
 
     @Contract(pure = true)
-    public static float getYaw(ServerPlayerEntity player) {
-        return MathUtils.wrapDegrees(player.getYaw(
-                //#if MC<11700
-                //$$ 1f
+    public static float getYaw(ServerPlayer player) {
+        return MathUtils.wrapDegrees(
+                //#if MC>=11700
+                player.getYRot()
+                //#else
+                //$$ player.getViewYRot(1f)
                 //#endif
-        ));
+        );
     }
 
     @Contract(pure = true)
-    public static float getPitch(ServerPlayerEntity player) {
-        return MathUtils.wrapDegrees(player.getPitch(
-                //#if MC<11700
-                //$$ 1f
+    public static float getPitch(ServerPlayer player) {
+        return MathUtils.wrapDegrees(
+                //#if MC>=11700
+                player.getXRot()
+                //#else
+                //$$ player.getViewXRot(1f)
                 //#endif
-        ));
+        );
     }
 
-    public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z, float yaw, float pitch) {
-        player.teleport(dim, x, y, z,
+    public static void teleport(ServerPlayer player, ServerLevel dim, double x, double y, double z, float yaw, float pitch) {
+        player.teleportTo(dim, x, y, z,
                 //#if MC>=11900
                 java.util.Collections.emptySet(),
                 //#endif
@@ -103,26 +105,26 @@ public final class ServerPlayerUtils {
         );
     }
 
-    public static void teleport(ServerPlayerEntity player, ServerWorld dim, double x, double y, double z) {
+    public static void teleport(ServerPlayer player, ServerLevel dim, double x, double y, double z) {
         teleport(player, dim, x, y, z, getYaw(player), getPitch(player));
     }
 
-    public static void teleport(ServerPlayerEntity player, ServerPlayerEntity target) {
-        teleport(player, target.getServerWorld(), target.getPos().getX(), target.getPos().getY(), target.getPos().getZ(), getYaw(target), getPitch(target));
+    public static void teleport(ServerPlayer player, ServerPlayer target) {
+        teleport(player, target.serverLevel(), target.position().x(), target.position().y(), target.position().z(), getYaw(target), getPitch(target));
     }
 
-    public static void sendHome(ServerPlayerEntity player) {
-        ServerPlayerEntity newPlayer = player.getServerWorld().getServer().getPlayerManager().respawnPlayer(player,
+    public static void sendHome(ServerPlayer player) {
+        ServerPlayer newPlayer = player.serverLevel().getServer().getPlayerList().respawn(player,
                 //#if MC>=11600
                 //#else
-                //$$ net.minecraft.world.dimension.DimensionType.OVERWORLD,
+                //$$ net.minecraft.world.level.dimension.DimensionType.OVERWORLD,
                 //#endif
                 true
                 //#if MC>=12100
-                //$$ , net.minecraft.entity.Entity.RemovalReason.CHANGED_DIMENSION
+                //$$ , net.minecraft.world.entity.Entity.RemovalReason.CHANGED_DIMENSION
                 //#endif
         );
-        newPlayer.networkHandler.player = newPlayer;
+        newPlayer.connection.player = newPlayer;
         ((LivingEntityAccessor) newPlayer).getActiveStatusEffects$Ayaka().putAll(((LivingEntityAccessor) player).getActiveStatusEffects$Ayaka());
     }
 

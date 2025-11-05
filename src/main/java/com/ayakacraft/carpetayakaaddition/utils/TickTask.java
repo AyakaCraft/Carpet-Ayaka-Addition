@@ -64,12 +64,12 @@ public abstract class TickTask {
 
         public CountDownTask(CarpetAyakaServer modServer, int ticksToCount) {
             super(modServer);
-            this.endTick = mcServer.getTicks() + ticksToCount;
+            this.endTick = mcServer.getTickCount() + ticksToCount;
         }
 
         @Override
         public void tick() {
-            if (mcServer.getTicks() >= endTick) {
+            if (mcServer.getTickCount() >= endTick) {
                 this.run();
                 this.finish();
             }
@@ -88,7 +88,7 @@ public abstract class TickTask {
 
         @Override
         public void tick() {
-            if (mcServer.getTicks() % frequency == 0) {
+            if (mcServer.getTickCount() % frequency == 0) {
                 this.run();
             }
         }

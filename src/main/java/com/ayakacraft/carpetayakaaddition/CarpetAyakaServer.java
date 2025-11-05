@@ -31,8 +31,8 @@ import com.ayakacraft.carpetayakaaddition.utils.TickTask;
 import com.ayakacraft.carpetayakaaddition.utils.translation.AyakaLanguage;
 import com.google.common.collect.Queues;
 import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -85,9 +85,9 @@ public final class CarpetAyakaServer implements CarpetExtension {
 
     @Override
     public void registerCommands(
-            CommandDispatcher<ServerCommandSource> dispatcher
+            CommandDispatcher<CommandSourceStack> dispatcher
             //#if MC>=11900
-            , final net.minecraft.command.CommandRegistryAccess registryAccess
+            , final net.minecraft.commands.CommandBuildContext registryAccess
             //#endif
     ) {
         AyakaCommandRegistry.registerCommands(dispatcher);
