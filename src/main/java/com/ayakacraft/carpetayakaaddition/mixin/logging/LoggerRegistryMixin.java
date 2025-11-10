@@ -36,6 +36,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.lang.reflect.Field;
+
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.15"))
 @Mixin(value = LoggerRegistry.class, remap = false)
 public abstract class LoggerRegistryMixin {
@@ -49,8 +51,10 @@ public abstract class LoggerRegistryMixin {
     private static void onSetAccess(Logger logger, Operation<Void> original) {
         if (logger instanceof AyakaExtensionLogger) {
             try {
-                ((AyakaExtensionLogger) logger).getField().setBoolean(null, logger.hasOnlineSubscribers());
-            } catch (IllegalAccessException e) {
+                Field f = ((AyakaExtensionLogger) logger).getField();
+                f.setAccessible(true);
+                f.setBoolean(null, logger.hasOnlineSubscribers());
+            } catch (Exception e) {
                 CarpetAyakaAddition.LOGGER.warn("Cannot change logger quick access field, logger might be disabled", e);
             }
         } else {

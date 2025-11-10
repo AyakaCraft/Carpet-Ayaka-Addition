@@ -21,40 +21,29 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.tickFluids;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //Do not remove the lines below
 //TODO update in 1.15.2
 @Mixin(FluidState.class)
 public class FluidStateMixin {
 
-    @WrapWithCondition(
-            method = "tick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/material/Fluid;tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;)V"
-            )
-    )
-    private boolean wrapScheduledTick(Fluid instance, Level level, BlockPos blockPos, FluidState fluidState) {
-        return CarpetAyakaSettings.tickFluids;
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    private void wrapScheduledTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
+        }
     }
 
-    @WrapWithCondition(
-            method = "randomTick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/material/Fluid;randomTick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Lnet/minecraft/util/RandomSource;)V"
-            )
-    )
-    private boolean wrapRandomTick(Fluid instance, Level level, BlockPos blockPos, FluidState fluidState, RandomSource randomSource) {
-        return CarpetAyakaSettings.tickFluids;
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
+    private void wrapRandomTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
+        }
     }
 
 }

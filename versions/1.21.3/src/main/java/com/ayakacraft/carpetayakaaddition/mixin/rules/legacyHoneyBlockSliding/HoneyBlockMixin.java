@@ -22,55 +22,41 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.HoneyBlock;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
 @Mixin(HoneyBlock.class)
 public class HoneyBlockMixin {
 
-    @WrapMethod(method = "isSlidingDown")
-    private boolean wrapIsSliding(BlockPos pos, Entity entity, Operation<Boolean> original) {
+    @WrapOperation(
+            method = {"isSlidingDown", "doSlideMovement"},
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/HoneyBlock;getOldDeltaY(D)D")
+    )
+    private double wrapGetOldDeltaY(double deltaY, Operation<Double> original, @Local(argsOnly = true) Entity entity) {
         if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
-            if (entity.onGround()) {
-                return false;
-            }
-            if (entity.getY() > (double) pos.getY() + 0.9375 - 1.0E-7) {
-                return false;
-            }
-            if (entity.getDeltaMovement().y >= -0.08) {
-                return false;
-            }
-            double d = Math.abs((double) pos.getX() + 0.5 - entity.getX());
-            double e = Math.abs((double) pos.getZ() + 0.5 - entity.getZ());
-            double f = 0.4375 + (double) (entity.getBbWidth() / 2.0f);
-            return d + 1.0E-7 > f || e + 1.0E-7 > f;
+            return deltaY;
         }
-        return original.call(pos, entity);
+        return original.call(deltaY);
     }
 
-    @WrapMethod(method = "doSlideMovement")
-    private void wrapUpdateSlidingVelocity(Entity entity, Operation<Void> original) {
+    @WrapOperation(
+            method = "doSlideMovement",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/HoneyBlock;getNewDeltaY(D)D")
+    )
+    private double wrapGetNewDeltaY(double deltaY, Operation<Double> original, @Local(argsOnly = true) Entity entity) {
         if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
-            Vec3 vec3d = entity.getDeltaMovement();
-            if (vec3d.y < -0.13) {
-                double d = -0.05 / vec3d.y;
-                entity.setDeltaMovement(new Vec3(vec3d.x * d, -0.05, vec3d.z * d));
-            } else {
-                entity.setDeltaMovement(new Vec3(vec3d.x, -0.05, vec3d.z));
-            }
-            entity.resetFallDistance();
-        } else {
-            original.call(entity);
+            return deltaY;
         }
+        return original.call(deltaY);
     }
 
 }

@@ -22,22 +22,19 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.frostWalkerNoFreezing;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 import net.minecraft.world.item.enchantment.effects.ReplaceDisk;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.1"))
 @Mixin(ReplaceDisk.class)
@@ -48,16 +45,16 @@ public class ReplaceDiskMixin {
     private BlockStateProvider blockState;
 
     @Unique
-    private boolean shouldApply() {
-        return !(CarpetAyakaSettings.frostWalkerNoFreezing
+    private boolean shouldNotApply() {
+        return CarpetAyakaSettings.frostWalkerNoFreezing
                 && blockState instanceof SimpleStateProvider
-                && blockState.getState(null, null).getBlock() == Blocks.FROSTED_ICE);
+                && blockState.getState(null, null).getBlock() == Blocks.FROSTED_ICE;
     }
 
-    @WrapMethod(method = "apply")
-    private void wrapApply(ServerLevel world, int level, EnchantedItemInUse context, Entity user, Vec3 pos, Operation<Void> original) {
-        if (shouldApply()) {
-            original.call(world, level, context, user, pos);
+    @Inject(method = "apply", at = @At("HEAD"), cancellable = true)
+    private void wrapApply(CallbackInfo ci) {
+        if (shouldNotApply()) {
+            ci.cancel();
         }
     }
 

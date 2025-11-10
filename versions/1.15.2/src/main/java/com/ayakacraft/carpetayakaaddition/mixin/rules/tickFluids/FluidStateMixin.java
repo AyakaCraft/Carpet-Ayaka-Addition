@@ -21,39 +21,27 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.tickFluids;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
-import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.Random;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FluidState.class)
 public interface FluidStateMixin {
 
-    @WrapWithCondition(
-            method = "tick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/material/Fluid;tick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;)V"
-            )
-    )
-    default boolean wrapScheduledTick(Fluid instance, Level level, BlockPos blockPos, FluidState fluidState) {
-        return CarpetAyakaSettings.tickFluids;
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    default void wrapScheduledTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
+        }
     }
 
-    @WrapWithCondition(
-            method = "randomTick",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/material/Fluid;randomTick(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/material/FluidState;Ljava/util/Random;)V"
-            )
-    )
-    default boolean wrapRandomTick(Fluid instance, Level level, BlockPos blockPos, FluidState fluidState, Random random) {
-        return CarpetAyakaSettings.tickFluids;
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
+    default void wrapRandomTick(CallbackInfo ci) {
+        if (!CarpetAyakaSettings.tickFluids) {
+            ci.cancel();
+        }
     }
 
 }

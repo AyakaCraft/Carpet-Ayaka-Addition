@@ -22,21 +22,21 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.client.server.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
 @Mixin(IntegratedServer.class)
 public class IntegratedServerMixin {
 
-    @WrapMethod(method = "getMaxPlayers")
-    private int wrapMaxPlayerCount(Operation<Integer> original) {
-        if (CarpetAyakaSettings.maxPlayersOverwrite == 0) {
-            return original.call();
+    @ModifyConstant(method = "getMaxPlayers", constant = @Constant(intValue = 8))
+    private int modifyMaxPlayerCount(int constant) {
+        if (CarpetAyakaSettings.maxPlayersOverwrite <= 0) {
+            return constant;
         }
         return CarpetAyakaSettings.maxPlayersOverwrite;
     }
