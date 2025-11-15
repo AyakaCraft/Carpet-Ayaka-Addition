@@ -35,10 +35,7 @@ public class IntegratedServerMixin {
 
     @ModifyConstant(method = "getMaxPlayers", constant = @Constant(intValue = 8))
     private int modifyMaxPlayerCount(int constant) {
-        if (CarpetAyakaSettings.maxPlayersOverwrite <= 0) {
-            return constant;
-        }
-        return CarpetAyakaSettings.maxPlayersOverwrite;
+        return CarpetAyakaSettings.maxPlayersOverwrite <= 0 ? constant : CarpetAyakaSettings.maxPlayersOverwrite;
     }
 
 }

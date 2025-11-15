@@ -4,34 +4,33 @@ pluginManagement {
     repositories {
         maven {
             name = "Fabric"
-            url = "https://maven.fabricmc.net/"
+            url = uri("https://maven.fabricmc.net/")
         }
         maven {
             name = "Jitpack"
-            url = "https://jitpack.io"
+            url = uri("https://jitpack.io")
         }
         maven {
-            url = "https://maven.firstdark.dev/releases" // For ModPublisher
+            url = uri("https://maven.firstdark.dev/releases") // For ModPublisher
         }
         mavenCentral()
         gradlePluginPortal()
     }
     resolutionStrategy {
         eachPlugin {
-            switch (requested.id.id) {
-                case "com.replaymod.preprocess": {
+            when (requested.id.id) {
+                "com.replaymod.preprocess" -> {
                     useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
-                    break
                 }
             }
         }
     }
 }
 
-new JsonSlurper().parseText(file("settings.json").text).versions.each { String version ->
+(JsonSlurper().parseText(file("settings.json").readText()) as Map<String, List<String>>)["versions"]?.forEach { version ->
     include(":$version")
-    project(":$version").with {
+    project(":$version").apply {
         projectDir = file("versions/$version")
-        buildFileName = "../../common.gradle"
+        buildFileName = "../../common.gradle.kts"
     }
 }

@@ -21,13 +21,13 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
 
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.client.server.IntegratedServer;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
-@Mixin(IntegratedServer.class)
+@Mixin(DummyClass.class)
 public class IntegratedServerMixin {
 
     // Implementation in 1.21.9
