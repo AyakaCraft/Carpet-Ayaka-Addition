@@ -139,7 +139,7 @@ carpet:
       desc: 阻止附魔冰霜行者的靴子冻住水源
       extra:
         "0": 在 1.21+ 中可能导致意料外的行为
-    giveCommand:
+    giveLimit:
       name: give命令限制
       desc: give 命令的限制乘数
       extra:

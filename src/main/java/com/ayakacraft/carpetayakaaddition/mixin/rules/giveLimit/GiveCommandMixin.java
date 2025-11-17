@@ -33,9 +33,11 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(GiveCommand.class)
 public class GiveCommandMixin {
 
+    //#if MC>=11700
     @ModifyConstant(method = "giveItem", constant = @Constant(intValue = 100))
     private static int modifyMaxCount(int value) {
         return CarpetAyakaSettings.giveLimit == 0 ? value : CarpetAyakaSettings.giveLimit;
     }
+    //#endif
 
 }

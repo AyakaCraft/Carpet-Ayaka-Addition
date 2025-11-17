@@ -52,7 +52,8 @@ public final class CarpetAyakaSettings {
     public static boolean betterMobCap = false;
 
     @Rule(
-            categories = {AYAKA, SURVIVAL, CHEAT}
+            categories = {AYAKA, SURVIVAL, CHEAT},
+            modConditions = @ModCondition(value = ModUtils.TIS_ID)
     )
     public static boolean betterOpPlayerNoCheat = false;
 
@@ -125,7 +126,8 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerDataFix = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT}
+            categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
+            modConditions = @ModCondition(value = ModUtils.GCA_ID)
     )
     public static boolean fakePlayerResidentBackupFix = false;
 

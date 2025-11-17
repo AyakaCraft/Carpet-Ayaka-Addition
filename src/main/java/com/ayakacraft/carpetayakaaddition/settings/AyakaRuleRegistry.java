@@ -54,7 +54,7 @@ public final class AyakaRuleRegistry {
             }
 
             ModCondition[] modConditions = annotation.modConditions();
-            if (modConditions.length > 0 && Arrays.stream(annotation.modConditions()).noneMatch(AyakaRuleRegistry::isSatisfied)) {
+            if (modConditions.length > 0 && !Arrays.stream(annotation.modConditions()).allMatch(AyakaRuleRegistry::isSatisfied)) {
                 continue;
             }
 

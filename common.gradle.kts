@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
-import java.util.Calendar
+import java.util.*
 
 plugins {
     id("fabric-loom") version ("1.13-SNAPSHOT")
@@ -27,7 +27,7 @@ plugins {
 
 val properties = project.properties
 
-val mcVersionNumber = properties["mcVersion"] as Integer
+val mcVersionNumber = properties["mcVersion"] as Int
 val minecraftVersion = properties["minecraft_version"].toString()
 
 val jitpack = System.getenv("JITPACK") == "true"
@@ -118,11 +118,17 @@ dependencies {
     // mods
     modImplementation("carpet:fabric-carpet:${properties["carpet_core_version"]}")
 
-    modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
-        exclude(group = "carpet", module = "fabric-carpet")
+    if (mcVersionNumber < 12111) {
+        modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+        }
+    } else {
+        modCompileOnly("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+        }
     }
 
-    if (mcVersionNumber >= 12000 && mcVersionNumber < 12111) {
+    if (mcVersionNumber in 12000..<12111) {
         modImplementation("maven.modrinth:gca:${properties["gugle_version"]}") {
             exclude(group = "carpet", module = "fabric-carpet")
         }
@@ -142,7 +148,7 @@ dependencies {
             modRuntimeOnly("maven.modrinth:modmenu:${properties["modmenu_version"]}")
         }
 
-        if (mcVersionNumber >= 11600 && mcVersionNumber < 12100) {
+        if (mcVersionNumber in 11600..<12100) {
             if (mcVersionNumber < 11900) {
                 modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
             } else {
@@ -407,13 +413,13 @@ publishing {
     repositories {
         // maven {
         //     name = "AyakaCraft"
-        //     url = "https://mc.ayakacraft.com:7000/releases"
-        //     credentials(PasswordCredentials) {
+        //     url = uri("https://mc.ayakacraft.com:7000/releases")
+        //     credentials<PasswordCredentials>(PasswordCredentials::class) {
         //         username = "Publisher"
         //         password = System.getenv("AYAKA_MAVEN_TOKEN")
         //     }
         //     authentication {
-        //         basic(BasicAuthentication)
+        //         create("basic", BasicAuthentication::class)
         //     }
         // }
     }
