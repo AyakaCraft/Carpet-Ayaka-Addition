@@ -205,13 +205,13 @@ loom {
 }
 
 preprocess {
-    patternAnnotation.set("com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern")
+    patternAnnotation = "com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern"
 }
 
 // https://github.com/Fallen-Breath/yamlang
 yamlang {
-    targetSourceSets.set(listOf(sourceSets["main"]))
-    inputDir.set(langDir)
+    targetSourceSets = listOf(sourceSets["main"])
+    inputDir = langDir
 }
 
 tasks.shadowJar {
@@ -228,7 +228,7 @@ tasks.withType<ShadowJar>().configureEach {
 tasks.remapJar {
     dependsOn(tasks.shadowJar)
     mustRunAfter(tasks.shadowJar)
-    inputFile.set(tasks.shadowJar.get().archiveFile)
+    inputFile = tasks.shadowJar.get().archiveFile
 }
 
 val modVersion = properties["mod_version"].toString()
@@ -362,19 +362,19 @@ publisher {
     // debug = true
 
     if (properties["curseforge_id"] != null) {
-        curseID.set(properties["curseforge_id"].toString())
+        curseID = properties["curseforge_id"].toString()
     }
     if (properties["modrinth_id"] != null) {
-        modrinthID.set(properties["modrinth_id"].toString())
+        modrinthID = properties["modrinth_id"].toString()
     }
 
-    versionType.set(properties["mod_version_type"].toString())
-    changelog.set(rootProject.file("changelog.md"))
+    versionType = properties["mod_version_type"].toString()
+    changelog = rootProject.file("changelog.md")
 
-    projectVersion.set(fullProjectVersion)
-    gameVersions.set(minecraftVersions)
-    setLoaders("fabric")
-    setCurseEnvironment("server")
+    projectVersion = fullProjectVersion
+    gameVersions = minecraftVersions
+    loaders = listOf("fabric")
+    curseEnvironment = "server"
 
     artifact.set(tasks.remapJar)
 
