@@ -220,7 +220,7 @@ tasks.shadowJar {
     archiveClassifier = "shadow"
 }
 
-tasks.withType<ShadowJar>().configureEach {
+tasks.withType<ShadowJar> {
     enableAutoRelocation = true
     relocationPrefix = "carpetayakaaddition.libs"
 }
@@ -296,7 +296,7 @@ tasks.processResources {
 // ensure that the encoding is set to UTF-8, no matter what the system default is
 // this fixes some edge cases with special characters not displaying correctly
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType<JavaCompile>().configureEach {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.addAll(listOf("-Xlint:deprecation", "-Xlint:unchecked"))
     if (javaCompatibility <= JavaVersion.VERSION_1_8) {
