@@ -12,7 +12,6 @@
                 <list>
                     <option value="wrapper"/>
                     <option value="--gradle-version=9.2.1"/>
-                    <option value="--distribution-type=all"/>
                 </list>
             </option>
             <option name="vmOptions"/>
