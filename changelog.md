@@ -1,0 +1,1 @@
+- ***Added*** carpet rule `reasonableStalactiteDamage` to make stalactite fall damage relative to its size in 1.18+  

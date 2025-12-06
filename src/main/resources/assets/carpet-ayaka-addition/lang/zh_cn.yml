@@ -164,6 +164,9 @@ carpet:
       extra:
         "0": 设置为0以使用原版值
         "1": 在 1.21.9+ 专用服务端中被禁用
+    reasonableStalactiteDamage:
+      name: 合理的钟乳石伤害
+      desc: 在 1.18+ 中令钟乳石伤害与其大小相关
     tickFluids:
       name: 流体更新
       desc: 流体是否更新

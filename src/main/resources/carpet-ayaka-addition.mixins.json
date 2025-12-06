@@ -39,6 +39,7 @@
     "rules.itemDiscardAge.ItemEntityMixin",
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerListMixin",
+    "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
     "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",
     "settings.SettingsManagerAccessor",

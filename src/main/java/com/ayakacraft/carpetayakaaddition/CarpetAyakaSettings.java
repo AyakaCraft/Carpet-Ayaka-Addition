@@ -187,6 +187,12 @@ public final class CarpetAyakaSettings {
     public static int maxPlayersOverwrite = 0;
 
     @Rule(
+            categories = {AYAKA, FEATURE, EXPERIMENTAL, REINTRODUCE},
+            modConditions = @ModCondition(versionPredicates = ">=1.18")
+    )
+    public static boolean reasonableStalactiteDamage = false;
+
+    @Rule(
             categories = {AYAKA, CREATIVE, EXPERIMENTAL}
     )
     public static boolean tickFluids = true;

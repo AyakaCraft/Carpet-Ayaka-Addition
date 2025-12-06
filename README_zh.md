@@ -384,6 +384,15 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`
 
+#### 合理的钟乳石伤害 (reasonableStalactiteDamage)
+
+在 1.18+ 中令钟乳石伤害与其大小相关
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+
 #### 流体更新 (tickFluids)
 
 流体是否更新

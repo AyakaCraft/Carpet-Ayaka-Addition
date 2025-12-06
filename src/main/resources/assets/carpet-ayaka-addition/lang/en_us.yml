@@ -137,6 +137,8 @@ carpet:
       extra:
         "0": Set to 0 to use vanilla value
         "1": Disabled for dedicated servers in 1.21.9+
+    reasonableStalactiteDamage:
+      desc: Makes stalactite fall damage relative to its size in 1.18+
     tickFluids:
       desc: Whether fluids are ticked
       extra:

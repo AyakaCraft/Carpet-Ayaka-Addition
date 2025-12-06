@@ -384,6 +384,15 @@ Disabled for dedicated servers in 1.21.9+
 - Range: `[0,)`
 - Categories: `AYAKA`
 
+#### reasonableStalactiteDamage
+
+Makes stalactite fall damage relative to its size in 1.18+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+
 #### tickFluids
 
 Whether fluids are ticked
