@@ -90,7 +90,7 @@ carpet:
       name: 服务端路径点命令开关
       desc: 启用 /address 和 /ad 命令以操作服务端路径点
     commandAddressTp:
-      name: 服务端路径点命令开关
+      name: 服务端传送路径点命令开关
       desc: 启用 /address tp 和 /ad tp 命令以传送到服务端路径点
     commandC:
       name: 旁观者模式切换命令开关
