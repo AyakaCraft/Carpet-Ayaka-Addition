@@ -131,7 +131,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
-- [fakePlayerDataFix](#假人数据修复-fakePlayerDataFix-1219-10)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
@@ -141,6 +140,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
+- [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [tickFluids](#流体更新-tickfluids)
 
 #### 基岩无爆炸抗性 (bedrockNoBlastResistance)
@@ -272,17 +272,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
-#### 假人数据修复 (fakePlayerDataFix) (1.21.9-10)
-
-修复假人数据在重新加入服务器时丢失的问题
-
-参见 [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
-
-- 类型: `boolean`
-- 默认值: `false`
-- 参考选项: `false`, `true`
-- 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`, `CARPET_MOD`
-
 #### 备份不保留假人修复 (fakePlayerResidentBackupFix)
 
 修复回档后假人不会重新加入世界的问题
@@ -384,7 +373,7 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`
 
-#### 合理的钟乳石伤害 (reasonableStalactiteDamage)
+#### 合理的钟乳石伤害 (reasonableStalactiteDamage) (1.18+)
 
 在 1.18+ 中令钟乳石伤害与其大小相关
 
@@ -420,8 +409,8 @@ give 命令的限制乘数
 | 1.19.4       | ✔️ 长期支持                 |
 | 1.20.1       | ✔️ 长期支持                 |
 | 1.20.6       | ✔️ 长期支持                 |
-| 1.21-1.21.8  | 🕒 Minecraft 1.23 快照发布时 |
-| 1.21.9-10    | 🕒 待定                   |
+| 1.21-1.21.10 | 🕒 Minecraft 27.1 快照发布时 |
+| 1.21.11      | 🕒 待定                   |
 
 ### 已结束支持的版本
 

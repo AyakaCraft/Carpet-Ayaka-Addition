@@ -131,7 +131,6 @@ Logs the change of points-of-interest (experimental)
 - [disableBatSpawning](#disablebatspawning)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
-- [fakePlayerDataFix](#fakeplayerdatafix-1219-10)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
@@ -141,6 +140,7 @@ Logs the change of points-of-interest (experimental)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
+- [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [tickFluids](#tickfluids)
 
 #### bedrockNoBlastResistance
@@ -272,17 +272,6 @@ Forces fake players to spawn in offline mode
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BOT`
 
-#### fakePlayerDataFix (1.21.9-10)
-
-Fixes fake player losing data when rejoining the game
-
-See [carpet-2110](https://github.com/gnembon/fabric-carpet/issues/2110)
-
-- Type: `boolean`
-- Default value: `false`
-- Suggested options: `false`, `true`
-- Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`, `CARPET_MOD`
-
 #### fakePlayerResidentBackupFix
 
 Fixes the bug that fake players are not reconnected after retracements
@@ -384,7 +373,7 @@ Disabled for dedicated servers in 1.21.9+
 - Range: `[0,)`
 - Categories: `AYAKA`
 
-#### reasonableStalactiteDamage
+#### reasonableStalactiteDamage (1.18+)
 
 Makes stalactite fall damage relative to its size in 1.18+
 
@@ -420,8 +409,8 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.19.4            | ✔️ Long Term Support                        |
 | 1.20-1.20.1       | ✔️ Long Term Support                        |
 | 1.20.5-6          | ✔️ Long Term Support                        |
-| 1.21-1.21.8       | 🕒 When Minecraft 1.23 snapshot is released |
-| 1.21.9-10         | 🕒 To be determined                         |
+| 1.21-1.21.10      | 🕒 When Minecraft 27.1 snapshot is released |
+| 1.21.11           | 🕒 To be determined                         |
 
 ### End-of-life versions
 

@@ -39,8 +39,6 @@ public final class CarpetAyakaSettings {
 
     public static final String BOT = "BOT";
 
-    public static final String CARPET_MOD = "carpet_mod";
-
     @Rule(
             categories = {AYAKA, CREATIVE, TNT}
     )
@@ -118,12 +116,6 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, EXPERIMENTAL, BOT}
     )
     public static boolean fakePlayerForceOffline = false;
-
-    @Rule(
-            categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT, CARPET_MOD},
-            modConditions = @ModCondition(value = ModUtils.CPT_ID, versionPredicates = ">=1.4.185 <=1.4.187")
-    )
-    public static boolean fakePlayerDataFix = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},

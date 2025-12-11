@@ -25,7 +25,6 @@
     "rules.blockDropStackVelocityMultiple.BlockMixin",
     "rules.disableBatSpawning.BatMixin",
     "rules.dragonEggFallDelay.DragonEggBlockMixin",
-    "rules.fakePlayerDataFix.EntityPlayerMPFakeMixin",
     "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.forceTickPlantsReintroduce.BambooStalkBlockMixin",
