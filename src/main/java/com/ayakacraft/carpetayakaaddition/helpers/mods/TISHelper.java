@@ -21,15 +21,15 @@
 package com.ayakacraft.carpetayakaaddition.helpers.mods;
 
 import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Contract;
 
 public final class TISHelper {
 
     @Contract(pure = true)
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean canCheat(CommandSourceStack source) {
-        return OpPlayerNoCheatHelper.canCheat(source);
+        return !CarpetAyakaSettings.betterOpPlayerNoCheat || OpPlayerNoCheatHelper.canCheat(source);
     }
 
 }

@@ -41,7 +41,7 @@ import java.nio.file.Path;
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
 //Do not remove the lines below
-//TODO update in 1.21.6
+//TODO update in 1.21.8
 public final class GcaHelper {
 
     private static final Method savePlayerMethod;

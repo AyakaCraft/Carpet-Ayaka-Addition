@@ -118,14 +118,8 @@ dependencies {
     // mods
     modImplementation("carpet:fabric-carpet:${properties["carpet_core_version"]}")
 
-    if (mcVersionNumber < 12111) {
-        modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
-            exclude(group = "carpet", module = "fabric-carpet")
-        }
-    } else {
-        modCompileOnly("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
-            exclude(group = "carpet", module = "fabric-carpet")
-        }
+    modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
+        exclude(group = "carpet", module = "fabric-carpet")
     }
 
     if (mcVersionNumber in 12000..12111) {

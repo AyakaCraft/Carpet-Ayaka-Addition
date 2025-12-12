@@ -20,7 +20,6 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -46,7 +45,7 @@ public class ClearCommandMixin {
             )
     )
     private static Predicate<CommandSourceStack> checkIfAllowCheating(Predicate<CommandSourceStack> original) {
-        return original.and(s -> !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(s)));
+        return original.and(TISHelper::canCheat);
     }
 
 }

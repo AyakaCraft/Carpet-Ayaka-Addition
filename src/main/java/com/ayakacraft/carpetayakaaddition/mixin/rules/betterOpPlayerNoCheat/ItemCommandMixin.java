@@ -20,7 +20,6 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -32,7 +31,7 @@ import net.minecraft.server.commands.ItemCommands;
 import org.spongepowered.asm.mixin.Mixin;
 
 //Do not remove the lines below
-//TODO update in 1.21.6
+//TODO update in 1.21.8
 @Restriction(require = @Condition(ModUtils.TIS_ID))
 @Mixin(ItemCommands.class)
 public class ItemCommandMixin {
@@ -45,7 +44,7 @@ public class ItemCommandMixin {
             //#endif
     )
     private static boolean checkIfAllowCheating(CommandSourceStack source, Operation<Boolean> original) {
-        return !(CarpetAyakaSettings.betterOpPlayerNoCheat && !TISHelper.canCheat(source)) && original.call(source);
+        return TISHelper.canCheat(source) && original.call(source);
     }
 
 }
