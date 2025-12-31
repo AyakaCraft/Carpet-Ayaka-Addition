@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom") version ("1.15.0-alpha.16")
+    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.16")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -99,46 +99,67 @@ idea {
 
 // https://github.com/FabricMC/fabric-loader/issues/783
 configurations {
-    runtimeOnly { exclude(group = "net.fabricmc", module = "fabric-loader") }
-    compileOnly { exclude(group = "com.github.2No2Name", module = "McTester") }
-    implementation { exclude(group = "com.github.2No2Name", module = "McTester") }
+    modRuntimeOnly { exclude(group = "net.fabricmc", module = "fabric-loader") }
+    modCompileOnly { exclude(group = "com.github.2No2Name", module = "McTester") }
+    modImplementation { exclude(group = "com.github.2No2Name", module = "McTester") }
 }
 
 dependencies {
     // loom
     minecraft("com.mojang:minecraft:${minecraftVersion}")
+    val parchment = properties["parchment"]
+    if (parchment != null) {
+        mappings(loom.layered {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-$minecraftVersion:$parchment@zip")
+        })
+    } else {
+        mappings(loom.officialMojangMappings())
+    }
 
     // fabric
-    implementation("net.fabricmc:fabric-loader:${properties["loader_version"]}")
+    modImplementation("net.fabricmc:fabric-loader:${properties["loader_version"]}")
 
     //libs
-    include((implementation("me.fallenbreath:conditional-mixin-fabric:${properties["conditionalmixin_version"]}") as Dependency))
+    include((modImplementation("me.fallenbreath:conditional-mixin-fabric:${properties["conditionalmixin_version"]}") as Dependency))
 
     // mods
-    implementation("carpet:fabric-carpet:${properties["carpet_core_version"]}")
+    modImplementation("carpet:fabric-carpet:${properties["carpet_core_version"]}")
 
-    implementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
+    modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
         exclude(group = "carpet", module = "fabric-carpet")
     }
 
-//    if (mcVersionNumber in 12000..12111) {
-//        implementation("maven.modrinth:gca:${properties["gugle_version"]}") {
-//            exclude(group = "carpet", module = "fabric-carpet")
-//        }
-//    } else {
-//        compileOnly("maven.modrinth:gca:${properties["gugle_version"]}") {
-//            exclude(group = "carpet", module = "fabric-carpet")
-//        }
-//    }
+    if (mcVersionNumber >= 12000) {
+        modImplementation("maven.modrinth:gca:${properties["gugle_version"]}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+        }
+    } else {
+        modCompileOnly("maven.modrinth:gca:${properties["gugle_version"]}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+        }
+    }
 
     if (!ci) {
         // For runtime mods
-        runtimeOnly("net.fabricmc.fabric-api:fabric-api:${properties["fabric_api_version"]}")
+        modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${properties["fabric_api_version"]}")
 
-        runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
+        if (mcVersionNumber >= 11500) {
+            modRuntimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
+        } else {
+            modRuntimeOnly("maven.modrinth:modmenu:${properties["modmenu_version"]}")
+        }
+
+        if (mcVersionNumber in 11600..<12100) {
+            if (mcVersionNumber < 11900) {
+                modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
+            } else {
+                modRuntimeOnly("maven.modrinth:lazydfu:0.1.3")
+            }
+        }
 
         // WHY DO YOU USE REFLECTION?????
-        // runtimeOnly("curse.maven:xaeros-minimap-263420:${properties["xaeros_minimap_version"]}")
+        // modRuntimeOnly("curse.maven:xaeros-minimap-263420:${properties["xaeros_minimap_version"]}")
     }
 
     testImplementation("net.fabricmc:fabric-loader-junit:${properties["loader_version"]}")
@@ -151,7 +172,15 @@ dependencies {
 
 val mixinConfigPath = "carpet-ayaka-addition.mixins.json"
 val langDir = "assets/carpet-ayaka-addition/lang"
-val javaCompatibility = JavaVersion.VERSION_25
+val javaCompatibility = if (mcVersionNumber >= 12005) {
+    JavaVersion.VERSION_21
+} else if (mcVersionNumber >= 11800) {
+    JavaVersion.VERSION_17
+} else if (mcVersionNumber >= 11700) {
+    JavaVersion.VERSION_16
+} else {
+    JavaVersion.VERSION_1_8
+}
 val mixinCompatibility = javaCompatibility
 
 loom {
@@ -175,6 +204,8 @@ loom {
             ideConfigGenerated(false)
         }
     }
+
+    mixin.useLegacyMixinAp = true
 }
 
 preprocess {
@@ -196,6 +227,12 @@ tasks.shadowJar {
 tasks.withType<ShadowJar> {
     enableAutoRelocation = true
     relocationPrefix = "carpetayakaaddition.libs"
+}
+
+tasks.remapJar {
+    dependsOn(tasks.shadowJar)
+    mustRunAfter(tasks.shadowJar)
+    inputFile = tasks.shadowJar.get().archiveFile
 }
 
 val modVersion = properties["mod_version"].toString()
@@ -280,11 +317,6 @@ java {
 }
 
 tasks.jar {
-    dependsOn(tasks.shadowJar)
-    mustRunAfter(tasks.shadowJar)
-    from(zipTree(tasks.shadowJar.get().archiveFile))
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
     inputs.property("archives_base_name", properties["archives_base_name"])
     from(rootProject.file("LICENSE")) {
         rename { "${it}_${properties["archives_base_name"]}" }
@@ -356,7 +388,7 @@ publisher {
     loaders = listOf("fabric")
     curseEnvironment = "server"
 
-    artifact.set(tasks.jar)
+    artifact.set(tasks.remapJar)
 
     if (mcVersionNumber < 11700) {
         setJavaVersions(JavaVersion.VERSION_1_8)

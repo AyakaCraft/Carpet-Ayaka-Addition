@@ -52,14 +52,7 @@ public final class GcaHelper {
         try {
             Optional<ModContainer> o = ModUtils.getModContainer(ModUtils.GCA_ID);
             if (o.isPresent()) {
-                ClassLoader classLoader = GcaHelper.class.getClassLoader();
-                Class<?>    clazz;
-                try {
-                    clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.FakePlayerResident");
-                } catch (ClassNotFoundException e) {
-                    clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
-                }
-                spm = clazz.getDeclaredMethod("save", Player.class);
+                spm = GcaHelper.class.getClassLoader().loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident").getDeclaredMethod("save", Player.class);
                 spm.setAccessible(true);
             } else {
                 LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
@@ -112,7 +105,12 @@ public final class GcaHelper {
                         }
                     }
                 })
-                .forEach(p -> fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p)));
+                .forEach(p -> {
+                    JsonElement playerJson = invokeSavePlayer(p);
+                    if (playerJson != null) {
+                        fakePlayerList.add(p.getName().getString(), invokeSavePlayer(p));
+                    }
+                });
 
         Path path = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve("fake_player.gca.json");
         try {

@@ -2,11 +2,12 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.14-SNAPSHOT") apply (false)
+    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.16") apply (false)
+    id("net.fabricmc.fabric-loom") version ("1.15.0-alpha.16") apply (false)
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("d452ef7612")
+    id("com.replaymod.preprocess") version ("c5abb4fb12")
 
     // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version ("9.3.0") apply (false)
@@ -46,6 +47,8 @@ preprocess {
     val mc12110 = createNode("1.21.10", 1_21_10, "")
     val mc12111 = createNode("1.21.11", 1_21_11, "")
 
+    val mc2601 = createNode("26.1", 260100, "")
+
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
     mc11904.link(mc11802, file("versions/mapping_11904_11802.txt"))
@@ -61,6 +64,8 @@ preprocess {
     mc12105.link(mc12108, file("versions/mapping_12105_12108.txt"))
     mc12108.link(mc12110, file("versions/mapping_12108_12110.txt"))
     mc12110.link(mc12111, file("versions/mapping_12110_12111.txt"))
+
+    mc12111.link(mc2601, file("versions/mapping_12111_2601.txt"))
 }
 
 fun libsDir(p: Project): Directory {
