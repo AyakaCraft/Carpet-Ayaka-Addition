@@ -37,31 +37,32 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
 public final class GcaHelper {
 
-    //#if MC<12105
-    //$$ private static final java.lang.reflect.Method savePlayerMethod;
+    //#if MC>=260000
+    //$$ // Workaround
+    //$$ private static final boolean fakePlayerResident = false;
     //#endif
 
-    //#if MC<12105
-    //$$ static {
-    //$$     java.lang.reflect.Method spm = null;
-    //$$     try {
-    //$$         ClassLoader classLoader = GcaHelper.class.getClassLoader();
-    //$$         Class<?>    clazz;
-    //$$         try {
-    //$$             clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.FakePlayerResident");
-    //$$         } catch (ClassNotFoundException e) {
-    //$$             clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
-    //$$         }
-    //$$         spm = clazz.getDeclaredMethod("save", net.minecraft.world.entity.player.Player.class);
-    //$$         spm.setAccessible(true);
-    //$$     } catch (ClassNotFoundException | NoSuchMethodException e) {
-    //$$         LOGGER.warn("Failed to load GCA, fakePlayerResidentBackupFix won't be activated", e);
-    //$$     }
-    //$$     savePlayerMethod = spm;
-    //$$ }
-    //#endif
+    private static final java.lang.reflect.Method savePlayerMethod;
 
-    private static boolean doPlayerNeedResident(ServerPlayer player) {
+    static {
+        java.lang.reflect.Method spm = null;
+        try {
+            ClassLoader classLoader = GcaHelper.class.getClassLoader();
+            Class<?>    clazz;
+            try {
+                clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
+            } catch (ClassNotFoundException e) {
+                clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.FakePlayerResident");
+            }
+            spm = clazz.getDeclaredMethod("save", net.minecraft.world.entity.player.Player.class);
+            spm.setAccessible(true);
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
+            LOGGER.warn("Failed to load GCA, fakePlayerResidentBackupFix won't be activated", e);
+        }
+        savePlayerMethod = spm;
+    }
+
+    private static boolean needsResident(ServerPlayer player) {
         //#if MC>=12106
         if (!(player instanceof EntityPlayerMPFake)) {
             return false;
@@ -86,26 +87,18 @@ public final class GcaHelper {
     }
 
     private static JsonElement invokeSavePlayer(ServerPlayer player) {
-        //#if MC>=12105
-        return dev.dubhe.gugle.carpet.tools.player.FakePlayerResident.save(player);
-        //#else
-        //$$ try {
-        //$$     if (savePlayerMethod != null) {
-        //$$         return (JsonElement) savePlayerMethod.invoke(null, player);
-        //$$     }
-        //$$ } catch (java.lang.reflect.InvocationTargetException | IllegalAccessException e) {
-        //$$     LOGGER.warn("Failed to invoke save player method in GCA, fakePlayerResidentBackupFix might not work", e);
-        //$$ }
-        //$$ return null;
-        //#endif
+        try {
+            if (savePlayerMethod != null) {
+                return (JsonElement) savePlayerMethod.invoke(null, player);
+            }
+        } catch (java.lang.reflect.InvocationTargetException | IllegalAccessException e) {
+            LOGGER.warn("Failed to invoke save player method in GCA, fakePlayerResidentBackupFix might not work", e);
+        }
+        return null;
     }
 
     public static void storeFakesIfNeeded(MinecraftServer server) {
-        if (!GcaSetting.fakePlayerResident || server.isStopped()
-                //#if MC<12105
-                //$$ || savePlayerMethod == null
-                //#endif
-        ) {
+        if (!GcaSetting.fakePlayerResident || server.isStopped() || savePlayerMethod == null) {
             return;
         }
 
@@ -116,7 +109,7 @@ public final class GcaHelper {
         server.getPlayerList()
                 .getPlayers()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
-                .filter(GcaHelper::doPlayerNeedResident)
+                .filter(GcaHelper::needsResident)
                 .forEach(p -> {
                     JsonElement playerJson = invokeSavePlayer(p);
                     if (playerJson != null) {
