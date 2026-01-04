@@ -121,14 +121,8 @@ dependencies {
         exclude(group = "carpet", module = "fabric-carpet")
     }
 
-//    if (mcVersionNumber in 12000..12111) {
-//        implementation("maven.modrinth:gca:${properties["gugle_version"]}") {
-//            exclude(group = "carpet", module = "fabric-carpet")
-//        }
-//    } else {
-//        compileOnly("maven.modrinth:gca:${properties["gugle_version"]}") {
-//            exclude(group = "carpet", module = "fabric-carpet")
-//        }
+//    implementation("maven.modrinth:gca:${properties["gugle_version"]}") {
+//        exclude(group = "carpet", module = "fabric-carpet")
 //    }
 
     if (!ci) {

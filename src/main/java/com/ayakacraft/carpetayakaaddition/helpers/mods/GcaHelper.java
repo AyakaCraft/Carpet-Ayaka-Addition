@@ -22,69 +22,90 @@ package com.ayakacraft.carpetayakaaddition.helpers.mods;
 
 import carpet.patches.EntityPlayerMPFake;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
-import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.dubhe.gugle.carpet.GcaSetting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
-//Do not remove the lines below
-//TODO update in 1.21.8
 public final class GcaHelper {
 
-    private static final Method savePlayerMethod;
+    //#if MC<12105
+    private static final java.lang.reflect.Method savePlayerMethod;
+    //#endif
 
+    //#if MC<12105
     static {
-        Method spm = null;
+        java.lang.reflect.Method spm = null;
         try {
-            if (ModUtils.isModLoaded(ModUtils.GCA_ID)) {
-                ClassLoader classLoader = GcaHelper.class.getClassLoader();
-                Class<?>    clazz;
-                //#if MC<12102
-                try {
-                    clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.FakePlayerResident");
-                } catch (ClassNotFoundException e) {
-                    clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
-                }
-                //#else
-                //$$ clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
-                //#endif
-                spm = clazz.getDeclaredMethod("save", Player.class);
-                spm.setAccessible(true);
-            } else {
-                LOGGER.warn("GCA not loaded, fakePlayerResidentBackupFix won't be activated");
+            ClassLoader classLoader = GcaHelper.class.getClassLoader();
+            Class<?>    clazz;
+            try {
+                clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.FakePlayerResident");
+            } catch (ClassNotFoundException e) {
+                clazz = classLoader.loadClass("dev.dubhe.gugle.carpet.tools.player.FakePlayerResident");
             }
+            spm = clazz.getDeclaredMethod("save", net.minecraft.world.entity.player.Player.class);
+            spm.setAccessible(true);
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             LOGGER.warn("Failed to load GCA, fakePlayerResidentBackupFix won't be activated", e);
         }
         savePlayerMethod = spm;
     }
+    //#endif
+
+    private static boolean doPlayerNeedResident(ServerPlayer player) {
+        //#if MC>=12106
+        //$$ if (!(player instanceof EntityPlayerMPFake)) {
+        //$$     return false;
+        //$$ }
+        //$$ try (net.minecraft.util.ProblemReporter.ScopedCollector reporter = new net.minecraft.util.ProblemReporter.ScopedCollector(player.problemPath(), LOGGER)) {
+        //$$     try {
+        //$$         net.minecraft.world.level.storage.TagValueOutput valueOutput = net.minecraft.world.level.storage.TagValueOutput.createWithContext(reporter, player.registryAccess());
+        //$$         player.saveWithoutId(valueOutput);
+        //$$         return !valueOutput.buildResult().contains("gca.NoResident");
+        //$$     } catch (Exception e) {
+        //$$         try {
+        //$$             reporter.close();
+        //$$         } catch (Exception t) {
+        //$$             e.addSuppressed(t);
+        //$$         }
+        //$$         throw e;
+        //$$     }
+        //$$ }
+        //#else
+        return player instanceof EntityPlayerMPFake && !player.saveWithoutId(new net.minecraft.nbt.CompoundTag()).contains("gca.NoResident");
+        //#endif
+    }
 
     private static JsonElement invokeSavePlayer(ServerPlayer player) {
+        //#if MC>=12105
+        //$$ return dev.dubhe.gugle.carpet.tools.player.FakePlayerResident.save(player);
+        //#else
         try {
             if (savePlayerMethod != null) {
                 return (JsonElement) savePlayerMethod.invoke(null, player);
             }
-        } catch (InvocationTargetException | IllegalAccessException e) {
+        } catch (java.lang.reflect.InvocationTargetException | IllegalAccessException e) {
             LOGGER.warn("Failed to invoke save player method in GCA, fakePlayerResidentBackupFix might not work", e);
         }
         return null;
+        //#endif
     }
 
     public static void storeFakesIfNeeded(MinecraftServer server) {
-        if (!GcaSetting.fakePlayerResident || server.isStopped() || savePlayerMethod == null) {
+        if (!GcaSetting.fakePlayerResident || server.isStopped()
+                //#if MC<12105
+                || savePlayerMethod == null
+                //#endif
+        ) {
             return;
         }
 
@@ -95,12 +116,11 @@ public final class GcaHelper {
         server.getPlayerList()
                 .getPlayers()    // We don't need to ensure that the players are not logged out as the server is not closed yet
                 .stream()
-                .filter(player ->
-                        player instanceof EntityPlayerMPFake && !player.saveWithoutId(new CompoundTag()).contains("gca.NoResident"))
+                .filter(GcaHelper::doPlayerNeedResident)
                 .forEach(p -> {
                     JsonElement playerJson = invokeSavePlayer(p);
                     if (playerJson != null) {
-                        fakePlayers.add(p.getName().getString(), invokeSavePlayer(p));
+                        fakePlayers.add(p.getName().getString(), playerJson);
                     }
                 });
 
