@@ -32,7 +32,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -50,11 +50,11 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     private static final Component SEPARATOR = Component.literal("/").withStyle(ChatFormatting.GRAY);
 
-    private static final ResourceLocation OVW_ID = new ResourceLocation("overworld");
+    private static final Identifier OVW_ID = Identifier.parse("overworld");
 
-    private static final ResourceLocation NETHER_ID = new ResourceLocation("minecraft:the_nether");
+    private static final Identifier NETHER_ID = Identifier.parse("minecraft:the_nether");
 
-    private static final ResourceLocation END_ID = new ResourceLocation("minecraft:the_end");
+    private static final Identifier END_ID = Identifier.parse("minecraft:the_end");
 
     public static final String NAME = "loadedChunks";
 
@@ -75,9 +75,9 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         return count == 0 ? "-" : Integer.toString(count);
     }
 
-    public final Object2IntMap<ResourceLocation> loadedChunksCounts = new Object2IntOpenHashMap<>(3);
+    public final Object2IntMap<Identifier> loadedChunksCounts = new Object2IntOpenHashMap<>(3);
 
-    public final Object2IntMap<ResourceLocation> loadedChunksCountsSpawnable = new Object2IntOpenHashMap<>(3);
+    public final Object2IntMap<Identifier> loadedChunksCountsSpawnable = new Object2IntOpenHashMap<>(3);
 
     public int loadedChunksCountAll = 0;
 
@@ -87,7 +87,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         super(NAME, OPTIONS[DEFAULT_INDEX], OPTIONS, false);
     }
 
-    private Component getCountText(ResourceLocation id) {
+    private Component getCountText(Identifier id) {
         MutableComponent t1 = Component.literal(getCountString(loadedChunksCountsSpawnable.getInt(id)));
         MutableComponent t2 = Component.literal(getCountString(loadedChunksCounts.getInt(id)));
         if (OVW_ID.equals(id)) {
@@ -125,7 +125,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         MutableComponent    value;
 
         if (OPTIONS[1].equals(playerOption)) {
-            playerOption = sPlayer.serverLevel().dimension().location().toString();
+            playerOption = sPlayer.level().dimension().identifier().toString();
         }
 
         if (OPTIONS[0].equals(playerOption)) {
@@ -135,7 +135,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
             loadedChunksCounts.keySet().stream().map(this::getCountText).forEach(txtList::add);
             value = TextUtils.join(txtList, Component.literal(" "), Function.identity());
         } else {
-            value = TextUtils.joinObj(header, " ", getCountText(new ResourceLocation(playerOption)));
+            value = TextUtils.joinObj(header, " ", getCountText(Identifier.parse(playerOption)));
         }
 
         return value;
@@ -160,7 +160,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
                     })
                     .count();
 
-            ResourceLocation id = world.dimension().location();
+            Identifier id = world.dimension().identifier();
 
             loadedChunksCountAll += count;
             loadedChunksCountAllSpawnable += countSpawnable;

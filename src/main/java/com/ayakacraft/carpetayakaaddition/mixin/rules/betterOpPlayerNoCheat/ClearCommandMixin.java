@@ -22,23 +22,32 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.betterOpPlayerNoCheat;
 
 import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.ClearInventoryCommands;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+
+import java.util.function.Predicate;
 
 //Do not remove the lines below
-//TODO update in 1.21.8
+//TODO update in 1.21.5
 @Restriction(require = @Condition(ModUtils.TIS_ID))
 @Mixin(ClearInventoryCommands.class)
 public class ClearCommandMixin {
 
-    @WrapMethod(method = "method_13082")
-    private static boolean checkIfAllowCheating(CommandSourceStack source, Operation<Boolean> original) {
-        return TISHelper.canCheat(source) && original.call(source);
+    @ModifyArg(
+            method = "register",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/brigadier/builder/LiteralArgumentBuilder;requires(Ljava/util/function/Predicate;)Lcom/mojang/brigadier/builder/ArgumentBuilder;",
+                    remap = false
+            )
+    )
+    private static Predicate<CommandSourceStack> checkIfAllowCheating(Predicate<CommandSourceStack> original) {
+        return original.and(TISHelper::canCheat);
     }
 
 }

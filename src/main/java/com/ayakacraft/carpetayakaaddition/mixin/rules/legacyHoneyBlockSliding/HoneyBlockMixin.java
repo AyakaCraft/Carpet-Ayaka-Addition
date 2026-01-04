@@ -20,16 +20,43 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyHoneyBlockSliding;
 
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.HoneyBlock;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">1.21.1"))
-@Mixin(DummyClass.class)
+@Mixin(HoneyBlock.class)
 public class HoneyBlockMixin {
 
-    // Implementation in 1.21.3
+    @WrapOperation(
+            method = {"isSlidingDown", "doSlideMovement"},
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/HoneyBlock;getOldDeltaY(D)D")
+    )
+    private double wrapGetOldDeltaY(double deltaY, Operation<Double> original, @Local(argsOnly = true) Entity entity) {
+        if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
+            return deltaY;
+        }
+        return original.call(deltaY);
+    }
+
+    @WrapOperation(
+            method = "doSlideMovement",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/HoneyBlock;getNewDeltaY(D)D")
+    )
+    private double wrapGetNewDeltaY(double deltaY, Operation<Double> original, @Local(argsOnly = true) Entity entity) {
+        if (CarpetAyakaSettings.legacyHoneyBlockSliding && !(entity instanceof LivingEntity)) {
+            return deltaY;
+        }
+        return original.call(deltaY);
+    }
 
 }

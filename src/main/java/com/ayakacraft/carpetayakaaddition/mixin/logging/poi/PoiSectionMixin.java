@@ -34,9 +34,9 @@ public class PoiSectionMixin {
 
     @Inject(
             //#if MC>=12109
-            //$$ method = "add(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/ai/village/poi/PoiRecord;",
+            method = "add(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)Lnet/minecraft/world/entity/ai/village/poi/PoiRecord;",
             //#elseif MC>=11900
-            method = "add(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)V",
+            //$$ method = "add(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Holder;)V",
             //#else
             //$$ method = "add(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/entity/ai/village/poi/PoiType;)V",
             //#endif
@@ -50,9 +50,9 @@ public class PoiSectionMixin {
             //$$ PoiType type,
             //#endif
             //#if MC>=12109
-            //$$ org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<net.minecraft.world.entity.ai.village.poi.PoiRecord> cir
+            org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<net.minecraft.world.entity.ai.village.poi.PoiRecord> cir
             //#else
-            CallbackInfo ci
+            //$$ CallbackInfo ci
             //#endif
     ) {
         POILogger.INSTANCE.onAdded(pos, type);

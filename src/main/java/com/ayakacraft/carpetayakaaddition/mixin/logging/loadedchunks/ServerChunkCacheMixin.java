@@ -38,7 +38,7 @@ public abstract class ServerChunkCacheMixin {
     //#if MC<11700
     //$$ private
     //#elseif MC>=12102
-    //$$ private
+    private
     //#endif
     ServerLevel level;
 

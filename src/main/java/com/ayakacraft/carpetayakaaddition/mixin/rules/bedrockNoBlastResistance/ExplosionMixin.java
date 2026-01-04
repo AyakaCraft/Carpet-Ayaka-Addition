@@ -27,6 +27,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
+import net.minecraft.world.level.ServerExplosion;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -36,26 +37,26 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.Optional;
 
 //Do not remove the lines below
-//TODO update in 1.21.4 and 1.15.2
-@Mixin(Explosion.class)
+//TODO update in 1.21.1 and 1.15.2
+@Mixin(ServerExplosion.class)
 public class ExplosionMixin {
 
     @WrapOperation(
-            method = "explode",
+            method = "calculateExplodedPositions",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/ExplosionDamageCalculator;getBlockExplosionResistance(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/material/FluidState;)Ljava/util/Optional;"
             )
     )
-    private Optional<Float> applyBedrockBlastResistance(ExplosionDamageCalculator instance, Explosion explosion, BlockGetter world, BlockPos pos, BlockState blockState, FluidState fluidState, Operation<Optional<Float>> original) {
+    private Optional<Float> applyBedrockBlastResistance(ExplosionDamageCalculator instance, Explosion explosion, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, FluidState fluidState, Operation<Optional<Float>> original) {
         if (CarpetAyakaSettings.bedrockNoBlastResistance && blockState.getBlock() == Blocks.BEDROCK) {
             return Optional.of(fluidState.isEmpty() ? 0f : fluidState.getExplosionResistance());
         }
-        return original.call(instance, explosion, world, pos, blockState, fluidState);
+        return original.call(instance, explosion, blockGetter, blockPos, blockState, fluidState);
     }
 
     @WrapOperation(
-            method = "explode",
+            method = "calculateExplodedPositions",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/level/ExplosionDamageCalculator;shouldBlockExplode(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;F)Z"

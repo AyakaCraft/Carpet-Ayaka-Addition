@@ -32,7 +32,7 @@ public final class ServerPlayerUtils {
     @PreprocessPattern
     private static ServerLevel getServerLevel(ServerPlayer player) {
         //#if MC>=12000
-        return player.serverLevel();
+        return player.level();
         //#else
         //$$ return player.getLevel();
         //#endif
@@ -50,7 +50,7 @@ public final class ServerPlayerUtils {
     @Contract(pure = true)
     public static AyakaLanguage getLanguage(ServerPlayer player) {
         String lang;
-        if (player.serverLevel().getServer().isDedicatedServer()) {
+        if (player.level().getServer().isDedicatedServer()) {
             lang = getClientLanguageCode(player);
         } else {
             lang = ClientUtils.getLanguageCode();
@@ -99,7 +99,7 @@ public final class ServerPlayerUtils {
                 //#endif
                 yaw, pitch
                 //#if MC>=12102
-                //$$ , true
+                , true
                 //#endif
         );
     }
@@ -109,18 +109,18 @@ public final class ServerPlayerUtils {
     }
 
     public static void teleport(ServerPlayer player, ServerPlayer target) {
-        teleport(player, target.serverLevel(), target.position().x(), target.position().y(), target.position().z(), getYaw(target), getPitch(target));
+        teleport(player, target.level(), target.position().x(), target.position().y(), target.position().z(), getYaw(target), getPitch(target));
     }
 
     public static void sendHome(ServerPlayer player) {
-        ServerPlayer newPlayer = player.serverLevel().getServer().getPlayerList().respawn(player,
+        ServerPlayer newPlayer = player.level().getServer().getPlayerList().respawn(player,
                 //#if MC>=11600
                 //#else
                 //$$ net.minecraft.world.level.dimension.DimensionType.OVERWORLD,
                 //#endif
                 true
                 //#if MC>=12100
-                //$$ , net.minecraft.world.entity.Entity.RemovalReason.CHANGED_DIMENSION
+                , net.minecraft.world.entity.Entity.RemovalReason.CHANGED_DIMENSION
                 //#endif
         );
         newPlayer.connection.player = newPlayer;

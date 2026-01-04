@@ -20,25 +20,16 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.frostWalkerNoFreezing;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.1"))
-@Mixin(FrostWalkerEnchantment.class)
+@Mixin(DummyClass.class)
 public class FrostWalkerEnchantmentMixin {
 
-    @Inject(method = "onEntityMoved", at = @At("HEAD"), cancellable = true)
-    private static void wrapFreezeWater(CallbackInfo ci) {
-        if (CarpetAyakaSettings.frostWalkerNoFreezing) {
-            ci.cancel();
-        }
-    }
+    // Implementation in main project
 
 }

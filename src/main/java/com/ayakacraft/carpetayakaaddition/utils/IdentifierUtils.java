@@ -21,33 +21,33 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 
 public final class IdentifierUtils {
 
     @PreprocessPattern
-    private static ResourceLocation of(String id) {
+    private static Identifier of(String id) {
         //#if MC>=12100
-        //$$ return ResourceLocation.parse(id);
+        return Identifier.parse(id);
         //#else
-        return new ResourceLocation(id);
+        //$$ return new ResourceLocation(id);
         //#endif
     }
 
     @PreprocessPattern
-    private static ResourceLocation of(String namespace, String path) {
+    private static Identifier of(String namespace, String path) {
         //#if MC>=12100
-        //$$ return ResourceLocation.fromNamespaceAndPath(namespace, path);
+        return Identifier.fromNamespaceAndPath(namespace, path);
         //#else
-        return new ResourceLocation(namespace, path);
+        //$$ return new ResourceLocation(namespace, path);
         //#endif
     }
 
     @PreprocessPattern
-    private static ResourceLocation ofWorld(Level world) {
+    private static Identifier ofWorld(Level world) {
         //#if MC>=11600
-        return world.dimension().location();
+        return world.dimension().identifier();
         //#else
         //$$ return net.minecraft.world.level.dimension.DimensionType.getName(world.getDimension().getType());
         //#endif

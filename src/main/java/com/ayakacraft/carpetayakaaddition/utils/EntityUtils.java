@@ -34,9 +34,9 @@ public final class EntityUtils {
     @Contract(pure = true)
     public static Map<
             //#if MC>=12006
-            //$$ net.minecraft.core.Holder<MobEffect>
+            net.minecraft.core.Holder<MobEffect>
             //#else
-            MobEffect
+            //$$ MobEffect
             //#endif
             , MobEffectInstance> getActiveEffects(LivingEntity entity) {
         return ((LivingEntityAccessor) entity).getActiveEffects$Ayaka();
@@ -44,11 +44,11 @@ public final class EntityUtils {
 
     public static void kill(Entity entity) {
         //#if MC>=12102
-        //$$ if (!entity.level().isClientSide()) {
-        //$$     entity.kill((net.minecraft.server.level.ServerLevel) entity.level());;
-        //$$ }
+        if (!entity.level().isClientSide()) {
+            entity.kill((net.minecraft.server.level.ServerLevel) entity.level());;
+        }
         //#else
-        entity.kill();
+        //$$ entity.kill();
         //#endif
     }
 

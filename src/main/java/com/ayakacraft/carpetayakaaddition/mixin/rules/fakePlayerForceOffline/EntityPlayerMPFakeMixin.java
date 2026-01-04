@@ -26,7 +26,7 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.server.players.GameProfileCache;
+import net.minecraft.server.players.CachedUserNameToIdResolver;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -38,43 +38,43 @@ import java.util.Optional;
 public class EntityPlayerMPFakeMixin {
 
     //#if MC>=12109
-    //$$ @WrapOperation(
-    //$$         method = "createFake",
-    //$$         at = @At(
-    //$$                 value = "INVOKE",
-    //$$                 target = "Lnet/minecraft/server/players/OldUsersConverter;convertMobOwnerIfNecessary(Lnet/minecraft/server/MinecraftServer;Ljava/lang/String;)Ljava/util/UUID;",
-    //$$                 remap = true
-    //$$         )
-    //$$ )
-    //$$ private static java.util.UUID createFake(net.minecraft.server.MinecraftServer minecraftServer, String s, Operation<java.util.UUID> original) {
-    //$$     if (CarpetAyakaSettings.fakePlayerForceOffline && CarpetSettings.allowSpawningOfflinePlayers) {
-    //$$         return net.minecraft.core.UUIDUtil.createOfflinePlayerUUID(s);
-    //$$     } else {
-    //$$         return original.call(minecraftServer, s);
-    //$$     }
-    //$$ }
-    //#else
     @WrapOperation(
             method = "createFake",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/server/players/GameProfileCache;get(Ljava/lang/String;)Ljava/util/Optional;",
+                    target = "Lnet/minecraft/server/players/OldUsersConverter;convertMobOwnerIfNecessary(Lnet/minecraft/server/MinecraftServer;Ljava/lang/String;)Ljava/util/UUID;",
                     remap = true
             )
     )
-    private static Optional<GameProfile> createFake(GameProfileCache instance, String name, Operation<Optional<GameProfile>> original) {
+    private static java.util.UUID createFake(net.minecraft.server.MinecraftServer minecraftServer, String s, Operation<java.util.UUID> original) {
         if (CarpetAyakaSettings.fakePlayerForceOffline && CarpetSettings.allowSpawningOfflinePlayers) {
-            return Optional.of(
+            return net.minecraft.core.UUIDUtil.createOfflinePlayerUUID(s);
+        } else {
+            return original.call(minecraftServer, s);
+        }
+    }
+    //#else
+    //$$ @WrapOperation(
+    //$$         method = "createFake",
+    //$$         at = @At(
+    //$$                 value = "INVOKE",
+    //$$                 target = "Lnet/minecraft/server/players/GameProfileCache;get(Ljava/lang/String;)Ljava/util/Optional;",
+    //$$                 remap = true
+    //$$         )
+    //$$ )
+    //$$ private static Optional<GameProfile> createFake(GameProfileCache instance, String name, Operation<Optional<GameProfile>> original) {
+    //$$     if (CarpetAyakaSettings.fakePlayerForceOffline && CarpetSettings.allowSpawningOfflinePlayers) {
+    //$$         return Optional.of(
                     //#if MC>=11900
-                    new GameProfile(net.minecraft.core.UUIDUtil.createOfflinePlayerUUID(name), name)
+                    //$$ new GameProfile(net.minecraft.core.UUIDUtil.createOfflinePlayerUUID(name), name)
                     //#else
                     //$$ new GameProfile(net.minecraft.world.entity.player.Player.createPlayerUUID(name), name)
                     //#endif
-            );
-        } else {
-            return original.call(instance, name);
-        }
-    }
+    //$$         );
+    //$$     } else {
+    //$$         return original.call(instance, name);
+    //$$     }
+    //$$ }
     //#endif
 
 }

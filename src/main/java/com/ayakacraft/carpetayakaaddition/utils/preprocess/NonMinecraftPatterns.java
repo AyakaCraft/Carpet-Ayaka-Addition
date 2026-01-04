@@ -27,9 +27,9 @@ public final class NonMinecraftPatterns {
     @PreprocessPattern
     private static GsonBuilder setLenient(GsonBuilder builder) {
         //#if MC>=12104
-        //$$ return builder.setStrictness(com.google.gson.Strictness.LENIENT);
+        return builder.setStrictness(com.google.gson.Strictness.LENIENT);
         //#else
-        return builder.setLenient();
+        //$$ return builder.setLenient();
         //#endif
     }
 

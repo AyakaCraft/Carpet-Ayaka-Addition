@@ -43,7 +43,7 @@ public class MinecraftServerMixin {
             //$$ method = "run",
             //#endif
             //#if MC>=11700
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getNanos()J")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Util;getNanos()J")
             //#else
             //$$ at = @At(value = "INVOKE", target = "Lnet/minecraft/Util;getMillis()J")
             //#endif

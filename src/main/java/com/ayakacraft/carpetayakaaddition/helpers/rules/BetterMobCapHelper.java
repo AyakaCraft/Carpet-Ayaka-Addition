@@ -39,7 +39,7 @@ public final class BetterMobCapHelper {
         if (!CarpetAyakaSettings.betterMobCap) {
             return true;
         }
-        NaturalSpawner.SpawnState info = instance.serverLevel().getChunkSource().getLastSpawnState();
+        NaturalSpawner.SpawnState info = instance.level().getChunkSource().getLastSpawnState();
         if (info == null) {
             return true;
         }
@@ -48,11 +48,11 @@ public final class BetterMobCapHelper {
         return accessor.checkGlobal$Ayaka(spawnGroup
                 //#if MC>=12102
                 //#elseif MC>=11800
-                , new ChunkPos(instance.blockPosition())
+                //$$ , new ChunkPos(instance.blockPosition())
                 //#endif
         )
                 //#if MC>=12102
-                //$$ && accessor.checkLocal$Ayaka(spawnGroup, new ChunkPos(instance.blockPosition()))
+                && accessor.checkLocal$Ayaka(spawnGroup, new ChunkPos(instance.blockPosition()))
                 //#endif
                 ;
     }

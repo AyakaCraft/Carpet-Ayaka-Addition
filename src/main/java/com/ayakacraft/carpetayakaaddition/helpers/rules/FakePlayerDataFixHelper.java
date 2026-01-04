@@ -20,9 +20,36 @@
 
 package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
-@SuppressWarnings("unused")
+import carpet.patches.EntityPlayerMPFake;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition;
+import net.minecraft.network.Connection;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.players.PlayerList;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.ValueInput;
+import org.jetbrains.annotations.Contract;
+
+import java.util.Optional;
+
 public final class FakePlayerDataFixHelper {
 
-    // Implementation in 1.21.10
+    @Contract(pure = true)
+    public static void loadPlayerDataAndJoin(EntityPlayerMPFake player, PlayerList playerManager, Connection connection, CommonListenerCookie clientData) {
+        try (ProblemReporter.ScopedCollector logging = new ProblemReporter.ScopedCollector(player.problemPath(), CarpetAyakaAddition.LOGGER)) {
+            Optional<ValueInput> readView = playerManager
+                    .loadPlayerData(player.nameAndId())
+                    .map((playerNbt) ->
+                            TagValueInput.create(logging, player.registryAccess(), playerNbt)
+                    );
+            playerManager.placeNewPlayer(connection, player, clientData);
+            readView.ifPresent(playerData -> {
+                player.load(playerData);
+                player.loadAndSpawnEnderPearls(playerData);
+                player.loadAndSpawnParentVehicle(playerData);
+                player.fixStartingPosition.run();
+            });
+        }
+    }
 
 }

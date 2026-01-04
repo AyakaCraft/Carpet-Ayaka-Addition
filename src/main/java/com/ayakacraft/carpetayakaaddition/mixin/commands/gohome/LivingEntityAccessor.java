@@ -36,9 +36,9 @@ public interface LivingEntityAccessor {
     @Accessor("activeEffects")
     Map<
             //#if MC>=12006
-            //$$ net.minecraft.core.Holder<MobEffect>
+            net.minecraft.core.Holder<MobEffect>
             //#else
-            MobEffect
+            //$$ MobEffect
             //#endif
             , MobEffectInstance> getActiveEffects$Ayaka();
 

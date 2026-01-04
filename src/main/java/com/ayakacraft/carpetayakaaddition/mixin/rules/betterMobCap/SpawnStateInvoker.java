@@ -35,19 +35,19 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface SpawnStateInvoker {
 
     @Contract(pure = true)
-    @Invoker("canSpawnForCategory")
+    @Invoker("canSpawnForCategoryGlobal")
     boolean checkGlobal$Ayaka(
             MobCategory group
             //#if MC>=12102
             //#elseif MC>=11800
-            , ChunkPos chunkPos
+            //$$ , ChunkPos chunkPos
             //#endif
     );
 
     //#if MC>=12102
-    //$$ @Contract(pure = true)
-    //$$ @Invoker("canSpawnForCategoryLocal")
-    //$$ boolean checkLocal$Ayaka(MobCategory group, ChunkPos chunkPos);
+    @Contract(pure = true)
+    @Invoker("canSpawnForCategoryLocal")
+    boolean checkLocal$Ayaka(MobCategory group, ChunkPos chunkPos);
     //#endif
 
 }

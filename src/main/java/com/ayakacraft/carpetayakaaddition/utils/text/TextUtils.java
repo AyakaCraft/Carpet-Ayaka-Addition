@@ -58,18 +58,18 @@ public final class TextUtils {
     @PreprocessPattern
     private static ClickEvent runCommand(String cmd) {
         //#if MC>=12105
-        //$$ return new ClickEvent.RunCommand(cmd);
+        return new ClickEvent.RunCommand(cmd);
         //#else
-        return new ClickEvent(ClickEvent.Action.RUN_COMMAND, cmd);
+        //$$ return new ClickEvent(ClickEvent.Action.RUN_COMMAND, cmd);
         //#endif
     }
 
     @PreprocessPattern
     private static HoverEvent showText(Component txt) {
         //#if MC>=12105
-        //$$ return new HoverEvent.ShowText(txt);
+        return new HoverEvent.ShowText(txt);
         //#else
-        return new HoverEvent(HoverEvent.Action.SHOW_TEXT, txt);
+        //$$ return new HoverEvent(HoverEvent.Action.SHOW_TEXT, txt);
         //#endif
     }
 
@@ -150,8 +150,8 @@ public final class TextUtils {
     public static MutableComponent withCommand(MutableComponent text, String command) {
         text.withStyle(style ->
                 style
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command))
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(command))));
+                        .withClickEvent(new ClickEvent.RunCommand(command))
+                        .withHoverEvent(new HoverEvent.ShowText(Component.literal(command))));
         return text;
     }
 

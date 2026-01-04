@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import com.ayakacraft.carpetayakaaddition.utils.MathUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -137,7 +137,7 @@ public abstract class AbstractAddress<D> implements Comparable<AbstractAddress<D
                 XAERO_WAYPOINT_FORMAT,
                 id, id.charAt(0),
                 (int) x, (int) y, (int) z,
-                new ResourceLocation(dim).getPath().replace('_', '-')
+                Identifier.parse(dim).getPath().replace('_', '-')
         );
     }
 

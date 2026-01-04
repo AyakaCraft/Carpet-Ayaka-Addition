@@ -21,7 +21,7 @@
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
@@ -41,7 +41,7 @@ public class Address extends AbstractAddress<ResourceKey<Level>> {
     @Contract(pure = true)
     @Override
     protected String transDim(ResourceKey<Level> worldRegistryKey) {
-        return worldRegistryKey.location().toString();
+        return worldRegistryKey.identifier().toString();
     }
 
     @Contract(pure = true)
@@ -53,14 +53,14 @@ public class Address extends AbstractAddress<ResourceKey<Level>> {
                 //#else
                 //$$ net.minecraft.core.Registry.DIMENSION_REGISTRY,
                 //#endif
-                new ResourceLocation(dim)
+                Identifier.parse(dim)
         );
     }
 
     @Contract(pure = true)
     @Override
     public boolean isInWorld(Level world) {
-        return world.dimension().location().toString().equals(dim);
+        return world.dimension().identifier().toString().equals(dim);
     }
 
 }

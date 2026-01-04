@@ -49,6 +49,13 @@ preprocess {
 
     val mc2601 = createNode("26.1", 260100, "")
 
+    mc12111.link(mc12110, file("versions/mapping_12111_12110.txt"))
+    mc12110.link(mc12108, file("versions/mapping_12110_12108.txt"))
+    mc12108.link(mc12105, file("versions/mapping_12108_12105.txt"))
+    mc12105.link(mc12104, file("versions/mapping_12105_12104.txt"))
+    mc12104.link(mc12103, file("versions/mapping_12104_12103.txt"))
+    mc12103.link(mc12101, file("versions/mapping_12103_12101.txt"))
+    mc12101.link(mc12006, file("versions/mapping_12101_12006.txt"))
     mc12006.link(mc12001, file("versions/mapping_12006_12001.txt"))
     mc12001.link(mc11904, file("versions/mapping_12001_11904.txt"))
     mc11904.link(mc11802, file("versions/mapping_11904_11802.txt"))
@@ -56,14 +63,6 @@ preprocess {
     mc11701.link(mc11605, file("versions/mapping_11701_11605.txt"))
     mc11605.link(mc11502, file("versions/mapping_11605_11502.txt"))
     mc11502.link(mc11404, file("versions/mapping_11502_11404.txt"))
-
-    mc12006.link(mc12101, file("versions/mapping_12006_12101.txt"))
-    mc12101.link(mc12103, file("versions/mapping_12101_12103.txt"))
-    mc12103.link(mc12104, file("versions/mapping_12103_12104.txt"))
-    mc12104.link(mc12105, file("versions/mapping_12104_12105.txt"))
-    mc12105.link(mc12108, file("versions/mapping_12105_12108.txt"))
-    mc12108.link(mc12110, file("versions/mapping_12108_12110.txt"))
-    mc12110.link(mc12111, file("versions/mapping_12110_12111.txt"))
 
     mc12111.link(mc2601, file("versions/mapping_12111_2601.txt"))
 }

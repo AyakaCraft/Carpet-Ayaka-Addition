@@ -23,7 +23,7 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.foxNoPickupItem;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.fox.Fox;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 

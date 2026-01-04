@@ -20,31 +20,16 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.maxPlayersOverwrite;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.server.players.PlayerList;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.9"))
-@Mixin(PlayerList.class)
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
+@Mixin(DummyClass.class)
 public class PlayerListMixin {
 
-    @ModifyExpressionValue(
-            method = {"canPlayerLogin", "getMaxPlayers"},
-            at = @At(
-                    value = "FIELD",
-                    target = "Lnet/minecraft/server/players/PlayerList;maxPlayers:I"
-            )
-    )
-    private int onGetMaxPlayers(int original) {
-        if (CarpetAyakaSettings.maxPlayersOverwrite <= 0) {
-            return original;
-        }
-        return CarpetAyakaSettings.maxPlayersOverwrite;
-    }
+    // Implementation in main project
 
 }
