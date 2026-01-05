@@ -30,6 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DummyClass.class)
 public class FrostWalkerEnchantmentMixin {
 
-    // Implementation in main project
+    // Implementation in 1.20.6
 
 }

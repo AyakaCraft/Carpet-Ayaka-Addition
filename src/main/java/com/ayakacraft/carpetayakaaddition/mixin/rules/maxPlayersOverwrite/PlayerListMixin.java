@@ -26,10 +26,10 @@ import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21.9"))
 @Mixin(DummyClass.class)
 public class PlayerListMixin {
 
-    // Implementation in main project
+    // Implementation in 1.21.8
 
 }

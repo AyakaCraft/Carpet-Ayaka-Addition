@@ -30,6 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DummyClass.class)
 public class IntegratedServerMixin {
 
-    // Implementation in 1.21.9
+    // Implementation in main project
 
 }

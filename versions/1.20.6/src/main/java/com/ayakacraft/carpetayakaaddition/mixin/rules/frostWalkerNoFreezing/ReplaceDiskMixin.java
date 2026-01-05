@@ -30,6 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DummyClass.class)
 public class ReplaceDiskMixin {
 
-    // Implementation in 1.21.1
+    // Implementation in main project
 
 }
