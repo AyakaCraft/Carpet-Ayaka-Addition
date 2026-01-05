@@ -97,13 +97,6 @@ idea {
     }
 }
 
-// https://github.com/FabricMC/fabric-loader/issues/783
-configurations {
-    runtimeOnly { exclude(group = "net.fabricmc", module = "fabric-loader") }
-    compileOnly { exclude(group = "com.github.2No2Name", module = "McTester") }
-    implementation { exclude(group = "com.github.2No2Name", module = "McTester") }
-}
-
 dependencies {
     // loom
     minecraft("com.mojang:minecraft:${minecraftVersion}")
@@ -129,9 +122,8 @@ dependencies {
         // For runtime mods
         runtimeOnly("net.fabricmc.fabric-api:fabric-api:${properties["fabric_api_version"]}")
 
-        runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
+        // runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
 
-        // WHY DO YOU USE REFLECTION?????
         // runtimeOnly("curse.maven:xaeros-minimap-263420:${properties["xaeros_minimap_version"]}")
     }
 

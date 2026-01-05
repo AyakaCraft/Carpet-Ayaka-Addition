@@ -100,8 +100,6 @@ idea {
 // https://github.com/FabricMC/fabric-loader/issues/783
 configurations {
     modRuntimeOnly { exclude(group = "net.fabricmc", module = "fabric-loader") }
-    modCompileOnly { exclude(group = "com.github.2No2Name", module = "McTester") }
-    modImplementation { exclude(group = "com.github.2No2Name", module = "McTester") }
 }
 
 dependencies {
