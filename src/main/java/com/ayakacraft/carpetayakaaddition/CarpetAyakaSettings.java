@@ -113,6 +113,11 @@ public final class CarpetAyakaSettings {
     public static boolean disableBatSpawning = false;
 
     @Rule(
+            categories = {AYAKA, DISPENSER}
+    )
+    public static boolean dispensedItemNoRandomVelocity = false;
+
+    @Rule(
             categories = {AYAKA, EXPERIMENTAL, BOT}
     )
     public static boolean fakePlayerForceOffline = false;

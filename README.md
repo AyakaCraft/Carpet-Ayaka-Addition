@@ -129,6 +129,7 @@ Logs the change of points-of-interest (experimental)
 - [commandKillItem](#commandkillitem)
 - [commandTpt](#commandtpt)
 - [disableBatSpawning](#disablebatspawning)
+- [dispensedItemNoRandomVelocity](#dispenseditemnorandomvelocity)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
@@ -248,6 +249,17 @@ Disables natual spawning of bats
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`
+
+#### dispensedItemNoRandomVelocity
+
+Makes the velocity of dispensed items predictable and straight forward
+
+Effects both dispensers and droppers
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `DISPENSER`
 
 #### dragonEggFallDelay
 

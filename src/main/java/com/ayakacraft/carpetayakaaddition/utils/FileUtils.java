@@ -20,11 +20,11 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.google.common.io.Files;
 import com.google.common.io.Resources;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public final class FileUtils {
@@ -34,7 +34,7 @@ public final class FileUtils {
     }
 
     public static String readFile(Path path) throws IOException {
-        return Files.asCharSource(path.toFile(), StandardCharsets.UTF_8).read();
+        return Files.readString(path);
     }
 
 }

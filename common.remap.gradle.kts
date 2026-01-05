@@ -25,7 +25,7 @@ plugins {
     idea
 }
 
-val properties = project.properties
+val properties = project.properties ?: mapOf<String, Any?>()
 
 val mcVersionNumber = properties["mcVersion"] as Int
 val minecraftVersion = properties["minecraft_version"].toString()

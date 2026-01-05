@@ -107,6 +107,11 @@ carpet:
     disableBatSpawning:
       name: 禁用蝙蝠生成
       desc: 禁用蝙蝠的自然生成
+    dispensedItemNoRandomVelocity:
+      name: 发射物品速度不随机
+      desc: 让发射的物品速度变得向正前方且可预测
+      extra:
+        "0": 影响发射器和投掷器
     dragonEggFallDelay:
       name: 龙蛋下落延迟
       desc: 龙蛋下落前延迟的游戏刻数

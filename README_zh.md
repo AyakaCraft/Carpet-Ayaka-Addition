@@ -129,6 +129,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [commandKillItem](#清除掉落物命令开关-commandkillitem)
 - [commandTpt](#传送到玩家命令开关-commandtpt)
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
+- [dispensedItemNoRandomVelocity](#发射物品速度不随机-dispenseditemnorandomvelocity)
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
@@ -248,6 +249,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
+
+#### 发射物品速度不随机 (dispensedItemNoRandomVelocity)
+
+让发射的物品速度变得向正前方且可预测
+
+影响发射器和投掷器
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `DISPENSER`
 
 #### 龙蛋下落延迟 (dragonEggFallDelay)
 

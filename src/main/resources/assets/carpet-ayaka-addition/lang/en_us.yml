@@ -92,6 +92,10 @@ carpet:
       desc: Enables /tpt to teleport to another player in your server
     disableBatSpawning:
       desc: Disables natural spawning of bats
+    dispensedItemNoRandomVelocity:
+      desc: Makes the velocity of dispensed items predictable and straight forward
+      extra:
+        "0": Effects both dispensers and droppers
     dragonEggFallDelay:
       desc: Delay ticks before dragon egg falls
       extra:

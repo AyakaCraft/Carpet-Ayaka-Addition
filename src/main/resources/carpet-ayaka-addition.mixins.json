@@ -24,6 +24,7 @@
     "rules.betterOpPlayerNoCheat.KillCommandMixin",
     "rules.blockDropStackVelocityMultiple.BlockMixin",
     "rules.disableBatSpawning.BatMixin",
+    "rules.dispensedItemNoRandomVelocity.DefaultDispenseItemBehaviorMixin",
     "rules.dragonEggFallDelay.DragonEggBlockMixin",
     "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
