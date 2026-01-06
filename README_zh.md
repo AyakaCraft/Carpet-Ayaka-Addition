@@ -118,6 +118,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 索引
 
+- [accurateDispenser](#发射物品速度不随机-accurateDispenser)
 - [bedrockNoBlastResistance](#基岩无爆炸抗性-bedrocknoblastresistance)
 - [betterMobCap](#更好的刷怪上限-bettermobcap)
 - [betterOpPlayerNoCheat](#更好的op玩家不准作弊-betteropplayernocheat)
@@ -129,7 +130,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [commandKillItem](#清除掉落物命令开关-commandkillitem)
 - [commandTpt](#传送到玩家命令开关-commandtpt)
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
-- [dispensedItemNoRandomVelocity](#发射物品速度不随机-dispenseditemnorandomvelocity)
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
@@ -143,6 +143,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [tickFluids](#流体更新-tickfluids)
+
+#### 精确发射器 (accurateDispenser)
+
+移除发射的物品和投掷物的速度的随机性
+
+影响发射器和投掷器
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `DISPENSER`
 
 #### 基岩无爆炸抗性 (bedrockNoBlastResistance)
 
@@ -249,17 +260,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`
-
-#### 发射物品速度不随机 (dispensedItemNoRandomVelocity)
-
-让发射的物品速度变得向正前方且可预测
-
-影响发射器和投掷器
-
-- 类型: `boolean`
-- 默认值: `false`
-- 参考选项: `false`, `true`
-- 分类: `AYAKA`, `DISPENSER`
 
 #### 龙蛋下落延迟 (dragonEggFallDelay)
 

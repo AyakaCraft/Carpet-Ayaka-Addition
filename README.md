@@ -118,6 +118,7 @@ Logs the change of points-of-interest (experimental)
 
 #### Index
 
+- [accurateDispenser](#accurateDispenser)
 - [bedrockNoBlastResistance](#bedrocknoblastresistance)
 - [betterMobCap](#bettermobcap)
 - [betterOpPlayerNoCheat](#betteropplayernocheat)
@@ -129,7 +130,6 @@ Logs the change of points-of-interest (experimental)
 - [commandKillItem](#commandkillitem)
 - [commandTpt](#commandtpt)
 - [disableBatSpawning](#disablebatspawning)
-- [dispensedItemNoRandomVelocity](#dispenseditemnorandomvelocity)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
@@ -143,6 +143,17 @@ Logs the change of points-of-interest (experimental)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [tickFluids](#tickfluids)
+
+#### accurateDispenser
+
+Removes the uncertainty in velocity of dispensed items and projectiles
+
+Effects both dispensers and droppers
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `DISPENSER`
 
 #### bedrockNoBlastResistance
 
@@ -249,17 +260,6 @@ Disables natual spawning of bats
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`
-
-#### dispensedItemNoRandomVelocity
-
-Makes the velocity of dispensed items predictable and straight forward
-
-Effects both dispensers and droppers
-
-- Type: `boolean`
-- Default value: `false`
-- Suggested options: `false`, `true`
-- Categories: `AYAKA`, `DISPENSER`
 
 #### dragonEggFallDelay
 

@@ -70,6 +70,11 @@ carpet:
     unsigned: 不能为负数
     unsigned_with_bound: 不能为负数或大于 %d
   rule:
+    accurateDispenser:
+      name: 精确发射器
+      desc: 移除发射的物品和投掷物的速度的随机性
+      extra:
+        "0": 影响发射器和投掷器
     bedrockNoBlastResistance:
       name: 基岩无爆炸抗性
       desc: 使得基岩无法阻挡爆炸，尽管其自身不会被破坏
@@ -107,11 +112,6 @@ carpet:
     disableBatSpawning:
       name: 禁用蝙蝠生成
       desc: 禁用蝙蝠的自然生成
-    dispensedItemNoRandomVelocity:
-      name: 发射物品速度不随机
-      desc: 让发射的物品速度变得向正前方且可预测
-      extra:
-        "0": 影响发射器和投掷器
     dragonEggFallDelay:
       name: 龙蛋下落延迟
       desc: 龙蛋下落前延迟的游戏刻数

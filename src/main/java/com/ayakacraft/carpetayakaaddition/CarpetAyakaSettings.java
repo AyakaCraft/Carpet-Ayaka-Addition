@@ -115,7 +115,7 @@ public final class CarpetAyakaSettings {
     @Rule(
             categories = {AYAKA, DISPENSER}
     )
-    public static boolean dispensedItemNoRandomVelocity = false;
+    public static boolean accurateDispenser = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BOT}

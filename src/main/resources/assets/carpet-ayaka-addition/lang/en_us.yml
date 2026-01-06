@@ -66,6 +66,10 @@ carpet:
     unsigned: Must not be negative
     unsigned_with_bound: Must not be negative or larger than %d
   rule:
+    accurateDispenser:
+      desc: Removes the uncertainty in velocity of dispensed items and projectiles
+      extra:
+        "0": Effects both dispensers and droppers
     bedrockNoBlastResistance:
       desc: Makes bedrocks unable to block explosions, though themselves won't be destroyed
     betterMobCap:
@@ -92,10 +96,6 @@ carpet:
       desc: Enables /tpt to teleport to another player in your server
     disableBatSpawning:
       desc: Disables natural spawning of bats
-    dispensedItemNoRandomVelocity:
-      desc: Makes the velocity of dispensed items predictable and straight forward
-      extra:
-        "0": Effects both dispensers and droppers
     dragonEggFallDelay:
       desc: Delay ticks before dragon egg falls
       extra:

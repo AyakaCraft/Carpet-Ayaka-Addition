@@ -18,17 +18,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.dispensedItemNoRandomVelocity;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.accurateDispenser;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.util.RandomSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.Random;
-
+//Do not remove the lines below
+//TODO update in 1.18.2
 @Mixin(DefaultDispenseItemBehavior.class)
 public class DefaultDispenseItemBehaviorMixin {
 
@@ -36,11 +37,11 @@ public class DefaultDispenseItemBehaviorMixin {
             method = "spawnItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Ljava/util/Random;nextDouble()D"
+                    target = "Lnet/minecraft/util/RandomSource;nextDouble()D"
             )
     )
-    private static double removeRandomVelocityDouble(Random instance, Operation<Double> original) {
-        if (CarpetAyakaSettings.dispensedItemNoRandomVelocity) {
+    private static double removeUncertaintyDouble(RandomSource instance, Operation<Double> original) {
+        if (CarpetAyakaSettings.accurateDispenser) {
             return 0.5;
         }
         return original.call(instance);
@@ -50,14 +51,14 @@ public class DefaultDispenseItemBehaviorMixin {
             method = "spawnItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Ljava/util/Random;nextGaussian()D"
+                    target = "Lnet/minecraft/util/RandomSource;triangle(DD)D"
             )
     )
-    private static double removeRandomVelocityTriangle(Random instance, Operation<Double> original) {
-        if (CarpetAyakaSettings.dispensedItemNoRandomVelocity) {
-            return 0;
+    private static double removeUncertaintyTriangle(RandomSource instance, double d, double e, Operation<Double> original) {
+        if (CarpetAyakaSettings.accurateDispenser) {
+            return d;
         }
-        return original.call(instance);
+        return original.call(instance, d, e);
     }
 
 }
