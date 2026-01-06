@@ -24,12 +24,11 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.util.RandomSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-//Do not remove the lines below
-//TODO update in 1.18.2
+import java.util.Random;
+
 @Mixin(DefaultDispenseItemBehavior.class)
 public class DefaultDispenseItemBehaviorMixin {
 
@@ -37,10 +36,10 @@ public class DefaultDispenseItemBehaviorMixin {
             method = "spawnItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/RandomSource;nextDouble()D"
+                    target = "Ljava/util/Random;nextDouble()D"
             )
     )
-    private static double removeRandomVelocityDouble(RandomSource instance, Operation<Double> original) {
+    private static double removeRandomVelocityDouble(Random instance, Operation<Double> original) {
         if (CarpetAyakaSettings.dispensedItemNoRandomVelocity) {
             return 0.5;
         }
@@ -51,14 +50,14 @@ public class DefaultDispenseItemBehaviorMixin {
             method = "spawnItem",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/RandomSource;triangle(DD)D"
+                    target = "Ljava/util/Random;nextGaussian()D"
             )
     )
-    private static double removeRandomVelocityTriangle(RandomSource instance, double d, double e, Operation<Double> original) {
+    private static double removeRandomVelocityTriangle(Random instance, Operation<Double> original) {
         if (CarpetAyakaSettings.dispensedItemNoRandomVelocity) {
-            return d;
+            return 0;
         }
-        return original.call(instance, d, e);
+        return original.call(instance);
     }
 
 }

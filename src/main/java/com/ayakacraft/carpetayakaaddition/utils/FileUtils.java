@@ -34,7 +34,11 @@ public final class FileUtils {
     }
 
     public static String readFile(Path path) throws IOException {
+        //#if MC>=11700
         return Files.readString(path);
+        //#else
+        //$$ return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+        //#endif
     }
 
 }

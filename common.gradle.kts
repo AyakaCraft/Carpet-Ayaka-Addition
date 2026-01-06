@@ -344,10 +344,6 @@ publisher {
 
     artifact.set(tasks.jar)
 
-    if (mcVersionNumber < 11700) {
-        setJavaVersions(JavaVersion.VERSION_1_8)
-    }
-
     curseDepends {
         required("carpet")
         optional("carpet-tis-addition", "guglecarpetaddition")
