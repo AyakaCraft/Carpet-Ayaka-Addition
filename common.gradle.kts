@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom") version ("1.15.0-alpha.23")
+    id("net.fabricmc.fabric-loom") version ("1.15.0-alpha.26")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -141,25 +141,10 @@ val javaCompatibility = JavaVersion.VERSION_25
 val mixinCompatibility = javaCompatibility
 
 loom {
-    var commonVmArgs = listOf("-Dmixin.debug.export=true")
     runConfigs.configureEach {
         runDir = "../../run/${mcVersionNumber}"
-        vmArgs(commonVmArgs)
+        vmArgs(listOf("-Dmixin.debug.export=true"))
         ideConfigGenerated(true)
-    }
-
-    runs {
-        var auditVmArgs = commonVmArgs
-        create("serverMixinAudit") {
-            server()
-            vmArgs(auditVmArgs)
-            ideConfigGenerated(false)
-        }
-        create("clientMixinAudit") {
-            client()
-            vmArgs(auditVmArgs)
-            ideConfigGenerated(false)
-        }
     }
 }
 

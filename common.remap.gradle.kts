@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.23")
+    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.26")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -73,6 +73,13 @@ repositories {
         }
     }
     maven {
+        name = "ParchmentMC"
+        url = uri("https://maven.parchmentmc.org")
+        content {
+            includeGroup("org.parchmentmc.data")
+        }
+    }
+    maven {
         name = "Terraformers"
         url = uri("https://maven.terraformersmc.com/")
         content {
@@ -126,6 +133,7 @@ dependencies {
 
     modImplementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
         exclude(group = "carpet", module = "fabric-carpet")
+        exclude(group = "com.github.gnembon", module = "fabric-carpet")
     }
 
     if (mcVersionNumber >= 12000) {
@@ -182,25 +190,10 @@ val javaCompatibility = if (mcVersionNumber >= 12005) {
 val mixinCompatibility = javaCompatibility
 
 loom {
-    var commonVmArgs = listOf("-Dmixin.debug.export=true")
     runConfigs.configureEach {
         runDir = "../../run/${mcVersionNumber}"
-        vmArgs(commonVmArgs)
+        vmArgs(listOf("-Dmixin.debug.export=true"))
         ideConfigGenerated(true)
-    }
-
-    runs {
-        var auditVmArgs = commonVmArgs
-        create("serverMixinAudit") {
-            server()
-            vmArgs(auditVmArgs)
-            ideConfigGenerated(false)
-        }
-        create("clientMixinAudit") {
-            client()
-            vmArgs(auditVmArgs)
-            ideConfigGenerated(false)
-        }
     }
 
     mixin.useLegacyMixinAp = true
