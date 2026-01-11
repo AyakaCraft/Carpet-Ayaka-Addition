@@ -106,7 +106,7 @@ public final class EndermanBlockListCommand {
 
     private static int addToBlacklist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        String block = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
+        String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
                 source.getServer(),
                 config -> {
@@ -119,7 +119,7 @@ public final class EndermanBlockListCommand {
 
     private static int removeFromBlacklist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        String block = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
+        String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
                 source.getServer(),
                 config -> {
@@ -140,7 +140,7 @@ public final class EndermanBlockListCommand {
 
     private static int addToWhitelist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        String block = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
+        String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
                 source.getServer(),
                 config -> {
@@ -153,7 +153,7 @@ public final class EndermanBlockListCommand {
 
     private static int removeFromWhitelist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        String block = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
+        String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
                 source.getServer(),
                 config -> {
@@ -165,9 +165,9 @@ public final class EndermanBlockListCommand {
     }
 
     private static int get(CommandContext<CommandSourceStack> context) {
-        CommandSourceStack source = context.getSource();
-        EndermanBlockListConfig config    = getConfig(source.getServer());
-        EndermanBlockListConfig.Type type = config == null ? EndermanBlockListConfig.Type.DISABLED : config.getType();
+        CommandSourceStack           source = context.getSource();
+        EndermanBlockListConfig      config = getConfig(source.getServer());
+        EndermanBlockListConfig.Type type   = config == null ? EndermanBlockListConfig.Type.DISABLED : config.getType();
         sendFeedback(
                 source,
                 TR.tr("type", type.name().toLowerCase(Locale.ROOT)),

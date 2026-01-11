@@ -31,7 +31,9 @@ import org.jetbrains.annotations.Contract;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeSet;
 
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
 import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
@@ -96,9 +98,15 @@ public final class EndermanBlockListConfig {
     }
 
     private void ensureNullSafety() {
-        if (this.type == null) this.type = Type.DISABLED;
-        if (this.blacklist == null) this.blacklist = Sets.newTreeSet();
-        if (this.whitelist == null) this.whitelist = Sets.newTreeSet();
+        if (this.type == null) {
+            this.type = Type.DISABLED;
+        }
+        if (this.blacklist == null) {
+            this.blacklist = Sets.newTreeSet();
+        }
+        if (this.whitelist == null) {
+            this.whitelist = Sets.newTreeSet();
+        }
     }
 
     public Type getType() {

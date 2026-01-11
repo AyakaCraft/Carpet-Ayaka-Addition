@@ -121,9 +121,9 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
 
     @Override
     public MutableComponent updateSingleLine(String playerOption, Player player) {
-        ServerPlayer sPlayer = (ServerPlayer) player;
-        Component    header  = TR.tr(sPlayer, null).withStyle(ChatFormatting.GRAY);
-        MutableComponent    value;
+        ServerPlayer     sPlayer = (ServerPlayer) player;
+        Component        header  = TR.tr(sPlayer, null).withStyle(ChatFormatting.GRAY);
+        MutableComponent value;
 
         if (OPTIONS[1].equals(playerOption)) {
             playerOption = IdentifierUtils.ofWorld(sPlayer.level()).toString();

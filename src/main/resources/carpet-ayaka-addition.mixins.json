@@ -6,7 +6,6 @@
   "mixins": [
     "carpet.MinecraftServerMixin",
     "commands.endermanblocklist.EndermanTakeBlockGoalMixin",
-    "utils.LivingEntityAccessor",
     "logging.HUDControllerMixin",
     "logging.LoggerRegistryMixin",
     "logging.loadedchunks.ChunkMapAccessor",
@@ -45,6 +44,7 @@
     "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",
     "settings.SettingsManagerAccessor",
+    "utils.LivingEntityAccessor",
     "utils.ServerboundClientInformationPacketAccessor",
     "utils.ServerPlayerEntityMixin"
   ],

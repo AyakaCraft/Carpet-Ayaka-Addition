@@ -91,8 +91,8 @@ public final class TextUtils {
     @Contract(pure = true)
     public static <T> MutableComponent join(Collection<T> elements, Component separator, Function<T, Component> transformer) {
         MutableComponent mutableText = empty();
-        boolean bl = false;
-        for(T object : elements) {
+        boolean          bl          = false;
+        for (T object : elements) {
             if (bl) {
                 mutableText.append(separator);
             }
