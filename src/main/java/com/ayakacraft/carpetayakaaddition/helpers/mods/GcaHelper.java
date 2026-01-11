@@ -121,7 +121,7 @@ public final class GcaHelper {
         try {
             Files.write(path, CarpetAyakaAddition.GSON.toJson(fakePlayers).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.warn(e.getMessage(), e);
         }
     }
 

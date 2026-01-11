@@ -24,6 +24,7 @@ import carpet.CarpetExtension;
 import carpet.logging.HUDController;
 import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.commands.address.AddressManager;
+import com.ayakacraft.carpetayakaaddition.commands.endermanblocklist.EndermanBlockListConfig;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.settings.AyakaRuleRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
@@ -87,15 +88,21 @@ public final class CarpetAyakaServer implements CarpetExtension {
     public void registerCommands(
             CommandDispatcher<CommandSourceStack> dispatcher
             //#if MC>=11900
-            , final net.minecraft.commands.CommandBuildContext registryAccess
+            , net.minecraft.commands.CommandBuildContext buildContext
             //#endif
     ) {
-        AyakaCommandRegistry.registerCommands(dispatcher);
+        AyakaCommandRegistry.registerCommands(
+                dispatcher
+                //#if MC>=11900
+                , buildContext
+                //#endif
+        );
     }
 
     @Override
     public void onServerClosed(MinecraftServer server) {
         AddressManager.removeWaypointManager(mcServer);
+        EndermanBlockListConfig.remove(mcServer);
         cancelTickTasksMatching(it -> true);
 
         this.mcServer = null;

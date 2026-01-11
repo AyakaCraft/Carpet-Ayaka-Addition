@@ -41,4 +41,12 @@ public final class FileUtils {
         //#endif
     }
 
+    public static void writeFile(Path path, String str) throws IOException {
+        //#if MC>=11700
+        Files.writeString(path, str);
+        //#else
+        //$$ Files.write(path, str.getBytes(StandardCharsets.UTF_8));
+        //#endif
+    }
+
 }

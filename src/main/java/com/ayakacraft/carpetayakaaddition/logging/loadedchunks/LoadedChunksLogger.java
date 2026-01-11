@@ -23,6 +23,7 @@ package com.ayakacraft.carpetayakaaddition.logging.loadedchunks;
 import com.ayakacraft.carpetayakaaddition.logging.AbstractAyakaHUDLoggerSingleLine;
 import com.ayakacraft.carpetayakaaddition.logging.AyakaLoggerRegistry;
 import com.ayakacraft.carpetayakaaddition.mixin.logging.loadedchunks.ChunkMapAccessor;
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.ayakacraft.carpetayakaaddition.utils.InitializedPerTick;
 import com.ayakacraft.carpetayakaaddition.utils.text.TextUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
@@ -125,7 +126,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
         MutableComponent    value;
 
         if (OPTIONS[1].equals(playerOption)) {
-            playerOption = sPlayer.level().dimension().identifier().toString();
+            playerOption = IdentifierUtils.ofWorld(sPlayer.level()).toString();
         }
 
         if (OPTIONS[0].equals(playerOption)) {
@@ -160,7 +161,7 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
                     })
                     .count();
 
-            Identifier id = world.dimension().identifier();
+            Identifier id = IdentifierUtils.ofWorld(world);
 
             loadedChunksCountAll += count;
             loadedChunksCountAllSpawnable += countSpawnable;

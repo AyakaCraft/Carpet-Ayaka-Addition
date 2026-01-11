@@ -20,15 +20,44 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
+import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Position;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 
 public final class MathUtils {
 
+    @PreprocessPattern
+    private static int chunkX(ChunkPos chunkPos) {
+        //#if MC>=260000
+        //$$ return chunkPos.x();
+        //#else
+        return chunkPos.x;
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static int chunkZ(ChunkPos chunkPos) {
+        //#if MC>=260000
+        //$$ return chunkPos.z();
+        //#else
+        return chunkPos.z;
+        //#endif
+    }
+
+    @PreprocessPattern
+    private static ChunkPos chunkPosOfBlock(BlockPos blockPos) {
+        //#if MC>=260000
+        //$$ return ChunkPos.containing(blockPos);
+        //#else
+        return new ChunkPos(blockPos);
+        //#endif
+    }
+
     @Contract(pure = true)
-    public static ChunkPos getChunkPos(Vec3 pos) {
-        return new ChunkPos((int) pos.x >> 4, (int) pos.z >> 4);
+    public static ChunkPos getChunkPos(Position pos) {
+        return new ChunkPos((int) pos.x() >> 4, (int) pos.z() >> 4);
     }
 
     @Contract(pure = true)

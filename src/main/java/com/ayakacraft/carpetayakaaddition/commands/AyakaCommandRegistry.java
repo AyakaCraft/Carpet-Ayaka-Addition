@@ -22,6 +22,7 @@ package com.ayakacraft.carpetayakaaddition.commands;
 
 import com.ayakacraft.carpetayakaaddition.commands.address.AddressCommand;
 import com.ayakacraft.carpetayakaaddition.commands.c.CCommand;
+import com.ayakacraft.carpetayakaaddition.commands.endermanblocklist.EndermanBlockListCommand;
 import com.ayakacraft.carpetayakaaddition.commands.gohome.GoHomeCommand;
 import com.ayakacraft.carpetayakaaddition.commands.killitem.KillItemCommand;
 import com.ayakacraft.carpetayakaaddition.commands.tpt.TptCommand;
@@ -33,12 +34,23 @@ public final class AyakaCommandRegistry {
 
     public static final Translator COMMAND_TR = Translator.AYAKA.resolve("command");
 
-    public static void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
+    public static void registerCommands(
+            CommandDispatcher<CommandSourceStack> dispatcher
+            //#if MC>=11900
+            , net.minecraft.commands.CommandBuildContext buildContext
+            //#endif
+    ) {
         TptCommand.register(dispatcher);
         GoHomeCommand.register(dispatcher);
         AddressCommand.register(dispatcher);
         CCommand.register(dispatcher);
         KillItemCommand.register(dispatcher);
+        EndermanBlockListCommand.register(
+                dispatcher
+                //#if MC>=11900
+                , buildContext
+                //#endif
+        );
     }
 
 }

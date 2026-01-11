@@ -24,6 +24,7 @@
   "mixins": [
     "carpet-ayaka-addition.mixins.json"
   ],
+  "accessWidener": "carpet-ayaka-addition.accesswidener",
   "depends": {
     "fabricloader": "${loader_dependency}",
     "carpet": "${carpet_dependency}",

@@ -31,6 +31,18 @@ carpet-ayaka-addition:
         out_of_world_border: 路径点 [%s] 在世界边界以外
       pin.success: 置顶了路径点 [%s]
       unpin.success: 取消置顶了路径点 [%s]
+    endermanBlockList:
+      type: "当前类型: %s"
+      blacklist:
+        .: "黑名单:"
+        add: 向黑名单中添加了 "%s"
+        clear: 清空了黑名单
+        remove: 从黑名单中移除了 "%s"
+      whitelist:
+        .: "白名单:"
+        add: 向白名单中添加了 "%s"
+        clear: 清空了白名单
+        remove: 从白名单中移除了 "%s"
     killitem:
       none: 没有可清除的掉落物
       single: "清除了{}"
@@ -100,6 +112,9 @@ carpet:
     commandC:
       name: 旁观者模式切换命令开关
       desc: 启用 /c 命令以在生存模式和旁观者模式中切换
+    commandEndermanBlockList:
+      name: 末影人方块列表命令开关
+      desc: 启用 /endermanBlockList 命令来配置末影人可以拿起的方块列表
     commandGoHome:
       name: 回程命令开关
       desc: 启用 /gohome 命令以传送到重生点

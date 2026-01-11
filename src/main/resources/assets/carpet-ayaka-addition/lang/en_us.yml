@@ -31,6 +31,18 @@ carpet-ayaka-addition:
         out_of_world_border: Address [%s] out of world border
       pin.success: Pinned address [%s]
       unpin.success: Unpinned address [%s]
+    endermanBlockList:
+      type: "Current Type: %s"
+      blacklist:
+        .: "Blacklist:"
+        add: Added "%s" to blacklist
+        clear: Cleared blacklist
+        remove: Removed "%s" from blacklist
+      whitelist:
+        .: "Whitelist:"
+        add: Added "%s" to whitelist
+        clear: Cleared whitelist
+        remove: Removed "%s" from whitelist
     killitem:
       none: No item cleared
       single: "Cleared {}"
@@ -88,6 +100,8 @@ carpet:
       desc: Enables /address tp and /ad tp to teleport to shared addresses
     commandC:
       desc: Enables /c to switch your gamemode between spectator and survival
+    commandEndermanBlockList:
+      desc: Enables /endermanBlockList to configure blocks that endermen can move
     commandGoHome:
       desc: Enables /gohome to teleport right back to your spawn point
     commandKillItem:

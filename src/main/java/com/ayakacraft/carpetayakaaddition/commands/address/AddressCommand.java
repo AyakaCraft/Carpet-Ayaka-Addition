@@ -149,7 +149,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).load();
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to load addresses", e);
+            CarpetAyakaAddition.LOGGER.warn("Failed to load addresses", e);
             source.sendFailure(TR.tr(source, "reload.failure"));
             return 0;
         }
@@ -179,7 +179,7 @@ public final class AddressCommand {
         try {
             AddressManager.getOrCreate(source.getServer()).set(new Address(id, dim, pos, desc, 0));
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
+            CarpetAyakaAddition.LOGGER.warn("Failed to save addresses", e);
             source.sendFailure(TR.tr(source, "save.failure"));
             return 0;
         }
@@ -196,7 +196,7 @@ public final class AddressCommand {
                 return 0;
             }
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
+            CarpetAyakaAddition.LOGGER.warn("Failed to save addresses", e);
             source.sendFailure(TR.tr(source, "save.failure"));
             return 0;
         }
@@ -238,7 +238,7 @@ public final class AddressCommand {
                 return 0;
             }
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
+            CarpetAyakaAddition.LOGGER.warn("Failed to save addresses", e);
             source.sendFailure(TR.tr(source, "save.failure"));
             return 0;
         }
@@ -364,7 +364,7 @@ public final class AddressCommand {
         try {
             manager.save();
         } catch (IOException e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to save addresses", e);
+            CarpetAyakaAddition.LOGGER.warn("Failed to save addresses", e);
             source.sendFailure(TR.tr(source, "save.failure"));
             return 0;
         }

@@ -75,6 +75,24 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
         - *取消置顶路径点*
 - /c
     - *将你的游戏模式在 生存模式 和 旁观者模式 之间切换*
+- /endermanBlockList
+    - *展示当前列表类型和内容*
+    - type
+        - blacklist
+            - *原版中可以捡起的并且不在黑名单中的方块可被捡起*
+        - blacklist_loose
+            - *任何不在黑名单中的方块均可被捡起*
+        - whitelist
+            - *在白名单里的方块可被捡起*
+        - disabled
+            - *默认模式，对游戏机制无影响*
+    - whitelist & blacklist
+        - add \<block>
+            - *向列表中添加指定方块，不考虑其状态*
+        - remove \<block>
+            - *从列表中移除指定方块，不考虑其状态*
+        - clear
+            - *清空列表*
 - /gohome
     - *将你传送回出生点/重生点*
 - /killitem
@@ -118,7 +136,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 #### 索引
 
-- [accurateDispenser](#发射物品速度不随机-accurateDispenser)
+- [accurateDispenser](#精确发射器-accuratedispenser)
 - [bedrockNoBlastResistance](#基岩无爆炸抗性-bedrocknoblastresistance)
 - [betterMobCap](#更好的刷怪上限-bettermobcap)
 - [betterOpPlayerNoCheat](#更好的op玩家不准作弊-betteropplayernocheat)
@@ -126,6 +144,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [commandAddress](#全局路径点命令开关-commandaddress)
 - [commandAddressTp](#全局路径点传送命令开关-commandaddresstp)
 - [commandC](#旁观者模式切换命令开关-commandc)
+- [commandEndermanBlockList](#末影人方块列表命令开关-commandendermanblocklist)
 - [commandGoHome](#回程命令开关-commandgohome)
 - [commandKillItem](#清除掉落物命令开关-commandkillitem)
 - [commandTpt](#传送到玩家命令开关-commandtpt)
@@ -224,6 +243,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - 分类: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### 末影人方块列表命令开关 (commandEndermanBlockList)
+
+启用 `/endermanBlockList` 命令来配置末影人可以拿起的方块列表
+
+- 类型: `String`
+- 默认值: `false`
+- 参考选项: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- 分类: `AYAKA`, `COMMAND`, `FEATURE`
 
 #### 回程命令开关 (commandGoHome)
 

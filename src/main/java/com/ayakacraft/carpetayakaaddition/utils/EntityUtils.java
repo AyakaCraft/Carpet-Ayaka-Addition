@@ -20,7 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.utils;
 
-import com.ayakacraft.carpetayakaaddition.mixin.commands.gohome.LivingEntityAccessor;
+import com.ayakacraft.carpetayakaaddition.mixin.utils.LivingEntityAccessor;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -45,7 +45,7 @@ public final class EntityUtils {
     public static void kill(Entity entity) {
         //#if MC>=12102
         if (!entity.level().isClientSide()) {
-            entity.kill((net.minecraft.server.level.ServerLevel) entity.level());;
+            entity.kill((net.minecraft.server.level.ServerLevel) entity.level());
         }
         //#else
         //$$ entity.kill();

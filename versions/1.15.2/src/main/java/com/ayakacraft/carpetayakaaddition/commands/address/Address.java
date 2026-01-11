@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -47,7 +48,7 @@ public class Address extends AbstractAddress<DimensionType> {
 
     @Override
     public boolean isInWorld(Level world) {
-        return String.valueOf(DimensionType.getName(world.getDimension().getType())).equals(dim);
+        return String.valueOf(IdentifierUtils.ofWorld(world)).equals(dim);
     }
 
 }

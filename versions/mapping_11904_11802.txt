@@ -2,3 +2,4 @@ carpet.api.settings carpet.settings
 carpet.api.settings.CarpetRule carpet.settings.ParsedRule
 net.minecraft.util.RandomSource java.util.Random
 net.minecraft.network.chat.MutableComponent net.minecraft.network.chat.BaseComponent
+net.minecraft.core.registries.BuiltInRegistries net.minecraft.core.Registry

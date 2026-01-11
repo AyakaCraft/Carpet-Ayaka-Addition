@@ -21,8 +21,10 @@
 package com.ayakacraft.carpetayakaaddition.utils;
 
 import com.ayakacraft.carpetayakaaddition.utils.preprocess.PreprocessPattern;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 public final class IdentifierUtils {
 
@@ -45,12 +47,16 @@ public final class IdentifierUtils {
     }
 
     @PreprocessPattern
-    private static Identifier ofWorld(Level world) {
+    public static Identifier ofWorld(Level world) {
         //#if MC>=11600
         return world.dimension().identifier();
         //#else
         //$$ return net.minecraft.world.level.dimension.DimensionType.getName(world.getDimension().getType());
         //#endif
+    }
+
+    public static Identifier ofBlock(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block);
     }
 
 }

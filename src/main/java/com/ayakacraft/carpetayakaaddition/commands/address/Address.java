@@ -20,6 +20,7 @@
 
 package com.ayakacraft.carpetayakaaddition.commands.address;
 
+import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
@@ -60,7 +61,7 @@ public class Address extends AbstractAddress<ResourceKey<Level>> {
     @Contract(pure = true)
     @Override
     public boolean isInWorld(Level world) {
-        return world.dimension().identifier().toString().equals(dim);
+        return IdentifierUtils.ofWorld(world).toString().equals(dim);
     }
 
 }

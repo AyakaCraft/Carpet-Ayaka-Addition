@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.26")
+    id("net.fabricmc.fabric-loom-remap") version ("1.15.0-alpha.29")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -190,6 +190,8 @@ val javaCompatibility = if (mcVersionNumber >= 12005) {
 val mixinCompatibility = javaCompatibility
 
 loom {
+    accessWidenerPath = file("carpet-ayaka-addition.accesswidener")
+
     runConfigs.configureEach {
         runDir = "../../run/${mcVersionNumber}"
         vmArgs(listOf("-Dmixin.debug.export=true"))
@@ -264,6 +266,8 @@ version = fullProjectVersion
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 tasks.processResources {
+    from("carpet-ayaka-addition.accesswidener")
+
     inputs.apply {
         property("id", properties["mod_id"].toString())
         property("name", properties["mod_name"].toString())

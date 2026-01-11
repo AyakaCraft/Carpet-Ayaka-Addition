@@ -75,6 +75,24 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
         - *Unpins the waypoint*
 - /c
     - *Switches your gamemode between `spectator` and `survival`*
+- /endermanBlockList
+    - *Shows the current type and content of the list*
+    - type
+        - blacklist
+            - *Blocks that can be picked up in vanilla and are not listed in the blacklist can be picked up*
+        - blacklist_loose
+            - *Any blocks not listed in the blacklist can be picked up*
+        - whitelist
+            - *Only blocks listed in the whitelist can be picked up*
+        - disabled
+            - *Default state, with no actual impact to the game*
+    - whitelist & blacklist
+        - add \<block>
+            - *Adds the block to the list, not considering its state*
+        - remove \<block>
+            - *Removes the block from the list, not considering its state*
+        - clear
+            - *Clears the list*
 - /gohome
     - *Teleport you right back to your spawn point*
 - /killitem
@@ -126,6 +144,7 @@ Logs the change of points-of-interest (experimental)
 - [commandAddress](#commandaddress)
 - [commandAddressTp](#commandaddresstp)
 - [commandC](#commandc)
+- [commandEndermanBlockList](#commandendermanblocklist)
 - [commandGoHome](#commandgohome)
 - [commandKillItem](#commandkillitem)
 - [commandTpt](#commandtpt)
@@ -233,6 +252,15 @@ Enables `/gohome` to teleport right back to your spawn point
 - Default value: `false`
 - Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
 - Categories: `AYAKA`, `COMMAND`, `CHEAT`
+
+#### commandEndermanBlockList
+
+Enables `/endermanBlockList` to configure blocks that endermen can move
+
+- Type: `String`
+- Default value: `false`
+- Suggested options: `false`, `true`, `ops`, `0`, `1`, `2`, `3`, `4`
+- Categories: `AYAKA`, `COMMAND`, `FEATURE`
 
 #### commandKillItem
 

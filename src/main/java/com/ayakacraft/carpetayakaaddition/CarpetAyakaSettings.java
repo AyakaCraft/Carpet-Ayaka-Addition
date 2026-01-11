@@ -81,6 +81,13 @@ public final class CarpetAyakaSettings {
     )
     public static String commandC = "false";
 
+    //TODO i18n & README
+    @Rule(
+            categories = {AYAKA, COMMAND, FEATURE},
+            options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
+    )
+    public static String commandEndermanBlockList = "false";
+
     @Rule(
             categories = {AYAKA, COMMAND, CHEAT},
             options = {"false", "true", "ops", "0", "1", "2", "3", "4"}

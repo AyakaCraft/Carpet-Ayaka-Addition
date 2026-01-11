@@ -62,10 +62,11 @@ public abstract class AyakaLanguage {
 
             loaded = true;
         } catch (Exception e) {
-            CarpetAyakaAddition.LOGGER.error("Failed to load language list", e);
             if (FabricLoader.getInstance().isDevelopmentEnvironment()) {
+                CarpetAyakaAddition.LOGGER.error("Failed to load language list", e);
                 throw new RuntimeException(e);
             }
+            CarpetAyakaAddition.LOGGER.warn("Failed to load language list", e);
         }
 
     }

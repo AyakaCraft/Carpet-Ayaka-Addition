@@ -32,7 +32,6 @@ import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -56,9 +55,9 @@ public class AddressManager {
     private static final int REDUCE_WEIGHT_FREQUENCY = 72000;
 
     @Deprecated
-    public static final String WAYPOINT_FILE_NAME_OLD = "ayaka_waypoints.json";
+    public static final String FILE_NAME_OLD = "ayaka_waypoints.json";
 
-    public static final String WAYPOINT_FILE_NAME = "ayaka_addresses.json";
+    public static final String FILE_NAME = "ayaka_addresses.json";
 
     @Deprecated
     private static Collection<AddressOld> loadFromPathOld(Path storagePath) throws IOException {
@@ -83,7 +82,7 @@ public class AddressManager {
         try {
             manager.save();
         } catch (IOException e) {
-            LOGGER.error("Failed to save addresses", e);
+            LOGGER.warn("Failed to save addresses", e);
         }
     }
 
@@ -99,12 +98,12 @@ public class AddressManager {
     private AddressManager(MinecraftServer server) {
         this.mcServer = server;
 
-        waypointStoragePath = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(WAYPOINT_FILE_NAME);
-        waypointStoragePathOld = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(WAYPOINT_FILE_NAME_OLD);
+        waypointStoragePath = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(FILE_NAME);
+        waypointStoragePathOld = server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(FILE_NAME_OLD);
         try {
             load();
         } catch (IOException e) {
-            LOGGER.error("Failed to load addresses", e);
+            LOGGER.warn("Failed to load addresses", e);
         }
 
         CarpetAyakaServer.INSTANCE.addTickTask(it -> new ReduceWeightTask(it, this));
@@ -145,10 +144,9 @@ public class AddressManager {
 
     }
 
-    @Contract(mutates = "io")
     public void save() throws IOException {
         LOGGER.debug("Saving addresses to {}", waypointStoragePath);
-        Files.write(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap, MAP_TYPE).getBytes(StandardCharsets.UTF_8));
+        FileUtils.writeFile(waypointStoragePath, CarpetAyakaAddition.GSON.toJson(addressMap, MAP_TYPE));
     }
 
     @Contract(pure = true)
