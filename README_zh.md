@@ -84,7 +84,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
             - *任何不在黑名单中的方块均可被捡起*
         - whitelist
             - *在白名单里的方块可被捡起*
-        - disabled
+        - disable_all
+            - *阻止末影人拿起任何方块*
+        - vanilla
             - *默认模式，对游戏机制无影响*
     - whitelist & blacklist
         - add \<block>

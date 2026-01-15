@@ -24,6 +24,7 @@ import com.ayakacraft.carpetayakaaddition.utils.FileUtils;
 import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.google.gson.annotations.SerializedName;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Contract;
@@ -92,14 +93,14 @@ public final class EndermanBlockListConfig {
     private TreeSet<String> whitelist;
 
     private EndermanBlockListConfig() {
-        this.type = Type.DISABLED;
+        this.type = Type.VANILLA;
         this.blacklist = Sets.newTreeSet();
         this.whitelist = Sets.newTreeSet();
     }
 
     private void ensureNullSafety() {
         if (this.type == null) {
-            this.type = Type.DISABLED;
+            this.type = Type.VANILLA;
         }
         if (this.blacklist == null) {
             this.blacklist = Sets.newTreeSet();
@@ -114,7 +115,7 @@ public final class EndermanBlockListConfig {
     }
 
     public void setType(Type type) {
-        this.type = type == null ? Type.DISABLED : type;
+        this.type = type == null ? Type.VANILLA : type;
     }
 
     public TreeSet<String> getWhitelist() {
@@ -128,11 +129,13 @@ public final class EndermanBlockListConfig {
     public boolean verifyBlock(Block block) {
         String s = IdentifierUtils.ofBlock(block).toString();
         switch (type) {
+            case DISABLE_ALL:
+                return false;
+            case WHITELIST:
+                return getWhitelist().contains(s);
             case BLACKLIST:
             case BLACKLIST_LOOSE:
                 return !getBlacklist().contains(s);
-            case WHITELIST:
-                return getWhitelist().contains(s);
             default:
                 return true;
         }
@@ -142,7 +145,9 @@ public final class EndermanBlockListConfig {
         BLACKLIST,
         BLACKLIST_LOOSE,
         WHITELIST,
-        DISABLED
+        DISABLE_ALL,
+        @SerializedName(value = "VANILLA", alternate = "DISABLED")
+        VANILLA
     }
 
 }

@@ -84,7 +84,9 @@ Mostly based on [Fallen-Breath's template](https://github.com/Fallen-Breath/fabr
             - *Any blocks not listed in the blacklist can be picked up*
         - whitelist
             - *Only blocks listed in the whitelist can be picked up*
-        - disabled
+        - disable_all
+            - *No blocks can be moved*
+        - vanilla
             - *Default state, with no actual impact to the game*
     - whitelist & blacklist
         - add \<block>

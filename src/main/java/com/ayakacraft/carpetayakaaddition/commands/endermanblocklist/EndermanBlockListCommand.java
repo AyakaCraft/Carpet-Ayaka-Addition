@@ -167,7 +167,7 @@ public final class EndermanBlockListCommand {
     private static int get(CommandContext<CommandSourceStack> context) {
         CommandSourceStack           source = context.getSource();
         EndermanBlockListConfig      config = getConfig(source.getServer());
-        EndermanBlockListConfig.Type type   = config == null ? EndermanBlockListConfig.Type.DISABLED : config.getType();
+        EndermanBlockListConfig.Type type   = config == null ? EndermanBlockListConfig.Type.VANILLA : config.getType();
         sendFeedback(
                 source,
                 TR.tr("type", type.name().toLowerCase(Locale.ROOT)),
