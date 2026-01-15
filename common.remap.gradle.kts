@@ -19,7 +19,7 @@ plugins {
     id("me.fallenbreath.yamlang") version ("1.5.0")
 
     // https://github.com/firstdarkdev/modpublisher
-    id("com.hypherionmc.modutils.modpublisher") version ("2.1.8")
+    id("com.hypherionmc.modutils.modpublisher") version ("2.1.8+snapshot.4")
 
     `maven-publish`
     idea
