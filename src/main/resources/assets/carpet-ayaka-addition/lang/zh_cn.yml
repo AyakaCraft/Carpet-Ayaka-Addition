@@ -182,6 +182,9 @@ carpet:
     reasonableStalactiteDamage:
       name: 合理的钟乳石伤害
       desc: 在 1.18+ 中令钟乳石伤害与其大小相关
+    strictEndPortal:
+      name: 严格末地门
+      desc: 当启用时，只有与要塞摆放模式一致的末地传送门框架可以激活并生成传送门
     tickFluids:
       name: 流体更新
       desc: 流体是否更新

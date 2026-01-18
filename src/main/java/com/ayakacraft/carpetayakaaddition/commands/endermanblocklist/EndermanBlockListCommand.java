@@ -49,7 +49,6 @@ import static com.ayakacraft.carpetayakaaddition.utils.CommandUtils.sendFeedback
 import static net.minecraft.commands.Commands.argument;
 import static net.minecraft.commands.Commands.literal;
 
-//TODO cmd feedback
 public final class EndermanBlockListCommand {
 
     public static final String NAME = "endermanBlockList";

@@ -1,5 +1,4 @@
 ### General
 
-- Renamed `/endermanBlockList type disabled` to `/endermanBlockList type vanilla`
-- Added `/endermanBlockList type disable_all`
+- Added carpet rule `strictEndPortal`
 - Support for 26.1-snapshot-3

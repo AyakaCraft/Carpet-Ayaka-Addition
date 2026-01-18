@@ -192,7 +192,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `FEATURE`
 
 #### 更好的op玩家不准作弊 (betterOpPlayerNoCheat)
 
@@ -399,7 +399,7 @@ give 命令的限制乘数
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
+- 分类: `AYAKA`, `BUGFIX`, `REINTRODUCE`
 
 #### 最大玩家数量重写 (maxPlayersOverwrite)
 
@@ -422,7 +422,16 @@ give 命令的限制乘数
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+- 分类: `AYAKA`, `FEATURE`, `REINTRODUCE`
+
+#### 严格末地门
+
+当启用时，只有与要塞摆放模式一致的末地传送门框架可以激活并生成传送门
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### 流体更新 (tickFluids)
 
@@ -433,7 +442,7 @@ give 命令的限制乘数
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `CREATIVE`
 
 ## 生命周期计划
 
@@ -441,18 +450,18 @@ give 命令的限制乘数
 
 目前，以下 Minecraft 版本正在积极地获得新功能和错误修复的支持
 
-| Minecraft 版本 | **支持至**                 |
-|--------------|-------------------------|
-| 1.14.4       | ✔️ 长期支持                 |
-| 1.15.2       | ✔️ 长期支持                 |
-| 1.16.5       | ✔️ 长期支持                 |
-| 1.17.1       | ✔️ 长期支持                 |
-| 1.18.2       | ✔️ 长期支持                 |
-| 1.19.4       | ✔️ 长期支持                 |
-| 1.20.1       | ✔️ 长期支持                 |
-| 1.20.6       | ✔️ 长期支持                 |
-| 1.21-1.21.10 | 🕒 Minecraft 27.1 快照发布时 |
-| 1.21.11      | 🕒 待定                   |
+| Minecraft 版本 | **支持至**                |
+|--------------|------------------------|
+| 1.14.4       | ✔️ 长期支持                |
+| 1.15.2       | ✔️ 长期支持                |
+| 1.16.5       | ✔️ 长期支持                |
+| 1.17.1       | ✔️ 长期支持                |
+| 1.18.2       | ✔️ 长期支持                |
+| 1.19.4       | ✔️ 长期支持                |
+| 1.20.1       | ✔️ 长期支持                |
+| 1.20.6       | ✔️ 长期支持                |
+| 1.21-1.21.10 | 🕒 27.1-snapshot-1 发布时 |
+| 1.21.11      | ✔️ 长期支持                |
 
 ### 已结束支持的版本
 

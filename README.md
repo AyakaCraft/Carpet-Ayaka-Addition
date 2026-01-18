@@ -163,6 +163,7 @@ Logs the change of points-of-interest (experimental)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
+- [strictEndPortal](#strictendportal)
 - [tickFluids](#tickfluids)
 
 #### accurateDispenser
@@ -192,7 +193,7 @@ Makes mob cap effect pillager patrol and phantom spawning
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FEATURE`
 
 #### betterOpPlayerNoCheat
 
@@ -399,7 +400,7 @@ See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572) and [MC-2755
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
+- Categories: `AYAKA`, `BUGFIX`, `REINTRODUCE`
 
 #### maxPlayersOverwrite
 
@@ -422,7 +423,16 @@ Makes stalactite fall damage relative to its size in 1.18+
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`, `REINTRODUCE`
+- Categories: `AYAKA`, `FEATURE`, `REINTRODUCE`
+
+#### strictEndPortal
+
+If set to true, end portal frames can generate portals only when placed in the same manner as strongholds
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### tickFluids
 
@@ -433,7 +443,7 @@ Influences both scheduled tick and random tick
 - Type: `boolean`
 - Default value: `true`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `CREATIVE`
 
 ## EOL
 
@@ -441,18 +451,18 @@ Influences both scheduled tick and random tick
 
 Currently, the following Minecraft versions are actively supported with new features and bug fixes
 
-| Minecraft Version | Support Until                               |
-|-------------------|---------------------------------------------|
-| 1.14.4            | ✔️ Long Term Support                        |
-| 1.15.2            | ✔️ Long Term Support                        |
-| 1.16.4-5          | ✔️ Long Term Support                        |
-| 1.17.1            | ✔️ Long Term Support                        |
-| 1.18.2            | ✔️ Long Term Support                        |
-| 1.19.4            | ✔️ Long Term Support                        |
-| 1.20-1.20.1       | ✔️ Long Term Support                        |
-| 1.20.5-6          | ✔️ Long Term Support                        |
-| 1.21-1.21.10      | 🕒 When Minecraft 27.1 snapshot is released |
-| 1.21.11           | 🕒 To be determined                         |
+| Minecraft Version | Support Until                       |
+|-------------------|-------------------------------------|
+| 1.14.4            | ✔️ Long Term Support                |
+| 1.15.2            | ✔️ Long Term Support                |
+| 1.16.4-5          | ✔️ Long Term Support                |
+| 1.17.1            | ✔️ Long Term Support                |
+| 1.18.2            | ✔️ Long Term Support                |
+| 1.19.4            | ✔️ Long Term Support                |
+| 1.20-1.20.1       | ✔️ Long Term Support                |
+| 1.20.5-6          | ✔️ Long Term Support                |
+| 1.21-1.21.10      | 🕒 When 27.1-snapshot-1 is released |
+| 1.21.11           | ✔️ Long Term Support                |
 
 ### End-of-life versions
 

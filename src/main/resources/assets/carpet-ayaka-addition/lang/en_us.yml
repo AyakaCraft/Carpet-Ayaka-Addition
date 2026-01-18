@@ -153,6 +153,8 @@ carpet:
         "1": Disabled for dedicated servers in 1.21.9+
     reasonableStalactiteDamage:
       desc: Makes stalactite fall damage relative to its size in 1.18+
+    strictEndPortal:
+      desc: If set to true, end portal frames can generate portals only when placed in the same manner as strongholds
     tickFluids:
       desc: Whether fluids are ticked
       extra:

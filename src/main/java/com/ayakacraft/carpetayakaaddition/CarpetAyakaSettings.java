@@ -40,12 +40,17 @@ public final class CarpetAyakaSettings {
     public static final String BOT = "BOT";
 
     @Rule(
+            categories = {AYAKA, DISPENSER}
+    )
+    public static boolean accurateDispenser = false;
+
+    @Rule(
             categories = {AYAKA, CREATIVE, TNT}
     )
     public static boolean bedrockNoBlastResistance = false;
 
     @Rule(
-            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+            categories = {AYAKA, FEATURE}
     )
     public static boolean betterMobCap = false;
 
@@ -81,7 +86,6 @@ public final class CarpetAyakaSettings {
     )
     public static String commandC = "false";
 
-    //TODO i18n & README
     @Rule(
             categories = {AYAKA, COMMAND, FEATURE},
             options = {"false", "true", "ops", "0", "1", "2", "3", "4"}
@@ -118,11 +122,6 @@ public final class CarpetAyakaSettings {
             categories = {AYAKA, FEATURE}
     )
     public static boolean disableBatSpawning = false;
-
-    @Rule(
-            categories = {AYAKA, DISPENSER}
-    )
-    public static boolean accurateDispenser = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BOT}
@@ -177,7 +176,7 @@ public final class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     @Rule(
-            categories = {AYAKA, BUGFIX, EXPERIMENTAL, REINTRODUCE},
+            categories = {AYAKA, BUGFIX, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">1.21.1")
     )
     public static boolean legacyHoneyBlockSliding = false;
@@ -191,13 +190,18 @@ public final class CarpetAyakaSettings {
     public static int maxPlayersOverwrite = 0;
 
     @Rule(
-            categories = {AYAKA, FEATURE, EXPERIMENTAL, REINTRODUCE},
+            categories = {AYAKA, FEATURE, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">=1.18")
     )
     public static boolean reasonableStalactiteDamage = false;
 
     @Rule(
-            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
+            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean strictEndPortal = false;
+
+    @Rule(
+            categories = {AYAKA, CREATIVE}
     )
     public static boolean tickFluids = true;
 

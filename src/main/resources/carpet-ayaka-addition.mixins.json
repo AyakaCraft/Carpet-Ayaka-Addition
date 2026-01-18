@@ -41,6 +41,8 @@
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerListMixin",
     "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
+    "rules.strictEndPortal.BlockPatternMixin",
+    "rules.strictEndPortal.EndPortalFrameBlockAccessor",
     "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",
     "settings.SettingsManagerAccessor",
