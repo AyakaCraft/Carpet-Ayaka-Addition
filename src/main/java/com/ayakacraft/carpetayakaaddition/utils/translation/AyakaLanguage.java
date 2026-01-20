@@ -35,6 +35,8 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.GSON;
 
 public abstract class AyakaLanguage {
 
+    public static final String DEFAULT_LANG = "en_us";
+
     private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
 
@@ -43,8 +45,6 @@ public abstract class AyakaLanguage {
     private static final String ASSETS = "assets/carpet-ayaka-addition/";
 
     private static final String LANG_META = ASSETS + "meta/languages.json";
-
-    public static final String DEFAULT_LANG = "en_us";
 
     private static boolean loaded = false;
 

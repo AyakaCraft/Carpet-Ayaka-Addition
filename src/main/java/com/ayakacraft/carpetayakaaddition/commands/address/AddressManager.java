@@ -44,6 +44,11 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 public class AddressManager {
 
     @Deprecated
+    public static final String FILE_NAME_OLD = "ayaka_waypoints.json";
+
+    public static final String FILE_NAME = "ayaka_addresses.json";
+
+    @Deprecated
     private static final Type COLLECTION_TYPE_OLD = new TypeToken<Collection<AddressOld>>() {
     }.getType();
 
@@ -53,11 +58,6 @@ public class AddressManager {
     private static final Map<MinecraftServer, AddressManager> managerMap = Maps.newHashMap();
 
     private static final int REDUCE_WEIGHT_FREQUENCY = 72000;
-
-    @Deprecated
-    public static final String FILE_NAME_OLD = "ayaka_waypoints.json";
-
-    public static final String FILE_NAME = "ayaka_addresses.json";
 
     @Deprecated
     private static Collection<AddressOld> loadFromPathOld(Path storagePath) throws IOException {

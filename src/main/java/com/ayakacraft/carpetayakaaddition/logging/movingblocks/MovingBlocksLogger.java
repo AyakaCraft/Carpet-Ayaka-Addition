@@ -37,15 +37,15 @@ import net.minecraft.world.level.block.state.properties.PistonType;
 
 public class MovingBlocksLogger extends AbstractAyakaLogger {
 
-    private static final String[] OPTIONS = {"full", "brief"};
-
-    private static final short DEFAULT_INDEX = 0;
-
     public static final String NAME = "movingBlocks";
 
     public static final MovingBlocksLogger INSTANCE;
 
     public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
+
+    private static final String[] OPTIONS = {"full", "brief"};
+
+    private static final short DEFAULT_INDEX = 0;
 
     static {
         MovingBlocksLogger i = null;

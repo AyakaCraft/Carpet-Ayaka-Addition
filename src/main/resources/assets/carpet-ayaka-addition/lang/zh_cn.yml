@@ -32,14 +32,20 @@ carpet-ayaka-addition:
       pin.success: 置顶了路径点 [%s]
       unpin.success: 取消置顶了路径点 [%s]
     endermanBlockList:
-      type: "当前类型: %s"
+      type:
+        .: "当前类型: {}"
+        vanilla: 原版
+        disable_all: 禁用所有
+        blacklist: 黑名单
+        blacklist_loose: 宽松黑名单
+        whitelist: 白名单
       blacklist:
-        .: "黑名单:"
+        .: "黑名单: %s"
         add: 向黑名单中添加了 "%s"
         clear: 清空了黑名单
         remove: 从黑名单中移除了 "%s"
       whitelist:
-        .: "白名单:"
+        .: "白名单: %s"
         add: 向白名单中添加了 "%s"
         clear: 清空了白名单
         remove: 从白名单中移除了 "%s"

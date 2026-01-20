@@ -79,11 +79,11 @@ public class EntityPlayerMPFakeMixin {
     //$$ )
     //$$ private static GameProfile createFake(GameProfileCache instance, String name, Operation<GameProfile> original) {
     //$$     if (CarpetAyakaSettings.fakePlayerForceOffline) {
-                 //#if MC>=11600
-                 //$$ return null;
-                 //#else
-                 //$$ return new GameProfile(net.minecraft.world.entity.player.Player.createPlayerUUID(name), name);
-                 //#endif
+    //#if MC>=11600
+    //$$ return null;
+    //#else
+    //$$ return new GameProfile(net.minecraft.world.entity.player.Player.createPlayerUUID(name), name);
+    //#endif
     //$$     } else {
     //$$         return original.call(instance, name);
     //$$     }

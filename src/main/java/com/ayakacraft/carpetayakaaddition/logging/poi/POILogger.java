@@ -41,17 +41,17 @@ import java.util.Map;
 //TODO update in 1.18.2
 public class POILogger extends AbstractAyakaLogger {
 
-    private static final String[] OPTIONS = {"all", "village", "bee_home", "acquirable_job_site"};
-
-    private static final short DEFAULT_INDEX = 0;
-
-    private static final Map<String, TagKey<PoiType>> POI_TAGS = Maps.newHashMap();
-
     public static final String NAME = "poi";
 
     public static final POILogger INSTANCE;
 
     public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
+
+    private static final String[] OPTIONS = {"all", "village", "bee_home", "acquirable_job_site"};
+
+    private static final short DEFAULT_INDEX = 0;
+
+    private static final Map<String, TagKey<PoiType>> POI_TAGS = Maps.newHashMap();
 
     static {
         POILogger i = null;

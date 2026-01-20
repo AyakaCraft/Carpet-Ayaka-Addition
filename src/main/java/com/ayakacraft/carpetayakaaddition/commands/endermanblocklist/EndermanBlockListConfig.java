@@ -41,9 +41,9 @@ import static com.ayakacraft.carpetayakaaddition.CarpetAyakaAddition.LOGGER;
 
 public final class EndermanBlockListConfig {
 
-    private static final Map<MinecraftServer, EndermanBlockListConfig> serverToConfigMap = Maps.newHashMap();
-
     public static final String FILE_NAME = "ayaka_enderman_block_list.json";
+
+    private static final Map<MinecraftServer, EndermanBlockListConfig> serverToConfigMap = Maps.newHashMap();
 
     private static Path getConfigPath(MinecraftServer server) {
         return server.getWorldPath(net.minecraft.world.level.storage.LevelResource.ROOT).resolve(FILE_NAME);
@@ -128,26 +128,41 @@ public final class EndermanBlockListConfig {
 
     public boolean verifyBlock(Block block) {
         String s = IdentifierUtils.ofBlock(block).toString();
-        switch (type) {
-            case DISABLE_ALL:
-                return false;
-            case WHITELIST:
-                return getWhitelist().contains(s);
-            case BLACKLIST:
-            case BLACKLIST_LOOSE:
-                return !getBlacklist().contains(s);
-            default:
-                return true;
+        if (type == Type.DISABLE_ALL) {
+            return false;
+        } else if (type.isWhiteList()) {
+            return getWhitelist().contains(s);
+        } else if (type.isBlackList()) {
+            return !getBlacklist().contains(s);
         }
+        return true;
     }
 
     public enum Type {
-        BLACKLIST,
-        BLACKLIST_LOOSE,
-        WHITELIST,
-        DISABLE_ALL,
+        BLACKLIST(true, false),
+        BLACKLIST_LOOSE(true, false),
+        WHITELIST(false, true),
+        DISABLE_ALL(false, false),
         @SerializedName(value = "VANILLA", alternate = "DISABLED")
-        VANILLA
+        VANILLA(false, false);
+
+        private final boolean isBlackList, isWhiteList;
+
+        Type(boolean isBlackList, boolean isWhiteList) {
+            if (isBlackList && isWhiteList) {
+                throw new AssertionError();
+            }
+            this.isBlackList = isBlackList;
+            this.isWhiteList = isWhiteList;
+        }
+
+        public boolean isBlackList() {
+            return isBlackList;
+        }
+
+        public boolean isWhiteList() {
+            return isWhiteList;
+        }
     }
 
 }

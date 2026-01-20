@@ -32,17 +32,25 @@ carpet-ayaka-addition:
       pin.success: Pinned address [%s]
       unpin.success: Unpinned address [%s]
     endermanBlockList:
-      type: "Current Type: %s"
+      type:
+        .: "Current Type: {}"
+        vanilla: Vanilla
+        disable_all: Disable All
+        blacklist: Blacklist
+        blacklist_loose: Loose Blacklist
+        whitelist: Whitelist
       blacklist:
-        .: "Blacklist:"
+        .: "Blacklist: %s"
         add: Added "%s" to blacklist
         clear: Cleared blacklist
         remove: Removed "%s" from blacklist
       whitelist:
-        .: "Whitelist:"
+        .: "Whitelist: %s"
         add: Added "%s" to whitelist
         clear: Cleared whitelist
         remove: Removed "%s" from whitelist
+      failure.get: "Failed to load enderman_block_list"
+      failure.set: "Failed to save enderman_block_list"
     killitem:
       none: No item cleared
       single: "Cleared {}"

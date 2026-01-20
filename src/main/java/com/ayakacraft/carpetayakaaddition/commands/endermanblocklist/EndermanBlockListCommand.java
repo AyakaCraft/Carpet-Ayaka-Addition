@@ -24,6 +24,7 @@ import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.commands.AyakaCommandRegistry;
 import com.ayakacraft.carpetayakaaddition.utils.CommandUtils;
 import com.ayakacraft.carpetayakaaddition.utils.IdentifierUtils;
+import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
 import com.ayakacraft.carpetayakaaddition.utils.translation.Translator;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -33,7 +34,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.blocks.BlockStateArgument;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,17 +55,20 @@ public final class EndermanBlockListCommand {
 
     public static final Translator TR = AyakaCommandRegistry.COMMAND_TR.resolve(NAME);
 
-    private static EndermanBlockListConfig getConfig(MinecraftServer server) {
+    private static EndermanBlockListConfig getConfig(CommandSourceStack source) {
+        MinecraftServer server = source.getServer();
         try {
             return EndermanBlockListConfig.get(server);
         } catch (IOException e) {
             LOGGER.warn("Failed to get enderman_block_list", e);
+            source.sendFailure(TR.tr("failure.get"));
             return null;
         }
     }
 
-    private static int saveConfig(MinecraftServer server, Consumer<@NotNull EndermanBlockListConfig> task) {
-        EndermanBlockListConfig config = getConfig(server);
+    private static int saveConfig(CommandSourceStack source, Consumer<@NotNull EndermanBlockListConfig> task) {
+        MinecraftServer         server = source.getServer();
+        EndermanBlockListConfig config = getConfig(source);
         if (config == null) {
             return 0;
         }
@@ -74,13 +77,15 @@ public final class EndermanBlockListCommand {
             EndermanBlockListConfig.save(server);
         } catch (IOException e) {
             LOGGER.warn("Failed to save enderman_block_list", e);
+            source.sendFailure(TR.tr("failure.set"));
             return 0;
         }
         return 1;
     }
 
-    private static int saveConfigWithCondition(MinecraftServer server, Function<@NotNull EndermanBlockListConfig, @NotNull Boolean> task) {
-        EndermanBlockListConfig config = getConfig(server);
+    private static int saveConfigWithCondition(CommandSourceStack source, Function<@NotNull EndermanBlockListConfig, @NotNull Boolean> task) {
+        MinecraftServer         server = source.getServer();
+        EndermanBlockListConfig config = getConfig(source);
         if (config == null) {
             return 0;
         }
@@ -89,6 +94,7 @@ public final class EndermanBlockListCommand {
                 EndermanBlockListConfig.save(server);
             } catch (IOException e) {
                 LOGGER.warn("Failed to save enderman_block_list", e);
+                source.sendFailure(TR.tr("failure.set"));
                 return 0;
             }
         }
@@ -97,9 +103,9 @@ public final class EndermanBlockListCommand {
 
     private static int clearBlacklist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        return saveConfig(source.getServer(), config -> {
+        return saveConfig(source, config -> {
             config.getBlacklist().clear();
-            sendFeedback(source, TR.tr("blacklist.clear"), false);
+            sendFeedback(source, TR.tr(source, "blacklist.clear"), false);
         });
     }
 
@@ -107,10 +113,10 @@ public final class EndermanBlockListCommand {
         CommandSourceStack source = context.getSource();
         String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
-                source.getServer(),
+                source,
                 config -> {
                     boolean b = config.getBlacklist().add(block);
-                    sendFeedback(source, TR.tr("blacklist.add", block), false);
+                    sendFeedback(source, TR.tr(source, "blacklist.add", block), false);
                     return b;
                 }
         );
@@ -120,10 +126,10 @@ public final class EndermanBlockListCommand {
         CommandSourceStack source = context.getSource();
         String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
-                source.getServer(),
+                source,
                 config -> {
                     boolean b = config.getBlacklist().remove(block);
-                    sendFeedback(source, TR.tr("blacklist.remove", block), false);
+                    sendFeedback(source, TR.tr(source, "blacklist.remove", block), false);
                     return b;
                 }
         );
@@ -131,9 +137,9 @@ public final class EndermanBlockListCommand {
 
     private static int clearWhitelist(CommandContext<CommandSourceStack> context) {
         CommandSourceStack source = context.getSource();
-        return saveConfig(source.getServer(), config -> {
+        return saveConfig(source, config -> {
             config.getBlacklist().clear();
-            sendFeedback(source, TR.tr("whitelist.clear"), false);
+            sendFeedback(source, TR.tr(source, "whitelist.clear"), false);
         });
     }
 
@@ -141,10 +147,10 @@ public final class EndermanBlockListCommand {
         CommandSourceStack source = context.getSource();
         String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
-                source.getServer(),
+                source,
                 config -> {
                     boolean b = config.getWhitelist().add(block);
-                    sendFeedback(source, TR.tr("whitelist.add", block), false);
+                    sendFeedback(source, TR.tr(source, "whitelist.add", block), false);
                     return b;
                 }
         );
@@ -154,10 +160,10 @@ public final class EndermanBlockListCommand {
         CommandSourceStack source = context.getSource();
         String             block  = IdentifierUtils.ofBlock(BlockStateArgument.getBlock(context, "block").getState().getBlock()).toString();
         return saveConfigWithCondition(
-                source.getServer(),
+                source,
                 config -> {
                     boolean b = config.getWhitelist().remove(block);
-                    sendFeedback(source, TR.tr("whitelist.remove", block), false);
+                    sendFeedback(source, TR.tr(source, "whitelist.remove", block), false);
                     return b;
                 }
         );
@@ -165,69 +171,53 @@ public final class EndermanBlockListCommand {
 
     private static int get(CommandContext<CommandSourceStack> context) {
         CommandSourceStack           source = context.getSource();
-        EndermanBlockListConfig      config = getConfig(source.getServer());
+        EndermanBlockListConfig      config = getConfig(source);
         EndermanBlockListConfig.Type type   = config == null ? EndermanBlockListConfig.Type.VANILLA : config.getType();
         sendFeedback(
                 source,
-                TR.tr("type", type.name().toLowerCase(Locale.ROOT)),
+                TR.tr(source, "type", TR.tr(source, "type." + type.name().toLowerCase(Locale.ROOT))),
                 false
         );
-        StringJoiner sj = new StringJoiner("\", \"", "[\"", "\"]").setEmptyValue("[]");
-        switch (type) {
-            case BLACKLIST:
-            case BLACKLIST_LOOSE:
-                sendFeedback(
-                        source,
-                        TR.tr("blacklist"),
-                        false
-                );
-                for (String s : config.getBlacklist()) {
-                    sj.add(s);
-                }
-                break;
-            case WHITELIST:
-                sendFeedback(
-                        source,
-                        TR.tr("whitelist"),
-                        false
-                );
-                for (String s : config.getWhitelist()) {
-                    sj.add(s);
-                }
-                break;
-            default:
-                return 1;
+        if (config == null) {
+            return 0;
         }
-        sendFeedback(
-                source,
-                Component.literal(sj.toString()),
-                false
-        );
+        StringJoiner sj = new StringJoiner("\", \"", "[\"", "\"]").setEmptyValue("[]");
+        if (type.isBlackList()) {
+            StringUtils.joinAll(sj, config.getBlacklist());
+            sendFeedback(
+                    source,
+                    TR.tr(source, "blacklist", sj),
+                    false
+            );
+        } else if (type.isWhiteList()) {
+            StringUtils.joinAll(sj, config.getWhitelist());
+            sendFeedback(
+                    source,
+                    TR.tr(source, "whitelist", sj),
+                    false
+            );
+        }
         return 1;
     }
 
     private static int setType(CommandContext<CommandSourceStack> context, @NotNull EndermanBlockListConfig.Type type) {
-        return saveConfig(context.getSource().getServer(), config -> config.setType(type));
+        return saveConfig(context.getSource(), config -> config.setType(type));
     }
 
     private static CompletableFuture<Suggestions> suggestBlacklist(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
-        try {
-            EndermanBlockListConfig config = EndermanBlockListConfig.get(context.getSource().getServer());
-            return SharedSuggestionProvider.suggest(config.getBlacklist(), builder);
-        } catch (IOException e) {
-            LOGGER.warn("Failed to get enderman_block_list", e);
+        EndermanBlockListConfig config = getConfig(context.getSource());
+        if (config == null) {
+            return SharedSuggestionProvider.suggest(new String[0], builder);
         }
-        return SharedSuggestionProvider.suggest(new String[0], builder);
+        return SharedSuggestionProvider.suggest(config.getBlacklist(), builder);
     }
 
     private static CompletableFuture<Suggestions> suggestWhitelist(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) {
-        try {
-            EndermanBlockListConfig config = EndermanBlockListConfig.get(context.getSource().getServer());
-            return SharedSuggestionProvider.suggest(config.getWhitelist(), builder);
-        } catch (IOException e) {
-            LOGGER.warn("Failed to get enderman_block_list", e);
+        EndermanBlockListConfig config = getConfig(context.getSource());
+        if (config == null) {
+            return SharedSuggestionProvider.suggest(new String[0], builder);
         }
-        return SharedSuggestionProvider.suggest(new String[0], builder);
+        return SharedSuggestionProvider.suggest(config.getWhitelist(), builder);
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> buildTypes() {

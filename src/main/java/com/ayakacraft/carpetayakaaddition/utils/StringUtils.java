@@ -23,6 +23,9 @@ package com.ayakacraft.carpetayakaaddition.utils;
 import net.minecraft.core.Vec3i;
 import org.jetbrains.annotations.Contract;
 
+import java.util.Collection;
+import java.util.StringJoiner;
+
 public final class StringUtils {
 
     @Contract(pure = true)
@@ -33,6 +36,13 @@ public final class StringUtils {
     @Contract(value = "null -> true", pure = true)
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
+    }
+
+    public static StringJoiner joinAll(StringJoiner joiner, Collection<? extends CharSequence> charSequences) {
+        for (CharSequence c : charSequences) {
+            joiner.add(c);
+        }
+        return joiner;
     }
 
 }

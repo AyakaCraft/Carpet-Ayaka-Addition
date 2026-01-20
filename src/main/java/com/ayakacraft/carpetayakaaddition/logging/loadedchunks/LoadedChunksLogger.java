@@ -45,6 +45,12 @@ import java.util.function.Function;
 
 public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine implements InitializedPerTick {
 
+    public static final String NAME = "loadedChunks";
+
+    public static final LoadedChunksLogger INSTANCE;
+
+    public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
+
     private static final String[] OPTIONS = {"all", "dynamic", "overworld", "the_nether", "the_end"};
 
     private static final short DEFAULT_INDEX = 1;
@@ -56,12 +62,6 @@ public class LoadedChunksLogger extends AbstractAyakaHUDLoggerSingleLine impleme
     private static final Identifier NETHER_ID = Identifier.parse("minecraft:the_nether");
 
     private static final Identifier END_ID = Identifier.parse("minecraft:the_end");
-
-    public static final String NAME = "loadedChunks";
-
-    public static final LoadedChunksLogger INSTANCE;
-
-    public static final Translator TR = AyakaLoggerRegistry.LOGGER_TR.resolve(NAME);
 
     static {
         LoadedChunksLogger i = null;
