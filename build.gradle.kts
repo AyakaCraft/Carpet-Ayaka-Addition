@@ -83,10 +83,7 @@ tasks.register("buildAndGather") {
             print("Copying files for ${name}...    ")
             val currentLibsDir = libsDir(this)
             copy {
-                from(currentLibsDir) {
-                    include("*.jar")
-                    exclude("*-dev.jar", "*-sources.jar", "*-shadow.jar")
-                }
+                from(currentLibsDir) { include("*-${version}.jar") }
                 into(libsDir(rootProject))
                 duplicatesStrategy = DuplicatesStrategy.INCLUDE
             }
