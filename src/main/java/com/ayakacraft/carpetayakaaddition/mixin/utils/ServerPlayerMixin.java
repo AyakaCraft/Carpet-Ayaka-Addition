@@ -32,9 +32,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.20.6"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<=1.20.1"))
 @Mixin(ServerPlayer.class)
-public class ServerPlayerEntityMixin implements WithClientLanguage {
+public class ServerPlayerMixin implements WithClientLanguage {
 
     @Unique
     private String clientLanguage = AyakaLanguage.getServerLanguage().code();

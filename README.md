@@ -165,6 +165,7 @@ Logs the change of points-of-interest (experimental)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [strictEndPortal](#strictendportal)
 - [tickFluids](#tickfluids)
+- [teleportExpFix](#teleportexpfix)
 
 #### accurateDispenser
 
@@ -444,6 +445,17 @@ Influences both scheduled tick and random tick
 - Default value: `true`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `CREATIVE`
+
+#### teleportExpFix
+
+Fixes client losing experience data in cross-dimension teleporting in 1.20.6 and below
+
+Transplanted from [carpet-fixes](https://github.com/fxmorin/carpet-fixes)
+
+- Type: `boolean`
+- Default value: `true`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 ## EOL
 

@@ -205,4 +205,10 @@ public final class CarpetAyakaSettings {
     )
     public static boolean tickFluids = true;
 
+    @Rule(
+            categories = {AYAKA, BUGFIX, EXPERIMENTAL, REINTRODUCE},
+            modConditions = @ModCondition(versionPredicates = "<1.21")
+    )
+    public static boolean teleportExpFix = false;
+
 }

@@ -43,12 +43,13 @@
     "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
     "rules.strictEndPortal.BlockPatternMixin",
     "rules.strictEndPortal.EndPortalFrameBlockAccessor",
+    "rules.teleportExpFix.ServerPlayerMixin",
     "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",
     "settings.SettingsManagerAccessor",
     "utils.LivingEntityAccessor",
     "utils.ServerboundClientInformationPacketAccessor",
-    "utils.ServerPlayerEntityMixin"
+    "utils.ServerPlayerMixin"
   ],
   "client": [
     "carpet.IntegratedServerMixin",

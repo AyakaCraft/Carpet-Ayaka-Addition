@@ -1,8 +1,8 @@
 /*
- * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * This file is part of the null project, licensed under the
  * GNU General Public License v3.0
  *
- * Copyright (C) 2025  Calboot and contributors
+ * Copyright (C) 2026  Calboot and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,43 +18,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.frostWalkerNoFreezing;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.teleportExpFix;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.item.enchantment.effects.ReplaceDisk;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21"))
-@Mixin(ReplaceDisk.class)
-public class ReplaceDiskMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<1.21"))
+@Mixin(ServerPlayer.class)
+public class ServerPlayerMixin {
 
     @Shadow
-    @Final
-    private BlockStateProvider blockState;
+    private int lastSentExp;
 
-    @Unique
-    private boolean shouldNotApply() {
-        return CarpetAyakaSettings.frostWalkerNoFreezing
-                && blockState instanceof SimpleStateProvider
-                && blockState.getState(null, null).getBlock() == Blocks.FROSTED_ICE;
-    }
-
-    @Inject(method = "apply", at = @At("HEAD"), cancellable = true)
-    private void wrapApply(CallbackInfo ci) {
-        if (shouldNotApply()) {
-            ci.cancel();
+    @Inject(
+            method = "teleportTo(Lnet/minecraft/server/level/ServerLevel;DDDFF)V",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/server/players/PlayerList;sendAllPlayerInfo(Lnet/minecraft/server/level/ServerPlayer;)V",
+                    shift = At.Shift.AFTER
+            )
+    )
+    private void fixTp(CallbackInfo ci) {
+        if (CarpetAyakaSettings.teleportExpFix) {
+            this.lastSentExp = -1;
         }
     }
 

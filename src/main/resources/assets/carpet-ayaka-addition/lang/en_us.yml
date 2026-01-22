@@ -167,3 +167,7 @@ carpet:
       desc: Whether fluids are ticked
       extra:
         "0": Influences both scheduled tick and random tick
+    teleportExpFix:
+      desc: Fixes client losing experience data in cross-dimension teleporting in 1.20.6 and below
+      extra:
+        "0": Transplanted from carpet-fixes

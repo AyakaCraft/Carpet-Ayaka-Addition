@@ -164,6 +164,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [tickFluids](#流体更新-tickfluids)
+- [teleportExpFix](#传送经验值数据修复-teleportexpfix)
 
 #### 精确发射器 (accurateDispenser)
 
@@ -443,6 +444,17 @@ give 命令的限制乘数
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `CREATIVE`
+
+#### 传送经验值数据修复 (teleportExpFix)
+
+修复 1.20.6 及更早版本中跨纬度传送时客户端经验值数据丢失的问题
+
+从 [carpet-fixes](https://github.com/fxmorin/carpet-fixes) 移植
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `REINTRODUCE`
 
 ## 生命周期计划
 

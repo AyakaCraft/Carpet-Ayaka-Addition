@@ -35,7 +35,7 @@ public interface LivingEntityAccessor {
     @Contract(pure = true)
     @Accessor("activeEffects")
     Map<
-            //#if MC>=12006
+            //#if MC>=12005
             net.minecraft.core.Holder<MobEffect>
             //#else
             //$$ MobEffect

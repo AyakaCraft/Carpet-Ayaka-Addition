@@ -196,3 +196,8 @@ carpet:
       desc: 流体是否更新
       extra:
         "0": 影响流体计划刻和随机刻
+    teleportExpFix:
+      name: 传送经验值数据修复
+      desc: 修复 1.20.6 及更早版本中跨纬度传送时客户端经验值数据丢失的问题
+      extra:
+        "0": 从 carpet-fixes 移植
