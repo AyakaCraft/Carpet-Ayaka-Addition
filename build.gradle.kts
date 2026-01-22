@@ -10,7 +10,7 @@ plugins {
     id("com.replaymod.preprocess") version ("c5abb4fb12")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version ("9.3.0") apply (false)
+    id("com.gradleup.shadow") version ("9.3.1") apply (false)
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version ("0.16.1") apply (false)
