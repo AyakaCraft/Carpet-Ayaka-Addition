@@ -154,6 +154,7 @@ Logs the change of points-of-interest (experimental)
 - [dragonEggFallDelay](#dragoneggfalldelay)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
+- [fluidNoPushPlayer](#fluidnopushplayer)
 - [forceTickPlantsReintroduce](#forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#foxnopickupitem)
 - [frostWalkerNoFreezing](#frostwalkernofreezing)
@@ -326,6 +327,15 @@ Only active when [GCA](https://github.com/Gu-ZT/gugle-carpet-addition) is loaded
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
+
+#### fluidNoPushPlayer
+
+Makes fluids unable to push players
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `EXPERIMENTAL`
 
 #### forceTickPlantsReintroduce (1.16+)
 

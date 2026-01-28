@@ -154,6 +154,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
+- [fluidNoPushPlayer](#流体不推动玩家-fluidnopushplayer)
 - [forceTickPlantsReintroduce](#0t强制更新植物状态-forcetickplantsreintroduce-116)
 - [foxNoPickupItem](#禁用狐狸叼起物品-foxnopickupitem)
 - [frostWalkerNoFreezing](#冰霜行者无冰冻-frostwalkernofreezing)
@@ -325,6 +326,15 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `EXPERIMENTAL`, `BUGFIX`, `BOT`
+
+#### 流体不推动玩家 (fluidNoPushPlayer)
+
+使流体不能推动玩家
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `EXPERIMENTAL`
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce) (1.16+)
 

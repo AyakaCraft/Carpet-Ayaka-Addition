@@ -27,14 +27,14 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.server.commands.ClearInventoryCommands;
+import net.minecraft.server.commands.CloneCommands;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Restriction(require = @Condition(ModUtils.TIS_ID))
-@Mixin(ClearInventoryCommands.class)
+@Mixin(CloneCommands.class)
 public class CloneCommandMixin {
 
-    @WrapMethod(method = "method_13082")
+    @WrapMethod(method = "method_13094")
     private static boolean checkIfAllowCheating(CommandSourceStack source, Operation<Boolean> original) {
         return TISHelper.canCheat(source) && original.call(source);
     }

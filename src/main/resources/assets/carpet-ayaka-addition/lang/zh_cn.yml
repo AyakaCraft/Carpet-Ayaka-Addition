@@ -149,6 +149,9 @@ carpet:
       desc: 修复回档后假人不会重新加入世界的问题
       extra:
         "0": 仅在加载了 GCA 且 fakePlayerResident 为 true 时生效
+    fluidNoPushPlayer:
+      name: 流体不推动玩家
+      desc: 使流体不能推动玩家
     forceTickPlantsReintroduce:
       name: 0t强制更新植物状态
       desc: 重新引入1.15.2及更早版本中仙人掌、竹子、紫颂花、甘蔗在计划刻中（错误地）触发随机刻的特性

@@ -135,6 +135,11 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
+            categories = {AYAKA, EXPERIMENTAL}
+    )
+    public static boolean fluidNoPushPlayer = false;
+
+    @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">=1.16")
     )

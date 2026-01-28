@@ -30,6 +30,7 @@
     "rules.dragonEggFallDelay.DragonEggBlockMixin",
     "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
+    "rules.fluidNoPushPlayer.EntityMixin",
     "rules.forceTickPlantsReintroduce.BambooStalkBlockMixin",
     "rules.forceTickPlantsReintroduce.CactusBlockMixin",
     "rules.forceTickPlantsReintroduce.ChorusFlowerBlockMixin",
