@@ -20,6 +20,7 @@
     "rules.betterMobCap.PhantomSpawnerMixin",
     "rules.betterMobCap.SpawnStateInvoker",
     "rules.betterOpPlayerNoCheat.ClearCommandMixin",
+    "rules.betterOpPlayerNoCheat.CloneCommandMixin",
     "rules.betterOpPlayerNoCheat.DifficultyCommandMixin",
     "rules.betterOpPlayerNoCheat.EffectCommandMixin",
     "rules.betterOpPlayerNoCheat.ItemCommandMixin",

@@ -200,7 +200,7 @@ Makes mob cap effect pillager patrol and phantom spawning
 
 More commands for opPlayerNoCheat
 
-Influenced commands: `/kill`, `/clear`, `/effect`, `/item` and `/difficulty`
+Influenced commands: `/kill`, `/clear`, `/effect`, `/item`, `/difficulty` and `/clone`
 
 Only active when [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) is loaded and `opPlayerNoCheat` is set to `true`
 

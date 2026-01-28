@@ -199,7 +199,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 为 opPlayerNoCheat 添加更多影响的指令
 
-影响的指令列表：`/kill`，`/clear`，`/effect`，`/item` 和 `/difficulty`
+影响的指令列表：`/kill`，`/clear`，`/effect`，`/item`，`/difficulty` 和 `/clone`
 
 仅在加载了 [Carpet TIS Addition](https://github.com/TISUnion/Carpet-TIS-Addition) 且 `opPlayerNoCheat` 为 `true` 时生效
 

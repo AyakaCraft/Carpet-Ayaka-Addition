@@ -103,7 +103,7 @@ carpet:
       name: 更好的op玩家不准作弊
       desc: 为 opPlayerNoCheat 添加更多影响的指令
       extra:
-        "0": 影响的指令列表：/kill，/clear，/effect，/item 和 /difficulty
+        "0": 影响的指令列表：/kill，/clear，/effect，/item，/difficulty 和 /clone
         "1": 仅在加载了 Carpet TIS Addition 且 opPlayerNoCheat 为 true 时生效
         "2": 你也不想失去刷铁机里面的掠夺者，对吧
     blockDropStackVelocityMultiple:
