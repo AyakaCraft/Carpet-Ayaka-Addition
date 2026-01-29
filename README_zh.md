@@ -336,7 +336,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce) (1.16+)
 

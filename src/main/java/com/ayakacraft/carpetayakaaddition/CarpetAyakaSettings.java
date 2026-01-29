@@ -135,7 +135,7 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL}
+            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
     )
     public static boolean fluidNoPushPlayer = false;
 
@@ -201,7 +201,7 @@ public final class CarpetAyakaSettings {
     public static boolean reasonableStalactiteDamage = false;
 
     @Rule(
-            categories = {AYAKA, EXPERIMENTAL}
+            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
     )
     public static boolean slimeNoBounceUpPlayer = false;
 

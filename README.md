@@ -336,7 +336,7 @@ Makes fluids unable to push players
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
 
 #### forceTickPlantsReintroduce (1.16+)
 
