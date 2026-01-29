@@ -191,6 +191,9 @@ carpet:
     reasonableStalactiteDamage:
       name: 合理的钟乳石伤害
       desc: 在 1.18+ 中令钟乳石伤害与其大小相关
+    slimeNoBounceUpPlayer:
+      name: 黏液块不弹起玩家
+      desc: 使黏液块不能弹起玩家
     strictEndPortal:
       name: 严格末地门
       desc: 当启用时，只有与要塞摆放模式一致的末地传送门框架可以激活并生成传送门

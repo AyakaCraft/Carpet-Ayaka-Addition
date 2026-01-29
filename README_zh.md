@@ -164,6 +164,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
+- [slimeNoBounceUpPlayer](#黏液块不弹起玩家-slimenobounceupplayer)
+- [strictEndPortal](#严格末地门-strictendportal)
 - [tickFluids](#流体更新-tickfluids)
 - [teleportExpFix](#传送经验值数据修复-teleportexpfix)
 
@@ -297,7 +299,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 
 龙蛋下落前延迟的游戏刻数
 
-设置为2以匹配沙子等其他重力方块，设置为0或5以使用原版值
+设置为 `2` 以匹配沙子等其他重力方块，设置为 `0` 或 `5` 以使用原版值
 
 - 类型: `int`
 - 默认值: `5`
@@ -435,7 +437,16 @@ give 命令的限制乘数
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`, `REINTRODUCE`
 
-#### 严格末地门
+#### 黏液块不弹起玩家 (slimeNoBounceUpPlayer)
+
+使黏液块不能弹起玩家
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+
+#### 严格末地门 (strictEndPortal)
 
 当启用时，只有与要塞摆放模式一致的末地传送门框架可以激活并生成传送门
 

@@ -164,6 +164,7 @@ Logs the change of points-of-interest (experimental)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
+- [slimeNoBouncePlayer](#slimenobounceplayer)
 - [strictEndPortal](#strictendportal)
 - [tickFluids](#tickfluids)
 - [teleportExpFix](#teleportexpfix)
@@ -298,7 +299,7 @@ Disables natual spawning of bats
 
 Delay ticks before dragon egg falls
 
-Set to 2 to match sand and other falling blocks, 0 or 5 to use vanilla option
+Set to `2` to match sand and other falling blocks, `0` or `5` to use vanilla option
 
 - Type: `int`
 - Default value: `5`
@@ -435,6 +436,15 @@ Makes stalactite fall damage relative to its size in 1.18+
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`, `REINTRODUCE`
+
+#### slimeNoBouncePlayer
+
+Makes slime blocks unable to bounce up players
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
 
 #### strictEndPortal
 

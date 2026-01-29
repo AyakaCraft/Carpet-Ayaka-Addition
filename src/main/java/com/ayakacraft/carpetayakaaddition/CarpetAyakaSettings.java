@@ -201,6 +201,11 @@ public final class CarpetAyakaSettings {
     public static boolean reasonableStalactiteDamage = false;
 
     @Rule(
+            categories = {AYAKA, EXPERIMENTAL}
+    )
+    public static boolean slimeNoBounceUpPlayer = false;
+
+    @Rule(
             categories = {AYAKA, FEATURE, EXPERIMENTAL}
     )
     public static boolean strictEndPortal = false;

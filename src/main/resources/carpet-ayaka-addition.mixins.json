@@ -43,6 +43,7 @@
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.maxPlayersOverwrite.PlayerListMixin",
     "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
+    "rules.slimeNoBounceUpPlayer.SlimeBlockMixin",
     "rules.strictEndPortal.BlockPatternMixin",
     "rules.strictEndPortal.EndPortalFrameBlockAccessor",
     "rules.teleportExpFix.ServerPlayerMixin",
