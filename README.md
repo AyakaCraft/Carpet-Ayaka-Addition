@@ -337,7 +337,7 @@ Makes fluids unable to push players
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `CREATIVE`
 
 #### forceTickPlantsReintroduce (1.16+)
 
@@ -401,7 +401,7 @@ Makes kelp grow only into water source or full flowing water
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `FEATURE`
 
 #### killItemAwaitSeconds
 
@@ -454,7 +454,7 @@ Makes slime blocks unable to bounce up players
 - Type: `boolean`
 - Default value: `false`
 - Suggested options: `false`, `true`
-- Categories: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- Categories: `AYAKA`, `CREATIVE`
 
 #### strictEndPortal
 

@@ -135,7 +135,7 @@ public final class CarpetAyakaSettings {
     public static boolean fakePlayerResidentBackupFix = false;
 
     @Rule(
-            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
+            categories = {AYAKA, CREATIVE}
     )
     public static boolean fluidNoPushPlayer = false;
 
@@ -173,7 +173,7 @@ public final class CarpetAyakaSettings {
     public static int itemDiscardAge = 0;
 
     @Rule(
-            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+            categories = {AYAKA, FEATURE}
     )
     public static boolean kelpGrowOnlyIntoFullWater = false;
 
@@ -206,7 +206,7 @@ public final class CarpetAyakaSettings {
     public static boolean reasonableStalactiteDamage = false;
 
     @Rule(
-            categories = {AYAKA, CREATIVE, EXPERIMENTAL}
+            categories = {AYAKA, CREATIVE}
     )
     public static boolean slimeNoBounceUpPlayer = false;
 

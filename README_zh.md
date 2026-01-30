@@ -337,7 +337,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `CREATIVE`
 
 #### 0t强制更新植物状态 (forceTickPlantsReintroduce) (1.16+)
 
@@ -399,7 +399,7 @@ give 命令的限制乘数
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `FEATURE`
 
 #### 清除掉落物执行延迟 (killItemAwaitSeconds)
 
@@ -452,7 +452,7 @@ give 命令的限制乘数
 - 类型: `boolean`
 - 默认值: `false`
 - 参考选项: `false`, `true`
-- 分类: `AYAKA`, `CREATIVE`, `EXPERIMENTAL`
+- 分类: `AYAKA`, `CREATIVE`
 
 #### 严格末地门 (strictEndPortal)
 
