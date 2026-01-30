@@ -173,6 +173,11 @@ public final class CarpetAyakaSettings {
     public static int itemDiscardAge = 0;
 
     @Rule(
+            categories = {AYAKA, FEATURE, EXPERIMENTAL}
+    )
+    public static boolean kelpGrowOnlyIntoFullWater = false;
+
+    @Rule(
             categories = {AYAKA, COMMAND, CREATIVE},
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "5", "10", "30"},

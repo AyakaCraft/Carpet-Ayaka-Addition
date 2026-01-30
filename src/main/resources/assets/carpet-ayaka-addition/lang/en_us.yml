@@ -150,6 +150,8 @@ carpet:
       extra:
         "0": Set to 0 (or 6000) to use vanilla value
         "1": Max value 72000 (an hour)
+    kelpGrowOnlyIntoFullWater:
+      desc: Makes kelp grow only into water source or full flowing water
     killItemAwaitSeconds:
       desc: Seconds to wait before clearing the items
     legacyHoneyBlockSliding:

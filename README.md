@@ -160,6 +160,7 @@ Logs the change of points-of-interest (experimental)
 - [frostWalkerNoFreezing](#frostwalkernofreezing)
 - [giveLimit](#givelimit-117)
 - [itemDiscardAge](#itemdiscardage)
+- [kelpGrowOnlyIntoFullWater](#kelpgrowonlyintofullwater)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
@@ -392,6 +393,15 @@ Max value `72000` (an hour)
 - Suggested options: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - Range: `[0,72000]`
 - Categories: `AYAKA`, `CREATIVE`
+
+#### kelpGrowOnlyIntoFullWater
+
+Makes kelp grow only into water source or full flowing water
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### killItemAwaitSeconds
 

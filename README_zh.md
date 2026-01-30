@@ -160,6 +160,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [frostWalkerNoFreezing](#冰霜行者无冰冻-frostwalkernofreezing)
 - [giveLimit](#give命令限制-givelimit-117)
 - [itemDiscardAge](#掉落物消失刻-itemdiscardage)
+- [kelpGrowOnlyIntoFullWater](#海带只向满水生长-kelpgrowonlyintofullwater)
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
@@ -392,6 +393,13 @@ give 命令的限制乘数
 - 参考选项: `0`, `3000`, `3600`, `6000`, `12000`, `72000`
 - 范围: `[0,72000]`
 - 分类: `AYAKA`, `CREATIVE`
+
+#### 海带只向满水生长 (kelpGrowOnlyIntoFullWater)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
 
 #### 清除掉落物执行延迟 (killItemAwaitSeconds)
 
