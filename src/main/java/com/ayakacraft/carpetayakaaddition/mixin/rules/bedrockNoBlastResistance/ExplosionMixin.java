@@ -50,7 +50,7 @@ public class ExplosionMixin {
     )
     private Optional<Float> applyBedrockBlastResistance(ExplosionDamageCalculator instance, Explosion explosion, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, FluidState fluidState, Operation<Optional<Float>> original) {
         if (CarpetAyakaSettings.bedrockNoBlastResistance && blockState.getBlock() == Blocks.BEDROCK) {
-            return Optional.of(fluidState.isEmpty() ? 0f : fluidState.getExplosionResistance());
+            return Optional.of(0f);
         }
         return original.call(instance, explosion, blockGetter, blockPos, blockState, fluidState);
     }
