@@ -1,6 +1,3 @@
 ### General
 
-- Added carpet rule `fluidNoPushPlayer`
-- Added carpet rule `slimeNoBounceUpPlayer`
-- Added carpet rule `kelpGrowOnlyIntoFullWater`
-- `betterOpPlayerNoCheat` now effects `/clone` as well
+- Support for 26.1-snapshot-6
