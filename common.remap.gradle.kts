@@ -10,7 +10,7 @@ plugins {
     id("com.replaymod.preprocess") version ("c5abb4fb12")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version ("9.4.0")
+    id("com.gradleup.shadow") version ("9.4.1")
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version ("0.16.1")
@@ -19,7 +19,7 @@ plugins {
     id("me.fallenbreath.yamlang") version ("1.5.0")
 
     // https://github.com/firstdarkdev/modpublisher
-    id("com.hypherionmc.modutils.modpublisher") version ("2.1.8+snapshot.4")
+    id("com.hypherionmc.modutils.modpublisher") version ("2.2.1")
 
     `maven-publish`
     idea
