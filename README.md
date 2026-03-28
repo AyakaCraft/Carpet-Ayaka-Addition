@@ -450,6 +450,15 @@ Disabled for dedicated servers in 1.21.9+
 - Range: `[0,)`
 - Categories: `AYAKA`
 
+#### minecartDoubleEffectsFromBlockFix
+
+Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### reasonableStalactiteDamage (1.18+)
 
 Makes stalactite fall damage relative to its size in 1.18+

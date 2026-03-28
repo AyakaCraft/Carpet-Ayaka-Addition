@@ -448,6 +448,15 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`
 
+#### 矿车从方块获得两次效果修复 (minecartDoubleEffectsFromBlockFix)
+
+修复 1.21.2+ 中脱轨矿车每刻从方块获得两次效果的问题
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### 合理的钟乳石伤害 (reasonableStalactiteDamage) (1.18+)
 
 在 1.18+ 中令钟乳石伤害与其大小相关

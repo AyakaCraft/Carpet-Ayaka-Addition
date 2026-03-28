@@ -167,6 +167,8 @@ carpet:
       extra:
         "0": Set to 0 to use vanilla value
         "1": Disabled for dedicated servers in 1.21.9+
+    minecartDoubleEffectsFromBlockFix:
+      desc: Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
     reasonableStalactiteDamage:
       desc: Makes stalactite fall damage relative to its size in 1.18+
     slimeNoBounceUpPlayer:

@@ -206,6 +206,12 @@ public final class CarpetAyakaSettings {
     public static int maxPlayersOverwrite = 0;
 
     @Rule(
+            categories = {AYAKA, BUGFIX, REINTRODUCE, EXPERIMENTAL},
+            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
+    )
+    public static boolean minecartDoubleEffectsFromBlockFix = false;
+
+    @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">=1.18")
     )

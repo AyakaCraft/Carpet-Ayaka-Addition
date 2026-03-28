@@ -44,6 +44,7 @@
     "rules.legacyHoneyBlockSliding.HoneyBlockMixin",
     "rules.legacyInsideBlockCheckReintroduce.EntityMixin",
     "rules.maxPlayersOverwrite.PlayerListMixin",
+    "rules.minecartDoubleEffectsFromBlockFix.AbstractMinecartMixin",
     "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
     "rules.slimeNoBounceUpPlayer.SlimeBlockMixin",
     "rules.strictEndPortal.BlockPatternMixin",
