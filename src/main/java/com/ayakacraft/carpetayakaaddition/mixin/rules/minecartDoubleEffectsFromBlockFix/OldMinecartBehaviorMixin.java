@@ -22,18 +22,10 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.minecartDoubleEffectsFrom
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-//#if MC >= 1.21.2
 import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
-//#else
-//$$ import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
-//#endif
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-//#if MC >= 1.21.5
-//#else
-//$$ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
-//#endif
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.world.entity.Entity;
@@ -42,14 +34,14 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.List;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
-//#if MC >= 1.21.2
-@Mixin(OldMinecartBehavior.class)
-//#else
-//$$ @Mixin(DummyClass.class)
+//#if MC<1.21.5
+//$$ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 //#endif
+
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
+@Mixin(OldMinecartBehavior.class)
 public class OldMinecartBehaviorMixin {
-    //#if MC >= 1.21.2
+
     @WrapOperation(
             method = "tick",
             at = @At(
@@ -76,5 +68,5 @@ public class OldMinecartBehaviorMixin {
             //#endif
         } else original.call(minecart);
     }
-    //#endif
+
 }

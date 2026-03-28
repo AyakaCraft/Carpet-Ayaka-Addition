@@ -165,6 +165,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [legacyInsideBlockCheckReintroduce](#老式实体所在方块检测再引入-legacyinsideblockcheckreintroduce-1219)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
+- [minecartDoubleEffectsFromBlockFix](#矿车从方块获得两次效果修复-minecartdoubleeffectsfromblockfix-1212)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [slimeNoBounceUpPlayer](#黏液块不弹起玩家-slimenobounceupplayer)
 - [strictEndPortal](#严格末地门-strictendportal)
@@ -448,9 +449,10 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`
 
-#### 矿车从方块获得两次效果修复 (minecartDoubleEffectsFromBlockFix)
+#### 矿车从方块获得两次效果修复 (minecartDoubleEffectsFromBlockFix) (1.21.2+)
 
 修复 1.21.2+ 中脱轨矿车每刻从方块获得两次效果的问题
+
 当启用时，第二次只会调用checkInsideBlocks，而不会进行其它计算（比如检测下面的方块）
 
 - 类型: `boolean`

@@ -21,31 +21,15 @@
 package com.ayakacraft.carpetayakaaddition.mixin.rules.minecartDoubleEffectsFromBlockFix;
 
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.gen.Accessor;
-import org.spongepowered.asm.mixin.gen.Invoker;
-
-import java.util.List;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
-@Mixin(Entity.class)
-public interface EntityInvoker {
+@Mixin(DummyClass.class)
+public class OldMinecartBehaviorMixin {
 
-    //#if MC >= 1.21.5
-    @Accessor("insideEffectCollector")
-    net.minecraft.world.entity.InsideBlockEffectApplier.StepBasedCollector getInsideEffectCollector$Ayaka();
-    //#endif
-
-    @Invoker("checkInsideBlocks")
-    void invokeCheckInsideBlocks$Ayaka(List<Entity.Movement> movements,
-                                       //#if MC >= 1.21.5
-                                       net.minecraft.world.entity.InsideBlockEffectApplier.StepBasedCollector stepBasedCollector
-                                       //#else
-                                       //$$ java.util.Set<net.minecraft.world.level.block.state.BlockState> blocksInside
-                                       //#endif
-    );
+    // Implementation in main project
 
 }

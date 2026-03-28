@@ -165,6 +165,7 @@ Logs the change of points-of-interest (experimental)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [legacyInsideBlockCheckReintroduce](#legacyinsideblockcheckreintroduce-1219)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
+- [minecartDoubleEffectsFromBlockFix](#minecartdoubleeffectsfromblockfix-1212)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [slimeNoBouncePlayer](#slimenobounceplayer)
 - [strictEndPortal](#strictendportal)
@@ -450,9 +451,10 @@ Disabled for dedicated servers in 1.21.9+
 - Range: `[0,)`
 - Categories: `AYAKA`
 
-#### minecartDoubleEffectsFromBlockFix
+#### minecartDoubleEffectsFromBlockFix (1.21.2+)
 
 Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
+
 If set to true, the second time will only call checkInsideBlocks and no other calculations will be performed (such as detecting the blocks below)
 
 - Type: `boolean`
