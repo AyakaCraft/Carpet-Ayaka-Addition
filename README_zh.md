@@ -451,6 +451,7 @@ give 命令的限制乘数
 #### 矿车从方块获得两次效果修复 (minecartDoubleEffectsFromBlockFix)
 
 修复 1.21.2+ 中脱轨矿车每刻从方块获得两次效果的问题
+当启用时，第二次只会调用checkInsideBlocks，而不会进行其它计算（比如检测下面的方块）
 
 - 类型: `boolean`
 - 默认值: `false`

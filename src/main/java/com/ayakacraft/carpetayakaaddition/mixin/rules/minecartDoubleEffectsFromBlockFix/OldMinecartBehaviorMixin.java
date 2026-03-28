@@ -22,27 +22,59 @@ package com.ayakacraft.carpetayakaaddition.mixin.rules.minecartDoubleEffectsFrom
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+//#if MC >= 1.21.2
+import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.minecart.OldMinecartBehavior;
+//#else
+//$$ import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
+//#endif
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+//#if MC >= 1.21.5
+//#else
+//$$ import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
+//#endif
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.entity.vehicle.minecart.AbstractMinecart;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import java.util.List;
+
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
-@Mixin(AbstractMinecart.class)
-public class AbstractMinecartMixin {
+//#if MC >= 1.21.2
+@Mixin(OldMinecartBehavior.class)
+//#else
+//$$ @Mixin(DummyClass.class)
+//#endif
+public class OldMinecartBehaviorMixin {
     //#if MC >= 1.21.2
     @WrapOperation(
-            method = "move",
+            method = "tick",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/world/entity/vehicle/minecart/AbstractMinecart;applyEffectsFromBlocks()V"
             )
     )
-    private void disableExtraCall(AbstractMinecart minecart, Operation<Void> original) {
-        if (!CarpetAyakaSettings.minecartDoubleEffectsFromBlockFix) original.call(minecart);
+    private void onlyCheckInsideBlocksOnSecondTime(AbstractMinecart minecart, Operation<Void> original) {
+        if (CarpetAyakaSettings.minecartDoubleEffectsFromBlockFix) {
+            ((EntityInvoker) minecart).invokeCheckInsideBlocks$Ayaka(List.of(new Entity.Movement(
+                            minecart.position(), minecart.position()
+                            //#if MC >= 1.21.8 && MC < 1.21.10
+                            //$$, false
+                            //#endif
+                    )),
+                    //#if MC >= 1.21.5
+                    ((EntityInvoker) minecart).getInsideEffectCollector$Ayaka()
+                    //#else
+                    //$$ new ReferenceArraySet<>()
+                    //#endif
+            );
+            //#if MC >= 1.21.5
+            ((EntityInvoker) minecart).getInsideEffectCollector$Ayaka().applyAndClear(minecart);
+            //#endif
+        } else original.call(minecart);
     }
     //#endif
 }

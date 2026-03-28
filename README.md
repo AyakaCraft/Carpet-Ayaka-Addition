@@ -453,6 +453,7 @@ Disabled for dedicated servers in 1.21.9+
 #### minecartDoubleEffectsFromBlockFix
 
 Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
+If set to true, the second time will only call checkInsideBlocks and no other calculations will be performed (such as detecting the blocks below)
 
 - Type: `boolean`
 - Default value: `false`
