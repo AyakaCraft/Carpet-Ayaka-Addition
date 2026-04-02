@@ -198,6 +198,12 @@ public final class CarpetAyakaSettings {
     public static boolean legacyInsideBlockCheckReintroduce = false;
 
     @Rule(
+            categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
+            modConditions = @ModCondition(versionPredicates = ">=1.21.6")
+    )
+    public static boolean legacyProjectileMargin = false;
+
+    @Rule(
             categories = {AYAKA},
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "8", "10", "20", "50", "100"},
@@ -210,6 +216,12 @@ public final class CarpetAyakaSettings {
             modConditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean minecartDoubleEffectsFromBlockFix = false;
+
+    @Rule(
+            categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
+            modConditions = @ModCondition(versionPredicates = ">=1.21.11")
+    )
+    public static boolean projectileHitThroughReintroduce = false;
 
     @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},

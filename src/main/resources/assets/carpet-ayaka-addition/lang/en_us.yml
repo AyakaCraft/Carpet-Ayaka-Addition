@@ -162,6 +162,8 @@ carpet:
       desc: Changes the way entity tests the block it's in back to the original way in 1.21.1 and below
       extra:
         "0": See MC-92875
+    legacyProjectileMargin:
+      desc: Revert the change to projectile margin in version 25w19a, making the projectile margin consistently 0.3 instead of starting from 0
     maxPlayersOverwrite:
       desc: Overwrites the max player count in a server
       extra:
@@ -171,6 +173,10 @@ carpet:
       desc: Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
       extra:
         "0": If set to true, the second time will only call checkInsideBlocks and no other calculations will be performed (such as detecting the blocks below)
+    projectileHitThroughReintroduce:
+      desc: Reintroduce the feature in 1.21.10 and earlier versions that projectiles can hit entities through thin blocks (such as trapdoors)
+      extra:
+        "0": See MC-3059
     reasonableStalactiteDamage:
       desc: Makes stalactite fall damage relative to its size in 1.18+
     slimeNoBounceUpPlayer:

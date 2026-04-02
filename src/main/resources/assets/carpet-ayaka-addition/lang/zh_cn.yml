@@ -190,6 +190,9 @@ carpet:
       desc: 将实体检测其所在方块的方式替换为 1.21.1 及更低版本中的方法
       extra:
         "0": 参见 MC-92875
+    legacyProjectileMargin:
+      name: 老式弹射物目标差幅
+      desc: 回退 25w19a 中对弹射物目标差幅的更改，使得弹射物目标差幅恒为 0.3 而不是从 0 渐变
     maxPlayersOverwrite:
       name: 最大玩家数量重写
       desc: 重写服务器最大玩家数量
@@ -201,6 +204,11 @@ carpet:
       desc: 修复 1.21.2+ 中脱轨矿车每刻从方块获得两次效果的问题
       extra:
         "0": 当启用时，第二次只会调用checkInsideBlocks，而不会进行其它计算（比如检测下面的方块）
+    projectileHitThroughReintroduce:
+      name: 弹射物透过方块击中实体再引入
+      desc: 重新引入 1.21.10 及更早版本中弹射物可以透过薄方块（如活板门）击中实体的特性
+      extra:
+        "0": 参见 MC-3059
     reasonableStalactiteDamage:
       name: 合理的钟乳石伤害
       desc: 在 1.18+ 中令钟乳石伤害与其大小相关
