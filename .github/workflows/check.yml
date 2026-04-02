@@ -2,6 +2,8 @@ name: Build
 
 on:
   push:
+    paths-ignore:
+      - '**.md'
   pull_request:
     paths-ignore:
       - '**.md'
@@ -30,7 +32,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
         with:
-          cache-read-only: ${{ github.ref != 'refs/heads/dev' }}
+          cache-read-only: false
 
       - name: Make Gradle Wrapper Executable
         if: ${{ runner.os != 'Windows' }}
@@ -38,3 +40,8 @@ jobs:
 
       - name: Build
         run: ./gradlew clean buildAndGather --no-daemon --warning-mode all --stacktrace
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v6
+        with:
+          path: build/libs/

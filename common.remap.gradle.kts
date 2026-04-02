@@ -385,7 +385,7 @@ publisher {
 
     curseDepends {
         required("carpet")
-        optional("carpet-tis-addition", "guglecarpetaddition")
+        optional("carpet-tis-addition", "gca")
     }
 
     modrinthDepends {

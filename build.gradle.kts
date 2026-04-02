@@ -95,7 +95,7 @@ tasks.register("buildAndGather") {
 tasks.register("publishAll") {
     mustRunAfter(rootProject.tasks.named("buildAndGather"))
     subprojects {
-        dependsOn(this.tasks.named("publishMod"), this.tasks.named("publish"))
+        dependsOn(this.tasks.named("publishMod")) //, this.tasks.named("publish"))
     }
 }
 
