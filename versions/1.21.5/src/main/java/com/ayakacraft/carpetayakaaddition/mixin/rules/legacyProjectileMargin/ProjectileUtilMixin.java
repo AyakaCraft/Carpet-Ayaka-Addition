@@ -20,13 +20,9 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyProjectileMargin;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -34,9 +30,6 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(ProjectileUtil.class)
 public class ProjectileUtilMixin {
 
-    @WrapMethod(method = "computeMargin")
-    private static float computeMargin(Entity entity, Operation<Float> original) {
-        return CarpetAyakaSettings.legacyProjectileMargin ? 0.3F : original.call(entity);
-    }
+    // Implementation in main class
 
 }

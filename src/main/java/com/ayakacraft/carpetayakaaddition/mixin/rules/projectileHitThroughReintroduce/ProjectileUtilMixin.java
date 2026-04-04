@@ -35,10 +35,10 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Optional;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.11"))
 @Mixin(ProjectileUtil.class)
 public class ProjectileUtilMixin {
-    //#if MC >= 1.21.11
+
     @WrapOperation(
             method = "getManyEntityHitResult(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Ljava/util/function/Predicate;FLnet/minecraft/world/level/ClipContext$Block;Z)Ljava/util/Collection;",
             at = @At(
@@ -49,5 +49,5 @@ public class ProjectileUtilMixin {
     private static Optional<Vec3> inflateHitbox(AABB instance, Vec3 from, Vec3 to, Operation<Optional<Vec3>> original, @Local(argsOnly = true) float margin){
         return original.call(CarpetAyakaSettings.projectileHitThroughReintroduce ? instance.inflate(margin) : instance, from, to);
     }
-    //#endif
+
 }
