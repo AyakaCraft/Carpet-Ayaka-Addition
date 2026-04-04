@@ -164,8 +164,10 @@ Logs the change of points-of-interest (experimental)
 - [killItemAwaitSeconds](#killitemawaitseconds)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
 - [legacyInsideBlockCheckReintroduce](#legacyinsideblockcheckreintroduce-1219)
+- [legacyProjectileMargin](#legacyprojectilemargin-1216)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [minecartDoubleEffectsFromBlockFix](#minecartdoubleeffectsfromblockfix-1212)
+- [projectileHitThroughReintroduce](#projectilehitthroughreintroduce-12111)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [slimeNoBouncePlayer](#slimenobounceplayer)
 - [strictEndPortal](#strictendportal)
@@ -437,6 +439,15 @@ See [MC-92875](https://bugs.mojang.com/browse/MC/issues/MC-92875)
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
 
+#### legacyProjectileMargin (1.21.6+)
+
+Revert the change to projectile margin in version 25w19a, making the projectile margin consistently 0.3 instead of starting from 0
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### maxPlayersOverwrite
 
 Overwrites the max player count in a server
@@ -461,6 +472,17 @@ If set to true, the second time will only call checkInsideBlocks and no other ca
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
+#### projectileHitThroughReintroduce (1.21.11+)
+
+Reintroduce the feature in 1.21.10 and earlier versions that projectiles can hit entities through thin blocks (such as trapdoors)
+
+See [MC-3059](https://bugs.mojang.com/browse/MC/issues/MC-3059)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
 
 #### reasonableStalactiteDamage (1.18+)
 

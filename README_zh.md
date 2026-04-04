@@ -164,8 +164,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
 - [legacyInsideBlockCheckReintroduce](#老式实体所在方块检测再引入-legacyinsideblockcheckreintroduce-1219)
+- [legacyProjectileMargin](#老式弹射物目标差幅-legacyprojectilemargin-1216)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [minecartDoubleEffectsFromBlockFix](#矿车从方块获得两次效果修复-minecartdoubleeffectsfromblockfix-1212)
+- [projectileHitThroughReintroduce](#弹射物透过方块击中实体再引入-projectilehitthroughreintroduce-12111)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [slimeNoBounceUpPlayer](#黏液块不弹起玩家-slimenobounceupplayer)
 - [strictEndPortal](#严格末地门-strictendportal)
@@ -435,6 +437,15 @@ give 命令的限制乘数
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
 
+#### 老式弹射物目标差幅 (legacyProjectileMargin) (1.21.6+)
+
+回退 25w19a 中对弹射物目标差幅的更改，使得弹射物目标差幅恒为 0.3 而不是从 0 渐变
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### 最大玩家数量重写 (maxPlayersOverwrite)
 
 重写服务器最大玩家数量
@@ -459,6 +470,17 @@ give 命令的限制乘数
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
+#### 弹射物透过方块击中实体再引入 (projectileHitThroughReintroduce) (1.21.11+)
+
+重新引入 1.21.10 及更早版本中弹射物可以透过薄方块（如活板门）击中实体的特性
+
+参见 [MC-3059](https://bugs.mojang.com/browse/MC/issues/MC-3059)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
 
 #### 合理的钟乳石伤害 (reasonableStalactiteDamage) (1.18+)
 
