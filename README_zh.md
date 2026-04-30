@@ -162,11 +162,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [itemDiscardAge](#掉落物消失刻-itemdiscardage)
 - [kelpGrowOnlyIntoFullWater](#海带只向满水生长-kelpgrowonlyintofullwater)
 - [killItemAwaitSeconds](#清除掉落物执行延迟-killitemawaitseconds)
+- [legacyArrowHitBlock](#老式箭矢击中方块-legacyarrowhitblock-1212)
 - [legacyHoneyBlockSliding](#老式蜂蜜块滑落-legacyhoneyblocksliding-1212)
-- [legacyInsideBlockCheckReintroduce](#老式实体所在方块检测再引入-legacyinsideblockcheckreintroduce-1219)
+- [legacyInsideBlockCheckReintroduce](#老式实体所在方块检测再引入-legacyinsideblockcheckreintroduce-1212)
 - [legacyProjectileMargin](#老式弹射物目标差幅-legacyprojectilemargin-1216)
 - [maxPlayersOverwrite](#最大玩家数量重写-maxplayersoverwrite)
 - [minecartDoubleEffectsFromBlockFix](#矿车从方块获得两次效果修复-minecartdoubleeffectsfromblockfix-1212)
+- [optimizedUpdateSuppressionOutput](#优化更新抑制输出-optimizedupdatesuppressionoutput)
 - [projectileHitThroughReintroduce](#弹射物透过方块击中实体再引入-projectilehitthroughreintroduce-12111)
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [slimeNoBounceUpPlayer](#黏液块不弹起玩家-slimenobounceupplayer)
@@ -415,6 +417,15 @@ give 命令的限制乘数
 - 范围: `[0,)`
 - 分类: `AYAKA`, `COMMAND`, `CREATIVE`
 
+#### 老式箭矢击中方块 (legacyArrowHitBlock) (1.21.2+)
+
+将箭矢击中方块时的回撤替换为 1.21.1 及更早版本中的方法
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### 老式蜂蜜块滑落 (legacyHoneyBlockSliding) (1.21.2+)
 
 将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
@@ -426,7 +437,7 @@ give 命令的限制乘数
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `BUGFIX`, `REINTRODUCE`
 
-#### 老式实体所在方块检测再引入 (legacyInsideBlockCheckReintroduce) (1.21.9+)
+#### 老式实体所在方块检测再引入 (legacyInsideBlockCheckReintroduce) (1.21.2+)
 
 将实体检测其所在方块的方式替换为 1.21.1 及更低版本中的方法
 
@@ -470,6 +481,15 @@ give 命令的限制乘数
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
+#### 优化更新抑制输出 (optimizedUpdateSuppressionOutput)
+
+禁用更新抑制异常的系统报告生成
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `OPTIMIZATION`
 
 #### 弹射物透过方块击中实体再引入 (projectileHitThroughReintroduce) (1.21.11+)
 

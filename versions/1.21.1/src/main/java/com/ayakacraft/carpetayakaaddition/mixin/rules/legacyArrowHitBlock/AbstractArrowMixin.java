@@ -18,17 +18,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyInsideBlockCheckReintroduce;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.legacyArrowHitBlock;
 
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
-@Mixin(Entity.class)
-public class EntityMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
+@Mixin(DummyClass.class)
+public class AbstractArrowMixin {
 
     // Implementation in main project
 

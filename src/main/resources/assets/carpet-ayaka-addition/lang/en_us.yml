@@ -154,6 +154,8 @@ carpet:
       desc: Makes kelp grow only into water source or full flowing water
     killItemAwaitSeconds:
       desc: Seconds to wait before clearing the items
+    legacyArrowHitBlock:
+      desc: Changes the way arrows recoil when shot into blocks to the original way in 1.21.1 and below
     legacyHoneyBlockSliding:
       desc: Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below
       extra:
@@ -173,6 +175,8 @@ carpet:
       desc: Fixes off-track minecarts being affected by blocks twice per tick in 1.21.2+
       extra:
         "0": If set to true, the second time will only call checkInsideBlocks and no other calculations will be performed (such as detecting the blocks below)
+    optimizedUpdateSuppressionOutput:
+      desc: Disable system report generation of update suppression exceptions
     projectileHitThroughReintroduce:
       desc: Reintroduce the feature in 1.21.10 and earlier versions that projectiles can hit entities through thin blocks (such as trapdoors)
       extra:

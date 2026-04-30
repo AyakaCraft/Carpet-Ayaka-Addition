@@ -180,6 +180,9 @@ carpet:
     killItemAwaitSeconds:
       name: 清除掉落物执行延迟
       desc: 清理掉落物之前的等待秒数
+    legacyArrowHitBlock:
+      name: 老式箭矢击中方块
+      desc: 将箭矢击中方块时的回撤替换为 1.21.1 及更早版本中的方法
     legacyHoneyBlockSliding:
       name: 老式蜂蜜块滑落
       desc: 将非生物实体在蜂蜜块上滑落时的速度计算替换为 1.21.1 及更低版本中的方法
@@ -204,6 +207,9 @@ carpet:
       desc: 修复 1.21.2+ 中脱轨矿车每刻从方块获得两次效果的问题
       extra:
         "0": 当启用时，第二次只会调用checkInsideBlocks，而不会进行其它计算（比如检测下面的方块）
+    optimizedUpdateSuppressionOutput:
+      name: 优化更新抑制输出
+      desc: 禁用更新抑制异常的系统报告生成
     projectileHitThroughReintroduce:
       name: 弹射物透过方块击中实体再引入
       desc: 重新引入 1.21.10 及更早版本中弹射物可以透过薄方块（如活板门）击中实体的特性

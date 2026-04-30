@@ -33,19 +33,54 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.9"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.21.2"))
 @Mixin(Entity.class)
 public class EntityMixin {
 
+    //#if MC >= 1.21.8
     @WrapOperation(
-            method = "checkInsideBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;Lit/unimi/dsi/fastutil/longs/LongSet;I)I",
+            method = "checkInsideBlocks(Ljava/util/List;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/BlockGetter;forEachBlockIntersectedBetween(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/BlockGetter$BlockStepVisitor;)Z"
+                    target = "Lnet/minecraft/world/phys/Vec3;lengthSqr()D"
             )
     )
-    private boolean modifyStartPos(Vec3 from, Vec3 to, AABB boundingBox, BlockGetter.BlockStepVisitor visitor, Operation<Boolean> original) {
-        return original.call(CarpetAyakaSettings.legacyInsideBlockCheckReintroduce ? to : from, to, boundingBox, visitor);
+    private double forceLengthSqrToZero(Vec3 vec3, Operation<Double> original) {
+        return CarpetAyakaSettings.legacyInsideBlockCheckReintroduce ? 0.0 : original.call(vec3);
+    }
+    //#endif
+
+    @WrapOperation(
+            method =
+                    //#if MC >= 1.21.10
+                    "checkInsideBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;Lit/unimi/dsi/fastutil/longs/LongSet;I)I"
+                    //#elseif MC >= 1.21.8
+                    //$$ "checkInsideBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/entity/InsideBlockEffectApplier$StepBasedCollector;Lit/unimi/dsi/fastutil/longs/LongSet;)V"
+                    //#else
+                    //$$ "checkInsideBlocks"
+                    //#endif
+            ,
+            at = @At(
+                    value = "INVOKE",
+                    target =
+                            //#if MC >= 1.21.5
+                            "Lnet/minecraft/world/level/BlockGetter;forEachBlockIntersectedBetween(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;Lnet/minecraft/world/level/BlockGetter$BlockStepVisitor;)Z"
+                            //#else
+                            //$$ "Lnet/minecraft/world/level/BlockGetter;boxTraverseBlocks(Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/Vec3;Lnet/minecraft/world/phys/AABB;)Ljava/lang/Iterable;"
+                            //#endif
+            )
+    )
+    private boolean modifyStartPos(Vec3 from, Vec3 to, AABB boundingBox,
+                                   //#if MC >= 1.21.5
+                                   BlockGetter.BlockStepVisitor visitor,
+                                   //#endif
+                                   Operation<Boolean> original
+    ) {
+        return original.call(CarpetAyakaSettings.legacyInsideBlockCheckReintroduce ? to : from, to, boundingBox
+                //#if MC >= 1.21.5
+                , visitor
+                //#endif
+        );
     }
 
 }

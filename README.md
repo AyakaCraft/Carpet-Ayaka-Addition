@@ -162,11 +162,13 @@ Logs the change of points-of-interest (experimental)
 - [itemDiscardAge](#itemdiscardage)
 - [kelpGrowOnlyIntoFullWater](#kelpgrowonlyintofullwater)
 - [killItemAwaitSeconds](#killitemawaitseconds)
+- [legacyArrowHitBlock](#legacyarrowhitblock-1212)
 - [legacyHoneyBlockSliding](#legacyhoneyblocksliding-1212)
-- [legacyInsideBlockCheckReintroduce](#legacyinsideblockcheckreintroduce-1219)
+- [legacyInsideBlockCheckReintroduce](#legacyinsideblockcheckreintroduce-1212)
 - [legacyProjectileMargin](#legacyprojectilemargin-1216)
 - [maxPlayersOverwrite](#maxplayersoverwrite)
 - [minecartDoubleEffectsFromBlockFix](#minecartdoubleeffectsfromblockfix-1212)
+- [optimizedUpdateSuppressionOutput](#optimizedupdatesuppressionoutput)
 - [projectileHitThroughReintroduce](#projectilehitthroughreintroduce-12111)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [slimeNoBouncePlayer](#slimenobounceplayer)
@@ -417,6 +419,15 @@ Seconds to wait before clearing the items
 - Range: `[0,)`
 - Categories: `AYAKA`, `COMMAND`, `CREATIVE`
 
+#### legacyArrowHitBlock (1.21.2+)
+
+Changes the way arrows recoil when shot into blocks to the original way in 1.21.1 and below
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `REINTRODUCE`, `EXPERIMENTAL`
+
 #### legacyHoneyBlockSliding (1.21.2+)
 
 Changes the way sliding velocity of non-living entities is calculated back to the original way in 1.21.1 and below
@@ -428,7 +439,7 @@ See [MC-278572](https://bugs.mojang.com/browse/MC/issues/MC-278572) and [MC-2755
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `BUGFIX`, `REINTRODUCE`
 
-#### legacyInsideBlockCheckReintroduce (1.21.9+)
+#### legacyInsideBlockCheckReintroduce (1.21.2+)
 
 Changes the way entity tests the block it's in back to the original way in 1.21.1 and below
 
@@ -472,6 +483,15 @@ If set to true, the second time will only call checkInsideBlocks and no other ca
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `BUGFIX`, `REINTRODUCE`, `EXPERIMENTAL`
+
+#### optimizedUpdateSuppressionOutput
+
+Disable system report generation of update suppression exceptions
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `BUGFIX`, `EXPERIMENTAL`, `OPTIMIZATION`
 
 #### projectileHitThroughReintroduce (1.21.11+)
 

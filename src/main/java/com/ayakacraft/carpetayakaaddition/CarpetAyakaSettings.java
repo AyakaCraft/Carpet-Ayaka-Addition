@@ -186,6 +186,12 @@ public final class CarpetAyakaSettings {
     public static int killItemAwaitSeconds = 5;
 
     @Rule(
+            categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
+            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
+    )
+    public static boolean legacyArrowHitBlock = false;
+
+    @Rule(
             categories = {AYAKA, BUGFIX, REINTRODUCE},
             modConditions = @ModCondition(versionPredicates = ">1.21.1")
     )
@@ -193,7 +199,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.9")
+            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean legacyInsideBlockCheckReintroduce = false;
 
@@ -216,6 +222,12 @@ public final class CarpetAyakaSettings {
             modConditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean minecartDoubleEffectsFromBlockFix = false;
+
+    @Rule(
+            categories = {AYAKA, BUGFIX, EXPERIMENTAL, OPTIMIZATION},
+            modConditions = @ModCondition(value = ModUtils.TIS_ID)
+    )
+    public static boolean optimizedUpdateSuppressionOutput = false;
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
