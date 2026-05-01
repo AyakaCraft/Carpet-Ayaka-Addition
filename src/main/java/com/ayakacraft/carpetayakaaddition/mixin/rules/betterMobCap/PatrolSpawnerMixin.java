@@ -24,7 +24,6 @@ import com.ayakacraft.carpetayakaaddition.helpers.rules.BetterMobCapHelper;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +40,13 @@ public class PatrolSpawnerMixin {
             )
     )
     private boolean applyMobCaps(Player instance, Operation<Boolean> original) {
-        if (BetterMobCapHelper.shouldNotLimitSpawning((ServerPlayer) instance, EntityType.PILLAGER)) {
+        if (BetterMobCapHelper.shouldNotLimitSpawning((ServerPlayer) instance,
+                //#if MC>=260200
+                //$$ net.minecraft.world.entity.EntityTypes.PILLAGER
+                //#else
+                net.minecraft.world.entity.EntityType.PILLAGER
+                //#endif
+        )) {
             return original.call(instance);
         }
         return true;

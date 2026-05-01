@@ -20,36 +20,16 @@
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.slimeNoBounceUpPlayer;
 
-import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.SlimeBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = "<26.2"))
-@Mixin(SlimeBlock.class)
+@Mixin(DummyClass.class)
 public class SlimeBlockMixin {
 
-    @ModifyArg(
-            //#if MC>=11500
-            method = "bounceUp",
-            //#else
-            //$$ method = "updateEntityAfterFallOn",
-            //#endif
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V"),
-            index = 1
-    )
-    private double noBounce(double d, @Local(argsOnly = true) Entity entity) {
-        if (CarpetAyakaSettings.slimeNoBounceUpPlayer && entity instanceof Player) {
-            return 0D;
-        }
-        return d;
-    }
+    // Implementation in main project
 
 }

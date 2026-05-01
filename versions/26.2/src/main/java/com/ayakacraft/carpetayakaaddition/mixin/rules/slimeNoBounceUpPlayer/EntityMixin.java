@@ -2,7 +2,7 @@
  * This file is part of the null project, licensed under the
  * GNU General Public License v3.0
  *
- * Copyright (C) 2025  Calboot and contributors
+ * Copyright (C) 2026  Calboot and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,38 +18,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.mixin.rules.reasonableStalactiteDamage;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.slimeNoBounceUpPlayer;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlimeBlock;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=1.17"))
-//#if MC>=260200
-//$$ @Mixin(net.minecraft.world.level.block.SpeleothemBlock.class)
-//#else
-@Mixin(net.minecraft.world.level.block.PointedDripstoneBlock.class)
-//#endif
-public class PointedDripstoneBlockMixin {
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=26.2"))
+@Mixin(Entity.class)
+public class EntityMixin {
 
-    @WrapOperation(
-            method = "spawnFallingStalactite",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/lang/Math;max(II)I"
-            )
-    )
-    private static int setHurtEntities(int a, int b, Operation<Integer> original) {
-        if (CarpetAyakaSettings.reasonableStalactiteDamage) {
-            return a;
-        } else {
-            return original.call(a, b);
+    @WrapMethod(method = "getBlockBounciness")
+    private double modifyBounciness(Block onBlock, Operation<Double> original) {
+        if (CarpetAyakaSettings.slimeNoBounceUpPlayer && (Entity) (Object) this instanceof Player && onBlock instanceof SlimeBlock) {
+            return 0D;
         }
+        return original.call(onBlock);
     }
 
 }

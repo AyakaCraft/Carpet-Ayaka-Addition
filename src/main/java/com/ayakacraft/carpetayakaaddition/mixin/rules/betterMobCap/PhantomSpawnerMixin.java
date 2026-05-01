@@ -57,8 +57,12 @@ public class PhantomSpawnerMixin {
                 //#else
                 //$$ (ServerPlayer) instance,
                 //#endif
-                EntityType.PHANTOM)
-        ) {
+                //#if MC>=260200
+                //$$ net.minecraft.world.entity.EntityTypes.PHANTOM
+                //#else
+                net.minecraft.world.entity.EntityType.PHANTOM
+                //#endif
+        )) {
             return original.call(instance);
         }
         return true;

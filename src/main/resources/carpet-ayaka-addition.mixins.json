@@ -51,6 +51,7 @@
     "rules.optimizedUpdateSuppressionOutput.CrashReportMixin",
     "rules.projectileHitThroughReintroduce.ProjectileUtilMixin",
     "rules.reasonableStalactiteDamage.PointedDripstoneBlockMixin",
+    "rules.slimeNoBounceUpPlayer.EntityMixin",
     "rules.slimeNoBounceUpPlayer.SlimeBlockMixin",
     "rules.strictEndPortal.BlockPatternMixin",
     "rules.strictEndPortal.EndPortalFrameBlockAccessor",

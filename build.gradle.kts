@@ -2,8 +2,8 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.15-SNAPSHOT") apply (false)
-    id("net.fabricmc.fabric-loom") version ("1.15-SNAPSHOT") apply (false)
+    id("net.fabricmc.fabric-loom-remap") version ("1.16-SNAPSHOT") apply (false)
+    id("net.fabricmc.fabric-loom") version ("1.16-SNAPSHOT") apply (false)
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -48,6 +48,7 @@ preprocess {
     val mc12111 = createNode("1.21.11", 1_21_11, "")
 
     val mc2601 = createNode("26.1", 260100, "")
+    val mc2602 = createNode("26.2", 260200, "")
 
     mc12111.link(mc12110, file("versions/mapping_12111_12110.txt"))
     mc12110.link(mc12108, file("versions/mapping_12110_12108.txt"))
@@ -65,6 +66,7 @@ preprocess {
     mc11502.link(mc11404, file("versions/mapping_11502_11404.txt"))
 
     mc12111.link(mc2601, file("versions/mapping_12111_2601.txt"))
+    mc2601.link(mc2602, file("versions/mapping_2601_2602.txt"))
 }
 
 fun libsDir(p: Project): Directory {

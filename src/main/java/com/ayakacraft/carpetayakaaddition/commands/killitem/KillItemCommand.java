@@ -35,7 +35,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 
 import java.util.List;
 
@@ -61,7 +60,11 @@ public final class KillItemCommand {
         final List<Entity>    targets = Lists.newLinkedList();
         final MinecraftServer server  = source.getServer();
         server.getAllLevels().forEach(world -> targets.addAll(world.getEntities(
-                EntityType.ITEM,
+                //#if MC>=260200
+                //$$ net.minecraft.world.entity.EntityTypes.ITEM,
+                //#else
+                net.minecraft.world.entity.EntityType.ITEM,
+                //#endif
                 itemEntity -> true)));
         if (targets.isEmpty()) {
             TextUtils.broadcastTranslatable(server, false, TR.resolve("none"));
