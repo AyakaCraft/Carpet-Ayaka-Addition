@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlimeBlock;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">=26.2"))
+@Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">26.1.2"))
 @Mixin(Entity.class)
 public class EntityMixin {
 
