@@ -48,7 +48,7 @@ public final class StringUtils {
 
     public static String toRealPrefixOrSuffix(String string) {
         String s;
-        if (string == null || string.isBlank() || "#none".equals((s = string.trim().toLowerCase(Locale.ROOT)))) return null;
+        if (string == null || "#none".equals((s = string.toLowerCase(Locale.ROOT)))) return null;
         if ("#all".equals(s)) return "";
         return s;
     }

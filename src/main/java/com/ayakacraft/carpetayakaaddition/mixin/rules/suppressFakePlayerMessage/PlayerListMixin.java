@@ -37,10 +37,23 @@ public class PlayerListMixin {
             method = "placeNewPlayer",
             at = @At(
                     value = "INVOKE",
+                    //#if MC>=11800
                     target = "Lorg/slf4j/Logger;info(Ljava/lang/String;[Ljava/lang/Object;)V"
+                    //#else
+                    //$$ target = "Lorg/apache/logging/log4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V"
+                    //#endif
+                    , remap = false
             )
     )
-    public boolean suppressLogOnJoin(Logger instance, String s, Object[] objects, @Local(argsOnly = true) ServerPlayer player) {
+    public boolean suppressLogOnJoin(
+            Logger instance, String s,
+            //#if MC>=11800
+            Object[] objects,
+            //#else
+            //$$ Object o1, Object o2, Object o3, Object o4, Object o5, Object o6,
+            //#endif
+            @Local(argsOnly = true) ServerPlayer player
+    ) {
         return FakePlayerMessageHelper.shouldBroadcast(player);
     }
 

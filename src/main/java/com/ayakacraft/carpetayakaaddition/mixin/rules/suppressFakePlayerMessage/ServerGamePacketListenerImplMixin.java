@@ -41,7 +41,8 @@ public class ServerGamePacketListenerImplMixin {
             method = "onDisconnect",
             at = @At(
                     value = "INVOKE",
-                    target = "Lorg/slf4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V"
+                    target = "Lorg/slf4j/Logger;info(Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)V",
+                    remap = false
             )
     )
     public boolean suppressLogOnLeave(Logger instance, String s, Object o, Object o2) {
