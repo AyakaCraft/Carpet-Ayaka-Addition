@@ -188,10 +188,10 @@ carpet:
     strictEndPortal:
       desc: If set to true, end portal frames can generate portals only when placed in the same manner as strongholds
     suppressFakePlayerMessageNamePrefix:
-      desc: Fake players whose names start with this will not broadcast messages when joining or leaving the game
+      desc: Fake players whose names start with this will not broadcast messages and logs when joining or leaving the game
       extra: "#none means no effect, and #all means all fake players will be effected"
     suppressFakePlayerMessageNameSuffix:
-      desc: Fake players whose names end with this will not broadcast messages when joining or leaving the game
+      desc: Fake players whose names end with this will not broadcast messages and logs when joining or leaving the game
       extra: "#none means no effect, and #all means all fake players will be effected"
     tickFluids:
       desc: Whether fluids are ticked

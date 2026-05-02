@@ -535,7 +535,7 @@ If set to true, end portal frames can generate portals only when placed in the s
 
 #### suppressFakePlayerMessageNamePrefix
 
-Fake players whose names start with this will not broadcast messages when joining or leaving the game
+Fake players whose names start with this will not broadcast messages and logs when joining or leaving the game
 
 `#none` means no effect, and `#all` means all fake players will be effected
 
@@ -546,7 +546,7 @@ Fake players whose names start with this will not broadcast messages when joinin
 
 #### suppressFakePlayerMessageNameSuffix
 
-Fake players whose names end with this will not broadcast messages when joining or leaving the game
+Fake players whose names end with this will not broadcast messages and logs when joining or leaving the game
 
 `#none` means no effect, and `#all` means all fake players will be effected
 
