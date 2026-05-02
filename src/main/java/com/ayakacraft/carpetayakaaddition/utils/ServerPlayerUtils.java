@@ -38,6 +38,15 @@ public final class ServerPlayerUtils {
         //#endif
     }
 
+    @PreprocessPattern
+    private static String getNameString(ServerPlayer player) {
+        //#if MC>=12110
+        return player.getPlainTextName();
+        //#else
+        //$$ return player.getScoreboardName();
+        //#endif
+    }
+
     @Contract(pure = true)
     public static String getClientLanguageCode(ServerPlayer player) {
         //#if MC>=12006

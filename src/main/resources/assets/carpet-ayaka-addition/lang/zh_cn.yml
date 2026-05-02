@@ -224,6 +224,14 @@ carpet:
     strictEndPortal:
       name: 严格末地门
       desc: 当启用时，只有与要塞摆放模式一致的末地传送门框架可以激活并生成传送门
+    suppressFakePlayerMessageNamePrefix:
+      name: 假人消息抑制名字前缀
+      desc: 以此为名字前缀的假人在加入和离开世界时不会广播消息
+      extra: "#none 意味着无效，#all 意味着所有假人都受到影响"
+    suppressFakePlayerMessageNameSuffix:
+      name: 假人消息抑制名字后缀
+      desc: 以此为名字后缀的假人在加入和离开世界时不会广播消息
+      extra: "#none 意味着无效，#all 意味着所有假人都受到影响"
     tickFluids:
       name: 流体更新
       desc: 流体是否更新

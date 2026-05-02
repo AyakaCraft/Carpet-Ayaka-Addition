@@ -24,6 +24,7 @@ import net.minecraft.core.Vec3i;
 import org.jetbrains.annotations.Contract;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.StringJoiner;
 
 public final class StringUtils {
@@ -43,6 +44,13 @@ public final class StringUtils {
             joiner.add(c);
         }
         return joiner;
+    }
+
+    public static String toRealPrefixOrSuffix(String string) {
+        String s;
+        if (string == null || string.isBlank() || "#none".equals((s = string.trim().toLowerCase(Locale.ROOT)))) return null;
+        if ("#all".equals(s)) return "";
+        return s;
     }
 
 }

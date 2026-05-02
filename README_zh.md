@@ -173,6 +173,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [reasonableStalactiteDamage](#合理的钟乳石伤害-reasonablestalactitedamage-118)
 - [slimeNoBounceUpPlayer](#黏液块不弹起玩家-slimenobounceupplayer)
 - [strictEndPortal](#严格末地门-strictendportal)
+- [suppressFakePlayerMessageNamePrefix](#假人消息抑制名字前缀-suppressfakeplayermessagenameprefix)
+- [suppressFakePlayerMessageNameSuffix](#假人消息抑制名字后缀-suppressfakeplayermessagenamesuffix)
 - [tickFluids](#流体更新-tickfluids)
 - [teleportExpFix](#传送经验值数据修复-teleportexpfix)
 
@@ -528,6 +530,28 @@ give 命令的限制乘数
 - 默认值: `false`
 - 参考选项: `false`, `true`
 - 分类: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+
+#### 假人消息抑制名字前缀 (suppressFakePlayerMessageNamePrefix)
+
+以此为名字前缀的假人在加入和离开世界时不会广播消息
+
+`#none` 意味着无效，`#all` 意味着所有假人都受到影响
+
+- 类型: `String`
+- 默认值: `#none`
+- 参考选项: `#none`, `#all`
+- 分类: `AYAKA`, `BOT`
+
+#### 假人消息抑制名字后缀 (suppressFakePlayerMessageNameSuffix)
+
+以此为名字后缀的假人在加入和离开世界时不会广播消息
+
+`#none` 意味着无效，`#all` 意味着所有假人都受到影响
+
+- 类型: `String`
+- 默认值: `#none`
+- 参考选项: `#none`, `#all`
+- 分类: `AYAKA`, `BOT`
 
 #### 流体更新 (tickFluids)
 

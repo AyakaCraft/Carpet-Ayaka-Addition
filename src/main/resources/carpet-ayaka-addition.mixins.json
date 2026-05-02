@@ -55,6 +55,8 @@
     "rules.slimeNoBounceUpPlayer.SlimeBlockMixin",
     "rules.strictEndPortal.BlockPatternMixin",
     "rules.strictEndPortal.EndPortalFrameBlockAccessor",
+    "rules.suppressFakePlayerMessage.PlayerListMixin",
+    "rules.suppressFakePlayerMessage.ServerGamePacketListenerImplMixin",
     "rules.teleportExpFix.ServerPlayerMixin",
     "rules.tickFluids.FluidStateMixin",
     "settings.ParsedRuleAccessor",

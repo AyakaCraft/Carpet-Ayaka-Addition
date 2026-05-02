@@ -20,17 +20,18 @@
 
 package com.ayakacraft.carpetayakaaddition.helpers.rules;
 
-import net.minecraft.SystemReport;
+import carpet.patches.EntityPlayerMPFake;
+import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.utils.StringUtils;
+import net.minecraft.server.level.ServerPlayer;
 
-public final class SystemReportHelper {
+public final class FakePlayerMessageHelper {
 
-    public static final DummySystemReport DUMMY_SYSTEM_REPORT = new DummySystemReport();
-
-    public static class DummySystemReport extends SystemReport {
-        @Override
-        public void appendToCrashReportString(StringBuilder reportAppender) {
-            reportAppender.append("-- System Details Skipped (optimizedUpdateSuppressionOutput) --\n");
-        }
+    public static boolean shouldBroadcast(ServerPlayer player) {
+        String name = player.getPlainTextName();
+        String prefix = StringUtils.toRealPrefixOrSuffix(CarpetAyakaSettings.suppressFakePlayerMessageNamePrefix);
+        String suffix = StringUtils.toRealPrefixOrSuffix(CarpetAyakaSettings.suppressFakePlayerMessageNameSuffix);
+        return !(player instanceof EntityPlayerMPFake) || (prefix == null || !name.startsWith(prefix)) && (suffix == null || !name.endsWith(suffix));
     }
 
 }

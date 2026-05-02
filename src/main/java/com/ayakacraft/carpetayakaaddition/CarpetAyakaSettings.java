@@ -252,6 +252,20 @@ public final class CarpetAyakaSettings {
     public static boolean strictEndPortal = false;
 
     @Rule(
+            categories = {AYAKA, BOT},
+            options = {"#none", "#all"},
+            strict = false
+    )
+    public static String suppressFakePlayerMessageNamePrefix = "#none";
+
+    @Rule(
+            categories = {AYAKA, BOT},
+            options = {"#none", "#all"},
+            strict = false
+    )
+    public static String suppressFakePlayerMessageNameSuffix = "#none";
+
+    @Rule(
             categories = {AYAKA, CREATIVE}
     )
     public static boolean tickFluids = true;

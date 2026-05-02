@@ -173,6 +173,8 @@ Logs the change of points-of-interest (experimental)
 - [reasonableStalactiteDamage](#reasonablestalactitedamage-118)
 - [slimeNoBouncePlayer](#slimenobounceplayer)
 - [strictEndPortal](#strictendportal)
+- [suppressFakePlayerMessageNamePrefix](#suppressfakeplayermessagenameprefix)
+- [suppressFakePlayerMessageNameSuffix](#suppressfakeplayermessagenamesuffix)
 - [tickFluids](#tickfluids)
 - [teleportExpFix](#teleportexpfix)
 
@@ -530,6 +532,28 @@ If set to true, end portal frames can generate portals only when placed in the s
 - Default value: `false`
 - Suggested options: `false`, `true`
 - Categories: `AYAKA`, `FEATURE`, `EXPERIMENTAL`
+
+#### suppressFakePlayerMessageNamePrefix
+
+Fake players whose names start with this will not broadcast messages when joining or leaving the game
+
+`#none` means no effect, and `#all` means all fake players will be effected
+
+- Type: `String`
+- Default value: `#none`
+- Suggested options: `#none`, `#all`
+- Categories: `AYAKA`, `BOT`
+
+#### suppressFakePlayerMessageNameSuffix
+
+Fake players whose names end with this will not broadcast messages when joining or leaving the game
+
+`#none` means no effect, and `#all` means all fake players will be effected
+
+- Type: `String`
+- Default value: `#none`
+- Suggested options: `#none`, `#all`
+- Categories: `AYAKA`, `BOT`
 
 #### tickFluids
 

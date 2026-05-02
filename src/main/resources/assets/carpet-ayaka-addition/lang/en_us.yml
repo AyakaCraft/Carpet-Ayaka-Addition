@@ -187,6 +187,12 @@ carpet:
       desc: Makes slime blocks unable to bounce up players
     strictEndPortal:
       desc: If set to true, end portal frames can generate portals only when placed in the same manner as strongholds
+    suppressFakePlayerMessageNamePrefix:
+      desc: Fake players whose names start with this will not broadcast messages when joining or leaving the game
+      extra: "#none means no effect, and #all means all fake players will be effected"
+    suppressFakePlayerMessageNameSuffix:
+      desc: Fake players whose names end with this will not broadcast messages when joining or leaving the game
+      extra: "#none means no effect, and #all means all fake players will be effected"
     tickFluids:
       desc: Whether fluids are ticked
       extra:
