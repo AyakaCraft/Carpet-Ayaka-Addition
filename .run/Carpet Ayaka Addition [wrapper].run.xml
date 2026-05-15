@@ -11,7 +11,7 @@
             <option name="taskNames">
                 <list>
                     <option value="wrapper"/>
-                    <option value="--gradle-version=9.4.1"/>
+                    <option value="--gradle-version=9.5.0"/>
                 </list>
             </option>
             <option name="vmOptions"/>
