@@ -59,6 +59,12 @@ repositories {
         }
     }
     maven {
+        url = uri("https://maven.fallenbreath.me/snapshots")  // Fallen orz
+        content {
+            includeGroup("carpettisaddition")
+        }
+    }
+    maven {
         name = "Modrinth"
         url = uri("https://api.modrinth.com/maven")
         content {
