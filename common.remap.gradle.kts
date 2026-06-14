@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.16-SNAPSHOT")
+    id("net.fabricmc.fabric-loom-remap") version ("1.17-SNAPSHOT")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -187,9 +187,9 @@ loom {
     accessWidenerPath = file("carpet-ayaka-addition.accesswidener")
 
     runConfigs.configureEach {
-        runDir = "../../run/${mcVersionNumber}"
-        vmArgs(listOf("-Dmixin.debug.export=true"))
-        ideConfigGenerated(true)
+        runDirectory = file("../../run/${mcVersionNumber}")
+        jvmArguments = listOf("-Dmixin.debug.export=true")
+        generateRunConfig = true
     }
 
     mixin.useLegacyMixinAp = true

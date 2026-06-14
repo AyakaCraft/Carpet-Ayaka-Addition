@@ -1,1 +1,1 @@
-Re-delivery for 0.23.0
+- Support for Minecraft 26.2

@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom") version ("1.16-SNAPSHOT")
+    id("net.fabricmc.fabric-loom") version ("1.17-SNAPSHOT")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
@@ -131,9 +131,9 @@ dependencies {
         // For runtime mods
         runtimeOnly("net.fabricmc.fabric-api:fabric-api:${properties["fabric_api_version"]}")
 
-        if (mcVersionNumber < 260200) {
-            runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
+        runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
 
+        if (mcVersionNumber < 260200) {
             runtimeOnly("curse.maven:xaeros-minimap-263420:${properties["xaeros_minimap_version"]}")
         }
     }
@@ -155,9 +155,9 @@ loom {
     accessWidenerPath = file("carpet-ayaka-addition.accesswidener")
 
     runConfigs.configureEach {
-        runDir = "../../run/${mcVersionNumber}"
-        vmArgs(listOf("-Dmixin.debug.export=true"))
-        ideConfigGenerated(true)
+        runDirectory = file("../../run/${mcVersionNumber}")
+        jvmArguments = listOf("-Dmixin.debug.export=true")
+        generateRunConfig = true
     }
 }
 
