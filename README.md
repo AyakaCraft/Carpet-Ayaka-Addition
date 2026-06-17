@@ -596,6 +596,7 @@ Currently, the following Minecraft versions are actively supported with new feat
 | 1.21-1.21.10      | 🕒 When 28.1-snapshot-1 is released |
 | 1.21.11           | ✔️ Long Term Support                |
 | 26.1.x            | ✔️ Long Term Support                |
+| 26.2.x            | ✔️ Long Term Support                |
 
 ### End-of-life versions
 
