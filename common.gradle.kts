@@ -118,7 +118,7 @@ dependencies {
         exclude(group = "carpet", module = "fabric-carpet")
     }
 
-    if (!ci) {
+    if (!ci && mcVersionNumber < 260300) {
         // For runtime mods
         runtimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
 

@@ -49,6 +49,7 @@ preprocess {
 
     val mc2601 = createNode("26.1", 260100, "")
     val mc2602 = createNode("26.2", 260200, "")
+    val mc2603 = createNode("26.3", 260300, "")
 
     mc12111.link(mc12110, file("versions/mapping_12111_12110.txt"))
     mc12110.link(mc12108, file("versions/mapping_12110_12108.txt"))
@@ -67,6 +68,7 @@ preprocess {
 
     mc12111.link(mc2601, file("versions/mapping_12111_2601.txt"))
     mc2601.link(mc2602, file("versions/mapping_2601_2602.txt"))
+    mc2602.link(mc2603, file("versions/mapping_2602_2603.txt"))
 }
 
 fun libsDir(p: Project): Directory {
