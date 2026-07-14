@@ -10,7 +10,7 @@ plugins {
     id("com.replaymod.preprocess") version ("c5abb4fb12")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version ("9.4.1")
+    id("com.gradleup.shadow") version ("9.5.1")
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version ("0.16.1")
@@ -25,10 +25,8 @@ plugins {
     idea
 }
 
-val properties = project.properties
-
-val mcVersionNumber = properties["mcVersion"] as Int
-val minecraftVersion = properties["minecraft_version"].toString()
+val mcVersionNumber = property("mcVersion") as Int
+val minecraftVersion = property("minecraft_version").toString()
 
 val jitpack = System.getenv("JITPACK") == "true"
 val releasing = System.getenv("BUILD_RELEASE") == "true"
@@ -79,13 +77,6 @@ repositories {
         }
     }
     maven {
-        name = "Terraformers"
-        url = uri("https://maven.terraformersmc.com/")
-        content {
-            includeGroup("com.terraformersmc")
-        }
-    }
-    maven {
         name = "Nucleoid"
         url = uri("https://maven.nucleoid.xyz/")
         content {
@@ -115,34 +106,32 @@ dependencies {
     minecraft("com.mojang:minecraft:${minecraftVersion}")
 
     // fabric
-    implementation("net.fabricmc:fabric-loader:${properties["loader_version"]}")
+    implementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
     //libs
-    include((implementation("me.fallenbreath:conditional-mixin-fabric:${properties["conditionalmixin_version"]}") as Dependency))
+    include((implementation("me.fallenbreath:conditional-mixin-fabric:${property("conditionalmixin_version")}") as Dependency))
 
     // mods
-    implementation("carpet:fabric-carpet:${properties["carpet_core_version"]}")
+    implementation("carpet:fabric-carpet:${property("carpet_core_version")}")
 
-    implementation("carpettisaddition:carpet-tis-addition:${properties["tis_version"]}") {
+    implementation("carpettisaddition:carpet-tis-addition:${property("tis_version")}") {
         exclude(group = "carpet", module = "fabric-carpet")
     }
 
     if (!ci) {
         // For runtime mods
-        runtimeOnly("net.fabricmc.fabric-api:fabric-api:${properties["fabric_api_version"]}")
+        runtimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
 
-        runtimeOnly("com.terraformersmc:modmenu:${properties["modmenu_version"]}")
+        runtimeOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
 
-        if (mcVersionNumber < 260200) {
-            runtimeOnly("curse.maven:xaeros-minimap-263420:${properties["xaeros_minimap_version"]}")
-        }
+        runtimeOnly("curse.maven:xaeros-minimap-263420:${property("xaeros_minimap_version")}")
     }
 
-    testImplementation("net.fabricmc:fabric-loader-junit:${properties["loader_version"]}")
+    testImplementation("net.fabricmc:fabric-loader-junit:${property("loader_version")}")
 
 
-    compileOnly("org.jetbrains:annotations:${properties["jetbrains_version"]}")
-    annotationProcessor("org.jetbrains:annotations:${properties["jetbrains_version"]}")
+    compileOnly("org.jetbrains:annotations:${property("jetbrains_version")}")
+    annotationProcessor("org.jetbrains:annotations:${property("jetbrains_version")}")
 
 }
 
@@ -182,8 +171,9 @@ tasks.withType<ShadowJar> {
     relocationPrefix = "carpetayakaaddition.libs"
 }
 
-val modVersion = properties["mod_version"].toString()
+val modVersion = property("mod_version").toString()
 
+val archivesBaseName = property("archives_base_name").toString()
 var modVersionSuffix = ""
 var artifactVersion = modVersion
 var artifactVersionSuffix = ""
@@ -207,38 +197,34 @@ var fullArtifactVersion: String
 
 if (jitpack) {
     // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
-    base.archivesName = "${properties["archives_base_name"]}-mc${minecraftVersion}"
+    base.archivesName = "${archivesBaseName}-mc${minecraftVersion}"
     fullProjectVersion = "v${modVersion}${modVersionSuffix}"
     fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
-    base.archivesName = properties["archives_base_name"].toString()
+    base.archivesName = archivesBaseName
     fullProjectVersion = "v${modVersion}-mc${minecraftVersion}${modVersionSuffix}"
     fullArtifactVersion = "${modVersion}-mc${minecraftVersion}${artifactVersionSuffix}"
 }
 version = fullProjectVersion
+
+val fabricModMeta = mapOf(
+    "id" to property("mod_id").toString(),
+    "name" to property("mod_name").toString(),
+    "version" to fullModVersion,
+    "carpet_dependency" to property("carpet_dependency").toString(),
+    "minecraft_dependency" to property("minecraft_dependency").toString(),
+    "loader_dependency" to property("loader_dependency").toString()
+)
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 tasks.processResources {
     from("carpet-ayaka-addition.accesswidener")
 
-    inputs.apply {
-        property("id", properties["mod_id"].toString())
-        property("name", properties["mod_name"].toString())
-        property("version", fullModVersion)
-    }
+    inputs.properties(fabricModMeta)
 
     filesMatching("fabric.mod.json") {
-        expand(
-            mapOf(
-                "id" to properties["mod_id"],
-                "name" to properties["mod_name"],
-                "version" to fullModVersion,
-                "carpet_dependency" to properties["carpet_dependency"],
-                "minecraft_dependency" to properties["minecraft_dependency"],
-                "loader_dependency" to properties["loader_dependency"]
-            )
-        )
+        expand(fabricModMeta)
     }
 
     filesMatching(mixinConfigPath) {
@@ -269,18 +255,18 @@ tasks.jar {
     dependsOn(tasks.shadowJar)
     mustRunAfter(tasks.shadowJar)
     from(zipTree(tasks.shadowJar.get().archiveFile))
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    inputs.property("archives_base_name", properties["archives_base_name"])
+    inputs.property("archives_base_name", archivesBaseName)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${properties["archives_base_name"]}" }
+        rename { "${it}_${archivesBaseName}" }
     }
 }
 
 tasks.shadowJar {
-    inputs.property("archives_base_name", properties["archives_base_name"])
+    inputs.property("archives_base_name", archivesBaseName)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${properties["archives_base_name"]}" }
+        rename { "${it}_${archivesBaseName}" }
     }
 }
 
@@ -306,7 +292,7 @@ license {
     )
     mapping("java", "SLASHSTAR_STYLE_NEWLINE")
     ext {
-        set("name", properties["mod_name"].toString())
+        set("name", property("mod_name"))
         set("author", "Calboot")
         set("year", Calendar.getInstance().get(Calendar.YEAR).toString())
     }
@@ -314,7 +300,7 @@ license {
 tasks["classes"].dependsOn(tasks.licenseFormatMain)
 tasks["testClasses"].dependsOn(tasks.licenseFormatTest)
 
-val minecraftVersions = properties["game_versions"].toString().split("\n")
+val minecraftVersions = property("game_versions").toString().split("\n")
 
 // https://github.com/firstdarkdev/modpublisher
 publisher {
@@ -327,14 +313,14 @@ publisher {
 
     // debug = true
 
-    if (properties["curseforge_id"] != null) {
-        curseID = properties["curseforge_id"].toString()
+    if (hasProperty("curseforge_id")) {
+        curseID = property("curseforge_id").toString()
     }
-    if (properties["modrinth_id"] != null) {
-        modrinthID = properties["modrinth_id"].toString()
+    if (hasProperty("modrinth_id")) {
+        modrinthID = property("modrinth_id").toString()
     }
 
-    versionType = properties["mod_version_type"].toString()
+    versionType = property("mod_version_type").toString()
     changelog = rootProject.file("changelog.md")
 
     projectVersion = fullProjectVersion
