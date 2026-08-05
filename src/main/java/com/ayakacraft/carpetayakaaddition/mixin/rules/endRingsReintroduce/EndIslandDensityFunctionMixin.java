@@ -2,7 +2,7 @@
  * This file is part of the Carpet Ayaka Addition project, licensed under the
  * GNU General Public License v3.0
  *
- * Copyright (C) 2025  Calboot and contributors
+ * Copyright (C) 2026  Calboot and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,29 +18,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.ayakacraft.carpetayakaaddition.settings;
+package com.ayakacraft.carpetayakaaddition.mixin.rules.endRingsReintroduce;
 
-import carpet.api.settings.Validator;
+import com.ayakacraft.carpetayakaaddition.utils.mixin.DummyClass;
+import org.spongepowered.asm.mixin.Mixin;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+@Mixin(DummyClass.class)
+public class EndIslandDensityFunctionMixin {
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Rule {
-
-    String[] categories();
-
-    String[] options() default {};
-
-    boolean strict() default true;
-
-    String appSource() default "";
-
-    Class<? extends Validator>[] validators() default {};
-
-    ModCondition[] conditions() default {};
+    // Implementation in 26.3
 
 }

@@ -123,6 +123,10 @@ carpet:
       extra:
         "0": Set to 2 to match sand and other falling blocks
         "1": Set to 0 or 5 to use vanilla option
+    endRingsReintroduce:
+      desc: Reintroduces end rings that were fixed in 26.3-snapshot-6
+      extra:
+        "0": See MC-159283
     fakePlayerForceOffline:
       desc: Forces fake players to spawn in offline mode
       extra:

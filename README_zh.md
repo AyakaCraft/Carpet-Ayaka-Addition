@@ -152,6 +152,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - [commandTpt](#传送到玩家命令开关-commandtpt)
 - [disableBatSpawning](#禁用蝙蝠生成-disablebatspawning)
 - [dragonEggFallDelay](#龙蛋下落延迟-dragoneggfalldelay)
+- [endRingsReintroduce](#重新引入末地环-endringsreintroduce-263)
 - [fakePlayerForceOffline](#假人强制离线-fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#备份不保留假人修复-fakeplayerresidentbackupfix)
 - [fluidNoPushPlayer](#流体不推动玩家-fluidnopushplayer)
@@ -315,6 +316,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>
 - 参考选项: `0`, `2`, `5`
 - 范围: `[0,)`
 - 分类: `AYAKA`
+
+#### 重新引入末地环 (endRingsReintroduce) (26.3+)
+
+重新引入在 26.3-snapshot-6 中修复的末地环
+
+参见 [MC-159283](https://bugs.mojang.com/browse/MC/issues/MC-159283)
+
+- 类型: `boolean`
+- 默认值: `false`
+- 参考选项: `false`, `true`
+- 分类: `AYAKA`, `FEATURE`, `REINTRODUCE`
 
 #### 假人强制离线 (fakePlayerForceOffline)
 
@@ -582,19 +594,19 @@ give 命令的限制乘数
 目前，以下 Minecraft 版本正在积极地获得新功能和错误修复的支持
 
 | Minecraft 版本 | **支持至**                |
-|--------------|------------------------|
-| 1.14.4       | 🕒 28.1-snapshot-1 发布时 |
-| 1.15.2       | ✔️ 长期支持                |
-| 1.16.5       | ✔️ 长期支持                |
-| 1.17.1       | ✔️ 长期支持                |
-| 1.18.2       | ✔️ 长期支持                |
-| 1.19.4       | ✔️ 长期支持                |
-| 1.20.1       | ✔️ 长期支持                |
-| 1.20.6       | ✔️ 长期支持                |
-| 1.21-1.21.10 | 🕒 28.1-snapshot-1 发布时 |
-| 1.21.11      | ✔️ 长期支持                |
-| 26.1.x       | ✔️ 长期支持                |
-| 26.2.x       | ✔️ 长期支持                |
+|----------------|---------------------------|
+| 1.14.4         | 🕒 28.1-snapshot-1 发布时 |
+| 1.15.2         | 🕒 28.1-snapshot-1 发布时 |
+| 1.16.5         | ✔️ 长期支持               |
+| 1.17.1         | ✔️ 长期支持               |
+| 1.18.2         | ✔️ 长期支持               |
+| 1.19.4         | ✔️ 长期支持               |
+| 1.20.1         | ✔️ 长期支持               |
+| 1.20.6         | ✔️ 长期支持               |
+| 1.21-1.21.10   | 🕒 28.1-snapshot-1 发布时 |
+| 1.21.11        | ✔️ 长期支持               |
+| 26.1.x         | ✔️ 长期支持               |
+| 26.2.x         | ✔️ 长期支持               |
 
 ### 已结束支持的版本
 

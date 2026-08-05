@@ -49,14 +49,11 @@ public final class AyakaRuleRegistry {
             field.setAccessible(true);
 
             Rule annotation = field.getAnnotation(Rule.class);
-            if (annotation == null) {
-                continue;
-            }
+            if (annotation == null) continue;
 
-            ModCondition[] modConditions = annotation.modConditions();
-            if (modConditions.length > 0 && !Arrays.stream(annotation.modConditions()).allMatch(AyakaRuleRegistry::isSatisfied)) {
+            ModCondition[] conditions = annotation.conditions();
+            if (conditions.length > 0 && !Arrays.stream(conditions).allMatch(AyakaRuleRegistry::isSatisfied))
                 continue;
-            }
 
             AyakaRule ayakaRule = new AyakaRule(field, CarpetServer.settingsManager);
             //#if MC>=11900

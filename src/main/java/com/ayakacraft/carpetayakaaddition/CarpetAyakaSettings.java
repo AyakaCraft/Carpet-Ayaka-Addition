@@ -56,7 +56,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, SURVIVAL, CHEAT},
-            modConditions = @ModCondition(value = ModUtils.TIS_ID)
+            conditions = @ModCondition(value = ModUtils.TIS_ID)
     )
     public static boolean betterOpPlayerNoCheat = false;
 
@@ -124,13 +124,19 @@ public final class CarpetAyakaSettings {
     public static boolean disableBatSpawning = false;
 
     @Rule(
+            categories = {AYAKA, FEATURE, REINTRODUCE},
+            conditions = @ModCondition(versionPredicates = ">26.2")
+    )
+    public static boolean endRingsReintroduce = false;
+
+    @Rule(
             categories = {AYAKA, EXPERIMENTAL, BOT}
     )
     public static boolean fakePlayerForceOffline = false;
 
     @Rule(
             categories = {AYAKA, EXPERIMENTAL, BUGFIX, BOT},
-            modConditions = @ModCondition(value = ModUtils.GCA_ID, versionPredicates = "<2.11.0")
+            conditions = @ModCondition(value = ModUtils.GCA_ID, versionPredicates = "<2.11.0")
     )
     public static boolean fakePlayerResidentBackupFix = false;
 
@@ -141,7 +147,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},
-            modConditions = @ModCondition(versionPredicates = ">=1.16")
+            conditions = @ModCondition(versionPredicates = ">=1.16")
     )
     public static boolean forceTickPlantsReintroduce = false;
 
@@ -160,7 +166,7 @@ public final class CarpetAyakaSettings {
             validators = Validators.UnsignedIntegerValidator.class,
             options = {"0", "1", "10", "100", "1000"},
             strict = false,
-            modConditions = @ModCondition(versionPredicates = ">=1.17")
+            conditions = @ModCondition(versionPredicates = ">=1.17")
     )
     public static int giveLimit = 100;
 
@@ -187,25 +193,25 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
+            conditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean legacyArrowHitBlock = false;
 
     @Rule(
             categories = {AYAKA, BUGFIX, REINTRODUCE},
-            modConditions = @ModCondition(versionPredicates = ">1.21.1")
+            conditions = @ModCondition(versionPredicates = ">1.21.1")
     )
     public static boolean legacyHoneyBlockSliding = false;
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
+            conditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean legacyInsideBlockCheckReintroduce = false;
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.6")
+            conditions = @ModCondition(versionPredicates = ">=1.21.6")
     )
     public static boolean legacyProjectileMargin = false;
 
@@ -219,25 +225,25 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, BUGFIX, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.2")
+            conditions = @ModCondition(versionPredicates = ">=1.21.2")
     )
     public static boolean minecartDoubleEffectsFromBlockFix = false;
 
     @Rule(
             categories = {AYAKA, BUGFIX, EXPERIMENTAL, OPTIMIZATION},
-            modConditions = @ModCondition(value = ModUtils.TIS_ID)
+            conditions = @ModCondition(value = ModUtils.TIS_ID)
     )
     public static boolean optimizedUpdateSuppressionOutput = false;
 
     @Rule(
             categories = {AYAKA, REINTRODUCE, EXPERIMENTAL},
-            modConditions = @ModCondition(versionPredicates = ">=1.21.11")
+            conditions = @ModCondition(versionPredicates = ">=1.21.11")
     )
     public static boolean projectileHitThroughReintroduce = false;
 
     @Rule(
             categories = {AYAKA, FEATURE, REINTRODUCE},
-            modConditions = @ModCondition(versionPredicates = ">=1.18")
+            conditions = @ModCondition(versionPredicates = ">=1.18")
     )
     public static boolean reasonableStalactiteDamage = false;
 
@@ -272,7 +278,7 @@ public final class CarpetAyakaSettings {
 
     @Rule(
             categories = {AYAKA, BUGFIX, EXPERIMENTAL, REINTRODUCE},
-            modConditions = @ModCondition(versionPredicates = "<1.21")
+            conditions = @ModCondition(versionPredicates = "<1.21")
     )
     public static boolean teleportExpFix = false;
 

@@ -152,6 +152,7 @@ Logs the change of points-of-interest (experimental)
 - [commandTpt](#commandtpt)
 - [disableBatSpawning](#disablebatspawning)
 - [dragonEggFallDelay](#dragoneggfalldelay)
+- [endRingsReintroduce](#endringsreintroduce-263)
 - [fakePlayerForceOffline](#fakeplayerforceoffline)
 - [fakePlayerResidentBackupFix](#fakeplayerresidentbackupfix)
 - [fluidNoPushPlayer](#fluidnopushplayer)
@@ -315,6 +316,17 @@ Set to `2` to match sand and other falling blocks, `0` or `5` to use vanilla opt
 - Suggested options: `0`, `2`, `5`
 - Range: `[0,)`
 - Categories: `AYAKA`
+
+#### endRingsReintroduce (26.3+)
+
+Reintroduces end rings that were fixed in 26.3-snapshot-6
+
+See [MC-159283](https://bugs.mojang.com/browse/MC/issues/MC-159283)
+
+- Type: `boolean`
+- Default value: `false`
+- Suggested options: `false`, `true`
+- Categories: `AYAKA`, `FEATURE`, `REINTRODUCE`
 
 #### fakePlayerForceOffline
 

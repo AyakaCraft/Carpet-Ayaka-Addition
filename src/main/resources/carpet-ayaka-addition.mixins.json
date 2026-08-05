@@ -28,6 +28,7 @@
     "rules.blockDropStackVelocityMultiple.BlockMixin",
     "rules.disableBatSpawning.BatMixin",
     "rules.dragonEggFallDelay.DragonEggBlockMixin",
+    "rules.endRingsReintroduce.EndIslandDensityFunctionMixin",
     "rules.fakePlayerForceOffline.EntityPlayerMPFakeMixin",
     "rules.fakePlayerResidentBackupFix.MinecraftServerMixin",
     "rules.fluidNoPushPlayer.PlayerMixin",
