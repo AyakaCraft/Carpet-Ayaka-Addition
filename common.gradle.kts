@@ -3,7 +3,7 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom") version ("1.17-SNAPSHOT")
+    id("net.fabricmc.fabric-loom") version ("1.18-SNAPSHOT")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
