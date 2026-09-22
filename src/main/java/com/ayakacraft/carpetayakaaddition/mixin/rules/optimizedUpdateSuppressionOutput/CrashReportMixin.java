@@ -19,8 +19,8 @@
  */
 
 package com.ayakacraft.carpetayakaaddition.mixin.rules.optimizedUpdateSuppressionOutput;
-import carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
+import com.ayakacraft.carpetayakaaddition.helpers.mods.TISHelper;
 import com.ayakacraft.carpetayakaaddition.helpers.rules.SystemReportHelper;
 import com.ayakacraft.carpetayakaaddition.utils.ModUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -41,8 +41,8 @@ public abstract class CrashReportMixin {
             method = "<init>",
             at = @At(value = "NEW", target = "()Lnet/minecraft/SystemReport;")
     )
-    private SystemReport redirectSystemReport(Operation<SystemReport> original, @Local(argsOnly = true) Throwable exception) {
-        if (CarpetAyakaSettings.optimizedUpdateSuppressionOutput && exception instanceof UpdateSuppressionException) {
+    private SystemReport redirectSystemReport(Operation<SystemReport> original, @Local(argsOnly = true) Throwable t) {
+        if (CarpetAyakaSettings.optimizedUpdateSuppressionOutput && TISHelper.isTisUpdateSuppressionException(t)) {
             return SystemReportHelper.DUMMY_SYSTEM_REPORT;
         }
         return original.call();

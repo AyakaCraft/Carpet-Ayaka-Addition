@@ -1,1 +1,2 @@
 net.minecraft.server.commands.ItemCommands net.minecraft.server.commands.item.ItemCommands
+net.minecraft.world.entity.monster.EnderMan net.minecraft.world.entity.monster.Enderman

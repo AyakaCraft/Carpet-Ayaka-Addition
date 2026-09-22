@@ -101,6 +101,10 @@ idea {
     }
 }
 
+fun isGitHub(version: Any?): Boolean {
+    return version.toString().startsWith("com.github")
+}
+
 dependencies {
     // loom
     minecraft("com.mojang:minecraft:${minecraftVersion}")
@@ -112,19 +116,16 @@ dependencies {
     include((implementation("me.fallenbreath:conditional-mixin-fabric:${property("conditionalmixin_version")}") as Dependency))
 
     // mods
-    implementation("carpet:fabric-carpet:${property("carpet_core_version")}")
+    implementation(if (isGitHub(property("carpet_core_version"))) {
+        property("carpet_core_version").toString()
+    } else {
+        "carpet:fabric-carpet:${property("carpet_core_version")}"
+    })
 
-    implementation("carpettisaddition:carpet-tis-addition:${property("tis_version")}") {
-        exclude(group = "carpet", module = "fabric-carpet")
-    }
-
-    if (!ci && mcVersionNumber < 260300) {
-        // For runtime mods
-        runtimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
-
-        runtimeOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
-
-        runtimeOnly("curse.maven:xaeros-minimap-263420:${property("xaeros_minimap_version")}")
+    if (!ci) {
+        runtimeOnly("carpettisaddition:carpet-tis-addition:${property("tis_version")}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+        }
     }
 
     testImplementation("net.fabricmc:fabric-loader-junit:${property("loader_version")}")

@@ -26,13 +26,13 @@ import com.llamalad7.mixinextras.sugar.Local;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.levelgen.DensityFunctions;
+import net.minecraft.world.level.levelgen.densityfunction.generator.EndIslandFunction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Restriction(require = @Condition(value = ModUtils.MC_ID, versionPredicates = ">26.2"))
-@Mixin(DensityFunctions.EndIslandDensityFunction.class)
+@Mixin(EndIslandFunction.class)
 public class EndIslandDensityFunctionMixin {
 
     @ModifyConstant(

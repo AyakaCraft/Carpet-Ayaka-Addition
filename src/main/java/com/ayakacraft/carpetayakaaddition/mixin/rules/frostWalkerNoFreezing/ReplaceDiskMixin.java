@@ -42,13 +42,23 @@ public class ReplaceDiskMixin {
 
     @Shadow
     @Final
+    //#if MC>=260300
+    //$$ net.minecraft.core.Holder<BlockStateProvider> blockState;
+    //#else
     private BlockStateProvider blockState;
+    //#endif
 
     @Unique
     private boolean shouldNotApply() {
         return CarpetAyakaSettings.frostWalkerNoFreezing
+                //#if MC>=260300
+                //$$ && blockState.value() instanceof SimpleStateProvider
+                //#else
                 && blockState instanceof SimpleStateProvider
-                //#if MC>=260000
+                //#endif
+                //#if MC>=260300
+                //$$ && blockState.value().getState(null, null, null).getBlock()
+                //#elseif MC>=260000
                 //$$ && blockState.getState(null, null, null).getBlock()
                 //#else
                 && blockState.getState(null, null).getBlock()

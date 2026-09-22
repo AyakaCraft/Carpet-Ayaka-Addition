@@ -122,21 +122,11 @@ dependencies {
     // mods
     modImplementation("carpet:fabric-carpet:${property("carpet_core_version")}")
 
-    modImplementation("carpettisaddition:carpet-tis-addition:${property("tis_version")}") {
-        exclude(group = "carpet", module = "fabric-carpet")
-        exclude(group = "com.github.gnembon", module = "fabric-carpet")
-    }
-
     modCompileOnly("maven.modrinth:gca:${property("gugle_version")}") {
         exclude(group = "carpet", module = "fabric-carpet")
     }
 
     if (!ci) {
-        // For runtime mods
-        modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
-
-        modRuntimeOnly("maven.modrinth:modmenu:${property("modmenu_version")}")
-
         if (mcVersionNumber in 11600..<12100) {
             if (mcVersionNumber < 11900) {
                 modRuntimeOnly("maven.modrinth:lazydfu:0.1.2")
@@ -145,6 +135,10 @@ dependencies {
             }
         }
 
+        modImplementation("carpettisaddition:carpet-tis-addition:${property("tis_version")}") {
+            exclude(group = "carpet", module = "fabric-carpet")
+            exclude(group = "com.github.gnembon", module = "fabric-carpet")
+        }
     }
 
     testImplementation("net.fabricmc:fabric-loader-junit:${property("loader_version")}")

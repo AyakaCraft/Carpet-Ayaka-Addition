@@ -20,16 +20,50 @@
 
 package com.ayakacraft.carpetayakaaddition.helpers.mods;
 
-import carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper;
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;
 import net.minecraft.commands.CommandSourceStack;
 import org.jetbrains.annotations.Contract;
 
+import java.lang.reflect.Method;
+
 public final class TISHelper {
+
+    private static final Class<?> tisUpdateSuppressionExceptionClass;
+
+    private static final Method canCheatMethod;
+
+    static {
+        Class<?> updateSupressionEx = null;
+        try {
+            updateSupressionEx = TISHelper.class.getClassLoader().loadClass("carpettisaddition.helpers.rule.yeetUpdateSuppressionCrash.UpdateSuppressionException");
+        } catch (ClassNotFoundException ignored) {
+        }
+        tisUpdateSuppressionExceptionClass = updateSupressionEx;
+
+        Method h = null;
+        try {
+            Class<?> clazz = TISHelper.class.getClassLoader().loadClass("carpettisaddition.helpers.rule.opPlayerNoCheat.OpPlayerNoCheatHelper");
+            h = clazz.getMethod("canCheat", CommandSourceStack.class);
+        } catch (Throwable ignored) {
+        }
+        canCheatMethod = h;
+    }
+
+    @Contract(pure = true)
+    public static boolean isTisUpdateSuppressionException(Object o) {
+        return tisUpdateSuppressionExceptionClass != null && tisUpdateSuppressionExceptionClass.isAssignableFrom(o.getClass());
+    }
 
     @Contract(pure = true)
     public static boolean canCheat(CommandSourceStack source) {
-        return !CarpetAyakaSettings.betterOpPlayerNoCheat || OpPlayerNoCheatHelper.canCheat(source);
+        if (!CarpetAyakaSettings.betterOpPlayerNoCheat || canCheatMethod == null) {
+            return true;
+        }
+        try {
+            return (Boolean) canCheatMethod.invoke(null, source);
+        } catch (Throwable t) {
+            return true;
+        }
     }
 
 }
