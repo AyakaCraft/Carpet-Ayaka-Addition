@@ -1,2 +1,0 @@
-- Support for Minecraft 26.3
-- New rule: `endRingsReintroduce`
