@@ -8,9 +8,6 @@ on:
     paths-ignore:
       - '**.md'
 
-env:
-  JAVA_VERSION: 25
-
 permissions:
   contents: write
 
@@ -26,7 +23,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v6
         with:
-          java-version: ${{ env.JAVA_VERSION }}
+          java-version: 25
           distribution: 'zulu'
 
       - name: Setup Gradle
