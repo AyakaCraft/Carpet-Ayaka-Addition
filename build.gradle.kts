@@ -2,15 +2,15 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.18-SNAPSHOT") apply (false)
-    id("net.fabricmc.fabric-loom") version ("1.18-SNAPSHOT") apply (false)
+    id("net.fabricmc.fabric-loom-remap") version ("1.19-SNAPSHOT") apply (false)
+    id("net.fabricmc.fabric-loom") version ("1.19-SNAPSHOT") apply (false)
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("c5abb4fb12")
+    id("com.replaymod.preprocess") version ("5d60990f47")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version ("9.5.1") apply (false)
+    id("com.gradleup.shadow") version ("9.6.1") apply (false)
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version ("0.16.1") apply (false)
@@ -47,10 +47,10 @@ preprocess {
     val mc12110 = createNode("1.21.10", 1_21_10, "")
     val mc12111 = createNode("1.21.11", 1_21_11, "")
 
-    val mc2601 = createNode("26.1", 260100, "")
-    val mc2602 = createNode("26.2", 260200, "")
-    val mc2603 = createNode("26.3", 260300, "")
-    val mc2604 = createNode("26.4", 260400, "")
+    val mc2601 = createNode("26.1", 260100, null)
+    val mc2602 = createNode("26.2", 260200, null)
+    val mc2603 = createNode("26.3", 260300, null)
+    val mc2604 = createNode("26.4", 260400, null)
 
     mc12111.link(mc12110, file("versions/mapping_12111_12110.txt"))
     mc12110.link(mc12108, file("versions/mapping_12110_12108.txt"))

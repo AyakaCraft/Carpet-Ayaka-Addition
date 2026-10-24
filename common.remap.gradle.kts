@@ -3,14 +3,14 @@ import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
 import java.util.*
 
 plugins {
-    id("net.fabricmc.fabric-loom-remap") version ("1.18-SNAPSHOT")
+    id("net.fabricmc.fabric-loom-remap") version ("1.19-SNAPSHOT")
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("c5abb4fb12")
+    id("com.replaymod.preprocess") version ("5d60990f47")
 
     // https://github.com/GradleUp/shadow
-    id("com.gradleup.shadow") version ("9.5.1")
+    id("com.gradleup.shadow") version ("9.6.1")
 
     // https://github.com/hierynomus/license-gradle-plugin
     id("com.github.hierynomus.license") version ("0.16.1")

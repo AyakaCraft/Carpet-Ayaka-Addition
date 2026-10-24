@@ -20,7 +20,7 @@ pluginManagement {
         eachPlugin {
             when (requested.id.id) {
                 "com.replaymod.preprocess" -> {
-                    useModule("com.github.Fallen-Breath:preprocessor:${requested.version}")
+                    useModule("com.github.ToobLac:preprocessor:${requested.version}")
                 }
             }
         }

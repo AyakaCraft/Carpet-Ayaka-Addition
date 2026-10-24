@@ -44,8 +44,10 @@ public class EndIslandDensityFunctionMixin {
             @Local(ordinal = 0, argsOnly = true) int sectionX,
             @Local(ordinal = 1, argsOnly = true) int sectionZ
     ) {
-        if (CarpetAyakaSettings.endRingsReintroduce)
-            return Mth.clamp(100.0F - Mth.sqrt(sectionX * sectionX + sectionZ * sectionZ) * 8.0F, -100.0F, 80.0F);
+        if (CarpetAyakaSettings.endRingsReintroduce) {
+            doffs = 100F - Mth.sqrt(sectionX * sectionX + sectionZ * sectionZ) * 8F;
+            doffs = doffs < -100F ? -100F : Math.min(doffs, 80F);
+        }
         return doffs;
     }
 
