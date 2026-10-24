@@ -2,7 +2,7 @@
  * This file is part of the Carpet Ayaka Addition project, licensed under the
  * GNU General Public License v3.0
  *
- * Copyright (C) 2025  Calboot and contributors
+ * Copyright (C) 2026 Calboot and contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 package com.ayakacraft.carpetayakaaddition.mixin.rules.giveLimit;
 
 import com.ayakacraft.carpetayakaaddition.CarpetAyakaSettings;

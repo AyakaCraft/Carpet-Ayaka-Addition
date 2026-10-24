@@ -1,6 +1,24 @@
+/*
+ * This file is part of the Carpet Ayaka Addition project, licensed under the
+ * GNU General Public License v3.0
+ *
+ * Copyright (C) 2026 Calboot and contributors
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import nl.javadude.gradle.plugins.license.header.HeaderDefinitionBuilder
-import java.util.*
 
 plugins {
     id("net.fabricmc.fabric-loom-remap") version ("1.19-SNAPSHOT")
@@ -11,9 +29,6 @@ plugins {
 
     // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version ("9.6.1")
-
-    // https://github.com/hierynomus/license-gradle-plugin
-    id("com.github.hierynomus.license") version ("0.16.1")
 
     // https://github.com/Fallen-Breath/yamlang
     id("me.fallenbreath.yamlang") version ("1.5.0")
@@ -294,36 +309,6 @@ tasks.shadowJar {
         rename { "${it}_${archivesBaseName}" }
     }
 }
-
-// https://github.com/hierynomus/license-gradle-plugin
-license {
-    // use "gradle licenseFormat" to apply license headers
-    header = rootProject.file("HEADER")
-    include("**/*.java")
-    skipExistingHeaders = true
-
-    headerDefinition(
-        // ref: https://github.com/mathieucarbou/license-maven-plugin/blob/4c42374bb737378f5022a3a36849d5e23ac326ea/license-maven-plugin/src/main/java/com/mycila/maven/plugin/license/header/HeaderType.java#L48
-        // modification: add a newline at the end
-        HeaderDefinitionBuilder("SLASHSTAR_STYLE_NEWLINE")
-            .withFirstLine("/*")
-            .withBeforeEachLine(" * ")
-            .withEndLine(" */\n")
-            .withFirstLineDetectionDetectionPattern("(\\s|\\t)*/\\*.*$")
-            .withLastLineDetectionDetectionPattern(".*\\*/(\\s|\\t)*$")
-            .withNoBlankLines()
-            .multiline()
-            .noPadLines()
-    )
-    mapping("java", "SLASHSTAR_STYLE_NEWLINE")
-    ext {
-        set("name", property("mod_name"))
-        set("author", "Calboot")
-        set("year", Calendar.getInstance().get(Calendar.YEAR).toString())
-    }
-}
-tasks["classes"].dependsOn(tasks.licenseFormatMain)
-tasks["testClasses"].dependsOn(tasks.licenseFormatTest)
 
 val minecraftVersions = property("game_versions").toString().split("\n")
 
