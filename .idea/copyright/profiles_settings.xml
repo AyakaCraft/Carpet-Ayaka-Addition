@@ -2,7 +2,7 @@
   <settings default="CarpetAyakaAddition">
     <LanguageOptions name="JAVA">
       <option name="fileTypeOverride" value="3" />
-      <option name="addBlankAfter" value="false" />
+      <option name="addBlankAfter" value="true" />
     </LanguageOptions>
   </settings>
 </component>
