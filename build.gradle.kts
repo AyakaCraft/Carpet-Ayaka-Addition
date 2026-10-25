@@ -27,7 +27,7 @@ plugins {
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("5d60990f47")
+    id("com.replaymod.preprocess") version ("ff74f0d4f2")
 
     // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version ("9.6.1") apply (false)
@@ -90,91 +90,84 @@ preprocess {
     mc2603.link(mc2604, file("versions/mapping_2603_2604.txt"))
 }
 
-fun libsDir(p: Project): Directory {
-    return p.layout.buildDirectory.dir("libs").get()
-}
-
-tasks.register("buildAndGather") {
+val buildAndGather = tasks.register<Sync>("buildAndGather") {
     subprojects {
-        dependsOn(tasks["build"])
-    }
-    doLast {
-        println("Gathering builds")
-
-        delete(fileTree(libsDir(rootProject)) { include("*") })
-        subprojects {
-            print("Copying files for ${name}...    ")
-            val currentLibsDir = libsDir(this)
-            copy {
-                from(currentLibsDir) { include("*-${version}.jar") }
-                into(libsDir(rootProject))
-                duplicatesStrategy = DuplicatesStrategy.INCLUDE
-            }
-            println("Succeeded")
+        dependsOn(tasks.named("build"))
+        from(layout.buildDirectory.dir("libs")) {
+            include("*-${version}.jar")
         }
     }
+    into(layout.buildDirectory.dir("libs"))
 }
 
-tasks.register("publishAll") {
-    mustRunAfter(rootProject.tasks.named("buildAndGather"))
+val publishAll = tasks.register("publishAll") {
+    mustRunAfter(buildAndGather)
     subprojects {
-        dependsOn(this.tasks.named("publishMod")) //, this.tasks.named("publish"))
+        dependsOn(tasks.named("publishMod")) //, tasks.named("publish"))
     }
 }
 
 tasks.register("publishLocal") {
     subprojects {
-        dependsOn(this.tasks.named("publishToMavenLocal"))
+        dependsOn(tasks.named("publishToMavenLocal"))
     }
 }
 
 tasks.register("sendDiscord") {
-    mustRunAfter(tasks.named("buildAndGather"), tasks.named("publishAll"))
+    mustRunAfter(buildAndGather, publishAll)
+
+    outputs.upToDateWhen { false }
+
+    val changelog = file("changelog.md")
+    val webhook = providers.environmentVariable("DISCORD_WEBHOOK").orNull
+    val repo = providers.environmentVariable("REPO").orNull
+    val repoUrl = providers.environmentVariable("REPO_URL").orNull
+    val tag = providers.environmentVariable("TAG").orNull
+    val modrinth = providers.gradleProperty("modrinth_id")
+    val curseforge = providers.gradleProperty("curseforge_id")
+
     doLast {
-        val env = System.getenv()
-        val webhook = env["DISCORD_WEBHOOK"]
-        if (webhook != null) {
-            val msgBuilder = StringBuilder(
-                "# Announcement\nNew version of project [${env["REPO"]}](${env["REPO_URL"]}) has been released, check it on [Github Release](${env["REPO_URL"]}/releases/tag/${env["TAG"]})\n## What's new:\n${file("changelog.md").readText()}\n"
-            )
-            val modrinth = providers.gradleProperty("modrinth_id")
-            val curseforge = providers.gradleProperty("curseforge_id")
-            val bl1 = modrinth.isPresent
-            val bl2 = curseforge.isPresent
-            if (bl1 || bl2) {
-                msgBuilder.append("Try out on ")
-            }
-            if (bl1) {
-                msgBuilder.append("[Modrinth](https://www.modrinth.com/mod/${modrinth.get()})")
-                if (bl2) {
-                    msgBuilder.append(" and [CurseForge](https://cflookup.com/${curseforge.get()})")
-                }
-            } else if (bl2) {
-                msgBuilder.append("[CurseForge](https://cflookup.com/${curseforge.get()})")
-            }
-            val msg = msgBuilder.toString().replace("\n", "\\n")
-            println("Sending json content to ${webhook}...")
-            val content = "{\"content\" : \"${msg}\"}"
-            println(content)
-
-            val connection = uri(webhook).toURL().openConnection() as HttpURLConnection
-            connection.setRequestMethod("POST")
-            connection.setRequestProperty("Content-Type", "application/json")
-            connection.setDoInput(true)
-            connection.setDoOutput(true)
-            val writer = OutputStreamWriter(connection.getOutputStream())
-            writer.write(content)
-            writer.flush()
-            writer.close()
-            connection.connect()
-
-            val code = connection.getResponseCode()
-            if (code in 200..<300) {
-                print("Succeeded")
-            } else {
-                print("Failed")
-            }
-            println(" with code $code and message ${connection.getResponseMessage()}")
+        if (webhook == null) {
+            return@doLast
         }
+        val msgBuilder = StringBuilder(
+            "# Announcement\nNew version of project [$repo]($repoUrl) has been released, check it on [Github Release]($repoUrl/releases/tag/$tag)\n## What's new:\n${changelog.readText()}\n"
+        )
+        val bl1 = modrinth.isPresent
+        val bl2 = curseforge.isPresent
+        if (bl1 || bl2) {
+            msgBuilder.append("Try out on ")
+        }
+        if (bl1) {
+            msgBuilder.append("[Modrinth](https://www.modrinth.com/mod/${modrinth.get()})")
+            if (bl2) {
+                msgBuilder.append(" and [CurseForge](https://cflookup.com/${curseforge.get()})")
+            }
+        } else if (bl2) {
+            msgBuilder.append("[CurseForge](https://cflookup.com/${curseforge.get()})")
+        }
+        val msg = msgBuilder.toString().replace("\n", "\\n")
+        println("Sending json content to ${webhook}...")
+        val content = "{\"content\" : \"${msg}\"}"
+        println(content)
+
+        val connection = uri(webhook).toURL().openConnection() as HttpURLConnection
+        connection.setRequestMethod("POST")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setDoInput(true)
+        connection.setDoOutput(true)
+        val writer = OutputStreamWriter(connection.getOutputStream())
+        writer.write(content)
+        writer.flush()
+        writer.close()
+        connection.connect()
+
+        val code = connection.getResponseCode()
+        if (code in 200..<300) {
+            print("Succeeded")
+        } else {
+            print("Failed")
+        }
+        println(" with code $code and message ${connection.getResponseMessage()}")
     }
 }

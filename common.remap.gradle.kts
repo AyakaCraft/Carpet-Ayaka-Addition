@@ -25,7 +25,7 @@ plugins {
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("5d60990f47")
+    id("com.replaymod.preprocess") version ("ff74f0d4f2")
 
     // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version ("9.6.1")
@@ -266,14 +266,17 @@ val fabricModMeta = mapOf(
 tasks.processResources {
     from("carpet-ayaka-addition.accesswidener")
 
-    inputs.properties(fabricModMeta)
+    val modMeta = fabricModMeta
+    inputs.properties(modMeta)
 
     filesMatching("fabric.mod.json") {
-        expand(fabricModMeta)
+        expand(modMeta)
     }
 
+    val compatibilityMajorVersion = mixinCompatibility.majorVersion
+    inputs.property("mixin_compatibility_major_version", compatibilityMajorVersion)
     filesMatching(mixinConfigPath) {
-        expand(mapOf("COMPATIBILITY_LEVEL" to "JAVA_${mixinCompatibility.majorVersion}"))
+        expand(mapOf("COMPATIBILITY_LEVEL" to "JAVA_$compatibilityMajorVersion"))
     }
 }
 
@@ -297,16 +300,18 @@ java {
 }
 
 tasks.jar {
-    inputs.property("archives_base_name", archivesBaseName)
+    val abn = archivesBaseName
+    inputs.property("archives_base_name", abn)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${archivesBaseName}" }
+        rename { "${it}_${abn}" }
     }
 }
 
 tasks.shadowJar {
-    inputs.property("archives_base_name", archivesBaseName)
+    val abn = archivesBaseName
+    inputs.property("archives_base_name", abn)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${archivesBaseName}" }
+        rename { "${it}_${abn}" }
     }
 }
 

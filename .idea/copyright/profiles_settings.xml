@@ -1,8 +1,5 @@
 <component name="CopyrightManager">
   <settings default="CarpetAyakaAddition">
-    <module2copyright>
-      <element module="All" copyright="CarpetAyakaAddition" />
-    </module2copyright>
     <LanguageOptions name="JAVA">
       <option name="fileTypeOverride" value="3" />
       <option name="addBlankAfter" value="false" />

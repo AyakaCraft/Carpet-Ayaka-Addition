@@ -25,7 +25,7 @@ plugins {
 
     // https://github.com/ReplayMod/preprocessor
     // https://github.com/Fallen-Breath/preprocessor
-    id("com.replaymod.preprocess") version ("5d60990f47")
+    id("com.replaymod.preprocess") version ("ff74f0d4f2")
 
     // https://github.com/GradleUp/shadow
     id("com.gradleup.shadow") version ("9.6.1")
@@ -43,8 +43,8 @@ plugins {
 val mcVersionNumber = property("mcVersion") as Int
 val minecraftVersion = property("minecraft_version").toString()
 
-val jitpack = System.getenv("JITPACK") == "true"
-val releasing = System.getenv("BUILD_RELEASE") == "true"
+val jitpack = providers.environmentVariable("JITPACK").orNull == "true"
+val releasing = providers.environmentVariable("BUILD_RELEASE").orNull == "true"
 val ci = jitpack || releasing
 
 repositories {
@@ -237,14 +237,17 @@ val fabricModMeta = mapOf(
 tasks.processResources {
     from("carpet-ayaka-addition.accesswidener")
 
-    inputs.properties(fabricModMeta)
+    val modMeta = fabricModMeta
+    inputs.properties(modMeta)
 
     filesMatching("fabric.mod.json") {
-        expand(fabricModMeta)
+        expand(modMeta)
     }
 
+    val compatibilityMajorVersion = mixinCompatibility.majorVersion
+    inputs.property("mixin_compatibility_major_version", compatibilityMajorVersion)
     filesMatching(mixinConfigPath) {
-        expand(mapOf("COMPATIBILITY_LEVEL" to "JAVA_${mixinCompatibility.majorVersion}"))
+        expand(mapOf("COMPATIBILITY_LEVEL" to "JAVA_$compatibilityMajorVersion"))
     }
 }
 
@@ -254,10 +257,6 @@ tasks.processResources {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.compilerArgs.addAll(listOf("-Xlint:deprecation", "-Xlint:unchecked"))
-    if (javaCompatibility <= JavaVersion.VERSION_1_8) {
-        // suppressed "source/target value 8 is obsolete and will be removed in a future release"
-        options.compilerArgs.add("-Xlint:-options")
-    }
 }
 
 java {
@@ -270,19 +269,21 @@ java {
 tasks.jar {
     dependsOn(tasks.shadowJar)
     mustRunAfter(tasks.shadowJar)
-    from(zipTree(tasks.shadowJar.get().archiveFile))
+    from(zipTree(tasks.shadowJar.map { it.archiveFile }))
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    inputs.property("archives_base_name", archivesBaseName)
+    val abn = archivesBaseName
+    inputs.property("archives_base_name", abn)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${archivesBaseName}" }
+        rename { "${it}_${abn}" }
     }
 }
 
 tasks.shadowJar {
-    inputs.property("archives_base_name", archivesBaseName)
+    val abn = archivesBaseName
+    inputs.property("archives_base_name", abn)
     from(rootProject.file("LICENSE")) {
-        rename { "${it}_${archivesBaseName}" }
+        rename { "${it}_${abn}" }
     }
 }
 
@@ -292,9 +293,9 @@ val minecraftVersions = property("game_versions").toString().split("\n")
 publisher {
 
     apiKeys {
-        modrinth(System.getenv("MODRINTH_TOKEN") ?: "unset")
-        curseforge(System.getenv("CURSEFORGE_TOKEN") ?: "unset")
-        github(System.getenv("GITHUB_TOKEN") ?: "unset")
+        modrinth(providers.environmentVariable("MODRINTH_TOKEN").getOrElse(""))
+        curseforge(providers.environmentVariable("CURSEFORGE_TOKEN").getOrElse(""))
+        github(providers.environmentVariable("GITHUB_TOKEN").getOrElse(""))
     }
 
     // debug = true
@@ -327,8 +328,8 @@ publisher {
     }
 
     github {
-        repo(System.getenv("REPO"))
-        tag(System.getenv("TAG"))
+        repo(providers.environmentVariable("REPO").orNull)
+        tag(providers.environmentVariable("TAG").orNull)
     }
 
 }
